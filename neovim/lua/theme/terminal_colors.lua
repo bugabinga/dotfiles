@@ -1,0 +1,18 @@
+return function(...)
+  vim.g.terminal_color_0 = '#555555'
+  vim.g.terminal_color_1 = '#FB467B'
+  vim.g.terminal_color_2 = '#B8EE92'
+  vim.g.terminal_color_3 = '#FFCC00'
+  vim.g.terminal_color_4 = '#56D6D6'
+  vim.g.terminal_color_5 = '#B954B8'
+  vim.g.terminal_color_6 = '#00D5A7'
+  vim.g.terminal_color_7 = '#CED5E5'
+  vim.g.terminal_color_8 = '5555555'
+  vim.g.terminal_color_9 = '#FB467B'
+  vim.g.terminal_color_10 = '#B8EE92'
+  vim.g.terminal_color_11 = '#FFCC00'
+  vim.g.terminal_color_12 = '#56D6D6'
+  vim.g.terminal_color_13 = '#B954B8'
+  vim.g.terminal_color_14 = '#00D5A7'
+  vim.g.terminal_color_15 = '#CED5E5'
+end

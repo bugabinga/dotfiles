@@ -1,0 +1,11 @@
+#vim: ft=gitconfig
+[user]
+  name = Oliver Krylow
+  email = o.krylow@isp-insoft.de
+  singingkey = B9F54F87A249A85D8538CAAB8DCEC7C339E72EE3
+
+[gpg]
+  program = "C:/Users/okr/AppData/Local/gnupg/bin/gpg.exe"
+
+[credential]
+  helper = manager-core
