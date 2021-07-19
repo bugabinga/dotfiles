@@ -53,6 +53,7 @@ require 'keybinds'(cheatsheet)
 
 -- some file specific settings
 require'filetype.yaml'(autocommand)
+require'filetype.ansi_c'(autocommand)
 
 -- Commands have no nvim API yet, so we use vimscript...
 cheatsheet ':WhatHighlight => This command shows the highlight group under the cursor'
