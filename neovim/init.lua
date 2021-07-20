@@ -29,8 +29,8 @@ _G.syntax_stack = require 'syntax_stack'
 -- `config` is for configuration code itself and plugins.
 -- `cache` is for fleeting, temporary data.
 local data_path = vim.fn.stdpath 'data'
-local config_path = vim.fn.stdpath 'config'
-local cache_path = vim.fn.stdpath 'cache'
+-- local config_path = vim.fn.stdpath 'config'
+-- local cache_path = vim.fn.stdpath 'cache'
 
 local autocommand = require 'autocommand'
 
@@ -43,7 +43,7 @@ cheatsheet ''
 cheatsheet 'Stuff for bugabinga to remember about NeoVim'
 cheatsheet ''
 local settings = require 'general_editor_settings'
-settings(cheatsheet, autocommand, data_path)
+settings(autocommand, data_path)
 -- when started with '--headless', there will be no attached UIs
 local non_interactive = #vim.api.nvim_list_uis() == 0
 -- Put the plugins module into the global scope, so that it can be used more easily in commands
@@ -52,8 +52,10 @@ _G.plugins = require 'plugins'(autocommand, data_path, non_interactive)
 require 'keybinds'(cheatsheet)
 
 -- some file specific settings
-require'filetype.yaml'(autocommand)
-require'filetype.ansi_c'(autocommand)
+require 'filetype.yaml'(autocommand)
+require 'filetype.ansi_c'(autocommand)
+local _, setup_mkdir = require 'mkdir'()
+setup_mkdir(autocommand)
 
 -- Commands have no nvim API yet, so we use vimscript...
 cheatsheet ':WhatHighlight => This command shows the highlight group under the cursor'

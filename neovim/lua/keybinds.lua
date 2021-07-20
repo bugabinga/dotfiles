@@ -19,11 +19,14 @@ return function(cheatsheet)
   -- Let the <LEADER> key be <SPACE>
   vim.g.mapleader = ' '
 
-  map('n', '<LEADER><F12>', [[:lua require('glow').glow('<f-args>')<CR>]])
+  map('n', '<LEADER><F12>', [[<CMD>lua require('glow').glow('<f-args>')<CR>]])
   cheatsheet 'LEADER + F12 => Render Markdown Preview'
 
-  map('n', '<LEADER><F9>', [[:tabnew ~/.config/nvim/init.lua<CR>]])
+  map('n', '<LEADER><F9>', [[<CMD>tabnew ~/.config/nvim/init.lua<CR>]])
   cheatsheet 'LEADER + F9 => Open nvim configuration in a new tab!'
+
+  map('n', '<LEADER><F10>', [[<CMD>PluginsSync<CR>]])
+  cheatsheet 'LEADER + F10 => Sync nvim plugins configuration!'
 
   -- Change behaviour of :terminal to be less like a vim buffer and more what I am used to
   map('t', '<ESC>', '<C-\\><C-n>')
@@ -32,11 +35,11 @@ return function(cheatsheet)
   -- Clear highlighted search results whenever ESC is hit
   map('n', '<ESC>', ':nohlsearch<CR>', { unique = false, silent = true })
 
-  map('n', '<LEADER>b', [[:Telescope buffers<CR>]])
+  map('n', '<LEADER>b', [[<CMD>Telescope buffers<CR>]])
   cheatsheet 'LEADER + b => Select a buffer'
-  map('n', '<LEADER>f', [[:Telescope file_browser<CR>]])
+  map('n', '<LEADER>f', [[<CMD>Telescope file_browser<CR>]])
   cheatsheet 'LEADER + f => Select a file'
-  map('n', '<LEADER>e', [[:NvimTreeToggle<CR>]])
+  map('n', '<LEADER>e', [[<CMD>NvimTreeToggle<CR>]])
   cheatsheet 'LEADER + e => Toggle file explorer'
 
   --Open up a URL under the cursor

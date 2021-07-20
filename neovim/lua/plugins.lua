@@ -41,25 +41,55 @@ return function(autocommand, data_path, non_interactive)
         },
       }
     end
-    autocommand{ compile_plugin_glue = 'BufWritePost plugins.lua PluginsCompile' }
+    autocommand{ compile_plugins_glue =
+      {'BufWritePost plugins.lua source <afile> | PluginsCompile' },
+      {'BufWritePost general_editor_settings.lua source <afile> | PluginsCompile'}
+    }
     local use = packer.use
     -- reset packer in case we are reloading the whole configuration
     packer.reset()
 
     -- Packer can manage itself
     use { 'wbthomason/packer.nvim', opt = true }
-    -- Closes brackets automatically upon hitting Enter
-    use 'rstacruz/vim-closer'
+    -- colelction of icons configurations for various plugins
+    use {
+      'yamatsum/nvim-nonicons',
+      requires = { 'kyazdani42/nvim-web-devicons' }
+    }
     -- Nice file tree browser
     use {
       'kyazdani42/nvim-tree.lua',
-      requires = 'kyazdani42/nvim-web-devicons',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true},
       config = function()
         vim.g.nvim_tree_side = 'left'
         vim.g.nvim_tree_width = 42
         vim.g.nvim_tree_auto_open = 1
         vim.g.nvim_tree_ignore_ft = {'cheatsheet'}
       end,
+    }
+    -- Display popup with possible keybindings to a command
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        require("which-key").setup{}
+      end
+    }
+    -- Pretty abstraction over quicklist, loclist, messages and lsp diagnostics
+    use { 'folke/trouble.nvim',
+      requires = {
+        {'kyazdani42/nvim-web-devicons', opt = true},
+        -- pathes in some highlighting groups for LSP diagnostics
+        -- FIXME should just be done by my theme istead of this plugin...
+        { 'folke/lsp-colors.nvim' }},
+      config = function()
+        require 'trouble'.setup()
+        require("lsp-colors").setup({
+          Error = "#f05faf",
+          Warning = "#c0af68",
+          Information = "#2db8cf",
+          Hint = "#19bc90"
+        })
+      end
     }
     -- NVIM API for defining color schemes
     -- TODO: when profiling, this plugins loading times are high
@@ -110,7 +140,7 @@ return function(autocommand, data_path, non_interactive)
       requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
     }
     -- Render markdown previews in the terminal
-    use { 'npxbr/glow.nvim', opt = true, cmd = 'Glow' }
+    use { 'npxbr/glow.nvim', opt = true, cmd = 'Glow', ft = {'markdown'} }
     -- Type :<number> to jump to line numbers
     use {
       'nacro90/numb.nvim',
@@ -122,9 +152,10 @@ return function(autocommand, data_path, non_interactive)
       end,
     }
     -- Repository and API for configuring LSP servers in nvim
-    use { 'neovim/nvim-lspconfig', config = function()
-      require'lsp'()
-    end}
+    use { 'neovim/nvim-lspconfig',
+      config = function()
+        require'lsp'()
+      end}
     -- Utility functions to glue the status messages of LSP servers with the status line in nvim together
     use 'nvim-lua/lsp-status.nvim'
     -- Deeper integration of JDTLS from Eclipse with nvim
@@ -142,6 +173,8 @@ return function(autocommand, data_path, non_interactive)
         }
       end,
     }
+    -- Nicer view than :registers, also shows popup on CTRL-R in I-mode
+    use { 'tversteeg/registers.nvim' }
     -- comment and uncomment lines
     use {
       'b3nj5m1n/kommentary',

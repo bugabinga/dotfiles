@@ -23,13 +23,13 @@ return function()
     local map = function(type, key, value)
       vim.api.nvim_buf_set_keymap(buffer_number,type,key,value,{noremap = true, silent = true});
     end
-    map('n','gD','<CMD>lua vim.lsp.buf.declaration()<CR>')
-    map('n','gd','<CMD>lua vim.lsp.buf.definition()<CR>')
-    map('n','K','<CMD>lua vim.lsp.buf.hover()<CR>')
-    map('n','gr','<CMD>lua vim.lsp.buf.references()<CR>')
-    map('n','gs','<CMD>lua vim.lsp.buf.signature_help()<CR>')
-    map('n','gi','<CMD>lua vim.lsp.buf.implementation()<CR>')
-    map('n','gt','<CMD>lua vim.lsp.buf.type_definition()<CR>')
+    map('n','<LEADER>gD','<CMD>lua vim.lsp.buf.declaration()<CR>')
+    map('n','<LEADER>gd','<CMD>lua vim.lsp.buf.definition()<CR>')
+    map('n','<LEADER>K','<CMD>lua vim.lsp.buf.hover()<CR>')
+    map('n','<LEADER>gr','<CMD>lua vim.lsp.buf.references()<CR>')
+    map('n','<LEADER>gs','<CMD>lua vim.lsp.buf.signature_help()<CR>')
+    map('n','<LEADER>gi','<CMD>lua vim.lsp.buf.implementation()<CR>')
+    map('n','<LEADER>gt','<CMD>lua vim.lsp.buf.type_definition()<CR>')
     map('n','<LEADER>gw','<CMD>lua vim.lsp.buf.document_symbol()<CR>')
     map('n','<LEADER>gW','<CMD>lua vim.lsp.buf.workspace_symbol()<CR>')
     map('n','<LEADER>ah','<CMD>lua vim.lsp.buf.hover()<CR>')
@@ -61,6 +61,15 @@ return function()
   else
     print("Unsupported system for sumneko")
   end
+  local neovim_lua_library = {}
+  for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
+    local lua_path = path .. "/lua/";
+    if vim.fn.isdirectory(lua_path) then
+      neovim_lua_library[lua_path] = true
+    end
+  end
+  -- This loads the `lua` files from nvim into the runtime.
+  neovim_lua_library[vim.fn.expand("$VIMRUNTIME/lua")] = true
   --TODO: How to switch this configuration based upon if we are editing neovim configuration or just any Lua file/project?
   lsp.sumneko_lua.setup {
     on_attach = integrate_into_neovim,
@@ -73,13 +82,16 @@ return function()
         },
         diagnostics = {
           enable = true,
+          disable = 'trailing-space',
           globals = { 'vim' },
         },
         hint = {
           enable = true,
         },
         workspace = {
-          library = vim.api.nvim_get_runtime_file("", true),
+          library = neovim_lua_library,
+          maxPreload = 10000,
+          preloadFileSize = 10000,
         },
         telemetry = {
           enable = true,
