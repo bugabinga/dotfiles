@@ -1,5 +1,5 @@
 neovim
-~/.config/nvim
+~/AppData/Local/nvim
 
 git/.gitconfig
 ~/.gitconfig
