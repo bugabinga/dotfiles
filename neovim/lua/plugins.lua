@@ -151,11 +151,15 @@ return function(autocommand, data_path, non_interactive)
         }
       end,
     }
-    -- Repository and API for configuring LSP servers in nvim
-    use { 'neovim/nvim-lspconfig',
+    -- null-ls is a plugin, that allows to code custom functions, that get exposed as a lsp server
+    use { "jose-elias-alvarez/null-ls.nvim",
       config = function()
-        require'lsp'()
-      end}
+        -- This will configure all LSPs not only Null-ls.
+        -- But because Null-ls depends on lspconfig, we have to delay this
+        require'lsp'(require'autocommand')
+      end,
+      requires = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig"}
+    }
     -- Utility functions to glue the status messages of LSP servers with the status line in nvim together
     use 'nvim-lua/lsp-status.nvim'
     -- Deeper integration of JDTLS from Eclipse with nvim
@@ -174,14 +178,9 @@ return function(autocommand, data_path, non_interactive)
       end,
     }
     -- Nicer view than :registers, also shows popup on CTRL-R in I-mode
-    use { 'tversteeg/registers.nvim' }
+    use { 'tversteeg/registers.nvim', opt = true, command = 'Registers', keys = {'i', '<C-R>'} }
     -- comment and uncomment lines
-    use {
-      'b3nj5m1n/kommentary',
-      config = function()
-        cheatsheet'Use gcc to toggle line comment'
-      end,
-    }
+    use { 'b3nj5m1n/kommentary' }
     -- smooth scrolling
     -- TODO: configure mappings to overide duration
     --       currently the scroll steps a pretty slow

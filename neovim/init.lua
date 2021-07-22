@@ -35,7 +35,7 @@ local data_path = vim.fn.stdpath 'data'
 local autocommand = require 'autocommand'
 
 -- My cheatsheet is an initial buffer (if none was specified) where I put stuff to remember/learn.
--- Keybinds, commands, TODOs are all fair game.
+-- Keybinds, commands, todos are all fair game.
 local cheatsheet, setup_cheatsheet = require 'cheatsheet'()
 -- make cheatsheet globally available for easy access in plugins configurations blocks of packer
 _G.cheatsheet = cheatsheet
