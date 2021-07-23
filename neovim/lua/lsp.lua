@@ -24,7 +24,7 @@ return function(autocommand)
 
 		if client.resolved_capabilities.document_formatting then
 			autocommand({
-				format_on_save = [[ BufWritePost <buffer> lua print'Formatting...'; vim.lsp.buf.formatting() ]],
+				format_on_save = [[ BufWritePost <buffer> vim.lsp.buf.formatting() ]],
 			})
 		end
 

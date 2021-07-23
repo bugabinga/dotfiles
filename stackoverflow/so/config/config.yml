@@ -1,0 +1,10 @@
+---
+api_key: ~
+limit: 20
+lucky: false
+sites:
+  - stackoverflow
+  - serverfault
+  - unix
+
+search_engine: stackexchange

@@ -1,0 +1,35 @@
+# Windows configuration for alacritty
+# Import common configuration for all platforms.
+# Subsequent configuration in this file will overwrite the common configuration.
+import:
+  - ~/.config/alacritty/alacritty_common.yml
+window:
+  startup_mode: Fullscreen
+# Font configuration (changes require restart)
+font:
+  normal:
+    family: BlexMono NF
+    style: Medium
+  bold:
+    style: Bold
+  italic:
+    style: Italic
+  size: 13.0
+working_directory: C:\\Users\\okr
+key_bindings:
+  - {
+      key: Comma,
+      mods: Control,
+      command:
+        {
+          program: "alacritty",
+          args:
+            [
+              "--title",
+              "Edit Alacritty Configuration",
+              "--command",
+              "nvim C:/Users/okr/AppData/Roaming/alacritty/alacritty.yml",
+            ],
+        },
+    }
+  - { key: Return, mods: Alt, action: None }

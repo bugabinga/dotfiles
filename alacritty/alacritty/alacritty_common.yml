@@ -1,0 +1,274 @@
+# Bugabinga configuration for alacritty.
+# "common" refers to those parts of the configuration, which are cross platform.
+# This file is expected to be imported into the the canonical configuration file on the
+# respective OS.
+# On Windows: ~/AppData/Roaming/alacritty.yml
+# On Linux:   ~/.config/alacritty/alacritty.yml
+
+window:
+  padding:
+    x: 16
+    y: 16
+  dynamic_padding: false
+  dynamic_title: false
+cursor:
+  style:
+    shape: Block
+    blinking: Off
+mouse:
+  hide_when_typing: true
+key_bindings:
+  - { key: T, mods: Control|Shift, action: SpawnNewInstance }
+  - { key: W, mods: Control|Shift, action: Quit }
+shell:
+  program: nu
+schemes:
+  ayu_dark: &ayu_dark
+    primary:
+      background: '#0A0E14'
+      foreground: '#B3B1AD'
+    normal:
+      black: '#01060E'
+      red: '#EA6C73'
+      green: '#91B362'
+      yellow: '#F9AF4F'
+      blue: '#53BDFA'
+      magenta: '#FAE994'
+      cyan: '#90E1C6'
+      white: '#C7C7C7'
+    bright:
+      black: '#686868'
+      red: '#F07178'
+      green: '#C2D94C'
+      yellow: '#FFB454'
+      blue: '#59C2FF'
+      magenta: '#FFEE99'
+      cyan: '#95E6CB'
+      white: '#FFFFFF'
+  ayu_mirage: &ayu_mirage
+    primary:
+      background: '#202734'
+      foreground: '#CBCCC6'
+    normal:
+      black: '#191E2A'
+      red: '#FF3333'
+      green: '#BAE67E'
+      yellow: '#FFA759'
+      blue: '#73D0FF'
+      magenta: '#FFD580'
+      cyan: '#95E6CB'
+      white: '#C7C7C7'
+    bright:
+      black: '#686868'
+      red: '#F27983'
+      green: '#A6CC70'
+      yellow: '#FFCC66'
+      blue: '#5CCFE6'
+      magenta: '#FFEE99'
+      cyan: '#95E6CB'
+      white: '#FFFFFF'
+  argonaut: &argonaut
+    primary:
+      background: '#292C3E'
+      foreground: '#EBEBEB'
+    cursor:
+      text: '#FF261E'
+      cursor: '#FF261E'
+    normal:
+      black:   '#0d0d0d'
+      red:     '#FF301B'
+      green:   '#A0E521'
+      yellow:  '#FFC620'
+      blue:    '#1BA6FA'
+      magenta: '#8763B8'
+      cyan:    '#21DEEF'
+      white:   '#EBEBEB'
+    bright:
+      black:   '#6D7070'
+      red:     '#FF4352'
+      green:   '#B8E466'
+      yellow:  '#FFD750'
+      blue:    '#1BA6FA'
+      magenta: '#A578EA'
+      cyan:    '#73FBF1'
+      white:   '#FEFEF8'
+  papercolor: &papercolor
+    primary:
+      background: "#eeeeee"
+      foreground: "#878787"
+    cursor:
+      text: "#eeeeee"
+      cursor: "#878787"
+    normal:
+      black: "#eeeeee"
+      red: "#af0000"
+      green: "#008700"
+      yellow: "#5f8700"
+      blue: "#0087af"
+      magenta: "#878787"
+      cyan: "#005f87"
+      white: "#444444"
+    bright:
+      black: "#bcbcbc"
+      red: "#d70000"
+      green: "#d70087"
+      yellow: "#8700af"
+      blue: "#d75f00"
+      magenta: "#d75f00"
+      cyan: "#005faf"
+      white: "#005f87"
+  afterglow: &afterglow
+    primary:
+      background: "#2c2c2c"
+      foreground: "#d6d6d6"
+      dim_foreground: "#dbdbdb"
+      bright_foreground: "#d9d9d9"
+      dim_background: "#202020" # not sure
+      bright_background: "#3a3a3a" # not sure
+    cursor:
+      text: "#2c2c2c"
+      cursor: "#d9d9d9"
+    normal:
+      black: "#1c1c1c"
+      red: "#bc5653"
+      green: "#909d63"
+      yellow: "#ebc17a"
+      blue: "#7eaac7"
+      magenta: "#aa6292"
+      cyan: "#86d3ce"
+      white: "#cacaca"
+    bright:
+      black: "#636363"
+      red: "#bc5653"
+      green: "#909d63"
+      yellow: "#ebc17a"
+      blue: "#7eaac7"
+      magenta: "#aa6292"
+      cyan: "#86d3ce"
+      white: "#f7f7f7"
+    dim:
+      black: "#232323"
+      red: "#74423f"
+      green: "#5e6547"
+      yellow: "#8b7653"
+      blue: "#556b79"
+      magenta: "#6e4962"
+      cyan: "#5c8482"
+      white: "#828282"
+  ir_black: &ir_black
+    primary:
+      background: '#000000'
+      foreground: '#ffffff'
+    cursor:
+      text: '#ffffff'
+      cursor: '#ffffff'
+    normal:
+      black:   '#4e4e4e'
+      red:     '#ff6c60'
+      green:   '#a8ff60'
+      yellow:  '#ffffb6'
+      blue:    '#96cbfe'
+      magenta: '#ff73fd'
+      cyan:    '#c6c5fe'
+      white:   '#eeeeee'
+    bright:
+      black:   '#7c7c7c'
+      red:     '#ffb6b0'
+      green:   '#ceffab'
+      yellow:  '#ffffcb'
+      blue:    '#b5dcfe'
+      magenta: '#ff9cfe'
+      cyan:    '#dfdffe'
+      white:   '#ffffff'
+  nord: &nord
+    primary:
+      background: '#2E3440'
+      foreground: '#D8DEE9'
+    normal:
+      black:   '#3B4252'
+      red:     '#BF616A'
+      green:   '#A3BE8C'
+      yellow:  '#EBCB8B'
+      blue:    '#81A1C1'
+      magenta: '#B48EAD'
+      cyan:    '#88C0D0'
+      white:   '#E5E9F0'
+    bright:
+      black:   '#4C566A'
+      red:     '#BF616A'
+      green:   '#A3BE8C'
+      yellow:  '#EBCB8B'
+      blue:    '#81A1C1'
+      magenta: '#B48EAD'
+      cyan:    '#8FBCBB'
+      white:   '#ECEFF4'
+  seoul256_dark: &seoul256_dark
+    primary:
+      background: '#3a3a3a'
+      foreground: '#d0d0d0'
+    normal:
+      black:   '#4e4e4e'
+      red:     '#d68787'
+      green:   '#5f865f'
+      yellow:  '#d8af5f'
+      blue:    '#85add4'
+      magenta: '#d7afaf'
+      cyan:    '#87afaf'
+      white:   '#d0d0d0'
+    bright:
+      black:   '#626262'
+      red:     '#d75f87'
+      green:   '#87af87'
+      yellow:  '#ffd787'
+      blue:    '#add4fb'
+      magenta: '#ffafaf'
+      cyan:    '#87d7d7'
+      white:   '#e4e4e4'
+  seoul256_light: &seoul256_light
+    primary:
+      background: '#dadada'
+      foreground: '#4e4e4e'
+    normal:
+      black:   '#4e4e4e'
+      red:     '#af5f5f'
+      green:   '#5f885f'
+      yellow:  '#af8760'
+      blue:    '#5f87ae'
+      magenta: '#875f87'
+      cyan:    '#5f8787'
+      white:   '#e4e4e4'
+    bright:
+      black:   '#3a3a3a'
+      red:     '#870100'
+      green:   '#005f00'
+      yellow:  '#d8865f'
+      blue:    '#0087af'
+      magenta: '#87025f'
+      cyan:    '#008787'
+      white:   '#eeeeee'
+  taerminal: &taerminal
+    primary:
+      background: '#26282a'
+      foreground: '#f0f0f0'
+    cursor:
+      background: '#f0f0f0'
+      foreground: '#26282a'
+    normal:
+      black:   '#26282a'
+      red:     '#ff8878'
+      green:   '#b4fb73'
+      yellow:  '#fffcb7'
+      blue:    '#8bbce5'
+      magenta: '#ffb2fe'
+      cyan:    '#a2e1f8'
+      white:   '#f1f1f1'
+    bright:
+      black:   '#6f6f6f'
+      red:     '#fe978b'
+      green:   '#d6fcba'
+      yellow:  '#fffed5'
+      blue:    '#c2e3ff'
+      magenta: '#ffc6ff'
+      cyan:    '#c0e9f8'
+      white:   '#ffffff'
+colors: *nord
