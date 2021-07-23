@@ -1,0 +1,22 @@
+[character]
+success_symbol = '[∙](bold fg:#c0c3c1)'
+error_symbol = '[×](bold fg:#ea1129)'
+
+[directory]
+style = 'bold purple'
+truncation_symbol = '⋯/'
+home_symbol = '∽'
+truncation_length = 5
+
+[java]
+style = 'yellow dimmed'
+
+[git_status]
+disabled = true
+
+[memory_usage]
+disabled = false
+format = "$symbol $ram_pct ($style)"
+threshold = 50
+symbol = ""
+style = "dimmed gray"

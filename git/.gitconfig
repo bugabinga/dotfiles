@@ -3,9 +3,6 @@
   name = Oliver Jan Krylow
   email = olver@bugabinga.net
 
-[commit]
-  gpgsign = true
-
 [core]
   editor = nvim
   quotepath = false

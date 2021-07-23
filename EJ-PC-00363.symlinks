@@ -6,3 +6,36 @@ git/.gitconfig
 
 git/.gitconfig.EJ-PC-00363
 ~/.gitconfig.include
+
+starship/starship.toml
+~/.config/starship.toml
+
+vale/.vale.ini
+~/.vale.ini
+
+vale/vale
+~/.config/vale
+
+alacritty/alacritty.yml
+~/AppData/Roaming/alacritty/alacritty.yml
+
+alacritty/alacritty
+~/.config/alacritty
+
+nushell
+~/.config/nushell
+
+topgrade/topgrade.toml
+~/AppData/Roaming/topgrade.toml
+
+nushell
+~/AppData/Roaming/nushell
+
+bottom
+~/AppData/Roaming/bottom
+
+stackoverflow/so
+~/AppData/Roaming/Sam Tay/so
+
+subversion/config
+~/AppData/Roaming/Subversion/config
