@@ -12,6 +12,10 @@ int main(int argument_count, char *arguments[]){
     printf("a%d: %s\n", index, arguments[index]);
   }
 
+  char current_working_direcory[256];
+  getcwd(current_working_direcory, 256);
+  printf("CWD: %s\n", current_working_direcory);
+
   //We assume no hostnames longer than 64
   char hostname[64];
   int hostname_error = gethostname(hostname, 64);
