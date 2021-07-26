@@ -14,14 +14,12 @@ alias sudo = gsudo
 alias doas = sudo
 alias file = trid
 alias grep = rg
-alias che = chezmoi
 
 # CUSTOM LITTLE JAVA COMMANDS
 alias sha = java D:/Tools/sha.java
 alias uuid = java D:/Tools/random_uuid.java
 alias download = java D:/Tools/download.java
 alias download_jar = java D:/Tools/download_jar.java
-
 
 # FUNCTIONS
 
