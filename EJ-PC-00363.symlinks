@@ -39,3 +39,6 @@ stackoverflow/so
 
 subversion/config
 ~/AppData/Roaming/Subversion/config
+
+cargo/config.toml
+~/.cargo/config.toml

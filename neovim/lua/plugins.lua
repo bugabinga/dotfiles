@@ -79,7 +79,7 @@ return function(autocommand, data_path, non_interactive)
       requires = {
         {'kyazdani42/nvim-web-devicons', opt = true},
         -- pathes in some highlighting groups for LSP diagnostics
-        -- FIXME should just be done by my theme istead of this plugin...
+        -- FIXME should just be done by my theme instead of this plugin...
         { 'folke/lsp-colors.nvim' }},
       config = function()
         require 'trouble'.setup()
@@ -104,7 +104,6 @@ return function(autocommand, data_path, non_interactive)
     -- Advanced parsers for better syntax highlighting
     use {
       'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdateSync',
       config = function()
         require'nvim-treesitter.install'.compilers = {"clang"}
         require'nvim-treesitter.configs'.setup{

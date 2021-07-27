@@ -1,10 +1,11 @@
 [character]
-success_symbol = '[∙](bold fg:#c0c3c1)'
-error_symbol = '[×](bold fg:#ea1129)'
+success_symbol = ' (dimmed green)'
+# does not work yet in nushell
+error_symbol = ' (dimmed red)'
 
 [directory]
 style = 'bold purple'
-truncation_symbol = '⋯/'
+truncation_symbol = '⋯ /'
 home_symbol = '∽'
 truncation_length = 5
 
@@ -12,7 +13,17 @@ truncation_length = 5
 style = 'yellow dimmed'
 
 [git_status]
+# too slow
 disabled = true
+
+[package]
+style = "dimmed cyan"
+
+[rust]
+style = "dimmed cyan"
+
+[zig]
+style = "dimmed yellow"
 
 [memory_usage]
 disabled = false
