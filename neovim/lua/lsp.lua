@@ -24,7 +24,7 @@ return function(autocommand)
 
 		if client.resolved_capabilities.document_formatting then
 			autocommand({
-				format_on_save = [[ BufWritePost <buffer> vim.lsp.buf.formatting() ]],
+				format_on_save = [[ BufWritePost <buffer> lua vim.lsp.buf.formatting() ]],
 			})
 		end
 
@@ -158,7 +158,7 @@ return function(autocommand)
 	-- Null-ls
 	local nls = require("null-ls")
 	nls.setup({
-		debug = true,
+		debug = false,
 		sources = {
 			nls.builtins.formatting.stylua.with({
 				args = { "-s", "$FILENAME" },

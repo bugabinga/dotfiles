@@ -23,6 +23,16 @@ alias download_jar = java D:/Tools/download_jar.java
 
 # FUNCTIONS
 
+def man [
+  program: string
+] {
+  if (sys).host.name == "Windows" {
+    start (build-string https://man.cx/ $program)
+  } {
+    exec man
+  }
+}
+
 # Search the given query on the web with the default browser in DuckDuckGo.
 def web [
   query:string # The search query
@@ -42,7 +52,6 @@ def files [
   let preview = ["--preview", "bat --color=always --italic-text=always --decorations=never --line-range :300 {}"]
   fzf $options $layout $color $preview $rest
 }
-
 
 # Show or add to bugabingas TODO file.
 def todo [
