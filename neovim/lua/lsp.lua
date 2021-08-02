@@ -1,7 +1,7 @@
 -- This function configures all the LSP clients that i might care about.
 -- It is expected to be called in the 'config' step of the 'lspconfig' plugin.
 -- autocommand: function, that can create autocmds
-return function(autocommand)
+return function()
 	local integrate_into_neovim = function(client, buffer_number)
 		print("LSP " .. client.name .. " [" .. client.id .. "] " .. "started.")
 		local chain_complete_list = {
@@ -21,12 +21,6 @@ return function(autocommand)
 			enable_auto_popup = false,
 			chain_complete_list = chain_complete_list,
 		})
-
-		if client.resolved_capabilities.document_formatting then
-			autocommand({
-				format_on_save = [[ BufWritePost <buffer> lua vim.lsp.buf.formatting() ]],
-			})
-		end
 
 		local map = function(type, key, value)
 			vim.api.nvim_buf_set_keymap(buffer_number, type, key, value, { noremap = true, silent = true })
@@ -164,7 +158,6 @@ return function(autocommand)
 				args = { "-s", "$FILENAME" },
 				to_stdin = false,
 			}),
-			nls.builtins.diagnostics.vale,
 		},
 		on_attach = integrate_into_neovim,
 	})

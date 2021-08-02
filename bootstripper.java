@@ -45,10 +45,7 @@ class bootstripper{
     }
     else{
       System.out.printf("%s ➔  %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
-      if(is_directory){
-        Files.createDirectories(target_path);
-      }
-      else{
+      if(!is_directory){
         Files.createDirectories(target_path.getParent());
       }
       try{

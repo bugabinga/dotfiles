@@ -1,4 +1,5 @@
-# TODO
+# To Do
 
-- [ ] what do we do about ssh and gpg keys? or secrets in general?
-  - [x] say goodbye to gpg, too hard for me...
+- [ ] what to do about ssh and GPG keys? or secrets in general?
+  - [x] say goodbye to GPG, too hard to manage.
+- [ ] how to handle java tools in `tools` cross platform?
