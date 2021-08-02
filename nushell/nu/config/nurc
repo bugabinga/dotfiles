@@ -4,7 +4,7 @@
 
 # GLOBAL VARIABLES
 let TODO_FILE = D:/Notizen/TODO.md
-let NURC = ~/.config/nushell/nurc
+let NURC = (build-string (config path | path dirname) /nurc)
 
 # ALIASES
 alias cat = bat
@@ -12,14 +12,14 @@ alias vim = nvim
 alias edit = nvim
 alias sudo = gsudo
 alias doas = sudo
-alias file = trid
 alias grep = rg
 
 # CUSTOM LITTLE JAVA COMMANDS
-alias sha = java D:/Tools/sha.java
-alias uuid = java D:/Tools/random_uuid.java
-alias download = java D:/Tools/download.java
-alias download_jar = java D:/Tools/download_jar.java
+alias sha = java X:/tools/sha.java
+alias uuid = java X:/tools/random_uuid.java
+alias download = java X:/tools/download.java
+alias download_jar = java X:/tools/download_jar.java
+alias file = java X:/tools/probe_content.java
 
 # FUNCTIONS
 

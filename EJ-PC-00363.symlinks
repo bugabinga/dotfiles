@@ -10,20 +10,11 @@ git/.gitconfig.EJ-PC-00363
 starship/starship.toml
 ~/.config/starship.toml
 
-vale/.vale.ini
-~/.vale.ini
-
-vale/vale
-~/.config/vale
-
 alacritty/alacritty.yml
 ~/AppData/Roaming/alacritty/alacritty.yml
 
 alacritty/alacritty
 ~/.config/alacritty
-
-nushell
-~/.config/nushell
 
 topgrade/topgrade.toml
 ~/AppData/Roaming/topgrade.toml
@@ -42,3 +33,6 @@ subversion/config
 
 cargo/config.toml
 ~/.cargo/config.toml
+
+tools
+D:/Tools/tools
