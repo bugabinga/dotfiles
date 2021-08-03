@@ -5,6 +5,7 @@
 # GLOBAL VARIABLES
 let TODO_FILE = D:/Notizen/TODO.md
 let NURC = (build-string (config path | path dirname) /nurc)
+let OS = (sys).host.name
 
 # ALIASES
 alias cat = bat
@@ -15,21 +16,33 @@ alias doas = sudo
 alias grep = rg
 
 # CUSTOM LITTLE JAVA COMMANDS
-alias sha = java X:/tools/sha.java
-alias uuid = java X:/tools/random_uuid.java
-alias download = java X:/tools/download.java
-alias download_jar = java X:/tools/download_jar.java
-alias file = java X:/tools/probe_content.java
+alias sha = java_tool sha
+alias uuid = java_tool random_uuid
+alias download = java_tool download
+alias download_jar = java_tool download_jar
 
 # FUNCTIONS
+
+# Wrapper function to launch my custom java tool scripts.
+# This function handles the different paths the tools can have on different hosts.
+def java_tool [ 
+  name: string # name of the custom java tool script without the .java extension 
+] {
+  # the paths are assumed to have already been linked from dotfiles
+  if $OS == "Windows" {
+    java (build-string X:/tools/ $name .java)
+  } {
+    java (build-string ~/.local/tools/ $name .java)
+  }
+}
 
 def man [
   program: string
 ] {
-  if (sys).host.name == "Windows" {
+  if $OS == "Windows" {
     start (build-string https://man.cx/ $program)
   } {
-    exec man
+    exec man $program
   }
 }
 
