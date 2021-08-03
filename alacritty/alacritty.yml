@@ -3,8 +3,6 @@
 # Subsequent configuration in this file will overwrite the common configuration.
 import:
   - ~/.config/alacritty/alacritty_common.yml
-window:
-  startup_mode: Fullscreen
 # Font configuration (changes require restart)
 font:
   normal:
