@@ -8,6 +8,7 @@
   quotepath = false
   autocrlf = input
   pager = delta
+	safecrlf = false
 
 [diff]
   colorMoved = default
