@@ -22,6 +22,9 @@ return function()
 			chain_complete_list = chain_complete_list,
 		})
 
+    -- hook lsp into vim autocomplete in insert mode
+    vim.api.nvim_buf_set_option(buffer_number, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
 		local map = function(type, key, value)
 			vim.api.nvim_buf_set_keymap(buffer_number, type, key, value, { noremap = true, silent = true })
 		end
@@ -127,7 +130,9 @@ return function()
 	})
 
 	-- Zig LSP
-	lsp.zls.setup({ on_attach = integrate_into_neovim })
+	-- FIXME: ZLS is very tied to the specific version of the zig compiler one uses.
+	-- we need to build our own version for 0.8.0 because it is not done upstream yet
+	-- lsp.zls.setup({ on_attach = integrate_into_neovim })
 
 	-- LLVM Clang LSP
 	lsp.clangd.setup({ on_attach = integrate_into_neovim })

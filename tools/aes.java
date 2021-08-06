@@ -13,9 +13,7 @@ import javax.crypto.*;
 import javax.crypto.spec.*;
 
 class aes {
-
   enum Command { ENCRYPT, DECRYPT };
-
   static Cipher AES_GCM_PKCS5;
   static byte[] SALT = new byte[] { 116, 104, 101, 32, 109, 111, 111, 110, 32, 105, 115, 32, 104, 105, 100, 100, 101, 110, 32, 105, 110, 32, 112, 108, 97, 105, 110, 32, 118, 105, 101, 119 };
   static SecureRandom RANDOM = new SecureRandom();
@@ -115,7 +113,6 @@ class aes {
         break;
       }
     }
-
     throw exit();
   }
 
@@ -155,7 +152,8 @@ class aes {
      var aes_bytes_count = AES_GCM_PKCS5.update(read_buffer, 0, read_bytes_count, aes_buffer); 
      output.write(aes_buffer, 0, aes_bytes_count);
     }
-    //FIXME: the java impl of GCM seems to buffer the whole data in memory and only releasing it on doFinal. yuck!
+    // the java impl of GCM seems to buffer the whole data in memory and only releasing it on doFinal. yuck!
+    // there is not much i can do about this other than to wait for JDK patches.
     //TODO: in the case of AES GCM the final byte block is the authentication tag.
     //as such it should porbably NOT be written to the output file.
     //or is this assumption wrong?
