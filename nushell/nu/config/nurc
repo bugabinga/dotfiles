@@ -13,6 +13,8 @@ alias edit = nvim
 alias sudo = gsudo
 alias doas = sudo
 alias grep = rg
+alias todo = glow (build-string $nu.env.DOTFILES / TODO.md)
+alias nurc = nvim $nu.env.NURC
 
 # CUSTOM LITTLE JAVA COMMANDS
 alias sha = java (build-string $nu.env.DOTFILES /tools/ sha.java)
