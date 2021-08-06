@@ -12,6 +12,11 @@ skip_welcome_message = true
 startup = [
 "zoxide init nushell --hook prompt | save zoxide.nu",
 "source zoxide.nu",
+  # loading of plugins in nu seems inconsistent.
+  # the only get loaded in interactive nu session.
+  # not for scripts and --commands.
+  # see https://github.com/nushell/nushell/issues/3892
+"nu plugin --load (build-string $nu.env.CARGO_HOME / bin)",
 "source nurc",
 ]
 
@@ -58,3 +63,6 @@ theme = "Nord"
 
 [env]
 STARSHIP_SHELL = "nushell"
+EDITOR = "nvim"
+BAT_THEME = "Nord"
+_ZO_ECHO = 1
