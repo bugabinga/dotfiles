@@ -31,6 +31,8 @@
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
 - [ ] sumneko on linux
+- [ ] get indexa config into dotfiles?
+- [ ] is there something like glow but in rust?
 
 ## Done
 
