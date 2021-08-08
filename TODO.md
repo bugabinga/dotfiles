@@ -29,6 +29,8 @@
 
 - [ ] kill thy babbies: remove obsolete java commands. nu has builtins now for checksums and for random uuids
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
+- [ ] encrypt box key
+- [ ] sumneko on linux
 
 ## Done
 

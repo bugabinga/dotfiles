@@ -17,7 +17,7 @@ class bootstripper{
     create_symlinks(dorkfiles_root.resolve(symlinks_file));
   }
   static void decrypt_secrets(Path secrets_root) throws Exception {
-    System.out.printf("Decrypting files in %s folder.%n", emphasize_local(secrets_root.getFileName().toString()));
+    System.out.printf("%s:Decrypting files in %s folder.%n", emphasize_global("TODO"), emphasize_local(secrets_root.getFileName().toString()));
   }
   static void create_symlinks(Path symlinks_file) throws Exception {
     System.out.printf("Creating symlinks as defined in %s file.%n", emphasize_local(symlinks_file.getFileName().toString()));
@@ -40,17 +40,18 @@ class bootstripper{
     var source_path = Path.of(source.replace("~", home)).toAbsolutePath();
     var target_path = Path.of(target.replace("~", home)).toAbsolutePath();
     var is_directory = Files.isDirectory(source_path);
-    if(Files.exists(target_path)){
-      System.out.printf("%s already exists! Not linking %s.%n", emphasize_global(target_path.toString()), emphasize_local(source_path.toString()));
+    if(Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)){
+      System.out.printf("✅%s already exists!%nNot linking %s.%n", emphasize_global(target_path.toString()), emphasize_local(source_path.toString()));
     }
     else{
-      System.out.printf("%s ➔  %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
+      System.out.printf("🔗 %s ➔ %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
       if(!is_directory){
         Files.createDirectories(target_path.getParent());
       }
       try{
-        Files.createSymbolicLink(source_path, target_path);
-      } catch (Exception __) {
+        Files.createSymbolicLink(target_path, source_path);
+      }
+      catch (Exception __) {
         /*
          * Creating symbolic links on Windows only recently became possible without admin rights.
          * However, most tools (including JDK) have not yet adapted to this change and still require admin rights.
@@ -73,6 +74,10 @@ class bootstripper{
           .onExit()
           .join();
         }
+	else {
+  	  __.printStackTrace();
+	  fail("Could not create symbolic link!");
+	}
       }
     }
   }

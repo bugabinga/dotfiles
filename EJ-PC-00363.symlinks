@@ -1,26 +1,26 @@
 neovim
 ~/AppData/Local/nvim
 
-git/.gitconfig
+git/gitconfig
 ~/.gitconfig
 
-git/.gitconfig.EJ-PC-00363
+git/gitconfig.EJ-PC-00363
 ~/.gitconfig.include
 
 starship/starship.toml
 ~/.config/starship.toml
 
-alacritty/alacritty.yml
+alacritty/alacritty.windows.yml
 ~/AppData/Roaming/alacritty/alacritty.yml
 
-alacritty/alacritty
-~/.config/alacritty
+alacritty/alacritty_common.yml
+~/.config/alacritty/alacritty_common.yml
 
-topgrade/topgrade.toml
+topgrade/topgrade.windows.toml
 ~/AppData/Roaming/topgrade.toml
 
 nushell
-~/AppData/Roaming/nushell
+~/AppData/Roaming/nushell/nu/config
 
 bottom
 ~/AppData/Roaming/bottom
