@@ -1,5 +1,5 @@
 # bugabingas personal dotfiles, 33rd attempt
 
-Rough plan: Build a [cosmopolitan] install executable for true cross-plattform bootrap of my configuration.
+## Symlinks per host
 
-[cosmopolitan]: https://justine.lol/cosmopolitan/index.html
+## Secrets
