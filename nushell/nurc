@@ -4,13 +4,12 @@
 
 # GLOBAL VARIABLES
 let-env NURC = (build-string (pwd) /nurc)
-let-env DOTFILES = ((build-string (pwd) /../../..) | path expand)
+let-env DOTFILES = ((build-string (pwd) /..) | path expand)
 
 # ALIASES
 alias cat = bat
 alias vim = nvim
 alias edit = nvim
-alias sudo = gsudo
 alias doas = sudo
 alias grep = rg
 alias todo = glow (build-string $nu.env.DOTFILES / TODO.md)

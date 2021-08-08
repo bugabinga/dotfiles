@@ -56,7 +56,7 @@ return function()
 	local neovim_runtime_path = vim.split(package.path, ";")
 	table.insert(neovim_runtime_path, "lua/?.lua")
 	table.insert(neovim_runtime_path, "lua/?/init.lua")
-	local sumneko_home = os.getenv("SUMNEKO_HOME")
+
 	local system_name
 	if vim.fn.has("mac") == 1 then
 		system_name = "macOS"
@@ -74,6 +74,10 @@ return function()
 			neovim_lua_library[lua_path] = true
 		end
 	end
+	local sumneko_home = "~/Workspace/sua-language-server"
+	if system_name == "Windows" then
+	  sumneko_home = "W:/misc/lua-language-server"
+  end
 	-- This loads the `lua` files from nvim into the runtime.
 	neovim_lua_library[vim.fn.expand("$VIMRUNTIME/lua")] = true
 	--TODO: How to switch this configuration based upon if we are editing neovim configuration or just any Lua file/project?

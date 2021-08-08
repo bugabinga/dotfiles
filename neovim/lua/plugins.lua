@@ -12,8 +12,8 @@ return function(autocommand, data_path, non_interactive)
 	-- packer will be loaded into the optionals folder and loaded later on demand by `packadd packer.nvim`
 	-- glob will normalize the path with respect to path separators.
 	-- mixing those seems to sometimes trip up packer, though the reason is unknown.
-	local packer_installation_path = vim.fn.glob(data_path .. "/site/pack/" .. plugin_package .. "/opt/packer.nvim")
-	if vim.fn.empty(packer_installation_path) == 1 then
+	local packer_installation_path = data_path .. "/site/pack/" .. plugin_package .. "/opt/packer.nvim"
+	if vim.fn.empty(vim.fn.glob(packer_installation_path)) == 1 then
 		vim.cmd('!git clone https://github.com/wbthomason/packer.nvim "' .. packer_installation_path .. '"')
 	end
 	local packer = nil

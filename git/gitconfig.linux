@@ -1,0 +1,7 @@
+#vim: ft=gitconfig
+[sendemail]
+smtpserver = box.bugabinga.net
+smtpuser = oliver@bugabinga.net
+smtpencryption = tls
+smtpserverport = 587
+annotate = yes
