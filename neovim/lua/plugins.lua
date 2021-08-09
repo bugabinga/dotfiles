@@ -7,7 +7,7 @@
 -- autocommand:function    => API to create vim autocmds
 -- data_path:string        => root directory into which packer can be installed, if not already done
 -- non_interactive:boolean => wether to show a display when updating plugins or not. Typically set to true, when nvim is used for scripting.
-return function(autocommand, data_path, non_interactive)
+return function(data_path, non_interactive)
 	local plugin_package = "plugins"
 	-- packer will be loaded into the optionals folder and loaded later on demand by `packadd packer.nvim`
 	-- glob will normalize the path with respect to path separators.
@@ -53,12 +53,12 @@ return function(autocommand, data_path, non_interactive)
 				vim.g.nvim_tree_ignore_ft = { "cheatsheet" }
 				-- disable git because slow
 				vim.g.nvim_tree_git_hl = 0
-        vim.g.nvim_tree_gitignore = 0
-        vim.g.nvim_tree_show_icons = {
-          git = 0,
-          folders = 1,
-          files = 1,
-        }
+				vim.g.nvim_tree_gitignore = 0
+				vim.g.nvim_tree_show_icons = {
+					git = 0,
+					folders = 1,
+					files = 1,
+				}
 			end,
 		})
 
@@ -90,7 +90,9 @@ return function(autocommand, data_path, non_interactive)
 				})
 			end,
 		})
-		
+
+		-- TODO learn to configure minimal status line and tabline
+
 		-- NVIM API for defining color schemes
 		-- TODO: when profiling, this plugins loading times are high
 		--       maybe the cause is that it loads a bunch of files
@@ -108,14 +110,20 @@ return function(autocommand, data_path, non_interactive)
 			config = function()
 				require("nvim-treesitter.install").compilers = { "clang" }
 				require("nvim-treesitter.configs").setup({
-					ensure_installed = {"zig", "java", "rust", "lua", "toml", "yaml", "json", "c"},
+					ensure_installed = { "zig", "java", "rust", "lua", "toml", "yaml", "json", "c" },
 					highlight = { enable = true },
 					incremental_selection = { enable = true },
 					indent = { enable = true },
-					query_linter = { enable = true },
+					query_linter = { enable = true, use_virtual_text = true, lint_events = { "BufWrite" } },
 				})
 			end,
 		})
+
+		-- Treesitter Playground
+		-- Show the treesitter parse tree.
+		-- Lint syntax errors
+		-- Show highlight groupsunder cursor
+		use({ "nvim-treesitter/playground" })
 
 		-- Basic integration of ziglang
 		use({ "ziglang/zig.vim", opt = true, ft = "zig" })
@@ -134,15 +142,12 @@ return function(autocommand, data_path, non_interactive)
 				require("colorizer").setup()
 			end,
 		})
-		
+
 		-- Fuzzy matcher
 		use({
 			"nvim-telescope/telescope.nvim",
 			requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 		})
-
-		-- Render markdown previews in the terminal
-		use({ "npxbr/glow.nvim", opt = true, cmd = "Glow", ft = { "markdown" } })
 
 		-- Type :<number> to jump to line numbers
 		use({
@@ -163,14 +168,14 @@ return function(autocommand, data_path, non_interactive)
 				-- But because Null-ls depends on lspconfig, we have to delay this
 				require("lsp")()
 			end,
-      requires = {
-        -- extensions to the std lib
-        "nvim-lua/plenary.nvim",
-        -- Preprepared collection of glue code for neovim lsp-client and thrid party lsp servers.
-        "neovim/nvim-lspconfig",
-        -- Completions support, that integrates advanced nvim features (LSP+treesitter)
-        "nvim-lua/completion-nvim",
-      },
+			requires = {
+				-- extensions to the std lib
+				"nvim-lua/plenary.nvim",
+				-- Preprepared collection of glue code for neovim lsp-client and thrid party lsp servers.
+				"neovim/nvim-lspconfig",
+				-- Completions support, that integrates advanced nvim features (LSP+treesitter)
+				"nvim-lua/completion-nvim",
+			},
 		})
 
 		-- Deeper integration of JDTLS from Eclipse with nvim

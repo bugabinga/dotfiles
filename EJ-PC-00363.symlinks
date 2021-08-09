@@ -34,5 +34,5 @@ subversion/config
 cargo/config.toml
 ~/.cargo/config.toml
 
-tools
-D:/Tools/tools
+indexa/config.toml
+~/AppData/Roaming/indexa/config.toml

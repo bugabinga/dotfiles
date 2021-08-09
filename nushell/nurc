@@ -5,15 +5,18 @@
 # GLOBAL VARIABLES
 let-env NURC = (build-string (pwd) /nurc)
 let-env DOTFILES = ((build-string (pwd) /..) | path expand)
+let-env TODO = (build-string $nu.env.DOTFILES /TODO.md)
 
 # ALIASES
 alias cat = bat
 alias vim = nvim
 alias edit = nvim
+alias e = nvim
+alias ll = exa --group-directories-first --classify --long --icons --git
+alias la = exa --group-directories-first --classify --all --long --icons --git
+alias tr = exa --tree
 alias doas = sudo
 alias grep = rg
-alias todo = glow (build-string $nu.env.DOTFILES / TODO.md)
-alias nurc = nvim $nu.env.NURC
 
 # CUSTOM LITTLE JAVA COMMANDS
 alias sha = java (build-string $nu.env.DOTFILES /tools/ sha.java)
@@ -22,7 +25,37 @@ alias uuid = java (build-string $nu.env.DOTFILES /tools/ random_uuid.java)
 alias download = java (build-string $nu.env.DOTFILES /tools/ download.java)
 alias download_jar = java (build-string $nu.env.DOTFILES /tools/ download_jar.java)
 
+# MY STDLIB UTIL MISC HELPER FUNCTIONS
+
+# Check whether table in pipeline has a column with given name
+def "has-column?" [
+  name: string # Name of the column to check for
+] {
+  pivot | any? Column0 == $name
+}
+
+# Prints out a list of stuff.
+# Appends a newline at the end.
+def print [
+  ...rest: any # list of stuff to echo out
+] {
+  echo (build-string ($rest | flatten | into string | str collect) )
+  echo (char newline)
+}
+
+# Flattens a table into a string separated by a single space character.
+def to-string [] { flatten | into string | str collect ' ' }
+
 # FUNCTIONS
+
+# Render my To-Do file in the terminal
+def todo [] { mdcat $nu.env.TODO }
+# Open my To-Do file for editing
+def "todo edit" [] { nvim $nu.env.TODO }
+# Open the Nushell configuration file for editing
+def "config edit" [] { nvim (config path) }
+# Open my Nushell startup script for editing
+def nurc [] { nvim $nu.env.NURC }
 
 # Uploads a PUBLIC ssh key to GitHub.
 # Will prompt for the AES encryption password of my dotfiles.
@@ -78,37 +111,25 @@ def glog [
   git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 $rest | lines | split column "»¦«" commit subject name email date | update date { get date | str to-datetime} | sort-by date
 }
 
+
+# Open manual page.
+# On Windows, a man web page is opened.
 def man [
-  program: string
+  ...rest: string # Arguments to man
 ] {
   if (sys).host.name == "Windows" {
-    start (build-string https://man.cx/ $program)
+    start (build-string https://man.cx/ ($rest | to-string))
   } {
-    exec man $program
+    exec man $rest
   }
 }
 
 # Search the given query on the web with the default browser in DuckDuckGo.
 def web [
-  query:string # The search query
+  ...rest:string # The search query
 ] {
     # There seems to be an issue with the nu start command on windows: It does not handle URLs
     # Using windows command for now:
-    start (build-string "https://duckduckgo.com/?q=" $query)
+    start (build-string "https://duckduckgo.com/?q=" ($rest | to-string))
 }
 
-# Check whether table in pipeline has a column with given name
-def "has-column?" [
-  name: string # Name of the column to check for
-] {
-  pivot | any? Column0 == $name
-}
-
-# Prints out a list of stuff.
-# Appends a newline at the end.
-def print [
-  ...rest: any # list of stuff to echo out
-] {
-  echo (build-string ($rest | flatten | into string | str collect) )
-  echo (char newline)
-}

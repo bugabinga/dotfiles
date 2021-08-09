@@ -41,43 +41,46 @@ class bootstripper{
     var target_path = Path.of(target.replace("~", home)).toAbsolutePath();
     var is_directory = Files.isDirectory(source_path);
     if(Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)){
-      System.out.printf("✅%s already exists!%nNot linking %s.%n", emphasize_global(target_path.toString()), emphasize_local(source_path.toString()));
+      if(Files.exists(target_path)) {
+        System.out.printf("✅ %s already exists!%nNot linking %s.%n", emphasize_global(target_path.toString()), emphasize_local(source_path.toString()));
+        return;
+      }
+      else {
+        System.out.printf("❌ %s exists, but it points into nirvana. Removing broken link!%n", target_path.toString());
+        Files.delete(target_path);
+      }
     }
-    else{
-      System.out.printf("🔗 %s ➔ %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
-      if(!is_directory){
-        Files.createDirectories(target_path.getParent());
-      }
-      try{
-        Files.createSymbolicLink(target_path, source_path);
-      }
-      catch (Exception __) {
-        /*
-         * Creating symbolic links on Windows only recently became possible without admin rights.
-         * However, most tools (including JDK) have not yet adapted to this change and still require admin rights.
-         * Until that is fixed, we escape to a system tool that is known to behave correcty in this regard.
-         */
-        var operating_system = System.getProperty("os.name");
-        if(operating_system.toLowerCase().contains("win")){
-          var process = new ProcessBuilder();
-          var command = process.command();
-          command.add("cmd.exe");
-          command.add("/c");
-          command.add("mklink");
-          if(is_directory){
-            command.add("/d");
-          }
-          command.add(target_path.toString());
-          command.add(source_path.toString());
-          process.inheritIO()
-          .start()
-          .onExit()
-          .join();
+    System.out.printf("🔗 %s ➔ %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
+    Files.createDirectories(target_path.getParent());
+    try{
+      Files.createSymbolicLink(target_path, source_path);
+    }
+    catch (Exception __) {
+      /*
+       * Creating symbolic links on Windows only recently became possible without admin rights.
+       * However, most tools (including JDK) have not yet adapted to this change and still require admin rights.
+       * Until that is fixed, we escape to a system tool that is known to behave correcty in this regard.
+       */
+      var operating_system = System.getProperty("os.name");
+      if(operating_system.toLowerCase().contains("win")){
+        var process = new ProcessBuilder();
+        var command = process.command();
+        command.add("cmd.exe");
+        command.add("/c");
+        command.add("mklink");
+        if(is_directory){
+          command.add("/d");
         }
-	else {
-  	  __.printStackTrace();
-	  fail("Could not create symbolic link!");
-	}
+        command.add(target_path.toString());
+        command.add(source_path.toString());
+        process.inheritIO()
+        .start()
+        .onExit()
+        .join();
+      }
+      else {
+        __.printStackTrace();
+        fail("Could not create symbolic link!");
       }
     }
   }
