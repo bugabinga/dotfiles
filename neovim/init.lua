@@ -47,7 +47,7 @@ settings(autocommand, data_path)
 -- when started with '--headless', there will be no attached UIs
 local non_interactive = #vim.api.nvim_list_uis() == 0
 -- Put the plugins module into the global scope, so that it can be used more easily in commands
-_G.plugins = require("plugins")(autocommand, data_path, non_interactive)
+_G.plugins = require("plugins")(data_path, non_interactive)
 -- setup my own keybindings
 require("keybinds")(cheatsheet)
 
@@ -60,7 +60,9 @@ setup_mkdir(autocommand)
 -- Commands have no nvim API yet, so we use vimscript...
 cheatsheet(":WhatHighlight => This command shows the highlight group under the cursor")
 vim.cmd([[command! WhatHighlight lua syntax_stack()]])
-cheatsheet(":TSHighlightCapturesUnderCursor => This command shows the highlight group under the cursor, when TreeSitter is used")
+cheatsheet(
+	":TSHighlightCapturesUnderCursor => This command shows the highlight group under the cursor, when TreeSitter is used"
+)
 
 -- Lazy load the plugin manager packer, when using these commands
 -- cheatsheet':PluginsInstall => Install the specified plugins if they are not already installed'

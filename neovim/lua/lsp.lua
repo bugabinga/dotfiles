@@ -22,8 +22,8 @@ return function()
 			chain_complete_list = chain_complete_list,
 		})
 
-    -- hook lsp into vim autocomplete in insert mode
-    vim.api.nvim_buf_set_option(buffer_number, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+		-- hook lsp into vim autocomplete in insert mode
+		vim.api.nvim_buf_set_option(buffer_number, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 		local map = function(type, key, value)
 			vim.api.nvim_buf_set_keymap(buffer_number, type, key, value, { noremap = true, silent = true })
@@ -76,8 +76,8 @@ return function()
 	end
 	local sumneko_home = "~/Workspace/sua-language-server"
 	if system_name == "Windows" then
-	  sumneko_home = "W:/misc/lua-language-server"
-  end
+		sumneko_home = "W:/misc/lua-language-server"
+	end
 	-- This loads the `lua` files from nvim into the runtime.
 	neovim_lua_library[vim.fn.expand("$VIMRUNTIME/lua")] = true
 	--TODO: How to switch this configuration based upon if we are editing neovim configuration or just any Lua file/project?
@@ -144,6 +144,7 @@ return function()
 	-- JSON LSP
 	lsp.jsonls.setup({
 		on_attach = integrate_into_neovim,
+		--FIXME: Only works on Windows
 		cmd = { "vscode-json-language-server.cmd", "--stdio" },
 		commands = {
 			Format = {
@@ -160,13 +161,33 @@ return function()
 
 	-- Null-ls
 	local nls = require("null-ls")
+	local helpers = require("null-ls.helpers")
+	local methods = require("null-ls.methods")
+	local prose_format = helpers.make_builtin({
+		method = methods.internal.FORMATTING,
+		filetypes = { "markdown" },
+		generator_opts = {
+			command = "prose",
+			--FIXME this should be a higher order function, because the tab width needs to be lazily fetched at callsite and for the buffer instead of the global value.
+			args = { "-f", "-w", "80", "-m", "-t", vim.o.tabstop },
+			to_stdin = true,
+		},
+		factory = helpers.formatter_factory,
+	})
 	nls.setup({
 		debug = false,
+		-- Format: [CODE] MESSAGE (SOURCE)
+		diagnostics_format = "[#{c}] #{m} (#{s})",
 		sources = {
-			nls.builtins.formatting.stylua.with({
-				args = { "-s", "$FILENAME" },
-				to_stdin = false,
-			}),
+			nls.builtins.formatting.stylua,
+			prose_format,
+			-- this is a nice linter, but wihtout configuration, it spews too much nonsense.
+			-- one can define the stdlib for vim in a config file, but the builtin selene does not find the config file.
+			-- this is a general issue with formatters/linters integrated into neovim.
+			-- how should i handle this?
+			-- write a function, that searches the path to root for a config file? (internal stylua behaviour)
+			-- somehow make sure, that vim root folder is always correct...?
+			-- nls.builtins.diagnostics.selene,
 		},
 		on_attach = integrate_into_neovim,
 	})

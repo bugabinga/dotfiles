@@ -16,7 +16,7 @@ startup = [
   # the only get loaded in interactive nu session.
   # not for scripts and --commands.
   # see https://github.com/nushell/nushell/issues/3892
-"nu plugin --load ~/.cargo/bin",
+"nu plugin --load (build-string $nu.env.CARGO_HOME /bin)",
 "source nurc",
 ]
 

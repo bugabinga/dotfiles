@@ -6,6 +6,9 @@ return function(autocommand, data_path)
 	vim.opt.tabstop = tab_size
 	vim.opt.shiftwidth = tab_size
 	vim.opt.softtabstop = tab_size
+	-- show status line and tabline
+	vim.opt.laststatus = 2
+	vim.opt.showtabline = 2
 	-- convert tabs to spaces
 	vim.opt.expandtab = true
 	-- Keep indentation of new lines in line with previuos lines
@@ -63,7 +66,7 @@ return function(autocommand, data_path)
 	vim.opt.showcmd = false
 	vim.opt.wildmode = "list:longest"
 	-- Set the current working directory to the parent of the active buffer
-	vim.opt.autochdir = true
+	vim.opt.autochdir = false
 	-- Keep track of file changes outside of vim
 	vim.opt.autoread = true
 	-- Make backups of all touched files in a special directory
