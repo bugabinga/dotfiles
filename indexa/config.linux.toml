@@ -1,5 +1,3 @@
-# Default indexa configuration file.
-
 [flags]
 # Default values for command-line flags.
 # Flags provided to CLI will override this group of options.
@@ -19,7 +17,7 @@
 # match_path = false
 
 # Whether to search in path when query contains path separators.
-# auto_match_path = false
+auto_match_path = true
 
 # Whether to enable regex.
 # regex = true
@@ -56,8 +54,7 @@ fast_sort = [
 
 # Root directories to index. Defaults to / on Unix and %HOMEDRIVE%\ (usually C:\) on Windows.
 dirs = [
-     "C:\\",
-     "D:\\"
+     "/"
  ]
 
 # Whether to ignore hidden files/directories.

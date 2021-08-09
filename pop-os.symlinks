@@ -36,3 +36,6 @@ alacritty
 
 topgrade/topgrade.linux.toml
 ~/.config/topgrade.toml
+
+indexa/config.linux.toml
+~/.config/indexa/config.toml

@@ -34,9 +34,8 @@
 - [ ] kill thy babbies: remove obsolete java commands. nu has builtins now for checksums and for random uuids
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
-- [ ] get indexa config into dotfiles?
 - [ ] use [systemd user] instance to manage env vars
-- [ ] how to abstract configs defferences per platform? templates are painful to work with.
+- [ ] how to abstract configs differences per platform? templates are painful to work with.
   - [ ] abstract indexa config for windows / linux
 
 ## Done
@@ -46,5 +45,6 @@
 - [x] how to handle java tools in `tools` cross platform?
 - [x] sumneko on linux
 - [x] is there something like glow but in rust?
+- [x] get indexa config into dotfiles?
 
 [systemd user]: https://wiki.archlinux.org/title/Systemd/User
