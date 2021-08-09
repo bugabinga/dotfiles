@@ -1,5 +1,7 @@
 # bugabingas personal dotfiles, 33rd attempt
 
-## Symlinks per host
+## bootstrapping a new host
+
+## handling per host differences
 
 ## Secrets
