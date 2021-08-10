@@ -112,7 +112,15 @@ return function(data_path, non_interactive)
 				require("nvim-treesitter.configs").setup({
 					ensure_installed = { "zig", "java", "rust", "lua", "toml", "yaml", "json", "c" },
 					highlight = { enable = true },
-					incremental_selection = { enable = true },
+					incremental_selection = {
+						enable = true,
+						keymaps = {
+							init_selection = "<C-Up>",
+							node_incremental = "<C-Up>",
+							node_decremental = "<C-Down>",
+							scope_incremental = "<A-Up>",
+						},
+					},
 					indent = { enable = true },
 					query_linter = { enable = true, use_virtual_text = true, lint_events = { "BufWrite" } },
 				})

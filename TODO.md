@@ -28,18 +28,20 @@
 - bandwhich: show network traffic information
 - so: search Stack Exchange 
 - prose: simple text (markdown, emails, paragraphs) formatter
+- linky: check markdown for broken links
+- comrak: render markdown to html
 
 ## Stuff to do
 
-- [ ] kill thy babbies: remove obsolete java commands. nu has builtins now for checksums and for random uuids
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
-- [ ] use [systemd user] instance to manage env vars
-- [ ] how to abstract configs differences per platform? templates are painful to work with.
-  - [ ] abstract indexa config for windows / linux
 
 ## Done
 
+- [x] how to abstract configs differences per platform? templates are painful to work with.
+- [x] abstract indexa config for windows / linux
+- [x] kill thy babbies: remove obsolete java commands. nu has builtins now for checksums and for random uuids
+- [x] use [systemd user] instance to manage env vars
 - [x] what to do about ssh and GPG keys? or secrets in general?
   - [x] say goodbye to GPG, too hard to manage.
 - [x] how to handle java tools in `tools` cross platform?
