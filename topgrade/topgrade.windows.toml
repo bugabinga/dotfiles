@@ -29,6 +29,7 @@ arguments = "--rebase --autostash"
 
 # Custom commands
 [commands]
+"Refresh dotfiles" = "java W:/misc/dotfiles/bootstripper.java W:/misc/dotfiles"
 
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
 "TLDR" = "tldr --update"

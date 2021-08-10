@@ -42,7 +42,7 @@ class bootstripper{
     var is_directory = Files.isDirectory(source_path);
     if(Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)){
       if(Files.exists(target_path)) {
-        System.out.printf("✅ %s already exists!%nNot linking %s.%n", emphasize_global(target_path.toString()), emphasize_local(source_path.toString()));
+        System.out.printf("%n✅ %s already exists!%nNot linking %s.%n", emphasize_global(target_path.toString()), emphasize_local(source_path.toString()));
         return;
       }
       else {

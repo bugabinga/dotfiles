@@ -14,9 +14,6 @@ return function(cheatsheet)
 	-- Let the <LEADER> key be <SPACE>
 	vim.g.mapleader = " "
 
-	map("n", "<LEADER><F12>", [[<CMD>lua require('glow').glow('<f-args>')<CR>]])
-	cheatsheet("LEADER + F12 => Render Markdown Preview")
-
 	map("n", "<LEADER><F9>", [[<CMD>tabnew $MYVIMRC<CR>]])
 	cheatsheet("LEADER + F9 => Open nvim configuration in a new tab!")
 
@@ -30,10 +27,15 @@ return function(cheatsheet)
 	-- Clear highlighted search results whenever ESC is hit
 	map("n", "<ESC>", ":nohlsearch<CR>", { unique = false, silent = true })
 
+	map("n", "<LEADER>t", [[<CMD>Telescope tabs<CR>]])
+	cheatsheet("LEADER + t => Select a tab")
+
 	map("n", "<LEADER>b", [[<CMD>Telescope buffers<CR>]])
 	cheatsheet("LEADER + b => Select a buffer")
+
 	map("n", "<LEADER>f", [[<CMD>Telescope file_browser<CR>]])
 	cheatsheet("LEADER + f => Select a file")
+
 	map("n", "<LEADER>e", [[<CMD>NvimTreeToggle<CR>]])
 	cheatsheet("LEADER + e => Toggle file explorer")
 
@@ -51,4 +53,13 @@ return function(cheatsheet)
 	end
 	map("n", "gx", [[<CMD>lua require'spawn'(']] .. opener_program .. [[',{ vim.fn.expand('<cfile>') } )<CR>]])
 	cheatsheet("gx => Open URL under cursor")
+
+  cheatsheet("<ALT>j => Move line(s) down")
+  cheatsheet("<ALT>k => Move line(s) up")
+	map("n", "<A-j>", [[<CMD>move .+1<CR>==]])
+	map("n", "<A-k>", [[<CMD>move .-2<CR>==]])
+	map("i", "<A-j>", [[<ESC><CMD>move .+1<CR>==gi]])
+	map("i", "<A-k>", [[<ESC><CMD>move .-2<CR>==gi]])
+	map("x", "<A-j>", [[<ESC><CMD>'<,'>move'>+1<CR>gv=gv]])
+	map("x", "<A-k>", [[<ESC><CMD>'<,'>move'<-2<CR>gv=gv]])
 end

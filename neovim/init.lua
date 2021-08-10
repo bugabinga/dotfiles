@@ -22,8 +22,6 @@
 
 -- import `dump` into the global namespace, so that we can use it in a running vim instance: `:lua dump(vim.fn)`
 _G.dump = require("dump")
--- import `syntax_stack` into global namespace. shows the highlight group under cursor
-_G.syntax_stack = require("syntax_stack")
 -- Define some standard path locations where we will put stuff into.
 -- `data` is for persistent data like logs, backups and file states.
 -- `config` is for configuration code itself and plugins.
@@ -57,9 +55,6 @@ require("filetype.ansi_c")(autocommand)
 local _, setup_mkdir = require("mkdir")()
 setup_mkdir(autocommand)
 
--- Commands have no nvim API yet, so we use vimscript...
-cheatsheet(":WhatHighlight => This command shows the highlight group under the cursor")
-vim.cmd([[command! WhatHighlight lua syntax_stack()]])
 cheatsheet(
 	":TSHighlightCapturesUnderCursor => This command shows the highlight group under the cursor, when TreeSitter is used"
 )

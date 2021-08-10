@@ -19,9 +19,7 @@ alias doas = sudo
 alias grep = rg
 
 # CUSTOM LITTLE JAVA COMMANDS
-alias sha = java (build-string $nu.env.DOTFILES /tools/ sha.java)
 alias aes = java (build-string $nu.env.DOTFILES /tools/ aes.java)
-alias uuid = java (build-string $nu.env.DOTFILES /tools/ random_uuid.java)
 alias download = java (build-string $nu.env.DOTFILES /tools/ download.java)
 alias download_jar = java (build-string $nu.env.DOTFILES /tools/ download_jar.java)
 
