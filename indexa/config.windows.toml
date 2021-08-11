@@ -14,10 +14,7 @@
 # ignore_case = false
 
 # Whether to search in path.
-# match_path = false
-
-# Whether to search in path when query contains path separators.
-auto_match_path = true
+match_path = "auto"
 
 # Whether to enable regex.
 # regex = true
@@ -83,16 +80,17 @@ sort_dirs_before_files = true
 human_readable_size = true
 
 # Datetime format for Created, Modified, and Accessed columns.
-datetime_format = "%Y-%m-%d %R"
+datetime_format = "%d.%m.%Y %R"
 
 # Margin between columns.
-column_spacing = 2
+column_spacing = 4
 
 # Columns from left to right.
 # Columns with width specified will have fixed widths.
 # Remaining screen width is evenly distributed among other columns.
 [[ui.columns]]
 status = "basename"
+width = 12
 
 [[ui.columns]]
 status = "size"
@@ -124,14 +122,14 @@ mode_format = "powershell"
 # - Hex e.g. "#e43", "#fcba03"
 
 # Text (selected line)
-selected_fg = "lightblue"
+selected_fg = "white"
 # Background (selected line)
-selected_bg = "reset"
+selected_bg = "magenta"
 
 # Text (matched substring)
-matched_fg = "black"
+matched_fg = "lightcyan"
 # Background (matched substring)
-matched_bg = "lightblue"
+matched_bg = "reset"
 
 # Text (error message)
 error_fg = "red"
@@ -139,4 +137,4 @@ error_fg = "red"
 error_bg = "reset"
 
 # Prompt
-prompt = "lightblue"
+prompt = "magenta"
