@@ -1,3 +1,4 @@
+# vim: ft=gitconfig
 # This is Git's per-user configuration file.
 [user]
   name = Oliver Jan Krylow
@@ -8,7 +9,7 @@
   quotepath = false
   autocrlf = input
   pager = delta
-	safecrlf = false
+  safecrlf = false
 
 [diff]
   colorMoved = default
@@ -48,9 +49,10 @@
 [init]
   defaultBranch = trunk
 
+[commit]
+  verbose = true
+
 # In order to have host-specific configuration, I include additional settings here.
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
   path = .gitconfig.include
-[commit]
-	verbose = true

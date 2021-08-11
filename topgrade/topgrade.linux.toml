@@ -30,11 +30,14 @@ arguments = "--rebase --autostash"
 # Custom commands
 [commands]
 
+# Updateing my configuration files
+"Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
+
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
 "TLDR" = "tldr --update"
 
 # Update NeoVim-Plugins
-"NeoVim Plugins" = "Write-Host 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless '+PluginsSync' '+autocmd User PackerComplete :qa'"
+"NeoVim Plugins" = "echo 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless '+PluginsSync' '+autocmd User PackerComplete :qa'"
 
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
