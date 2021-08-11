@@ -66,4 +66,3 @@ STARSHIP_SHELL = "nushell"
 EDITOR = "nvim"
 BAT_THEME = "Nord"
 _ZO_ECHO = 1
-MANPAGER = "nvim -c 'set filetype=man' -"
