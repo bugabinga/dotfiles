@@ -90,11 +90,6 @@ column_spacing = 4
 # Remaining screen width is evenly distributed among other columns.
 [[ui.columns]]
 status = "basename"
-width = 12
-
-[[ui.columns]]
-status = "size"
-width = 10
 
 [[ui.columns]]
 status = "modified"

@@ -30,7 +30,7 @@ return function(data_path, non_interactive)
 					open_fn = require("packer.util").float,
 				},
 				profile = {
-					enable = true,
+					enable = false,
 					threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
 				},
 			})
@@ -131,7 +131,15 @@ return function(data_path, non_interactive)
 		-- Show the treesitter parse tree.
 		-- Lint syntax errors
 		-- Show highlight groupsunder cursor
-		use({ "nvim-treesitter/playground" })
+		use({
+			"nvim-treesitter/playground",
+			config = function()
+				local cheatsheet = require("cheatsheet")
+				cheatsheet(
+					":TSHighlightCapturesUnderCursor => This command shows the highlight group under the cursor, when TreeSitter is used"
+				)
+			end,
+		})
 
 		-- Basic integration of ziglang
 		use({ "ziglang/zig.vim", opt = true, ft = "zig" })
@@ -214,7 +222,15 @@ return function(data_path, non_interactive)
 				})
 			end,
 		})
+
+		-- ASCII diagram drawing
+		use({
+			"jbyuki/venn.nvim",
+			opt = true,
+			command = "VBox",
+		})
 	end
+
 	-- the plugin module always delegates to packer, ensuring that at all times init configures packer correctly
 	local plugins = setmetatable({}, {
 		__index = function(_, key)

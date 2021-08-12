@@ -9,6 +9,8 @@ return function(autocommand, data_path)
 	-- show status line and tabline
 	vim.opt.laststatus = 2
 	vim.opt.showtabline = 2
+	-- set tabline to a custom rendering
+	vim.opt.tabline = [[%!v:lua.require'tabline'()]]
 	-- convert tabs to spaces
 	vim.opt.expandtab = true
 	-- Keep indentation of new lines in line with previuos lines
