@@ -34,12 +34,21 @@ local autocommand = require("autocommand")
 
 -- My cheatsheet is an initial buffer (if none was specified) where I put stuff to remember/learn.
 -- Keybinds, commands, todos are all fair game.
-local cheatsheet, setup_cheatsheet = require("cheatsheet")()
+local cheatsheet = require("cheatsheet").print
+local setup_cheatsheet = require("cheatsheet").setup
 cheatsheet("")
 cheatsheet("Stuff for bugabinga to remember about NeoVim")
 cheatsheet("")
 local settings = require("general_editor_settings")
 settings(autocommand, data_path)
+
+-- setup my custom tabline
+local setup_tabline = require("tabline").setup
+setup_tabline()
+
+-- setup my custom statusline
+local setup_statusline = require("statusline").setup
+setup_statusline(autocommand)
 
 -- setup my own keybindings
 require("keybinds")(cheatsheet)
@@ -47,7 +56,7 @@ require("keybinds")(cheatsheet)
 -- some file specific settings
 require("filetype.yaml")(autocommand)
 require("filetype.ansi_c")(autocommand)
-local _, setup_mkdir = require("mkdir")()
+local setup_mkdir = require("mkdir").setup
 setup_mkdir(autocommand)
 
 -- Load nvim plugins

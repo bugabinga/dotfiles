@@ -134,7 +134,8 @@ return function(data_path, non_interactive)
 		use({
 			"nvim-treesitter/playground",
 			config = function()
-				local cheatsheet = require("cheatsheet")
+				local cheatsheet = require("cheatsheet").print
+				cheatsheet("")
 				cheatsheet(
 					":TSHighlightCapturesUnderCursor => This command shows the highlight group under the cursor, when TreeSitter is used"
 				)
