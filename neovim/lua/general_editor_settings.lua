@@ -31,12 +31,14 @@ return function(autocommand, data_path)
     },
   }
   -- integrate Powershell Core with nvim
-  vim.opt.shell = 'powershell'
-  vim.opt.shellquote = ''
-  vim.opt.shellxquote = ''
-  vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -Command'
-  vim.opt.shellredir =  '| Out-File -Encoding UTF8'
-  vim.opt.shellpipe =  '| Out-File -Encoding UTF8'
+  if vim.fn.has('win32') == 1 then
+    vim.opt.shell = 'powershell'
+    vim.opt.shellquote = ''
+    vim.opt.shellxquote = ''
+    vim.opt.shellcmdflag = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -Command'
+    vim.opt.shellredir =  '| Out-File -Encoding UTF8'
+    vim.opt.shellpipe =  '| Out-File -Encoding UTF8'
+  end
   -- insert whitespace type based on whitespace on previous line
   vim.opt.smarttab = true
   vim.opt.hlsearch = true
