@@ -16,11 +16,7 @@ return function(autocommand, data_path, non_interactive)
     data_path .. '/site/pack/' .. plugin_package .. '/opt/packer.nvim'
   )
   if vim.fn.empty(packer_installation_path) == 1 then
-    vim.cmd(
-      '!git clone https://github.com/wbthomason/packer.nvim "'
-      .. packer_installation_path
-      .. '"'
-    )
+    vim.cmd( '!git clone https://github.com/wbthomason/packer.nvim "' .. packer_installation_path .. '"')
   end
   local packer = nil
   local init = function()

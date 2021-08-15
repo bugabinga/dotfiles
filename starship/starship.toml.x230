@@ -1,0 +1,30 @@
+#vim: ft=toml
+[character]
+#symbol = "> "
+
+[battery]
+full_symbol = "= "
+discharging_symbol = "- "
+charging_symbol = "+ "
+
+[[battery.display]]
+threshold = 100
+style = "dim gray"
+
+
+[directory]
+truncation_length = 5
+style = 'bold purple'
+
+[java]
+style = 'yellow dimmed'
+
+[git_status]
+disabled = true
+
+[memory_usage]
+disabled = false
+format = "$symbol $ram_pct ($style)"
+threshold = 50
+symbol = ""
+style = "dimmed gray"
