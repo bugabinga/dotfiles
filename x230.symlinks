@@ -9,3 +9,9 @@ git/gitconfig.x230
 
 starship/starship.toml.x230
 ~/.config/starship.toml
+
+icc/thinkpad_x230.icc
+~/.config/icc/thinkpad_x230.icc
+
+indexa/config.linux.toml
+~/.config/indexa/config.toml
