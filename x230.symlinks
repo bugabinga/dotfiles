@@ -2,10 +2,28 @@ neovim
 ~/.config/nvim
 
 git/gitconfig
-~/.config/git/conifg
+~/.config/git/config
 
-git/gitconfig.x230
+git/gitconfig.linux
 ~/.config/git/.gitconfig.include
+
+alacritty/alacritty.linux.yml
+~/.config/alacritty/alacritty.yml
+
+alacritty/alacritty_common.yml
+~/.config/alacritty/alacritty_common.yml
+
+alacritty/Alacritty.desktop
+~/.local/share/applications/Alacritty.desktop
+
+alacritty/alacritty-simple.svg
+~/.local/share/icons/hicolor/scalable/apps/Alacritty.svg
+
+cargo/config.toml
+~/.cargo/config.toml
+
+nushell
+~/.config/nu
 
 starship/starship.toml.x230
 ~/.config/starship.toml
@@ -15,3 +33,10 @@ icc/thinkpad_x230.icc
 
 indexa/config.linux.toml
 ~/.config/indexa/config.toml
+
+topgrade/topgrade.linux.toml
+~/.config/topgrade.toml
+
+stackoverflow/so
+~/.config/so
+

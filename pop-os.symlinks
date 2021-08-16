@@ -31,9 +31,6 @@ stackoverflow/so
 starship/starship.toml
 ~/.config/starship.toml
 
-alacritty
-~/.config/alacritty
-
 topgrade/topgrade.linux.toml
 ~/.config/topgrade.toml
 
