@@ -1,0 +1,32 @@
+# Linux configuration for alacritty
+# Import common configuration for all platforms.
+# Subsequent configuration in this file will overwrite the common configuration.
+import:
+  - ~/.config/alacritty/alacritty_common.yml
+font:
+  normal:
+    family: BlexMono Nerd Font
+    style: Regular
+  bold:
+    style: Bold
+  italic:
+    style: Italic
+  size: 11.0
+working_directory: /home/oli
+key_bindings:
+  - {
+      key: Comma,
+      mods: Control,
+      command:
+        {
+          program: "alacritty",
+          args:
+            [
+              "--title",
+              "Edit Alacritty Configuration",
+              "--command",
+              "nvim ~/.config/alacritty/alacritty.yml",
+            ],
+        },
+    }
+  - { key: Return, mods: Alt, action: None }
