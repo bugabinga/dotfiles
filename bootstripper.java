@@ -46,7 +46,7 @@ class bootstripper{
         return;
       }
       else {
-        System.out.printf("❌ %s exists, but it points into nirvana. Removing broken link!%n", target_path.toString());
+        System.out.printf("%n❌ %s exists, but it points into nirvana. Removing broken link!%n", target_path.toString());
         Files.delete(target_path);
       }
     }
@@ -85,11 +85,19 @@ class bootstripper{
     }
   }
   static String hostname() throws Exception {
-    var process = new ProcessBuilder()
-    .command("hostname")
-    .start()
-    .onExit()
-    .join();
+    var process_builder = new ProcessBuilder();
+    var operating_system = System.getProperty("os.name");
+    if(operating_system.toLowerCase().contains("linux")){
+      process_builder = process_builder.command("hostnamectl", "hostname");
+    }
+    else
+    {
+      process_builder = process_builder.command("hostname");
+    }
+    var process = process_builder
+      .start()
+      .onExit()
+      .join();
     try(var reader = new InputStreamReader(process.getInputStream()))
     {
       int character = -1;
