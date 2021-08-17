@@ -1,11 +1,12 @@
 local branch_icon = ""
 local vcs_branch_name = ""
+local code_actions_count = 0
 local special_windows = {
 	intro = { "CheatSheet", "" },
 	NvimTree = { "Files", "" },
 	packer = { "Plugins", "" },
 	help = { "Help", "龎" },
-	[""] = { "no name", "" },
+	[""] = { "unknown file type", "" },
 }
 local lsp_symbols = { Error = "", Information = "", Warning = "", Hint = "" }
 
@@ -21,6 +22,18 @@ local get_lsp_diagnostics_count = function()
 end
 
 return {
+	update_code_actions_count = function()
+		local diagnostics_line_context = { diagnostics = vim.lsp.diagnostic.get_line_diagnostics() }
+		local lsp_parameters = vim.lsp.util.make_range_params()
+		lsp_parameters.context = diagnostics_line_context
+		vim.lsp.buf_request(0, "textDocument/codeAction", lsp_parameters, function(error, _, result)
+			if not error and result then
+				code_actions_count = #result
+			else
+				code_actions_count = 0
+			end
+		end)
+	end,
 	-- refresh the statuslines of all windows.
 	-- the current window gets special treatment. it is "active".
 	update_statuslines = function()
@@ -84,7 +97,7 @@ return {
 		local modifiable = vim.bo.modifiable and " " or ""
 		local diagnostics = get_lsp_diagnostics_count()
 
-    local vcs_info = vcs_branch_name and ("%#LineNr#%=" .. branch_icon .. " " .. vcs_branch_name) or nil
+		local vcs_info = vcs_branch_name and ("%#LineNr#%=" .. branch_icon .. " " .. vcs_branch_name) or nil
 
 		local statusline = "%#Statusline"
 			.. (active and "" or "NC")
@@ -95,6 +108,7 @@ return {
 			.. " "
 			.. "%F" -- full file path
 			.. (active and (diagnostics ~= "" and "  " .. diagnostics .. "  " or " ") or " ")
+			.. (code_actions_count ~= 0 and ("%#Title#" .. " " .. code_actions_count .. " ﯦ") or "")
 			.. (active and vcs_info or "")
 
 		return statusline
@@ -102,9 +116,10 @@ return {
 	-- setup a custom statusline
 	setup = function(autocommand)
 		autocommand({
-			update_statuslines = "BufEnter,WinEnter,BufWinEnter,BufReadPost * lua require'statusline'.update_statuslines()",
 			-- TODO: is there a more clever way to synchronize getting the branch name and updating the statusline?
 			update_vcs_branch_name = "BufEnter,WinEnter,BufWinEnter,BufReadPost * lua require'statusline'.update_vcs_branch_name()",
+			update_code_actions_count = "CursorHold,CursorHoldI * lua require'statusline'.update_code_actions_count()",
+			update_statuslines = "CursorHold,CursorHoldI,BufEnter,WinEnter,BufWinEnter,BufReadPost * lua require'statusline'.update_statuslines()",
 		})
 	end,
 }
