@@ -36,6 +36,12 @@
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
 - [ ] disable syntax highlighting (treesitter) for inactive buffers and dim color
+- [ ] port commands from vim-eunuch:
+  - [ ] Delete
+  - [ ] Move/Rename
+  - [ ] Sudo/Doas
+- [ ] LSP diagnostics only on BufWrite
+- [ ] easier too read colors for lsp hovers
 
 ## Done
 

@@ -15,7 +15,7 @@ return function(data_path, non_interactive)
 	local packer_installation_path = data_path .. "/site/pack/" .. plugin_package .. "/opt/packer.nvim"
 	if vim.fn.empty(vim.fn.glob(packer_installation_path)) == 1 then
 		vim.cmd('!git clone https://github.com/wbthomason/packer.nvim "' .. packer_installation_path .. '"')
-	  vim.cmd('packadd packer')
+		vim.cmd("packadd packer")
 	end
 	local packer = nil
 	local init = function()
@@ -92,8 +92,6 @@ return function(data_path, non_interactive)
 			end,
 		})
 
-		-- TODO learn to configure minimal status line and tabline
-
 		-- NVIM API for defining color schemes
 		-- TODO: when profiling, this plugins loading times are high
 		--       maybe the cause is that it loads a bunch of files
@@ -108,10 +106,27 @@ return function(data_path, non_interactive)
 		-- Advanced parsers for better syntax highlighting
 		use({
 			"nvim-treesitter/nvim-treesitter",
+			requires = { "nvim-treesitter/nvim-treesitter-refactor" },
 			config = function()
 				require("nvim-treesitter.install").compilers = { "clang" }
 				require("nvim-treesitter.configs").setup({
-					ensure_installed = { "zig", "java", "rust", "lua", "toml", "yaml", "json", "c" },
+					ensure_installed = {
+						"zig",
+						"java",
+						"rust",
+						"lua",
+						"toml",
+						"yaml",
+						"json",
+						"jsonc",
+						"c",
+						"comment",
+						"html",
+						"css",
+						"javascript",
+						"query",
+						"vim",
+					},
 					highlight = { enable = true },
 					incremental_selection = {
 						enable = true,
@@ -124,6 +139,11 @@ return function(data_path, non_interactive)
 					},
 					indent = { enable = true },
 					query_linter = { enable = true, use_virtual_text = true, lint_events = { "BufWrite" } },
+					refactor = {
+						highlight_definitions = { enable = true },
+						smart_rename = { enable = true, keymaps = { smart_rename = "<LEADER>r" } },
+						navigation = { enable = true, keymaps = { goto_next_usage = "<a-.>", goto_previous_usage = "<a-,>" } },
+					},
 				})
 			end,
 		})
