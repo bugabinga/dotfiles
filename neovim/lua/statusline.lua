@@ -5,6 +5,7 @@ local special_windows = {
 	NvimTree = { "Files", "" },
 	packer = { "Plugins", "" },
 	help = { "Help", "龎" },
+	[""] = { "no name", "" },
 }
 local lsp_symbols = { Error = "", Information = "", Warning = "", Hint = "" }
 
@@ -25,43 +26,65 @@ return {
 	update_statuslines = function()
 		for _, window_number in pairs(vim.api.nvim_list_wins()) do
 			if vim.api.nvim_get_current_win() == window_number then
-				vim.opt.statusline = [[%!v:lua.require'statusline'.render("current")]]
-			elseif vim.api.nvim_buf_get_name(0) ~= "" then
-				vim.opt.statusline = [[%!v:lua.require'statusline'.render()]]
+				vim.wo[window_number].statusline = [[%!v:lua.require'statusline'.render("current")]]
+			else
+				vim.wo[window_number].statusline = [[%!v:lua.require'statusline'.render()]]
 			end
 		end
 	end,
 	-- update the vcs branch name, if vcs is available
 	update_vcs_branch_name = function()
 		if not pcall(require, "plenary") then
-			return ""
+			return
 		end
-		require("plenary.job")
-			:new({
-				command = "git",
-				args = { "branch", "--show-current" },
-				cwd = vim.fn.expand("%:p:h"), -- parent directory of current buffer
-				on_exit = function(output)
-					local result = output:result()[1]
-					if result then
-						vcs_branch_name = "%#LineNr#%=" .. branch_icon .. " " .. result
-					else
-						vcs_branch_name = ""
-					end
-				end,
-			})
-			:start()
+		local Job = require("plenary.job")
+		local git = Job:new({
+			command = "git",
+			args = { "branch", "--show-current" },
+			cwd = vim.fn.expand("%:p:h"), -- parent directory of current buffer
+			on_exit = function(output)
+				local result = output:result()[1]
+				if result then
+					vcs_branch_name = result
+				end
+			end,
+		})
+		local svn = Job:new({
+			command = "svn",
+			args = { "info" },
+			cwd = vim.fn.expand("%:p:h"), -- parent directory of current buffer
+			on_exit = function(output)
+				local result = output:result()[4] -- Relative URL is on the 4th line
+				result = result and result:match("Relative URL:%s%^/([%w/]+).*") or nil
+				if result then
+					vcs_branch_name = result
+				end
+			end,
+		})
+		-- simply try all vcs tools at once, and trust that only one returns an answer successfully
+		local all = { git, svn }
+		for _, tool in pairs(all) do
+			tool:start()
+		end
 	end,
 	-- generate the statusline string
 	render = function(active)
 		local filetype = vim.bo.filetype
 		local special_window = special_windows[filetype]
-		if active and special_window then
-			return "%#LineNr#%=" .. special_window[2] .. " " .. special_window[1] .. "%="
+		if special_window then
+			return "%#Statusline"
+				.. (active and "" or "NC")
+				.. "#%="
+				.. special_window[2]
+				.. " "
+				.. special_window[1]
+				.. "%="
 		end
-		local edited = vim.bo.mod and "" or ""
-		local modifiable = vim.bo.modifiable and "" or ""
+		local edited = vim.bo.mod and "" or " "
+		local modifiable = vim.bo.modifiable and " " or ""
 		local diagnostics = get_lsp_diagnostics_count()
+
+    local vcs_info = vcs_branch_name and ("%#LineNr#%=" .. branch_icon .. " " .. vcs_branch_name) or nil
 
 		local statusline = "%#Statusline"
 			.. (active and "" or "NC")
@@ -71,16 +94,17 @@ return {
 			.. modifiable
 			.. " "
 			.. "%F" -- full file path
-			.. (diagnostics ~= "" and "  " .. diagnostics .. "  " or " ")
-			.. (active and vcs_branch_name or "")
+			.. (active and (diagnostics ~= "" and "  " .. diagnostics .. "  " or " ") or " ")
+			.. (active and vcs_info or "")
 
 		return statusline
 	end,
 	-- setup a custom statusline
 	setup = function(autocommand)
 		autocommand({
-			update_statusline = "CursorHold,CursorHoldI * lua require'statusline'.update_statuslines()",
-			update_vcs_branch_name = "BufEnter,BufWinEnter,WinEnter,BufReadPost * lua require'statusline'.update_vcs_branch_name()",
+			update_statuslines = "BufEnter,WinEnter,BufWinEnter,BufReadPost * lua require'statusline'.update_statuslines()",
+			-- TODO: is there a more clever way to synchronize getting the branch name and updating the statusline?
+			update_vcs_branch_name = "BufEnter,WinEnter,BufWinEnter,BufReadPost * lua require'statusline'.update_vcs_branch_name()",
 		})
 	end,
 }

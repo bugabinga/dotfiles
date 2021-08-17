@@ -35,6 +35,7 @@
 
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
+- [ ] disable syntax highlighting (treesitter) for inactive buffers and dim color
 
 ## Done
 
