@@ -151,26 +151,13 @@ return function()
 
 	-- Null-ls
 	local nls = require("null-ls")
-	local helpers = require("null-ls.helpers")
-	local methods = require("null-ls.methods")
-	local prose_format = helpers.make_builtin({
-		method = methods.internal.FORMATTING,
-		filetypes = { "markdown" },
-		generator_opts = {
-			command = "prose",
-			--FIXME this should be a higher order function, because the tab width needs to be lazily fetched at callsite and for the buffer instead of the global value.
-			args = { "-f", "-w", "80", "-m", "-t", vim.o.tabstop },
-			to_stdin = true,
-		},
-		factory = helpers.formatter_factory,
-	})
+	
 	nls.setup({
 		debug = false,
 		-- Format: [CODE] MESSAGE (SOURCE)
 		diagnostics_format = "[#{c}] #{m} (#{s})",
 		sources = {
 			nls.builtins.formatting.stylua,
-			prose_format,
 			-- this is a nice linter, but wihtout configuration, it spews too much nonsense.
 			-- one can define the stdlib for vim in a config file, but the builtin selene does not find the config file.
 			-- this is a general issue with formatters/linters integrated into neovim.

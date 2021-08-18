@@ -27,7 +27,6 @@
 - eva: calculator
 - bandwhich: show network traffic information
 - so: search Stack Exchange 
-- prose: simple text (markdown, emails, paragraphs) formatter
 - linky: check markdown for broken links
 - comrak: render markdown to html
 
@@ -43,6 +42,9 @@
   - [ ] Sudo/Doas
 - [ ] LSP diagnostics only on BufWrite
 - [ ] easier too read colors for lsp hovers
+- [ ] crack nvim auto completion. how to configure it to my tastes?
+- [ ] port keymaps in nvim config to cartographer
+- [ ] test luadoc style docs. will it be rendered nicely in hovers?
 
 ## Done
 
