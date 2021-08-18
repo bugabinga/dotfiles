@@ -35,6 +35,7 @@
 
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
+- [ ] get SIM card to work on x230
 
 ## Done
 
