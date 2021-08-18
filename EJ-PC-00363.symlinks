@@ -7,7 +7,7 @@ git/gitconfig
 git/gitconfig.EJ-PC-00363
 ~/.gitconfig.include
 
-starship/starship.toml
+starship/starship.toml.EJ-PC-00363
 ~/.config/starship.toml
 
 alacritty/alacritty.windows.yml

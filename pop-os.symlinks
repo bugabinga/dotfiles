@@ -28,11 +28,8 @@ neovim
 stackoverflow/so
 ~/.config/so
 
-starship/starship.toml
+starship/starship.toml.pop-os
 ~/.config/starship.toml
-
-alacritty
-~/.config/alacritty
 
 topgrade/topgrade.linux.toml
 ~/.config/topgrade.toml
