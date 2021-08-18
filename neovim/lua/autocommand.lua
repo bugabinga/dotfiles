@@ -1,8 +1,8 @@
 -- This function creates a custom API over autocommands in nvim.
 -- Since an official API is not present yet, I simply stole one from norcalli.
 -- groups: a map of group name to list of vimscript commands (table of string), or a single vimscript command (string).
-return function(groups)
-  for name, commands in pairs(groups) do
+return function(autocmd_groups)
+  for name, commands in pairs(autocmd_groups) do
     -- wrap autocommands in a group and..
     vim.cmd('augroup ' .. name)
     -- ... undefine the groups commands, so that they become idempotent.

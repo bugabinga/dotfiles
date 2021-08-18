@@ -15,6 +15,7 @@ return function(data_path, non_interactive)
 	local packer_installation_path = data_path .. "/site/pack/" .. plugin_package .. "/opt/packer.nvim"
 	if vim.fn.empty(vim.fn.glob(packer_installation_path)) == 1 then
 		vim.cmd('!git clone https://github.com/wbthomason/packer.nvim "' .. packer_installation_path .. '"')
+		vim.cmd("packadd packer")
 	end
 	local packer = nil
 	local init = function()
@@ -91,12 +92,7 @@ return function(data_path, non_interactive)
 			end,
 		})
 
-		-- TODO learn to configure minimal status line and tabline
-
 		-- NVIM API for defining color schemes
-		-- TODO: when profiling, this plugins loading times are high
-		--       maybe the cause is that it loads a bunch of files
-		--       should those be merged into one file?
 		use({
 			"tjdevries/colorbuddy.vim",
 			config = function()
@@ -107,10 +103,27 @@ return function(data_path, non_interactive)
 		-- Advanced parsers for better syntax highlighting
 		use({
 			"nvim-treesitter/nvim-treesitter",
+			requires = { "nvim-treesitter/nvim-treesitter-refactor" },
 			config = function()
 				require("nvim-treesitter.install").compilers = { "clang" }
 				require("nvim-treesitter.configs").setup({
-					ensure_installed = { "zig", "java", "rust", "lua", "toml", "yaml", "json", "c" },
+					ensure_installed = {
+						"zig",
+						"java",
+						"rust",
+						"lua",
+						"toml",
+						"yaml",
+						"json",
+						"jsonc",
+						"c",
+						"comment",
+						"html",
+						"css",
+						"javascript",
+						"query",
+						"vim",
+					},
 					highlight = { enable = true },
 					incremental_selection = {
 						enable = true,
@@ -123,6 +136,14 @@ return function(data_path, non_interactive)
 					},
 					indent = { enable = true },
 					query_linter = { enable = true, use_virtual_text = true, lint_events = { "BufWrite" } },
+					refactor = {
+						highlight_definitions = { enable = true },
+						smart_rename = { enable = true, keymaps = { smart_rename = "<LEADER>r" } },
+						navigation = {
+							enable = true,
+							keymaps = { goto_next_usage = "<a-.>", goto_previous_usage = "<a-,>" },
+						},
+					},
 				})
 			end,
 		})
@@ -184,6 +205,15 @@ return function(data_path, non_interactive)
 				-- This will configure all LSPs not only Null-ls.
 				-- But because Null-ls depends on lspconfig, we have to delay this
 				require("lsp")()
+				-- overwrite default action handlers with cuter ones
+				vim.lsp.handlers["textDocument/codeAction"] = require("lsputil.codeAction").code_action_handler
+				vim.lsp.handlers["textDocument/references"] = require("lsputil.locations").references_handler
+				vim.lsp.handlers["textDocument/definition"] = require("lsputil.locations").definition_handler
+				vim.lsp.handlers["textDocument/declaration"] = require("lsputil.locations").declaration_handler
+				vim.lsp.handlers["textDocument/typeDefinition"] = require("lsputil.locations").typeDefinition_handler
+				vim.lsp.handlers["textDocument/implementation"] = require("lsputil.locations").implementation_handler
+				vim.lsp.handlers["textDocument/documentSymbol"] = require("lsputil.symbols").document_handler
+				vim.lsp.handlers["workspace/symbol"] = require("lsputil.symbols").workspace_handler
 			end,
 			requires = {
 				-- extensions to the std lib
@@ -192,6 +222,13 @@ return function(data_path, non_interactive)
 				"neovim/nvim-lspconfig",
 				-- Completions support, that integrates advanced nvim features (LSP+treesitter)
 				"nvim-lua/completion-nvim",
+				-- Icons for completion UI
+				"onsails/lspkind-nvim",
+				-- dependency of nvim-lsputils
+				"RishabhRD/popfix",
+				-- collection of better handlers for lsp actions.
+				-- e.g. puts selection of code actions into floating window
+				"RishabhRD/nvim-lsputils",
 			},
 		})
 
@@ -230,6 +267,13 @@ return function(data_path, non_interactive)
 			opt = true,
 			command = "VBox",
 		})
+
+		-- convenient lua abstraction over the nvim keymap function
+		-- TODO: use it throughout the code
+		use("Iron-E/nvim-cartographer")
+
+		-- automatically size splits reasonably
+		use("beauwilliams/focus.nvim")
 	end
 
 	-- the plugin module always delegates to packer, ensuring that at all times init configures packer correctly

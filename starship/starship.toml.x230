@@ -1,0 +1,53 @@
+#vim: ft=toml
+[character]
+success_symbol = ' (dimmed green)'
+# does not work yet in nushell
+error_symbol = ' (dimmed red)'
+
+[directory]
+style = 'bold purple'
+truncation_symbol = '⋯ /'
+home_symbol = '∽'
+truncation_length = 5
+read_only = " "
+
+[java]
+style = 'dimmed yellow'
+symbol = " "
+
+[git_status]
+# too slow
+disabled = true
+
+[git_branch]
+symbol = " "
+
+[package]
+style = "dimmed cyan"
+
+[rust]
+symbol = " "
+style = "dimmed cyan"
+
+[zig]
+style = "dimmed yellow"
+
+[lua]
+style = "dimmed blue"
+symbol = " "
+
+[memory_usage]
+disabled = false
+format = "$symbol $ram_pct ($style)"
+threshold = 50
+symbol = ""
+style = "dimmed gray"
+
+[battery]
+full_symbol = "🔋 "
+charging_symbol = "⚡️ "
+discharging_symbol = "💀 "
+
+[[battery.display]]
+threshold = 100
+style = "dim gray"
