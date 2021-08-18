@@ -55,6 +55,8 @@ return {
 			command = "git",
 			args = { "branch", "--show-current" },
 			cwd = vim.fn.expand("%:p:h"), -- parent directory of current buffer
+			maximum_results = 1,
+			skip_validation = true,
 			on_exit = function(output)
 				local result = output:result()[1]
 				if result then
@@ -66,6 +68,8 @@ return {
 			command = "svn",
 			args = { "info" },
 			cwd = vim.fn.expand("%:p:h"), -- parent directory of current buffer
+			maximum_results = 4,
+			skip_validation = true,
 			on_exit = function(output)
 				local result = output:result()[4] -- Relative URL is on the 4th line
 				result = result and result:match("Relative URL:%s%^/([%w/]+).*") or nil
@@ -77,7 +81,7 @@ return {
 		-- simply try all vcs tools at once, and trust that only one returns an answer successfully
 		local all = { git, svn }
 		for _, tool in pairs(all) do
-			tool:start()
+			pcall(tool.start, tool)
 		end
 	end,
 	-- generate the statusline string

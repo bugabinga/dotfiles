@@ -85,19 +85,18 @@ class bootstripper{
     }
   }
   static String hostname() throws Exception {
-    var process_builder = new ProcessBuilder();
-    var operating_system = System.getProperty("os.name");
-    if(operating_system.toLowerCase().contains("linux")){
-      process_builder = process_builder.command("hostnamectl", "hostname");
-    }
-    else
-    {
-      process_builder = process_builder.command("hostname");
-    }
+    var process_builder = new ProcessBuilder().command("hostname");
     var process = process_builder
       .start()
       .onExit()
       .join();
+    if(process.exitValue() != 0) {
+      process = new ProcessBuilder()
+      .command("hostnamectl", "hostname")
+      .start()
+      .onExit()
+      .join();
+    }
     try(var reader = new InputStreamReader(process.getInputStream()))
     {
       int character = -1;
