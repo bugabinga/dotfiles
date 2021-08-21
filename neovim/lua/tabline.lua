@@ -17,26 +17,29 @@ return
   render = function()
   local buffer_names_to_ignore = {'NvimTree'}
   local tabline = ""
-  -- FIXME change this to tabpage instead of buf
-  for _, buffer_number in pairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_is_valid(buffer_number) and vim.api.nvim_buf_is_loaded(buffer_number) then
+  for _, current_tab in pairs(vim.api.nvim_list_tabpages()) do
+    if vim.api.nvim_tabpage_is_valid(current_tab) then
+      local current_window = vim.api.nvim_tabpage_get_win(current_tab)
+      if not vim.api.nvim_win_is_valid(current_window) then goto continue end
+      local current_buffer = vim.api.nvim_win_get_buf(current_window)
+      if not (vim.api.nvim_buf_is_valid(current_buffer) and vim.api.nvim_buf_is_loaded(current_buffer)) then goto continue end
       local modified = vim.bo.modified and "" or " "
       -- we only care about the last part of the path
-      local stylish_buffer_name = vim.api.nvim_buf_get_name(buffer_number):match(".-([^\\/]-)$") or ""
-      if vim.tbl_contains(buffer_names_to_ignore, stylish_buffer_name) or stylish_buffer_name == "" then goto continue end
+      local current_buffer_name = vim.api.nvim_buf_get_name(current_buffer)
+      local stylish_buffer_name = current_buffer_name:match(".-([^\\/]-)$") or ""
+      if vim.tbl_contains(buffer_names_to_ignore, stylish_buffer_name) then goto continue end
       local icon = ""
---FIXME this is the wrong way to handle new empty buffers: how to do it whithout showing tabs for all kinds of auxillary buffers (checkhealt for example)
---[[ if stylish_buffer_name == "" then
-stylish_buffer_name = "no name"
-          icon = "" ]]
-      if stylish_buffer_name == "cheatsheet" then
+      if stylish_buffer_name == "" then
+        stylish_buffer_name = "no name"
+        icon = ""
+      elseif stylish_buffer_name == "cheatsheet" then
         icon = ""
       else 
         local extension = stylish_buffer_name:match("%w+%.(.+)")
         icon = get_icon(stylish_buffer_name, extension)
       end
       stylish_buffer_name = " " .. stylish_buffer_name .. " "
-      local is_current_buffer = vim.api.nvim_get_current_buf() == buffer_number
+      local is_current_buffer = vim.api.nvim_get_current_buf() == current_buffer
       tabline = tabline .. "%#TabLine" ..
         (is_current_buffer and "Sel" or "") .. "#" ..
         " " .. icon .. stylish_buffer_name .. (is_current_buffer and modified or " ")

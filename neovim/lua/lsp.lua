@@ -4,23 +4,12 @@
 return function()
 	local integrate_into_neovim = function(client, buffer_number)
 		print("LSP " .. client.name .. " [" .. client.id .. "] " .. "started.")
-		local chain_complete_list = {
-			default = {
-				{ complete_items = { "lsp", "snippet" } },
-				{ complete_items = { "path" }, triggered_only = { "/" } },
-				{ complete_items = { "buffers" } },
-			},
-			string = {
-				{ complete_items = { "path" }, triggered_only = { "/" } },
-			},
-			comment = {},
-		}
 
-		require("completion").on_attach({
-			sorting = "length",
-			enable_auto_popup = false,
-			chain_complete_list = chain_complete_list,
-		})
+		-- enable lsp-powered auto-completion
+		-- FIXME: I cannot seem to configure this plugin to my liking.
+		require("completion").on_attach()
+		-- adds icons into the completion ui
+		require"lspkind".init()
 
 		-- hook lsp into vim autocomplete in insert mode
 		vim.api.nvim_buf_set_option(buffer_number, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -31,17 +20,17 @@ return function()
 
 		map("n", "<LEADER>gD", "<CMD>lua vim.lsp.buf.declaration()<CR>")
 		map("n", "<LEADER>gd", "<CMD>lua vim.lsp.buf.definition()<CR>")
-		map("n", "<LEADER>K", "<CMD>lua vim.lsp.buf.hover()<CR>")
 		map("n", "<LEADER>gr", "<CMD>lua vim.lsp.buf.references()<CR>")
-		map("n", "<LEADER>gs", "<CMD>lua vim.lsp.buf.signature_help()<CR>")
 		map("n", "<LEADER>gi", "<CMD>lua vim.lsp.buf.implementation()<CR>")
 		map("n", "<LEADER>gt", "<CMD>lua vim.lsp.buf.type_definition()<CR>")
 		map("n", "<LEADER>gw", "<CMD>lua vim.lsp.buf.document_symbol()<CR>")
 		map("n", "<LEADER>gW", "<CMD>lua vim.lsp.buf.workspace_symbol()<CR>")
+
 		map("n", "<LEADER>ah", "<CMD>lua vim.lsp.buf.hover()<CR>")
+		map("n", "<LEADER>as", "<CMD>lua vim.lsp.buf.signature_help()<CR>")
 		map("n", "<LEADER>af", "<CMD>lua vim.lsp.buf.code_action()<CR>")
 		map("n", "<LEADER>ar", "<CMD>lua vim.lsp.buf.rename()<CR>")
-		map("n", "<LEADER>=", "<CMD>lua vim.lsp.buf.formatting()<CR>")
+		map("n", "<LEADER>a=", "<CMD>lua vim.lsp.buf.formatting()<CR>")
 		map("n", "<LEADER>ai", "<CMD>lua vim.lsp.buf.incoming_calls()<CR>")
 		map("n", "<LEADER>ao", "<CMD>lua vim.lsp.buf.outgoing_calls()<CR>")
 
@@ -117,6 +106,7 @@ return function()
 			},
 		},
 	})
+
 	-- Markdown Notes (Zettelkasten) LSP
 	lsp.zeta_note.setup({
 		on_attach = integrate_into_neovim,
