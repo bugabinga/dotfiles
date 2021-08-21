@@ -50,7 +50,7 @@ class bootstripper{
         Files.delete(target_path);
       }
     }
-    System.out.printf("🔗 %s ➔ %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
+    System.out.printf("%n🔗 %s ➔ %s.%n", emphasize_local(source_path.toString()), emphasize_local(target_path.toString()));
     Files.createDirectories(target_path.getParent());
     try{
       Files.createSymbolicLink(target_path, source_path);
