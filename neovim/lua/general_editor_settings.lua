@@ -66,7 +66,7 @@ return function(autocommand, data_path)
 	vim.opt.showcmd = false
 	vim.opt.wildmode = "list:longest"
 	-- Set the current working directory to the parent of the active buffer
-	vim.opt.autochdir = false
+	vim.opt.autochdir = true
 	-- Keep track of file changes outside of vim
 	vim.opt.autoread = true
 	-- Make backups of all touched files in a special directory

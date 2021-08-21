@@ -10,16 +10,16 @@ class bootstripper{
     }
     var dorkfiles_root = Path.of(arguments[0]).toRealPath();
     System.out.printf("Assuming dorkfiles root repo in %s.%n", emphasize_local(dorkfiles_root.toString()));
-    decrypt_secrets(dorkfiles_root.resolve("secrets"));
+    decrypt_secrets(dorkfiles_root.resolve("tresor"));
     var hostname = hostname();
     System.out.printf("Hostname: %s%n", emphasize_global(hostname));
     var symlinks_file = hostname + ".symlinks";
-    create_symlinks(dorkfiles_root.resolve(symlinks_file));
+    create_symlinks(dorkfiles_root, dorkfiles_root.resolve(symlinks_file));
   }
   static void decrypt_secrets(Path secrets_root) throws Exception {
     System.out.printf("%s:Decrypting files in %s folder.%n", emphasize_global("TODO"), emphasize_local(secrets_root.getFileName().toString()));
   }
-  static void create_symlinks(Path symlinks_file) throws Exception {
+  static void create_symlinks(Path root, Path symlinks_file) throws Exception {
     System.out.printf("Creating symlinks as defined in %s file.%n", emphasize_local(symlinks_file.getFileName().toString()));
     var lines = Files.readAllLines(symlinks_file);
     String source = null;
@@ -29,15 +29,15 @@ class bootstripper{
       if (source == null) source = line;
       else if (target == null) target = line;
       if(source != null && target != null){
-        link(source, target);
+        link(root, source, target);
         source = null;
         target = null;
       }
     }
   }
-  static void link(String source, String target) throws Exception {
+  static void link(Path root, String source, String target) throws Exception {
     var home = System.getProperty("user.home");
-    var source_path = Path.of(source.replace("~", home)).toAbsolutePath();
+    var source_path = root.resolve(source).toAbsolutePath();
     var target_path = Path.of(target.replace("~", home)).toAbsolutePath();
     var is_directory = Files.isDirectory(source_path);
     if(Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)){
@@ -85,19 +85,18 @@ class bootstripper{
     }
   }
   static String hostname() throws Exception {
-    var process_builder = new ProcessBuilder();
-    var operating_system = System.getProperty("os.name");
-    if(operating_system.toLowerCase().contains("linux")){
-      process_builder = process_builder.command("hostnamectl", "hostname");
-    }
-    else
-    {
-      process_builder = process_builder.command("hostname");
-    }
+    var process_builder = new ProcessBuilder().command("hostname");
     var process = process_builder
       .start()
       .onExit()
       .join();
+    if(process.exitValue() != 0) {
+      process = new ProcessBuilder()
+      .command("hostnamectl", "hostname")
+      .start()
+      .onExit()
+      .join();
+    }
     try(var reader = new InputStreamReader(process.getInputStream()))
     {
       int character = -1;
