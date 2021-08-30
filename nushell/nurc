@@ -116,7 +116,7 @@ def man [
   ...rest: string # Arguments to man
 ] {
   if (sys).host.name == "Windows" {
-    start (build-string https://man.cx/ ($rest | to-string))
+    start (build-string https://man.archlinux.org/man/ ($rest | to-string))
   } {
     exec man $rest
   }

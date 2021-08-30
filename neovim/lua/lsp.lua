@@ -6,40 +6,97 @@ return function()
 		print("LSP " .. client.name .. " [" .. client.id .. "] " .. "started.")
 
 		-- enable lsp-powered auto-completion
-		-- FIXME: I cannot seem to configure this plugin to my liking.
-		require("completion").on_attach()
+		local cmp = require("cmp")
+		local types = require("cmp.types")
 		-- adds icons into the completion ui
-		require"lspkind".init()
+		local lspkind = require("lspkind")
+		-- TODO define snippets in some other file...
+		local snippets = require("snippets")
+		cmp.setup({
+			snippet = {
+				expand = function(arguments)
+					--FIXME no clue if this actually does something..
+					snippets.lookup_snippet(vim.o.filetype, arguments.body)
+				end,
+			},
+			completion = {
+				autocomplete = false,
+			},
+			confirmation = { default_behaviour = types.cmp.ConfirmBehavior.Insert },
+			mapping = {
+				["<C-d>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				["<C-n>"] = cmp.mapping.complete(),
+				["<C-j>"] = cmp.mapping.select_next_item(),
+				["<C-k>"] = cmp.mapping.select_prev_item(),
+				["<C-e>"] = cmp.mapping.abort(),
+				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+			},
+			formatting = {
+				format = function(_, vim_item)
+					vim_item.kind = lspkind.presets.default[vim_item.kind]
+					return vim_item
+				end,
+			},
+			sources = {
+				{ name = "nvim_lsp" },
+				{ name = "nvim_lua" }, -- this source only makes sense in neovim lua files...
+				{ name = "buffer" },
+				{ name = "path" },
+				{ name = "emoji" },
+				{ name = "calc" },
+			},
+		})
+		-- Configure diagnostics to only show up on file save
+		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+			signs = true,
+			underline = false,
+			virtual_text = false,
+			-- FIXME  these options are not merged yet
+			--[[ show_diagnostic_autocmds = { "BufWritePost" },
+			diagnostic_delay = 500, ]]
+			-- TODO
+			-- * clear diagnostics on enter i
+		})
+		local keys = require("which-key")
+		keys.register({
+			g = {
+				name = "Goto Navigation",
+				["D"] = { [[<CMD>lua vim.lsp.buf.declaration()<CR>]], "Goto Declaration" },
+				["d"] = { [[<CMD>lua vim.lsp.buf.definition()<CR>]], "Goto Definition" },
+				["i"] = { [[<CMD>lua vim.lsp.buf.implementation()<CR>]], "Goto Implementation" },
+				["t"] = { [[<CMD>lua vim.lsp.buf.type_definition()<CR>]], "Goto Type Definition" },
+				["w"] = { [[<CMD>lua vim.lsp.buf.document_symbol()<CR>]], "Goto Document Symbol" },
+				["W"] = { [[<CMD>lua vim.lsp.buf.workspace_symbol()<CR>]], "Goto Workspace Symbol" },
+				["n"] = { [[<CMD>lua vim.lsp.diagnostic.goto_next()<CR>]], "Goto Next Diagnostic" },
+				["N"] = { [[<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>]], "Goto Previous Diagnostic" },
+			},
+			a = {
+				name = "Code Operations",
+				["h"] = { [[<CMD>lua vim.lsp.buf.hover()<CR>]], "Show Hover" },
+				["d"] = {
+					[[<CMD>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>]],
+					"Show Diagnostics on Current Line",
+				},
+				["s"] = { [[<CMD>lua vim.lsp.buf.signature_help()<CR>]], "Show Signature Help" },
+				["f"] = { [[<CMD>lua vim.lsp.buf.code_action()<CR>]], "Code Actions..." },
+				["r"] = { [[<CMD>lua vim.lsp.buf.rename()<CR>]], "Rename" },
+				["="] = { [[<CMD>lua vim.lsp.buf.formatting()<CR>]], "Format" },
 
-		-- hook lsp into vim autocomplete in insert mode
-		vim.api.nvim_buf_set_option(buffer_number, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-		local map = function(type, key, value)
-			vim.api.nvim_buf_set_keymap(buffer_number, type, key, value, { noremap = true, silent = true })
-		end
-
-		map("n", "<LEADER>gD", "<CMD>lua vim.lsp.buf.declaration()<CR>")
-		map("n", "<LEADER>gd", "<CMD>lua vim.lsp.buf.definition()<CR>")
-		map("n", "<LEADER>gr", "<CMD>lua vim.lsp.buf.references()<CR>")
-		map("n", "<LEADER>gi", "<CMD>lua vim.lsp.buf.implementation()<CR>")
-		map("n", "<LEADER>gt", "<CMD>lua vim.lsp.buf.type_definition()<CR>")
-		map("n", "<LEADER>gw", "<CMD>lua vim.lsp.buf.document_symbol()<CR>")
-		map("n", "<LEADER>gW", "<CMD>lua vim.lsp.buf.workspace_symbol()<CR>")
-
-		map("n", "<LEADER>ah", "<CMD>lua vim.lsp.buf.hover()<CR>")
-		map("n", "<LEADER>as", "<CMD>lua vim.lsp.buf.signature_help()<CR>")
-		map("n", "<LEADER>af", "<CMD>lua vim.lsp.buf.code_action()<CR>")
-		map("n", "<LEADER>ar", "<CMD>lua vim.lsp.buf.rename()<CR>")
-		map("n", "<LEADER>a=", "<CMD>lua vim.lsp.buf.formatting()<CR>")
-		map("n", "<LEADER>ai", "<CMD>lua vim.lsp.buf.incoming_calls()<CR>")
-		map("n", "<LEADER>ao", "<CMD>lua vim.lsp.buf.outgoing_calls()<CR>")
-
-		map("n", "<LEADER>n", "<CMD>lua vim.lsp.diagnostic.goto_next()<CR>")
-		map("n", "<LEADER>N", "<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>")
-		map("n", "<LEADER><LEADER>", "<CMD>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
+				["R"] = { [[<CMD>lua vim.lsp.buf.references()<CR>]], "Show References" },
+				["i"] = { [[<CMD>lua vim.lsp.buf.incoming_calls()<CR>]], "Show Incoming Calls" },
+				["o"] = { [[<CMD>lua vim.lsp.buf.outgoing_calls()<CR>]], "Show Outgoind Calls" },
+			},
+		}, {
+			prefix = "<LEADER>",
+			buffer = buffer_number,
+		})
 	end
 
 	local lsp = require("lspconfig")
+
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 	-- Nvim lua configuration LSP
 	local neovim_runtime_path = vim.split(package.path, ";")
@@ -63,7 +120,7 @@ return function()
 			neovim_lua_library[lua_path] = true
 		end
 	end
-	local sumneko_home = "~/Workspace/sua-language-server"
+	local sumneko_home = "~/Workspace/lua-language-server"
 	if system_name == "Windows" then
 		sumneko_home = "W:/misc/lua-language-server"
 	end
@@ -72,6 +129,7 @@ return function()
 	--TODO: How to switch this configuration based upon if we are editing neovim configuration or just any Lua file/project?
 	lsp.sumneko_lua.setup({
 		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
 		cmd = {
 			sumneko_home .. "/bin/" .. system_name .. "/lua-language-server",
 			"-E",
@@ -87,7 +145,7 @@ return function()
 				diagnostics = {
 					enable = true,
 					disable = "trailing-space",
-					globals = { "vim" },
+					globals = { "vim", "_G", "Dump" },
 				},
 				hint = {
 					enable = true,
@@ -100,9 +158,6 @@ return function()
 				telemetry = {
 					enable = true,
 				},
-				globals = {
-					"cheatsheet",
-				},
 			},
 		},
 	})
@@ -110,12 +165,14 @@ return function()
 	-- Markdown Notes (Zettelkasten) LSP
 	lsp.zeta_note.setup({
 		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
 		cmd = { "zeta-note" },
 	})
 
 	-- YAML LSP
 	lsp.yamlls.setup({
 		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
 		--FIXME: Only works on Windows
 		cmd = { "yaml-language-server.cmd", "--stdio" },
 		root_dir = function()
@@ -126,14 +183,21 @@ return function()
 	-- Zig LSP
 	-- FIXME: ZLS is very tied to the specific version of the zig compiler one uses.
 	-- we need to build our own version for 0.8.0 because it is not done upstream yet
-	-- lsp.zls.setup({ on_attach = integrate_into_neovim })
+	-- lsp.zls.setup({
+	-- on_attach = integrate_into_neovim,
+	-- capabilites = capabilities,
+	-- })
 
 	-- LLVM Clang LSP
-	lsp.clangd.setup({ on_attach = integrate_into_neovim })
+	lsp.clangd.setup({
+		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
+	})
 
 	-- JSON LSP
 	lsp.jsonls.setup({
 		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
 		--FIXME: Only works on Windows
 		cmd = { "vscode-json-language-server.cmd", "--stdio" },
 		commands = {
@@ -147,13 +211,17 @@ return function()
 	})
 
 	-- GraphViz Dot LSP
-	lsp.dotls.setup({ on_attach = integrate_into_neovim })
+	lsp.dotls.setup({
+		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
+	})
 
 	-- Null-ls
 	local nls = require("null-ls")
-	
+
 	nls.setup({
 		debug = false,
+		capabilites = capabilities,
 		-- Format: [CODE] MESSAGE (SOURCE)
 		diagnostics_format = "[#{c}] #{m} (#{s})",
 		sources = {

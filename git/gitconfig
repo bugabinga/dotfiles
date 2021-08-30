@@ -52,6 +52,10 @@
 [commit]
   verbose = true
 
+[help]
+  # try to automatically correct mispelled git commands
+	autocorrect = 7
+
 # In order to have host-specific configuration, I include additional settings here.
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
