@@ -28,7 +28,6 @@ return function(data_path, non_interactive)
 				plugin_package = plugin_package,
 				display = {
 					non_interactive = non_interactive,
-					open_fn = require("packer.util").float,
 				},
 				profile = {
 					enable = false,
@@ -67,7 +66,18 @@ return function(data_path, non_interactive)
 		use({
 			"folke/which-key.nvim",
 			config = function()
-				require("which-key").setup({})
+				local key_labels = { ["<space>"] = "SPACE", ["<cr>"] = "ENTER", ["<tab>"] = "TAB", ["."] = "DOT" }
+				for f_key_number = 1, 12 do
+					key_labels["<F" .. f_key_number .. ">"] = "F" .. f_key_number
+				end
+
+				require("which-key").setup({
+					marks = true,
+					registers = true,
+					spelling = { enabled = true, suggestions = 5 },
+					key_labels = key_labels,
+					window = { border = "single" },
+				})
 			end,
 		})
 
@@ -108,7 +118,7 @@ return function(data_path, non_interactive)
 				require("nvim-treesitter.install").compilers = { "clang" }
 				require("nvim-treesitter.configs").setup({
 					ensure_installed = {
-						"zig",
+						-- "zig",
 						"java",
 						"rust",
 						"lua",
@@ -117,7 +127,7 @@ return function(data_path, non_interactive)
 						"json",
 						"jsonc",
 						"c",
-						"comment",
+						-- "comment",
 						"html",
 						"css",
 						"javascript",
@@ -126,7 +136,7 @@ return function(data_path, non_interactive)
 					},
 					highlight = { enable = true },
 					incremental_selection = {
-						enable = true,
+						enable = false,
 						keymaps = {
 							init_selection = "<C-Up>",
 							node_incremental = "<C-Up>",
@@ -134,13 +144,13 @@ return function(data_path, non_interactive)
 							scope_incremental = "<A-Up>",
 						},
 					},
-					indent = { enable = true },
-					query_linter = { enable = true, use_virtual_text = true, lint_events = { "BufWrite" } },
+					indent = { enable = false },
+					query_linter = { enable = false, use_virtual_text = true, lint_events = { "BufWrite" } },
 					refactor = {
-						highlight_definitions = { enable = true },
-						smart_rename = { enable = true, keymaps = { smart_rename = "<LEADER>r" } },
+						highlight_definitions = { enable = false },
+						smart_rename = { enable = false, keymaps = { smart_rename = "<LEADER>r" } },
 						navigation = {
-							enable = true,
+							enable = false,
 							keymaps = { goto_next_usage = "<a-.>", goto_previous_usage = "<a-,>" },
 						},
 					},
@@ -155,11 +165,13 @@ return function(data_path, non_interactive)
 		use({
 			"nvim-treesitter/playground",
 			config = function()
-				local cheatsheet = require("cheatsheet").print
-				cheatsheet("")
-				cheatsheet(
-					":TSHighlightCapturesUnderCursor => This command shows the highlight group under the cursor, when TreeSitter is used"
-				)
+				local keys = require("which-key")
+				keys.register({
+					["<space>."] = {
+						"<CMD>TSHighlightCapturesUnderCursor<CR>",
+						"Shows the highlight group under the cursor, when TreeSitter is used.",
+					},
+				})
 			end,
 		})
 
@@ -221,7 +233,14 @@ return function(data_path, non_interactive)
 				-- Preprepared collection of glue code for neovim lsp-client and thrid party lsp servers.
 				"neovim/nvim-lspconfig",
 				-- Completions support, that integrates advanced nvim features (LSP+treesitter)
-				"nvim-lua/completion-nvim",
+				"norcalli/snippets.nvim",
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-calc",
+				"hrsh7th/cmp-emoji",
+				"hrsh7th/cmp-path",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-nvim-lua",
+				"hrsh7th/nvim-cmp",
 				-- Icons for completion UI
 				"onsails/lspkind-nvim",
 				-- dependency of nvim-lsputils
@@ -237,15 +256,13 @@ return function(data_path, non_interactive)
 		-- TODO: integrate with nvim-dap debugger
 		-- use { 'mfussenegger/nvim-jdtls', opt = true }
 		--
-		-- Nicer view than :registers, also shows popup on CTRL-R in I-mode
-		use({ "tversteeg/registers.nvim", opt = true, command = "Registers", keys = { "i", "<C-R>" } })
 
 		-- comment and uncomment lines
 		use({ "b3nj5m1n/kommentary" })
 
 		-- smooth scrolling
-		-- TODO: configure mappings to overide duration
-		--       currently the scroll steps a pretty slow
+		-- Its possible Neovide will support smooth scrool soon: https://github.com/neovim/neovim/issues/15075
+		-- When it does, this plugin is redundant, if nvim runs in Neovide.
 		use({
 			"karb94/neoscroll.nvim",
 			config = function()
@@ -268,12 +285,25 @@ return function(data_path, non_interactive)
 			command = "VBox",
 		})
 
-		-- convenient lua abstraction over the nvim keymap function
-		-- TODO: use it throughout the code
-		use("Iron-E/nvim-cartographer")
+		-- Show outline view based on LSP
+		use({ "simrat39/symbols-outline.nvim" })
+
+		-- Make using terminals in Neovim more comfortable
+		use({
+			"numtostr/FTerm.nvim",
+			config = function()
+				require("FTerm").setup({ cmd = "nu", border = "single" })
+			end,
+		})
 
 		-- automatically size splits reasonably
-		use("beauwilliams/focus.nvim")
+		use({
+			"beauwilliams/focus.nvim",
+			config = function()
+				local focus = require("focus")
+				focus.signcolumn = false
+			end,
+		})
 	end
 
 	-- the plugin module always delegates to packer, ensuring that at all times init configures packer correctly

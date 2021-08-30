@@ -3,37 +3,13 @@
 -- The benefit of assembling all keybinds here is, that they are easy to find.
 -- But unfortunataly, by collecting them here, they are placed "far" from their logical place, i.e. the plugins configuration.
 return function(cheatsheet)
-	-- Delegator over nvim_set_keymap, that sets some default options
-	-- TODO expose this function as module
-	local map = function(mode, left_hand_side, right_hand_side, options)
-		local default_options = { noremap = true, unique = true }
-		if options then
-			default_options = vim.tbl_extend("force", default_options, options)
-		end
-		vim.api.nvim_set_keymap(mode, left_hand_side, right_hand_side, default_options)
-	end
 	-- Let the <LEADER> key be <SPACE>
 	vim.g.mapleader = " "
+	cheatsheet("")
+	cheatsheet("The LEADER key is SPACE! Press it to show all bindings.")
+	cheatsheet("")
 
-	map("n", "<LEADER><F9>", [[<CMD>tabnew $MYVIMRC<CR>]])
-	cheatsheet("LEADER + F9 => Open nvim configuration in a new tab!")
-
-	map("n", "<LEADER><F10>", [[<CMD>PluginsSync<CR>]])
-	cheatsheet("LEADER + F10 => Sync nvim plugins configuration!")
-
-	map("n", "<LEADER>b", [[<CMD>Telescope buffers<CR>]])
-	cheatsheet("LEADER + b => Select a buffer")
-
-	map("n", "<LEADER>f", [[<CMD>Telescope file_browser<CR>]])
-	cheatsheet("LEADER + f => Select a file")
-
-	map("n", "<LEADER>e", [[<CMD>NvimTreeToggle<CR>]])
-	cheatsheet("LEADER + e => Toggle file explorer")
-  
-  map("n", "<LEADER>t", [[<CMD>TroubleToggle<CR>]])
-  cheatsheet("LEADER + t => Toggle the Trouble window.")
-
-  cheatsheet("")
+	local keys = require("which-key")
 
 	--Open up a URL under the cursor
 	local opener_program = ""
@@ -47,23 +23,74 @@ return function(cheatsheet)
 		-- What should we do on unknown platforms? We guess...
 		opener_program = "firefox"
 	end
-	map("n", "gx", [[<CMD>lua require'spawn'(']] .. opener_program .. [[',{ vim.fn.expand('<cfile>') } )<CR>]])
-	cheatsheet("gx => Open URL under cursor")
 
-  cheatsheet("")
-  cheatsheet("ALT + j => Move line(s) down")
-  cheatsheet("ALT + k => Move line(s) up")
-	map("n", "<A-j>", [[<CMD>move .+1<CR>==]])
-	map("n", "<A-k>", [[<CMD>move .-2<CR>==]])
-	map("i", "<A-j>", [[<ESC><CMD>move .+1<CR>==gi]])
-	map("i", "<A-k>", [[<ESC><CMD>move .-2<CR>==gi]])
-	map("x", "<A-j>", [[<ESC><CMD>'<,'>move'>+1<CR>gv=gv]])
-	map("x", "<A-k>", [[<ESC><CMD>'<,'>move'<-2<CR>gv=gv]])
-	
+	-- bundle all mappings under LEADER here
+	keys.register({
+		["<F9>"] = { [[<CMD>tabnew $MYVIMRC<CR>]], "Open Nvim Configuration" },
+		["<F10>"] = { [[<CMD>PluginsSync<CR>]], "Sync Plugins" },
+		["<F11>"] = { [[<CMD>PluginsCompile<CR>]], "Compile Plugins" },
+		f = {
+			name = "file operations",
+			f = { [[<CMD>Telescope find_files<CR>]], "Find File" },
+			b = { [[<CMD>Telescope buffers<CR>]], "Open a Buffer" },
+			r = { [[<CMD>Telescope oldfiles<CR>]], "Open Recent File" },
+			e = { [[<CMD>NvimTreeToggle<CR>]], "Toggle File Explorer" },
+		},
+		g = {
+			name = "goto navigation",
+			t = { [[<CMD>TroubleToggle<CR>]], "Toggle Trouble Window" },
+			x = {
+				"<CMD>lua require'spawn'('" .. opener_program .. "',{vim.fn.expand('<cfile>')})<CR>",
+				"Open Url Under Cursor",
+			},
+		},
+		a = {
+			name = "code operations",
+			o = { [[<CMD>SymbolsOutline<CR>]], "Toggle Outline" },
+		},
+	}, {
+		prefix = "<LEADER>",
+	})
+
+	cheatsheet("")
+	cheatsheet("ALT + j => Move line(s) down")
+	cheatsheet("ALT + k => Move line(s) up")
+	keys.register({
+		["<A-j>"] = { [[<CMD>move .+1<CR>==]], "Move Current Line(s) Up" },
+		["<A-k>"] = { [[<CMD>move .-2<CR>==]], "Move Current Line(s) Down" },
+	})
+	keys.register({
+		["<A-j>"] = { [[<ESC><CMD>move .+1<CR>==gi]], "Move Current Line(s) Up" },
+		["<A-k>"] = { [[<ESC><CMD>move .-2<CR>==gi]], "Move Current Line(s) Down" },
+	}, {
+		mode = "i",
+	})
+	keys.register({
+		["<A-j>"] = { [[<ESC><CMD>'<,'>move'>+1<CR>gv=gv]], "Move Current Line(s) Up" },
+		["<A-k>"] = { [[<ESC><CMD>'<,'>move'<-2<CR>gv=gv]], "Move Current Line(s) Down" },
+	}, {
+		mode = "x",
+	})
+
 	-- Change behaviour of :terminal to be less like a vim buffer and more what I am used to
-	map("t", "<ESC>", "<C-\\><C-n>")
-	map("t", "<C-w>", "<ESC><C-w>")
+	-- Not sure why some bindings have to be escaped with which-key but not when using nvim api directly...
+	local escape = function(string)
+		return vim.api.nvim_replace_termcodes(string, true, true, true)
+	end
+	keys.register({
+		["<ESC>"] = { escape([[<C-\><C-n>]]), "Escape terminal mode" },
+		["<C-w>"] = { [[<ESC><C-w>]], "Delete Word" },
+		["<A-1>"] = { [[<CMD>lua require'FTerm'.toggle()<CR>]], "Toggle the Terminal" },
+	}, {
+		mode = "t",
+	})
+	cheatsheet("")
+	cheatsheet("ALT + 1 => Toggle the Terminal")
+	cheatsheet("")
+	keys.register({
+		["<A-1>"] = { [[<CMD>lua require'FTerm'.toggle()<CR>]], "Toggle the Terminal" },
+	})
 
 	-- Clear highlighted search results whenever ESC is hit
-	map("n", "<ESC>", ":nohlsearch<CR>", { unique = false, silent = true })
+	keys.register({ ["<ESC>"] = { [[<CMD>nohlsearch<CR>]], "Clear Highlighted Text" } })
 end

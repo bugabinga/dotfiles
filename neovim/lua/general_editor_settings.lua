@@ -20,19 +20,11 @@ return function(autocommand, data_path)
 	-- How many milliseconds must pass before neovim decides I was "idle"
 	vim.opt.updatetime = 250
 	-- How long to wait between key sequences in order to chain them. e.g. <LEADER>b
-	vim.opt.timeoutlen = 350
+	-- This setting affects the which-key plugin.
+	vim.opt.timeoutlen = 700
 	-- I do not care for folding
 	vim.opt.foldenable = false
 	vim.opt.cursorline = true
-	-- Highlight the cursor line in the current buffer
-	autocommand({
-		show_cursor_line_in_active_window = {
-			[[WinLeave * lua vim.opt.cursorline = false]],
-			[[WinEnter * lua vim.opt.cursorline = true]],
-			[[InsertEnter * lua vim.opt.cursorline = false]],
-			[[InsertLeave * lua vim.opt.cursorline = true]],
-		},
-	})
 	-- integrate Nushell with nvim
 	-- all nushell builtins (ls, sys, etc.) print their output with escape codes, which nvim cannot parse.
 	-- only time will tell if this will annoy me so much as to change it...
