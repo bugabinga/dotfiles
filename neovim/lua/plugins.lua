@@ -42,31 +42,11 @@ return function(data_path, non_interactive)
 		-- Packer can manage itself
 		use({ "wbthomason/packer.nvim", opt = true })
 
-		-- Nice file tree browser
-		use({
-			"kyazdani42/nvim-tree.lua",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-			config = function()
-				vim.g.nvim_tree_side = "left"
-				vim.g.nvim_tree_width = 42
-				vim.g.nvim_tree_auto_open = 1
-				vim.g.nvim_tree_ignore_ft = { "cheatsheet" }
-				-- disable git because slow
-				vim.g.nvim_tree_git_hl = 0
-				vim.g.nvim_tree_gitignore = 0
-				vim.g.nvim_tree_show_icons = {
-					git = 0,
-					folders = 1,
-					files = 1,
-				}
-			end,
-		})
-
 		-- Display popup with possible keybindings to a command
 		use({
 			"folke/which-key.nvim",
 			config = function()
-				local key_labels = { ["<space>"] = "SPACE", ["<cr>"] = "ENTER", ["<tab>"] = "TAB", ["."] = "DOT" }
+				local key_labels = { ["<SPACE>"] = "SPACE", ["<CR>"] = "ENTER", ["<TAB>"] = "TAB", ["."] = "DOT" }
 				for f_key_number = 1, 12 do
 					key_labels["<F" .. f_key_number .. ">"] = "F" .. f_key_number
 				end
@@ -101,6 +81,11 @@ return function(data_path, non_interactive)
 				})
 			end,
 		})
+
+		-- Treesitter syntax highlighting for justfiles
+		use{"IndianBoy42/tree-sitter-just", config = function()
+      require"tree-sitter-just".setup({["local"] = true})
+		end}
 
 		-- NVIM API for defining color schemes
 		use({
@@ -193,12 +178,6 @@ return function(data_path, non_interactive)
 			end,
 		})
 
-		-- Fuzzy matcher
-		use({
-			"nvim-telescope/telescope.nvim",
-			requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
-		})
-
 		-- Type :<number> to jump to line numbers
 		use({
 			"nacro90/numb.nvim",
@@ -228,8 +207,17 @@ return function(data_path, non_interactive)
 				vim.lsp.handlers["workspace/symbol"] = require("lsputil.symbols").workspace_handler
 			end,
 			requires = {
+				-- dependecies of telescope
 				-- extensions to the std lib
 				"nvim-lua/plenary.nvim",
+				-- popup windows
+				"nvim-lua/popup.nvim",
+				-- Fuzzy matcher
+				"nvim-telescope/telescope.nvim",
+				-- debugging adapter -- like LSP but for debuggers
+				"mfussenegger/nvim-dap",
+				-- advanced rust integration
+				"simrat39/rust-tools.nvim",
 				-- Preprepared collection of glue code for neovim lsp-client and thrid party lsp servers.
 				"neovim/nvim-lspconfig",
 				-- Completions support, that integrates advanced nvim features (LSP+treesitter)

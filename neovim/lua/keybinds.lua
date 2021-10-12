@@ -30,23 +30,23 @@ return function(cheatsheet)
 		["<F10>"] = { [[<CMD>PluginsSync<CR>]], "Sync Plugins" },
 		["<F11>"] = { [[<CMD>PluginsCompile<CR>]], "Compile Plugins" },
 		f = {
-			name = "file operations",
+			name = "File Operations",
 			f = { [[<CMD>Telescope find_files<CR>]], "Find File" },
 			b = { [[<CMD>Telescope buffers<CR>]], "Open a Buffer" },
 			r = { [[<CMD>Telescope oldfiles<CR>]], "Open Recent File" },
 			e = { [[<CMD>NvimTreeToggle<CR>]], "Toggle File Explorer" },
 		},
 		g = {
-			name = "goto navigation",
-			t = { [[<CMD>TroubleToggle<CR>]], "Toggle Trouble Window" },
+			name = "Goto Navigation",
+			T = { [[<CMD>TroubleToggle<CR>]], "Toggle Trouble Window" },
 			x = {
 				"<CMD>lua require'spawn'('" .. opener_program .. "',{vim.fn.expand('<cfile>')})<CR>",
 				"Open Url Under Cursor",
 			},
 		},
 		a = {
-			name = "code operations",
-			o = { [[<CMD>SymbolsOutline<CR>]], "Toggle Outline" },
+			name = "Code Operations",
+			O = { [[<CMD>SymbolsOutline<CR>]], "Toggle Outline" },
 		},
 	}, {
 		prefix = "<LEADER>",
