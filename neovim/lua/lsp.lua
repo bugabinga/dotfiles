@@ -183,16 +183,23 @@ return function()
 	-- Zig LSP
 	-- FIXME: ZLS is very tied to the specific version of the zig compiler one uses.
 	-- we need to build our own version for 0.8.0 because it is not done upstream yet
-	-- lsp.zls.setup({
-	-- on_attach = integrate_into_neovim,
-	-- capabilites = capabilities,
-	-- })
+	lsp.zls.setup({
+		on_attach = integrate_into_neovim,
+		capabilites = capabilities,
+	})
 
 	-- LLVM Clang LSP
 	lsp.clangd.setup({
 		on_attach = integrate_into_neovim,
 		capabilites = capabilities,
 	})
+
+	-- Rust LSP
+	-- this will automatically start and configure nvim-lsp rust-analyzer
+	require("rust-tools").setup({ server = {
+		on_attach = integrate_into_neovim,
+		capabilities = capabilities,
+	} })
 
 	-- JSON LSP
 	lsp.jsonls.setup({
