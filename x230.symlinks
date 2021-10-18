@@ -40,3 +40,5 @@ topgrade/topgrade.linux.toml
 stackoverflow/so
 ~/.config/so
 
+wezterm
+~/.config/wezterm

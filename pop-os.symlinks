@@ -36,3 +36,6 @@ topgrade/topgrade.linux.toml
 
 indexa/config.linux.toml
 ~/.config/indexa/config.toml
+
+wezterm
+~/.config/wezterm
