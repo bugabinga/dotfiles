@@ -36,3 +36,6 @@ cargo/config.toml
 
 indexa/config.windows.toml
 ~/AppData/Roaming/indexa/config.toml
+
+wezterm
+~/.config/wezterm
