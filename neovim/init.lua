@@ -64,7 +64,6 @@ setup_mkdir(autocommand)
 local non_interactive = #vim.api.nvim_list_uis() == 0
 -- Load the plugins module into the global namespace in order to reference them later in keymaps
 Plugins = require("plugins")(data_path, non_interactive)
-
 -- Lazy load the plugin manager packer, when using these commands
 -- cheatsheet':PluginsInstall => Install the specified plugins if they are not already installed'
 vim.cmd([[command! PluginsInstall packadd packer.nvim | lua Plugins.install()]])

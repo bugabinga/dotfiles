@@ -39,3 +39,9 @@ indexa/config.linux.toml
 
 wezterm
 ~/.config/wezterm
+
+helix/config.toml
+~/.config/helix/config.toml
+
+helix/themes
+~/.config/helix/themes

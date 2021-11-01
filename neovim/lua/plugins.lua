@@ -284,6 +284,8 @@ return function(data_path, non_interactive)
 			end,
 		})
 
+		use({ 'NoahTheDuke/vim-just' })
+
 		-- automatically size splits reasonably
 		use({
 			"beauwilliams/focus.nvim",

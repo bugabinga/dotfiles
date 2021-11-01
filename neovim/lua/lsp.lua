@@ -224,23 +224,24 @@ return function()
 	})
 
 	-- Null-ls
-	local nls = require("null-ls")
-
-	nls.setup({
-		debug = false,
+  local nls = require'null-ls'
+  nls.config{
+    debug = false,
+    -- Format: [CODE] MESSAGE (SOURCE)
+    diagnostics_format = "[#{c}] #{m} (#{s})",
+    sources = {
+      nls.builtins.formatting.stylua,
+      -- this is a nice linter, but wihtout configuration, it spews too much nonsense.
+      -- one can define the stdlib for vim in a config file, but the builtin selene does not find the config file.
+      -- this is a general issue with formatters/linters integrated into neovim.
+      -- how should i handle this?
+      -- write a function, that searches the path to root for a config file? (internal stylua behaviour)
+      -- somehow make sure, that vim root folder is always correct...?
+      -- nls.builtins.diagnostics.selene,
+    },
+  }
+  lsp["null-ls"].setup({
 		capabilites = capabilities,
-		-- Format: [CODE] MESSAGE (SOURCE)
-		diagnostics_format = "[#{c}] #{m} (#{s})",
-		sources = {
-			nls.builtins.formatting.stylua,
-			-- this is a nice linter, but wihtout configuration, it spews too much nonsense.
-			-- one can define the stdlib for vim in a config file, but the builtin selene does not find the config file.
-			-- this is a general issue with formatters/linters integrated into neovim.
-			-- how should i handle this?
-			-- write a function, that searches the path to root for a config file? (internal stylua behaviour)
-			-- somehow make sure, that vim root folder is always correct...?
-			-- nls.builtins.diagnostics.selene,
-		},
 		on_attach = integrate_into_neovim,
 	})
 end

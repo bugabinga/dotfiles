@@ -93,7 +93,7 @@ return function(autocommand, data_path)
 	-- Use true colors
 	vim.opt.termguicolors = true
 	vim.opt.lazyredraw = true
-	vim.opt.guifont = "BlexMono NF:h13:1"
+	vim.opt.guifont = "JetBrainsMono Nerd Font:h14:1"
 	-- Set cursor position to last known position, when entering a window
 	autocommand({
 		restore_cursor_position = [[ BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]],
@@ -111,19 +111,24 @@ return function(autocommand, data_path)
 	})
 	-- Disable some built-in plugins we don't want
 	local disabled_built_ins = {
-		"gzip",
-		"man",
-		"matchit",
-		"matchparen",
-		"shada_plugin",
-		"tar",
-		"tarPlugin",
-		"zip",
-		"zipPlugin",
-		"netrw",
-		"netrwPlugin",
-		"spec",
-		"2html_plugin",
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
 	}
 	for _, built_in in ipairs(disabled_built_ins) do
 		vim.g["loaded_" .. built_in] = 1
