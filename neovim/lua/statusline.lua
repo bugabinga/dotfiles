@@ -26,13 +26,15 @@ return {
 		local diagnostics_line_context = { diagnostics = vim.lsp.diagnostic.get_line_diagnostics() }
 		local lsp_parameters = vim.lsp.util.make_range_params()
 		lsp_parameters.context = diagnostics_line_context
-		vim.lsp.buf_request(0, "textDocument/codeAction", lsp_parameters, function(error, _, result)
+		--FIXME: when LSP has no caode action, this throws annoying error
+		--[[ pcall( function() vim.lsp.buf_request(0, "textDocument/codeAction", lsp_parameters, function(error, _, result)
 			if not error and result then
 				code_actions_count = #result
 			else
 				code_actions_count = 0
 			end
 		end)
+    end) ]]
 	end,
 	-- refresh the statuslines of all windows.
 	-- the current window gets special treatment. it is "active".

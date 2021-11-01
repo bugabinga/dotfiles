@@ -1,0 +1,64 @@
+module = { modifieres = ["bold"] }
+namespace = { fg = "minor" }
+
+comment = { fg = "important" }
+
+string = { modifiers = ["bold", "italic"] }
+number = { modifieres = ["bold"] }
+escape = { bg = "minor", modifiers = ["italic"] }
+
+keyword = { fg = "minor" }
+attribute = { fg = "minor" }
+punctuation = { fg = "minor" }
+
+variable = { modifieres = ["bold"] }
+property = { modifieres = ["bold"] }
+constant = { modifieres = ["bold"] }
+function = { modifieres = ["bold"] }
+
+"ui.background" = { bg = "ui_backdrop" }
+"ui.linenr" = { fg = "ui_minor" }
+"ui.linenr.selected" = { fg = "ui_normal" }
+"ui.statusline" = { fg = "ui_minor" }
+"ui.statusline.inactive" = { fg = "minor", bg = "backdrop" }
+"ui.popup" = { fg = "ui_important", bg = "ui_minor" }
+"ui.window" = { fg = "ui_important" }
+"ui.help" = { fg = "ui_important" }
+"ui.text" = { fg = "normal" }
+"ui.text.focus" = { fg = "important" }
+
+"ui.selection" = { bg = "ui_selection", modifiers = ["reversed"] }
+"ui.selection.primary" = { bg = "ui_selection" }
+
+"ui.cursor" = { bg = "ui_cursor", modifiers = ["dim"] }
+"ui.cursor.primary" = { bg = "ui_cursor" }
+"ui.cursor.insert" = { modifiers = ["reversed"] }
+"ui.cursor.select" = { bg = "ui_cursor" }
+"ui.cursor.match" = { fg = "important" , modifiers = ["rapid_blink"] }
+
+"ui.menu.selected" = { fg = "ui_important", modifiers = ["underlined"] }
+"ui.highlight" = { bg = "ui_minor", modifiers = ["slow_blink"] }
+
+diagnostic = { fg = "ui_normal", modifiers = ["underlined"] }
+
+warning = { bg = "ui_warning" }
+error = { bg = "ui_error", modifiers = ["rapid_blink"] }
+info = { bg = "ui_info" }
+hint = { fg = "ui_info" }
+
+[palette]
+normal = "#c9c9c9"
+backdrop = "#131313"
+important = "#f0f0f0"
+minor = "#818181"
+
+ui_normal = "#31ae99"
+ui_selection = "#d03fc0"
+ui_cursor = "#9f0fc0"
+ui_backdrop = "#121e3f"
+ui_important = "#aefeff"
+ui_minor = "#113131"
+
+ui_error = "#A21300"
+ui_warning = "#A2A213"
+ui_info = "#13A2A2"

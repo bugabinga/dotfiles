@@ -1,0 +1,7 @@
+theme = "nord"
+
+[editor]
+shell = [ "nu", "--commands" ]
+
+[lsp]
+display-messages = true

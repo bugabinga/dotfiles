@@ -32,10 +32,16 @@ subversion/config
 ~/AppData/Roaming/Subversion/config
 
 cargo/config.toml
-~/.cargo/config.toml
+~/scoop/persist/rustup/.cargo/config.toml
 
 indexa/config.windows.toml
 ~/AppData/Roaming/indexa/config.toml
 
 wezterm
 ~/.config/wezterm
+
+helix/config.toml
+~/AppData/Roaming/helix/config.toml
+
+helix/themes
+~/AppData/Roaming/helix/themes
