@@ -4,7 +4,7 @@
 -- live.
 -- In essence, this is a shorter way to write: `print(vim.inspect(...))`
 return function(...)
-  -- vim.inspect converts lua values to something human readable
-  local objects = vim.tbl_map(vim.inspect, { ... })
-  print(unpack(objects))
+	-- vim.inspect converts lua values to something human readable
+	local objects = vim.tbl_map(vim.inspect, { ... })
+	print(unpack(objects))
 end

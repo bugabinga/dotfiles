@@ -42,7 +42,7 @@ arguments = "--rebase --autostash"
 "NeoVim Nightly" = "scoop update --force neovim-nightly"
 
 # Update NeoVim-Plugins
-"NeoVim Plugins" = "Write-Host 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless '+PluginsSync' '+autocmd User PackerComplete :qa'"
+"NeoVim Plugins" = "Write-Host 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PluginsSync'"
 
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"

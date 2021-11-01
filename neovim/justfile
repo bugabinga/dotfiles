@@ -1,0 +1,10 @@
+set shell := ["nu", "--commands"]
+
+default:
+	@just --list
+
+check:
+  selene .
+
+format:
+  stylua . 

@@ -10,12 +10,12 @@
 return {
 	run = function()
 		-- base directory of current buffer
-		local directory = vim.fn.expand("%:p:h")
+		local directory = vim.fn.expand '%:p:h'
 		if vim.fn.isdirectory(directory) == 0 then
-			vim.fn.mkdir(directory, "p")
+			vim.fn.mkdir(directory, 'p')
 		end
 	end,
 	setup = function(autocommand)
-		autocommand({ setup_mkdir_before_save = [[ BufWritePre * lua require'mkdir'.run() ]] })
+		autocommand { setup_mkdir_before_save = [[ BufWritePre * lua require'mkdir'.run() ]] }
 	end,
 }
