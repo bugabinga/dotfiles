@@ -3,8 +3,10 @@ set shell := ["nu", "--commands"]
 default:
 	@just --list
 
+# lint the lua configuration files
 check:
   selene .
 
+# format the lua configuration files
 format:
   stylua . 
