@@ -155,6 +155,13 @@ return function(data_path, non_interactive)
 						},
 					},
 				}
+        local cheatsheet = require'cheatsheet'.print
+        cheatsheet[[]]
+        cheatsheet[[ALT+. => Goto previous usage]]
+        cheatsheet[[ALT+, => Goto next usage]]
+        cheatsheet[[CTRL+UP => Expand selection]]
+        cheatsheet[[CTRL+DOWN => Decrease selection]]
+        cheatsheet[[]]
 			end,
 		}
 
@@ -245,6 +252,7 @@ return function(data_path, non_interactive)
 				'RishabhRD/nvim-lsputils',
 				-- Show outline view based on LSP
 				'simrat39/symbols-outline.nvim',
+				asdf
 			},
 		}
 

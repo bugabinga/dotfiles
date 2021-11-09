@@ -82,7 +82,7 @@ return function(autocommand, data_path)
 	vim.opt.undodir = data_path .. '/undo/'
 	-- ask me to force failed commands
 	vim.opt.confirm = true
-	vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
+	vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 	-- avoid showing messages during automomplete
 	vim.opt.shortmess:append 'c'
 	-- open splits below and to the right of current buffers
