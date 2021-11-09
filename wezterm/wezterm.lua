@@ -1,7 +1,7 @@
 local wez = require'wezterm'
 return {
-  font = wez.font'BlexMono NF',
-  font_size = 16.0,
+  font = wez.font'JetBrainsMono Nerd Font',
+  font_size = 13.0,
   color_scheme = 'nord',
   default_prog  = {'nu'},
   window_decorations = 'RESIZE',
@@ -11,8 +11,8 @@ return {
   window_padding = {
     left = 8,
     right = 8,
-    top = 0,
-    bottom = 0,
+    top = 4,
+    bottom = 4,
   },
   colors = {
     tab_bar = {

@@ -18,7 +18,7 @@ return function()
 		mapping = {
 			['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
 			['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-			['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-n>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
 			['<C-y>'] = cmp.config.disable,
 			['<C-e>'] = cmp.mapping {
 				i = cmp.mapping.abort(),
@@ -90,16 +90,13 @@ return function()
 	local integrate_into_neovim = function(client, buffer_number)
 		print('LSP ' .. client.name .. ' [' .. client.id .. '] ' .. 'started.')
 
-		-- Configure diagnostics to only show up on file save
+		-- Configure diagnostics to only show up when not typing
 		vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 			signs = true,
 			underline = false,
 			virtual_text = false,
-			-- FIXME  these options are not merged yet
-			--[[ show_diagnostic_autocmds = { "BufWritePost" },
-			diagnostic_delay = 500, ]]
-			-- TODO
-			-- * clear diagnostics on enter i
+			update_in_insert = false,
+			severity_sort = true,
 		})
 		local keys = require 'which-key'
 		keys.register(keybinds_in_lsp_context, {
