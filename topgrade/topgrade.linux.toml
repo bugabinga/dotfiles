@@ -16,7 +16,7 @@ cleanup = true
 
 [git]
 # Additional git repositories to pull
-repos = ["~/Workspace"]
+repos = ["/home/oli/Workspace/*"]
 
 pull_predefined= false
 
@@ -30,7 +30,7 @@ arguments = "--ff --rebase --autostash"
 # Custom commands
 [commands]
 
-# Updateing my configuration files
+# Updating my configuration files
 "Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
 
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
@@ -41,3 +41,6 @@ arguments = "--ff --rebase --autostash"
 
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
+
+# Rebuild Sumneko lua langua server
+"Rebuild Sumneko LSP" = "cd ~/Workspace/lua-language-server/3rd/luamake ; ./compile/install.sh ; cd ../.. ; ./3rd/luamake/luamake rebuild"

@@ -7,11 +7,9 @@ rustflags = [ "-C","target-cpu=native" ]
 # let's have some fun with "omgz performance rice dat cake"
 [profile.release]
 # link time optimization is slow, but allows inter-crate analysis
-lto = "fat"
 # similarly, crates get split into chunks while compiling in order to maximize throughput
 # but we don't care about compile wall time here, only RAWR PERFF
 # less chunks affors more opportunity for optimiziations
-codegen-units = 1
 
 [target.x86_64-pc-windows-msvc]
 # apparently, the LLVM linker is faster than others...
@@ -19,5 +17,7 @@ linker = "lld-link.exe"
 
 [target.x86_64-unknown-linux-gnu]
 rustflags = [
-    "-C", "linker=clang",
+"-C", "link-arg=-fuse-ld=lld",
+# "-C", "gcc-ld=lld",
+# "-C", "linker=clang",
 ]
