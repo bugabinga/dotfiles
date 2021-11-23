@@ -1,5 +1,5 @@
 local branch_icon = ''
-local vcs_branch_name = ''
+local vcs_branch_name = nil
 local code_actions_count = 0
 local special_windows = {
 	intro = { 'CheatSheet', '' },
@@ -63,6 +63,8 @@ return {
 				local result = output:result()[1]
 				if result then
 					vcs_branch_name = result
+        else 
+          vcs_branch_name = nil
 				end
 			end,
 		}
