@@ -21,7 +21,7 @@ repos = ["~/Workspace"]
 pull_predefined= false
 
 # Arguments to pass Git when pulling Repositories
-arguments = "--rebase --autostash"
+arguments = "--ff --rebase --autostash"
 
 # Commands to run before anything
 #[pre_commands]

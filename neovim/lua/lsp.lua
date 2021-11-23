@@ -175,24 +175,6 @@ return function()
 		},
 	}
 
-	-- Markdown Notes (Zettelkasten) LSP
-	lsp.zeta_note.setup {
-		on_attach = integrate_into_neovim,
-		capabilites = capabilities,
-		cmd = { 'zeta-note' },
-	}
-
-	-- YAML LSP
-	lsp.yamlls.setup {
-		on_attach = integrate_into_neovim,
-		capabilites = capabilities,
-		--FIXME: Only works on Windows
-		cmd = { 'yaml-language-server.cmd', '--stdio' },
-		root_dir = function()
-			return vim.fn.getcwd()
-		end,
-	}
-
 	-- Zig LSP
 	-- FIXME: ZLS is very tied to the specific version of the zig compiler one uses.
 	-- we need to build our own version for 0.8.0 because it is not done upstream yet
@@ -213,22 +195,6 @@ return function()
 		on_attach = integrate_into_neovim,
 		capabilities = capabilities,
 	} }
-
-	-- JSON LSP
-	lsp.jsonls.setup {
-		on_attach = integrate_into_neovim,
-		capabilites = capabilities,
-		--FIXME: Only works on Windows
-		cmd = { 'vscode-json-language-server.cmd', '--stdio' },
-		commands = {
-			Format = {
-				-- Apply the ranged formatting to the whole file
-				function()
-					vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line '$', 0 })
-				end,
-			},
-		},
-	}
 
 	-- GraphViz Dot LSP
 	lsp.dotls.setup {
