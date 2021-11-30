@@ -16,7 +16,7 @@ cleanup = true
 
 [git]
 # Additional git repositories to pull
-repos = ["W:/apm.web", "W:/misc/*/"]
+repos = ["W:/misc/*/"]
 
 pull_predefined= false
 
