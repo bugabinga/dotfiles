@@ -13,7 +13,8 @@ local lsp_symbols = { Error = '', Information = '', Warning = '', Hint 
 local get_lsp_diagnostics_count = function()
 	local diagnostics_count = ''
 	for type, icon in pairs(lsp_symbols) do
-		local count = vim.lsp.diagnostic.get_count(0, type)
+		--FIXME: since get_count was depracted, this code is wrong now...
+		local count = #vim.diagnostic.get(0, {namespace = type})
 		local highlight = '%#LspDiagnosticsDefault' .. type .. '#'
 		local rendered_count = count > 0 and highlight .. icon .. ' ' .. count .. ' ' or ''
 		diagnostics_count = diagnostics_count .. rendered_count

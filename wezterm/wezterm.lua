@@ -6,6 +6,7 @@ return {
   default_prog  = {'nu'},
   window_decorations = 'RESIZE',
   enable_tab_bar = true,
+  show_update_window = false,
   hide_tab_bar_if_only_one_tab = true,
   tab_max_width = 24,
   window_padding = {
