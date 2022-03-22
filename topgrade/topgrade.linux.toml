@@ -37,7 +37,7 @@ arguments = "--ff --rebase --autostash"
 "TLDR" = "tldr --update"
 
 # Update NeoVim-Plugins
-"NeoVim Plugins" = "echo 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless -c 'autocmd User PackerCompile quitall' -c 'PluginsSync'"
+"NeoVim Plugins" = "echo 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PluginsSync'"
 
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
