@@ -86,11 +86,14 @@ class bootstripper{
   }
   static String hostname() throws Exception {
     var process_builder = new ProcessBuilder().command("hostname");
-    var process = process_builder
+    Process process;
+    try {
+      process = process_builder
       .start()
       .onExit()
       .join();
-    if(process.exitValue() != 0) {
+    }
+    catch( IOException __ ) {
       process = new ProcessBuilder()
       .command("hostnamectl", "hostname")
       .start()
