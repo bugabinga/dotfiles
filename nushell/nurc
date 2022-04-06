@@ -6,16 +6,19 @@
 let-env NURC = (build-string (pwd) /nurc)
 let-env DOTFILES = ((build-string (pwd) /..) | path expand)
 let-env TODO = (build-string $nu.env.DOTFILES /TODO.md)
+# TODO: set this per machine
+let-env WORKSPACE = "/home/oli/Workspace"
 
 # ALIASES
 alias cat = bat
-alias vim = nvim
-alias edit = nvim
-alias e = nvim
+alias vim = hx
+alias edit = hx
+alias e = hx
+
 alias ll = exa --group-directories-first --classify --long --icons --git
 alias la = exa --group-directories-first --classify --all --long --icons --git
 alias tr = exa --tree
-alias doas = sudo
+
 alias grep = rg
 
 # CUSTOM LITTLE JAVA COMMANDS
@@ -49,11 +52,11 @@ def to-string [] { flatten | into string | str collect ' ' }
 # Render my To-Do file in the terminal
 def todo [] { mdcat $nu.env.TODO }
 # Open my To-Do file for editing
-def "todo edit" [] { nvim $nu.env.TODO }
+def "todo edit" [] { hx $nu.env.TODO }
 # Open the Nushell configuration file for editing
-def "config edit" [] { nvim (config path) }
+def "config edit" [] { hx (config path) }
 # Open my Nushell startup script for editing
-def nurc [] { nvim $nu.env.NURC }
+def nurc [] { hx $nu.env.NURC }
 
 # Uploads a PUBLIC ssh key to GitHub.
 # Will prompt for the AES encryption password of my dotfiles.

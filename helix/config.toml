@@ -2,6 +2,26 @@ theme = "nugu"
 
 [editor]
 shell = [ "nu", "--commands" ]
+true-color = true
+line-number = "relative"
+auto-completion = false
 
 [editor.lsp]
 display-messages = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+"'" = "'"
+'`' = '`'
+'<' = '>'

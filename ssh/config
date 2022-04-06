@@ -1,0 +1,16 @@
+# SSH client configuration
+# defines bookmarks/templates for hosts and options to quickly connect to known hosts
+
+Host box
+HostName box.bugabinga.net
+IdentitiyFile ~/.ssh/box_do.key
+
+Host github.com
+HostName github.com
+User git
+IdentityFile ~/.ssh/github.key
+
+# catch-all pattern
+Host *
+User root
+Compression yes

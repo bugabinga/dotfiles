@@ -1,6 +1,7 @@
 # Disable specific steps - same options as the command line flag
-# Siehe command -> Windows
-disable = ["tldr", "vim"]
+disable = ["tldr"]
+
+assume_yes = true
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
@@ -17,6 +18,8 @@ cleanup = true
 [git]
 # Additional git repositories to pull
 repos = ["W:/misc/*/"]
+
+max_concurrency = 12
 
 pull_predefined= false
 
@@ -38,14 +41,8 @@ arguments = "--ff --rebase --autostash"
 "Advantage-PM Client" = ". D:/Tools/update_apm_client.ps1"
 "MeMate" = ". D:/Tools/update_memate.ps1"
 
-# Force update of fresh nightly neovim
-"NeoVim Nightly" = "scoop update --force neovim-nightly"
-
-# Update NeoVim-Plugins
-"NeoVim Plugins" = "Write-Host 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PluginsSync'"
-
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
 
 # Rebuild Sumneko lua langua server
-"Rebuild Sumneko LSP" = "cd W:/misc/lua-language-server/3rd/luamake ; ./compile/install.bat ; cd ../.. ; ./3rd/luamake/luamake rebuild"
+"Rebuild Sumneko LSP" = "cd ~/Workspace/lua-language-server; git submodule update --init --recursive ; cd 3rd/luamake ; ./compile/install.sh ; cd ../.. ; ./3rd/luamake/luamake rebuild"
