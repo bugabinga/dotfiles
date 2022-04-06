@@ -26,28 +26,22 @@
 - silicon: code pretty picture generator
 - eva: calculator
 - bandwhich: show network traffic information
-- so: search Stack Exchange 
+- so: search Stack Exchange
 - linky: check markdown for broken links
 - comrak: render markdown to html
+- hx: terminal code editor
 
 ## Stuff to do
 
+- [ ] port nushell config to new config script
+- [ ] expand nugu theme to wezterm and eclipse
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
 - [ ] encrypt box key
 - [ ] get SIM card to work on x230
-- [ ] disable syntax highlighting (treesitter) for inactive buffers and dim color
-- [ ] port commands from vim-eunuch:
-  - [ ] Delete
-  - [ ] Move/Rename
-  - [ ] Sudo/Doas
-- [ ] LSP diagnostics only on BufWrite
-- [ ] easier too read colors for lsp hovers
-- [ ] crack nvim auto completion. how to configure it to my tastes?
-- [ ] port keymaps in nvim config to cartographer
-- [ ] test luadoc style docs. will it be rendered nicely in hovers?
 
 ## Done
 
+- [x] ditch nvim for hx in EDITOR, give up IDE in terminal
 - [x] how to abstract configs differences per platform? templates are painful to work with.
 - [x] abstract indexa config for windows / linux
 - [x] kill thy babbies: remove obsolete java commands. nu has builtins now for checksums and for random uuids

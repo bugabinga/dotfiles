@@ -1,64 +1,103 @@
-module = { modifieres = ["bold"] }
-namespace = { fg = "minor" }
+# SYNTAX THEME
 
-comment = { fg = "important" }
+"string" = { fg = "accent", modifiers = [ "italic" ] }
+"string.regexp" = { fg = "accent", bg = "minor_backdrop" }
+"string.special" = { fg = "debug", bg = "minor_backdrop" }
+"comment" = { fg = "important_global", modifiers = [ "bold" ] }
+"comment.block.documentation" = { fg = "minor", modifiers = ["dim"] }
+"punctuation" = { fg = "minor" }
+"keyword" = { fg = "minor" }
+"keyword.control.return" = { modifiers = ["bold", "underlined"] }
+"keyword.control.exception" = { modifiers = ["bold", "underlined"] }
+"operator" = { fg = "minor" }
 
-string = { modifiers = ["bold", "italic"] }
-number = { modifieres = ["bold"] }
-escape = { bg = "minor", modifiers = ["italic"] }
+"program.import_declaration.import" = { fg = "debug" }
 
-keyword = { fg = "minor" }
-attribute = { fg = "minor" }
-punctuation = { fg = "minor" }
+"markup" = "debug"
+"markup.heading" = { fg = "important_global", modifiers = ["bold"] }
+"markup.list" = "minor"
+"markup.bold" = { fg = "normal", modifiers = ["bold"] }
+"markup.italic" = { fg = "normal", modifiers = ["italic"] }
+"markup.link.url" = "minor"
+"markup.link.text" = "important_local"
+"markup.link.label" = "important_global"
+"markup.quote" = { fg = "important_local", modifiers = ["italic"] }
+"markup.raw.inline" = { fg = "accent" }
+"markup.raw.block" = { fg = "accent", modifiers = ["dim"] }
 
-variable = { modifieres = ["bold"] }
-property = { modifieres = ["bold"] }
-constant = { modifieres = ["bold"] }
-function = { modifieres = ["bold"] }
+"diff.plus" = { fg = "debug" }
+"diff.delta" = { fg = "debug" }
+"diff.minus" = { fg = "debug" }
 
-"ui.background" = { bg = "ui_backdrop" }
+# UI THEME
+"ui.background" = { bg = "backdrop" }
+
+"ui.cursor" = { bg = "ui_cursor" }
+"ui.cursor.primary" = { fg = "important_global", bg = "ui_cursor" }
+"ui.cursor.insert" = { bg = "debug" }
+"ui.cursor.select" = { fg = "debug", bg = "debug" }
+"ui.cursor.match" = { fg = "important_global" , modifiers = ["slow_blink"] }
+
+"ui.selection" = { fg = "minor", bg = "ui_minor" }
+"ui.selection.primary" = { fg = "normal", bg = "ui_selection" }
+
 "ui.linenr" = { fg = "ui_minor" }
 "ui.linenr.selected" = { fg = "ui_normal" }
-"ui.statusline" = { fg = "ui_minor" }
-"ui.statusline.inactive" = { fg = "minor", bg = "backdrop" }
-"ui.popup" = { fg = "ui_important", bg = "ui_minor" }
-"ui.window" = { fg = "ui_important" }
-"ui.help" = { fg = "ui_important" }
+
+"ui.statusline" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.statusline.inactive" = { fg = "ui_minor" }
+
+"ui.popup" = { fg = "ui_fg_debug", bg = "ui_bg_debug" }
+# the special popup on SPACE
+"ui.popup.info" = { fg = "ui_normal", bg = "ui_backdrop" }
+
+# space between buffers
+"ui.window" = { fg = "ui_minor", bg = "ui_backdrop" }
+
+# help text box above command input
+"ui.help" = { fg = "ui_important", bg = "ui_backdrop" }
+
 "ui.text" = { fg = "normal" }
-"ui.text.focus" = { fg = "important" }
-
-"ui.selection" = { bg = "ui_selection", modifiers = ["reversed"] }
-"ui.selection.primary" = { bg = "ui_selection" }
-
-"ui.cursor" = { bg = "ui_cursor", modifiers = ["dim"] }
-"ui.cursor.primary" = { bg = "ui_cursor" }
-"ui.cursor.insert" = { modifiers = ["reversed"] }
-"ui.cursor.select" = { bg = "ui_cursor" }
-"ui.cursor.match" = { fg = "important" , modifiers = ["rapid_blink"] }
+# focused item in file picker
+"ui.text.focus" = { fg = "ui_important" }
+# text in SPACE popup
+"ui.text.info" = { fg = "ui_normal" }
 
 "ui.menu.selected" = { fg = "ui_important", modifiers = ["underlined"] }
-"ui.highlight" = { bg = "ui_minor", modifiers = ["slow_blink"] }
 
-diagnostic = { fg = "ui_normal", modifiers = ["underlined"] }
+# selected line in buffer picker
+"ui.highlight" = { bg = "ui_cursor" }
 
-warning = { bg = "ui_warning" }
-error = { bg = "ui_error", modifiers = ["rapid_blink"] }
-info = { bg = "ui_info" }
-hint = { fg = "ui_info" }
+"diagnostic" = { fg = "ui_normal", modifiers = ["underlined"] }
+
+"warning" = { bg = "ui_warning" }
+"error" = { bg = "ui_error", modifiers = ["rapid_blink"] }
+"info" = { bg = "ui_info" }
+"hint" = { fg = "ui_info", modifiers = ["dim"] }
 
 [palette]
 normal = "#c9c9c9"
+accent = "#8BABA5"
 backdrop = "#131313"
-important = "#f0f0f0"
+important_local = "#f0f0f0"
+important_global = "#ffffff"
 minor = "#818181"
+minor_backdrop = "#0B2B25"
 
 ui_normal = "#31ae99"
-ui_selection = "#d03fc0"
-ui_cursor = "#9f0fc0"
-ui_backdrop = "#121e3f"
+ui_selection = "#287F70"
+ui_cursor = "#56968C"
+ui_cursor_insert = "#2F77AE"
+ui_cursor_select = "#992FAE"
+ui_backdrop = "#18574C"
 ui_important = "#aefeff"
 ui_minor = "#113131"
 
 ui_error = "#A21300"
 ui_warning = "#A2A213"
 ui_info = "#13A2A2"
+
+ui_fg_debug = "#ffffff"
+ui_bg_debug = "#000000"
+
+debug = "#FF2EDD"

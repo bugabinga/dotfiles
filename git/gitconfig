@@ -1,11 +1,10 @@
-# vim: ft=gitconfig
 # This is Git's per-user configuration file.
 [user]
   name = Oliver Jan Krylow
   email = olver@bugabinga.net
 
 [core]
-  editor = nvim
+  editor = hx
   quotepath = false
   autocrlf = input
   pager = delta
@@ -13,22 +12,22 @@
 
 [diff]
   colorMoved = default
-  tool = nvimdiff
+  tool = meld
 
 [difftool]
   prompt = false
 
-[difftool "nvimdiff"]
-  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+[difftool "meld"]
+  cmd = "meld \"$LOCAL\" \"$REMOTE\""
 
 [merge]
-  tool = nvimmerge
+  tool = meld_merge
 
 [mergetool]
   prompt = true
 
-[mergetool "nvimmerge"]
-  cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" -c 'wincmd w' -c 'wincmd J'"
+[mergetool "meld_merge"]
+  cmd = "meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
 [pull]
   rebase = false
@@ -54,11 +53,11 @@
 
 [help]
   # try to automatically correct mispelled git commands
-	autocorrect = 7
+  autocorrect = 7
 
 # In order to have host-specific configuration, I include additional settings here.
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
   path = .gitconfig.include
 [credential "helperselector"]
-	selected = manager-core
+  selected = manager-core

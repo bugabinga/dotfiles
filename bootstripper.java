@@ -16,9 +16,11 @@ class bootstripper{
     var symlinks_file = hostname + ".symlinks";
     create_symlinks(dorkfiles_root, dorkfiles_root.resolve(symlinks_file));
   }
+  
   static void decrypt_secrets(Path secrets_root) throws Exception {
     System.out.printf("%s:Decrypting files in %s folder.%n", emphasize_global("TODO"), emphasize_local(secrets_root.getFileName().toString()));
   }
+
   static void create_symlinks(Path root, Path symlinks_file) throws Exception {
     System.out.printf("Creating symlinks as defined in %s file.%n", emphasize_local(symlinks_file.getFileName().toString()));
     var lines = Files.readAllLines(symlinks_file);
@@ -35,6 +37,7 @@ class bootstripper{
       }
     }
   }
+
   static void link(Path root, String source, String target) throws Exception {
     var home = System.getProperty("user.home");
     var source_path = root.resolve(source).toAbsolutePath();
@@ -84,6 +87,7 @@ class bootstripper{
       }
     }
   }
+
   static String hostname() throws Exception {
     var process_builder = new ProcessBuilder().command("hostname");
     Process process;
@@ -111,23 +115,29 @@ class bootstripper{
       return output.toString();
     }
   }
+
   static void usage() {
     System.out.printf("Bootstraps bugabingas %s.%n", emphasize_local("dorkfiles"));
     System.out.printf("%s: java bootstripper.java <dotfiles root path>%n", emphasize_global("Usage"));
   }
+
   static void exit() {
     System.exit(0);
   }
+
   static String emphasize_global(String message) {
     return "\033[4m" + message + "\033[0m";
   }
+
   static String emphasize_local(String message) {
     return "\033[3m" + message + "\033[0m";
   }
+
   static void fail(String message, Object... arguments) {
     System.out.printf(message, arguments);
     System.exit(-1);
   }
+
   static void fail() {
     System.exit(-1);
   }

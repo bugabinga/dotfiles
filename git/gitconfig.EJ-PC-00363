@@ -1,4 +1,3 @@
-#vim: ft=gitconfig
 [user]
   name = Oliver Krylow
   email = o.krylow@isp-insoft.de

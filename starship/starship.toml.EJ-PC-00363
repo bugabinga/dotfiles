@@ -1,4 +1,3 @@
-#vim: ft=toml
 [character]
 success_symbol = ' (dimmed green)'
 # does not work yet in nushell

@@ -1,6 +1,3 @@
-neovim
-~/.config/nvim
-
 git/gitconfig
 ~/.config/git/config
 

@@ -22,9 +22,6 @@ cargo/config.toml
 nushell
 ~/.config/nu
 
-neovim
-~/.config/nvim
-
 stackoverflow/so
 ~/.config/so
 

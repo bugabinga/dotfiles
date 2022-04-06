@@ -1,19 +1,20 @@
 local wez = require'wezterm'
-return {
-  font = wez.font'JetBrainsMono Nerd Font',
-  font_size = 13.0,
+ return {
+  font = wez.font'BlexMono Nerd Font',
+  font_size = 11.0,
   color_scheme = 'nord',
   default_prog  = {'nu'},
   window_decorations = 'RESIZE',
   enable_tab_bar = true,
+  check_for_updates = false,
   show_update_window = false,
   hide_tab_bar_if_only_one_tab = true,
   tab_max_width = 24,
   window_padding = {
-    left = 8,
+    left = 12,
     right = 8,
-    top = 4,
-    bottom = 4,
+    top = 12,
+    bottom = 8,
   },
   colors = {
     tab_bar = {

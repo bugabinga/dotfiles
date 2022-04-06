@@ -1,6 +1,7 @@
 # Disable specific steps - same options as the command line flag
-# Siehe command -> Windows
-disable = ["tldr", "vim"]
+disable = ["tldr"]
+
+assume_yes = true
 
 # Run specific steps - same options as the command line flag
 #only = ["system", "emacs"]
@@ -17,6 +18,8 @@ cleanup = true
 [git]
 # Additional git repositories to pull
 repos = ["/home/oli/Workspace/*"]
+
+max_concurrency = 12
 
 pull_predefined= false
 
@@ -36,11 +39,11 @@ arguments = "--ff --rebase --autostash"
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
 "TLDR" = "tldr --update"
 
-# Update NeoVim-Plugins
-"NeoVim Plugins" = "echo 'Updating Plugins (packer) in headless neovim instance.' ; nvim  --headless -c 'autocmd User PackerComplete quitall' -c 'PluginsSync'"
-
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
 
 # Rebuild Sumneko lua langua server
-"Rebuild Sumneko LSP" = "cd ~/Workspace/lua-language-server/3rd/luamake ; ./compile/install.sh ; cd ../.. ; ./3rd/luamake/luamake rebuild"
+"Rebuild Sumneko LSP" = "cd ~/Workspace/lua-language-server; git submodule update --init --recursive ; cd 3rd/luamake ; ./compile/install.sh ; cd ../.. ; ./3rd/luamake/luamake rebuild"
+
+# Update hx editor
+"Update helix" = "cd ~/Workspace ; git clone -q https://github.com/helix-editor/helix ; cd helix ; git pull  ; ln -s ~/Workspace/helix/runtime /home/oli/.config/helix/  ; cargo install --path helix-term ; hx --grammar fetch ; hx --grammar build"

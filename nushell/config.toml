@@ -63,6 +63,6 @@ theme = "Nord"
 
 [env]
 STARSHIP_SHELL = "nushell"
-EDITOR = "nvim"
+EDITOR = "hx"
 BAT_THEME = "Nord"
 _ZO_ECHO = 1
