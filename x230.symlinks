@@ -4,26 +4,14 @@ git/gitconfig
 git/gitconfig.linux
 ~/.config/git/.gitconfig.include
 
-alacritty/alacritty.linux.yml
-~/.config/alacritty/alacritty.yml
-
-alacritty/alacritty_common.yml
-~/.config/alacritty/alacritty_common.yml
-
-alacritty/Alacritty.desktop
-~/.local/share/applications/Alacritty.desktop
-
-alacritty/alacritty-simple.svg
-~/.local/share/icons/hicolor/scalable/apps/Alacritty.svg
-
 cargo/config.toml
 ~/.cargo/config.toml
 
-nushell
-~/.config/nu
+nushell/config.nu
+~/.config/nushell/config.nu
 
-starship/starship.toml.x230
-~/.config/starship.toml
+nushell/plugin.nu
+~/.config/nushell/plugin.nu
 
 icc/thinkpad_x230.icc
 ~/.config/icc/thinkpad_x230.icc
