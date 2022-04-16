@@ -43,6 +43,3 @@ arguments = "--ff --rebase --autostash"
 
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
-
-# Rebuild Sumneko lua langua server
-"Rebuild Sumneko LSP" = "cd ~/Workspace/lua-language-server; git submodule update --init --recursive ; cd 3rd/luamake ; ./compile/install.sh ; cd ../.. ; ./3rd/luamake/luamake rebuild"

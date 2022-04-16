@@ -5,6 +5,7 @@ shell = [ "nu", "--commands" ]
 true-color = true
 line-number = "relative"
 auto-completion = false
+auto-pairs = false
 
 [editor.lsp]
 display-messages = true
@@ -16,12 +17,3 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
-
-[editor.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'"' = '"'
-"'" = "'"
-'`' = '`'
-'<' = '>'

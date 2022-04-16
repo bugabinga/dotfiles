@@ -2,6 +2,7 @@ register /home/oli/.cargo/bin/nu_plugin_gstat -e json  {
   "name": "gstat",
   "usage": "Get the git status of a repo",
   "extra_usage": "",
+  "search_terms": [],
   "required_positional": [],
   "optional_positional": [
     {

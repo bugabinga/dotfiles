@@ -42,8 +42,5 @@ arguments = "--ff --rebase --autostash"
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
 
-# Rebuild Sumneko lua langua server
-"Rebuild Sumneko LSP" = "cd ~/Workspace/lua-language-server; git submodule update --init --recursive ; cd 3rd/luamake ; ./compile/install.sh ; cd ../.. ; ./3rd/luamake/luamake rebuild"
-
 # Update hx editor
-"Update helix" = "cd ~/Workspace ; git clone -q https://github.com/helix-editor/helix ; cd helix ; git pull  ; ln -s ~/Workspace/helix/runtime /home/oli/.config/helix/  ; cargo install --path helix-term ; hx --grammar fetch ; hx --grammar build"
+"Update helix" = "cd ~/Workspace ; git clone -q https://github.com/helix-editor/helix ; cd helix ; git pull ; ln -s ~/Workspace/helix/runtime /home/oli/.config/helix/ ; cargo install --path helix-term ; hx --grammar fetch ; hx --grammar build"
