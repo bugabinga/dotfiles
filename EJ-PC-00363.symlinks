@@ -7,11 +7,8 @@ git/gitconfig.EJ-PC-00363
 topgrade/topgrade.windows.toml
 ~/AppData/Roaming/topgrade.toml
 
-nushell/config.nu
-~/AppData/Roaming/nushell/config.nu
-
-nushell/plugin.nu
-~/AppData/Roaming/nushell/plugin.nu
+nushell
+~/AppData/Roaming/nushell
 
 bottom
 ~/AppData/Roaming/bottom

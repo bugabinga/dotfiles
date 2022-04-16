@@ -1,0 +1,32 @@
+## Commands to remember
+
+- ouch: compress and decompress archives
+- sd: search and replace
+- fd: find files recursively
+- diskonaut: explore file system visually for large files
+- btm (bottom): system overview
+- rg: search file contents
+- bat: show file content
+- mdcat: render markdown in the terminal
+- tokei: count lines of code
+- hyperfine: benchmark tool
+- menyoki: capture screenshots, record gifs
+- rpick: Choose something out of predefined model using fancy algorithms
+- tldr: tool documentation
+- grex: regular expression pattern generator
+- xh: make HTTP requests
+- watchexec: filesystem watcher
+- viu: view images in terminal (blocky approximation)
+- licensor: print a license text
+- pastel: manage colors
+- hexyl: terminal hex viewer
+- gib: generate gitignore files
+- ix (indexa): global file search
+- silicon: code pretty picture generator
+- eva: calculator
+- bandwhich: show network traffic information
+- so: search Stack Exchange
+- linky: check markdown for broken links
+- comrak: render markdown to html
+- hx: terminal code editor
+- xplr: terminal file explorer

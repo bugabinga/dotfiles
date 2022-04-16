@@ -7,11 +7,8 @@ git/gitconfig.linux
 cargo/config.toml
 ~/.cargo/config.toml
 
-nushell/config.nu
-~/.config/nushell/config.nu
-
-nushell/plugin.nu
-~/.config/nushell/plugin.nu
+nushell
+~/.config/nushell
 
 stackoverflow/so
 ~/.config/so

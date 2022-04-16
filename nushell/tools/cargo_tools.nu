@@ -31,25 +31,18 @@ let cargo_git_crates = [
   "https://github.com/mosmeh/indexa"
 ]
 
-echo "CARGO CRATES"
-echo $cargo_crates
-echo "CARGO GIT CRATES"
-echo $cargo_git_crates
-echo "CUSTOM INSTALLS"
-echo "hx"
-
 def install_hx [] {
-  cd ~/Workspace #TODO make WORKSPACE env var
+  cd $env.WORKSPACE
   git clone https://github.com/helix-editor/helix
   cd helix
   cargo install --path helix-term
-  ln -s ~/Workspace/helix/runtime ~/.config/helix/runtime
   hx --grammar fetch
   hx --grammar build
 }
 
-cargo install $cargo_crates
-
-$cargo_git_crates | each {|it| cargo install --git $it }
-
-install_hx
+export def install[] {
+  cargo install --locked $cargo_crates
+  cargo install --locked nu --all-features
+  $cargo_git_crates | each {|it| cargo install --locked --git $it }
+  install_hx
+}
