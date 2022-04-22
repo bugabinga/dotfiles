@@ -1,5 +1,6 @@
 ## Commands to remember
 
+- cbs: copy and paste
 - ouch: compress and decompress archives
 - sd: search and replace
 - fd: find files recursively
@@ -30,3 +31,13 @@
 - comrak: render markdown to html
 - hx: terminal code editor
 - xplr: terminal file explorer
+- coreutils: rust unix tools
+- t-rec: terminal gifs
+- podcast: podcast manager
+- sic: image manipulation
+- vivid: generate LS_COLORS
+- chars: unicode character info
+- hwatch: watch output of commands over time
+- franklin-cli: evolutionary image filter
+- uggo: LoL builds
+
