@@ -1,5 +1,11 @@
-# To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# export env PATH { ($env.PATH | prepend '/some/path') }
+export env GO111MODULE { "on" }
+export env GOPATH { ($nu.home-path | path join '.go') }
+
+export env PATH {
+                    ( $env.PATH |
+                      prepend ($env.GOPATH | path join 'bin')
+                    )
+                }
 #TODO CARGO_HOME
 
 # GLOBAL VARIABLES
