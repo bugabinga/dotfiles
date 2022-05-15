@@ -25,7 +25,6 @@ declare -a fonts=(
     Iosevka
     JetBrainsMono
     Meslo
-    Noto
     Overpass
     ProggyClean
     RobotoMono
