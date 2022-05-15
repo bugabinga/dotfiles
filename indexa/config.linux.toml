@@ -17,7 +17,7 @@
 # match_path = false
 
 # Whether to search in path when query contains path separators.
-auto_match_path = true
+match_path = "auto"
 
 # Whether to enable regex.
 # regex = true
