@@ -1,6 +1,6 @@
 local wez = require'wezterm'
  return {
-  font = wez.font'BlexMono Nerd Font',
+  font = wez.font'JetBrainsMono Nerd Font',
   font_size = 11.0,
   color_scheme = 'nord',
   default_prog  = {'nu'},
