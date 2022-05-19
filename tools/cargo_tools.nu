@@ -25,6 +25,7 @@ let cargo_crates = [
   "licensor"
   "gib"
   "silicon"
+  "onefetch"
 ]
 
 let cargo_git_crates = [
