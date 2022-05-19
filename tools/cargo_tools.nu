@@ -40,7 +40,7 @@ def install_hx [] {
   hx --grammar build
 }
 
-export def install[] {
+def main [] {
   cargo install --locked $cargo_crates
   cargo install --locked nu --all-features
   $cargo_git_crates | each {|it| cargo install --locked --git $it }
