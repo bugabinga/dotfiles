@@ -1,7 +1,7 @@
 # Semantic aliases
 export alias view = bat
 export alias list = exa --group-directories-first --classify --all --long --icons --git
-export alias tree = exa --tree
+export alias tree = exa --tree --group-directories-first
 export alias look = xplr
 export alias browse = firefox
 export alias edit = hx
