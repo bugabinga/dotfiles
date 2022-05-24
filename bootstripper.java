@@ -88,6 +88,7 @@ class bootstripper {
         }
         command.add(target_path.toString());
         command.add(source_path.toString());
+        log(command.toString());
         process.inheritIO()
             .start()
             .onExit()

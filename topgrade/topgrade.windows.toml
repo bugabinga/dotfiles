@@ -26,20 +26,23 @@ pull_predefined= false
 # Arguments to pass Git when pulling Repositories
 arguments = "--ff --rebase --autostash"
 
+[windows]
+enable_winget = true
+
 # Commands to run before anything
 #[pre_commands]
 #"Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
 
 # Custom commands
 [commands]
-"Refresh dotfiles" = "java W:/misc/dotfiles/bootstripper.java W:/misc/dotfiles"
+"Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
 
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
 "TLDR" = "tldr --update"
 
 # Diese Skripte beziehen APM und MeMate aus dem Transfer.
-"Advantage-PM Client" = ". D:/Tools/update_apm_client.ps1"
-"MeMate" = ". D:/Tools/update_memate.ps1"
+"Advantage-PM Client" = ". C:/Users/okr/Tools/update_apm_client.ps1"
+"MeMate" = ". C:/USers/okr/Tools/update_memate.ps1"
 
 # Dateisystem-Indexer ix erfrischen
 "Indexa Update" = "ix --update"
