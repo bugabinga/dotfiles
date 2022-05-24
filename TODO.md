@@ -7,4 +7,5 @@
 - [ ] write svn completions for nushell
 - [ ] interactive zoxide jump function with skim
 - [x] port nushell config to new config script
+- [ ] remove win32 from target platforms of bootstripper
 
