@@ -1,14 +1,17 @@
-import java.nio.file.*;
-import java.io.*;
-
 import static java.text.MessageFormat.format;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 
 class bootstripper {
   public static void main(String[] arguments) throws Throwable {
     var dorkfile_path_input = ".";
     if (arguments.length == 1) {
       dorkfile_path_input = arguments[0];
-    } else if (arguments.length > 1){
+    } else if (arguments.length > 1) {
       usage();
       throw fail();
     }
@@ -74,7 +77,7 @@ class bootstripper {
        * However, most tools (including JDK) have not yet adapted to this change and
        * still require admin rights.
        * Until that is fixed, we escape to a system tool that is known to behave
-       * correcty in this regard.
+       * correctly in this regard.
        */
       var operating_system = System.getProperty("os.name");
       if (operating_system.toLowerCase().contains("win")) {
