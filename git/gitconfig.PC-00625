@@ -10,6 +10,7 @@
 
 [core]
   editor = code --wait
+  fsmonitor=true
 
 [diff]
     tool = code-difftool
