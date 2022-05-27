@@ -1,11 +1,12 @@
 # Nushell Config File
-use environment.nu *
 use table.nu *
 use os.nu *
 use prompt.nu *
 use aliases.nu *
 use todo.nu *
 use git.nu *
+use svn.nu *
+use openssl.nu *
 
 # CUSTOM COMPLETIONS
 use svn.complete.nu *

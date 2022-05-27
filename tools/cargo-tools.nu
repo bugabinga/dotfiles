@@ -1,21 +1,21 @@
 let cargo_crates = [
+  "sccache"  
   "sd"
+  "cbs"
+  "ouch"
   "fd-find"
   "ripgrep"
   "eva"
-  "watchexec-cli"
   "mdcat"
   "hexyl"
   "hyperfine"
   "so"
   "tealdeer"
   "tokei"
-  "bottom"
   "bat"
   "pastel"
   "diskonaut"
   "menyoki"
-  "rpick"
   "grex"
   "xh"
   "comrak"
@@ -25,25 +25,35 @@ let cargo_crates = [
   "licensor"
   "gib"
   "silicon"
-  "onefetch"
+  "bottom"
+  "sic"
 ]
 
 let cargo_git_crates = [
   "https://github.com/mosmeh/indexa"
 ]
 
-def install_hx [] {
+def install-helix-editor [] {
   cd $env.WORKSPACE
   git clone https://github.com/helix-editor/helix
   cd helix
-  cargo install --path helix-term
+  cargo install --locked --path helix-term
   hx --grammar fetch
   hx --grammar build
 }
 
 def main [] {
-  cargo install --locked $cargo_crates
-  cargo install --locked nu --all-features
-  $cargo_git_crates | each {|it| cargo install --locked --git $it }
-  install_hx
+  $cargo_crates | each { |crate|
+    if ( which $crate | empty? ) {
+      cargo install --locked $crate
+    } else {
+      echo $"($crate) already installed"
+    }
+  }
+  
+  $cargo_git_crates | each { |crate| 
+    cargo install --locked --git $crate
+  }
+  
+  install-helix-editor
 }

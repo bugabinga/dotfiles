@@ -8,7 +8,7 @@ class bootstripper {
     var dorkfile_path_input = ".";
     if (arguments.length == 1) {
       dorkfile_path_input = arguments[0];
-    } else if (arguments.length > 1){
+    } else if (arguments.length > 1) {
       usage();
       throw fail();
     }
@@ -54,15 +54,15 @@ class bootstripper {
     var is_directory = Files.isDirectory(source_path);
     if (Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)) {
       if (Files.exists(target_path)) {
-        log("\n✓ {0} already exists!\nNot linking {1}.", emphasize_global(target_path.toString()),
+        log("\nOK {0} already exists!\nNot linking {1}.", emphasize_global(target_path.toString()),
             emphasize_local(source_path.toString()));
         return;
       } else {
-        log("\n❌ {0} exists, but it points into nirvana. Removing broken link!", target_path.toString());
+        log("\nNOPE {0} exists, but it points into nirvana. Removing broken link!", target_path.toString());
         Files.delete(target_path);
       }
     }
-    log("\n🔗 {0} ➔ {1}.", emphasize_local(source_path.toString()),
+    log("\nLINK {0} TO {1}.", emphasize_local(source_path.toString()),
         emphasize_local(target_path.toString()));
     Files.createDirectories(target_path.getParent());
     try {
@@ -71,6 +71,7 @@ class bootstripper {
       /*
        * Creating symbolic links on Windows only recently became possible without
        * admin rights.
+       * And even that, is only available in Developer Mode.
        * However, most tools (including JDK) have not yet adapted to this change and
        * still require admin rights.
        * Until that is fixed, we escape to a system tool that is known to behave
