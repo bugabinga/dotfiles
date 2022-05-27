@@ -8,13 +8,4 @@ rustflags = [ "-C","target-cpu=native" ]
 # aaand we get out of memory errors when building nu...
 [profile.release]
 # link time optimization is slow, but allows inter-crate analysis
-# lto = "fat"
-
-[target.x86_64-pc-windows-msvc]
-# apparently, the LLVM linker is faster than others...
-linker = "lld-link.exe"
-
-[target.x86_64-unknown-linux-gnu]
-rustflags = [
-"-C", "link-arg=-fuse-ld=lld",
-]
+lto = "fat"

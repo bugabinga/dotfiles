@@ -42,6 +42,6 @@ export def-env svnstat [
         "missing": ( get-item-status-count $svn_status "missing" )
         "obstructed": "TODO"
         "tree_conflicts": ( $svn_status | get --ignore-errors status.children.target.children.entry.children.wc-status.attributes.tree-conflicted | flatten | flatten | compact | length)
-        "changelists": ( $svn_status | get --ignore-errors status.children.changelist | compact | flatten | get name )
+        "changelists": ( $svn_status | get --ignore-errors status.children.changelist | compact | flatten | get --ignore-errors name )
     }
 }

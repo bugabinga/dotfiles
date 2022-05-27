@@ -1,5 +1,5 @@
 # Disable specific steps - same options as the command line flag
-disable = ["tldr"]
+disable = ["wsl", "tldr"]
 
 assume_yes = true
 
@@ -17,7 +17,7 @@ cleanup = true
 
 [git]
 # Additional git repositories to pull
-repos = ["W:/misc/*/"]
+repos = ["W:/misc/*/", "W:/*/"]
 
 max_concurrency = 12
 
@@ -35,14 +35,16 @@ enable_winget = true
 
 # Custom commands
 [commands]
-"Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
+"00 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
 
-# Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
-"TLDR" = "tldr --update"
+"01 - Install Cargo Tools" = "nu W:/dotfiles/tools/cargo-tools.nu"
 
 # Diese Skripte beziehen APM und MeMate aus dem Transfer.
-"Advantage-PM Client" = ". C:/Users/okr/Tools/update_apm_client.ps1"
-"MeMate" = ". C:/USers/okr/Tools/update_memate.ps1"
+"02 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
+"03 - MeMate" = "nu X:/update_memate.nu"
 
 # Dateisystem-Indexer ix erfrischen
-"Indexa Update" = "ix --update"
+"04 - Indexa Update" = "ix --update"
+
+# Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
+"05 - TLDR" = "tldr --update"

@@ -6,6 +6,17 @@ export alias look = xplr
 export alias browse = firefox
 export alias edit = hx
 
+# wrapper to delegate to gsudo/sudo if available.
+export def doas [
+  ...rest: string # arguments
+] {
+  if ( which "sudo" | empty? ) {
+    ^doas $rest
+  } else {
+    ^sudo $rest
+  }
+}
+
 # CUSTOM LITTLE JAVA COMMANDS
 export alias aes = java (build-string $env.DOTFILES /tools/ aes.java)
 export alias download = java (build-string $env.DOTFILES /tools/ download.java)

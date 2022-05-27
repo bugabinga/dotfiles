@@ -51,8 +51,7 @@ fast_sort = [
 
 # Root directories to index. Defaults to / on Unix and %HOMEDRIVE%\ (usually C:\) on Windows.
 dirs = [
-     "C:\\",
-     "D:\\"
+     "C:\\"
  ]
 
 # Whether to ignore hidden files/directories.

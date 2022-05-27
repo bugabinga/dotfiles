@@ -12,11 +12,9 @@
 - tokei: count lines of code
 - hyperfine: benchmark tool
 - menyoki: capture screenshots, record gifs
-- rpick: Choose something out of predefined model using fancy algorithms
 - tldr: tool documentation
 - grex: regular expression pattern generator
 - xh: make HTTP requests
-- watchexec: filesystem watcher
 - viu: view images in terminal (blocky approximation)
 - licensor: print a license text
 - pastel: manage colors
@@ -31,13 +29,11 @@
 - comrak: render markdown to html
 - hx: terminal code editor
 - xplr: terminal file explorer
-- coreutils: rust unix tools
 - t-rec: terminal gifs
 - podcast: podcast manager
 - sic: image manipulation
 - vivid: generate LS_COLORS
 - chars: unicode character info
-- hwatch: watch output of commands over time
 - franklin-cli: evolutionary image filter
 - uggo: LoL builds
 

@@ -8,9 +8,16 @@ Shared configuration files between some Linux and some Windows hosts.
 1. Install a JDK
 1. git clone git@github.com:bugabinga/dotfiles
 1. `cd dotfiles`
-1. `java bootstripper.java .`
+1. `java bootstripper.java`
 
 > Pay attention to already existing symlinks!
+
+## windows
+
+Initial setup on windows is a little more sophisticated, because I am used to a developers environment.
+
+1. Enable Devoloper Mode, so that it is allowed to make symlinks without admin permissions.
+1. Install Build Tools with C++ Option (for Rust and cargo tools)
 
 ## rough goals
 

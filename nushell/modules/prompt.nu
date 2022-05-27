@@ -46,9 +46,11 @@ export alias z = zoxide-jump
 # Order these paths for precedence.
 def icons [] {
     [ 
-        [path icon];
-        [/home/oli/Workspace "🧬"]
-        [/home/oli "🏡"]
+        [ path icon ];
+        [ "/home/oli/Workspace" (char -u "1f4bb") ]
+        [ "/home/oli" (char nf_house2) ]
+        [ "C:\\Users\\okr\\Workspaces" (char -u "1f4bb") ]
+        [ "C:\\Users\\okr" (char nf_house2) ]
     ]
 } 
 
@@ -59,7 +61,7 @@ def icons [] {
 def set-window-title [] {
     # normalize path
     let pwd = ( $env.PWD | path expand )
-    let icon = if (icons | any? path == $pwd) { ( icons | where path == $pwd | get icon.0 ) } else { "📁" }
+    let icon = if (icons | any? path == $pwd) { ( icons | where path == $pwd | get icon.0 ) } else { $"(char nf_folder1)" }
     # Some terminals freeze, if they do not support this OSC
     if (env | any? name == TERM_PROGRAM) && $env.TERM_PROGRAM == WezTerm { 
       echo ([ (ansi title) $icon " " ( $pwd | path basename ) (ansi reset) ] | str collect)
@@ -71,10 +73,10 @@ def get_vcs_path [] {
     let pwd = ($env.PWD | path expand)  
 
     let svn_relative_cmd = ( do --ignore-errors { ^svn info --show-item relative-url --no-newline $pwd } | complete )
-    let svn_relative_path = if ($svn_relative_cmd.exit_code == 0) { $" 🐢 ($svn_relative_cmd.stdout)" }
+    let svn_relative_path = if ($svn_relative_cmd.exit_code == 0) { $" 🐢 (char nf_branch) ($svn_relative_cmd.stdout)" }
   
     let git_status = ( gstat )
-    let git_branch = if ( $git_status.branch != "no_branch" ) { $"  ($git_status.branch)" }
+    let git_branch = if ( $git_status.branch != "no_branch" ) { $" (char nf_git) (char nf_branch) ($git_status.branch)" }
 
     [
       $svn_relative_path
@@ -88,9 +90,9 @@ def create_left_prompt [] {
 
     # normalize path
     let pwd = ($env.PWD | path expand)
-    let pwd = (icons | reduce --fold $pwd { |item, accumulator| $accumulator | str replace $item.path $item.icon })
+    let pwd = (icons | reduce --fold $pwd { |item, accumulator| $accumulator | str replace --string $item.path $item.icon })
     let truncate_level = 5
-    let truncate_symbol = "…/"
+    let truncate_symbol = $"…(char path_sep)"
     let path_segment = if ($pwd | path split | length) >= $truncate_level { ($pwd | path dirname --num-levels 2 --replace $truncate_symbol ) } else { $pwd }
     
     let vcs_segment = get_vcs_path
@@ -110,8 +112,8 @@ def create_right_prompt [] {
         (date now | date format '%d.%m %R')
     ] | str collect)
   
-    let command_status_segment = if $env.LAST_EXIT_CODE == 0 { " ✔ " } else { $"(ansi red) ✖ (ansi reset)" }
-    let command_duration_segment = if ($env.CMD_DURATION_MS|into int) > 50 { build-string $"($env.CMD_DURATION_MS)ms" | into duration }  
+    let command_status_segment = if $env.LAST_EXIT_CODE == 0 { $" (char -u '2713') " } else { $"(ansi red) (char failed) (ansi reset)" }
+    let command_duration_segment = if ($env.CMD_DURATION_MS | into int) > 50 { $"($env.CMD_DURATION_MS)ms" | into duration }  
 
     [ 
       (ansi red_bold)
@@ -132,7 +134,7 @@ export env PROMPT_COMMAND_RIGHT { {create_right_prompt} }
 
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-export env PROMPT_INDICATOR { $"(ansi purple) · (ansi reset)" }
-export env PROMPT_INDICATOR_VI_INSERT { $"(ansi purple_reverse) : (ansi reset)" }
-export env PROMPT_INDICATOR_VI_NORMAL { $"(ansi purple_bold) · (ansi reset)" }
-export env PROMPT_MULTILINE_INDICATOR { $"(ansi purple_dimmed)·· (ansi reset)" }
+export env PROMPT_INDICATOR { $"(ansi purple) (char prompt) (ansi reset)" }
+export env PROMPT_INDICATOR_VI_INSERT { $"(ansi purple_reverse) (char pipe) (ansi reset)" }
+export env PROMPT_INDICATOR_VI_NORMAL { $"(ansi purple_bold) (char prompt) (ansi reset)" }
+export env PROMPT_MULTILINE_INDICATOR { $"(ansi purple_dimmed)(char prompt)(char prompt) (ansi reset)" }
