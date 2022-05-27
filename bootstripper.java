@@ -17,8 +17,12 @@ class bootstripper {
     decrypt_secrets(dorkfiles_root.resolve("tresor"));
     var hostname = hostname();
     log("Hostname: {0}", emphasize_global(hostname));
-    var symlinks_file = hostname + ".symlinks";
-    create_symlinks(dorkfiles_root, dorkfiles_root.resolve(symlinks_file));
+    var symlinks_file = dorkfiles_root.resolve(hostname + ".symlinks");
+    if (Files.exists(symlinks_file)) {
+      create_symlinks(dorkfiles_root, symlinks_file);
+    } else {
+      throw fail("Expected a file containing symlinks at: {0}. Found nothing!", symlinks_file);
+    }
   }
 
   static void decrypt_secrets(Path secrets_root) throws Throwable {
