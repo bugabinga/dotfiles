@@ -18,6 +18,8 @@ Initial setup on windows is a little more sophisticated, because I am used to a 
 
 1. Enable Devoloper Mode, so that it is allowed to make symlinks without admin permissions.
 1. Install Build Tools with C++ Option (for Rust and cargo tools)
+1. Install Git without internal SSH
+1. Start ssh-agent service
 
 ## rough goals
 
