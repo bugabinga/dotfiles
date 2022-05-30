@@ -4,7 +4,13 @@ export alias list = exa --group-directories-first --classify --all --long --icon
 export alias tree = exa --tree --group-directories-first
 export alias look = xplr
 export alias browse = firefox
-export alias edit = hx
+export def edit [ ...rest: string ] {
+  if $env.WIN32? {
+    code $rest
+  } else {
+    helix $rest
+  }
+}
 
 # wrapper to delegate to gsudo/sudo if available.
 export def doas [

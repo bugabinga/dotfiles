@@ -7,6 +7,7 @@ use todo.nu *
 use git.nu *
 use svn.nu *
 use openssl.nu *
+use pacnew.nu *
 
 # CUSTOM COMPLETIONS
 use svn.complete.nu *

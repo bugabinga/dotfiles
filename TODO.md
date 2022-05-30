@@ -5,5 +5,32 @@
 - [ ] encrypt box key
 - [ ] get SIM card to work on x230
 - [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
-- [ ] expand nugu theme to wezterm and eclipse, and more
+- [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
+  - [ ] expand nugu theme to wezterm and eclipse, and more
+- [ ] system status command: network, disk space, todo, vsc status, time date, pacsave files
+- [ ] wrap mv and rm to use git/svn versions if applicable
+- [ ] global dark/light theme switch
 - [x] port nushell config to new config script
+- [x] configure tiny irc
+
+## x230
+
+- [ ] pacman hook reflector on mirrorlist
+- [ ] install pipewire
+- [ ] Configure makepkg and paru
+  - [ ] pacman paru makepkg sscache ? 
+- [ ] check out river recommended tools
+- [ ] bootstripper encrypt keys + ssh config
+- [ ] create snapper snapshot + systemd-boot entries
+- [ ] install GRML rescue system into systemd-boot
+- [ ] sign secure boot and unified kernel image
+- [ ] install coreboot
+- [ ] create custom optimized pacman repo
+- [ ] Toolbox on Arch? Custom tool based on nspawn?
+- [ ] install circular clipboard thingy
+- [ ] restart iwd on wakeup
+- [x] river + systemd user + tty2
+- [x] dotfiles + refresh configs
+- [x] disable TAB key in tty
+- [x] merge nushell config
+- [x] hx colors in console? why different?
