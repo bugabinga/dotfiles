@@ -34,13 +34,10 @@ arguments = "--ff --rebase --autostash"
 [commands]
 
 # Updating my configuration files
-"Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
+"00 - Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
 
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
-"TLDR" = "tldr --update"
+"01 - TLDR" = "tldr --update"
 
 # Dateisystem-Indexer ix erfrischen
-"Indexa Update" = "ix --update"
-
-# Update hx editor
-"Update helix" = "cd ~/Workspace ; git clone -q https://github.com/helix-editor/helix ; cd helix ; git pull ; ln -s ~/Workspace/helix/runtime /home/oli/.config/helix/ ; cargo install --path helix-term ; hx --grammar fetch ; hx --grammar build"
+"02 - Indexa Update" = "ix --update"

@@ -30,3 +30,6 @@ helix/config.toml
 
 helix/themes
 ~/.config/helix/themes
+
+river
+~/.config/river
