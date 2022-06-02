@@ -12,8 +12,14 @@ no_retry = true
 # Do not set the terminal title
 set_title = true
 
+# Display the time in step titles
+display_time = true
+
 # Cleanup temporary or old files
 cleanup = true
+
+[composer]
+self_update = false
 
 [git]
 # Additional git repositories to pull

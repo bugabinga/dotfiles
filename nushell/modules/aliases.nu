@@ -4,52 +4,12 @@ export alias list = exa --group-directories-first --classify --all --long --icon
 export alias tree = exa --tree --group-directories-first
 export alias look = xplr
 export alias browse = firefox
-export def edit [ ...rest: string ] {
-  if $env.WIN32? {
-    code $rest
-  } else {
-    helix $rest
-  }
-}
+export alias edit = code
 
-# wrapper to delegate to gsudo/sudo if available.
-export def doas [
-  ...rest: string # arguments
-] {
-  if ( which "sudo" | empty? ) {
-    ^doas $rest
-  } else {
-    ^sudo $rest
-  }
-}
+# TODO: HOST SPECIFIC ALIASES
+# I do not see a way right now the have different aliases per host with nu.
 
 # CUSTOM LITTLE JAVA COMMANDS
 export alias aes = java (build-string $env.DOTFILES /tools/ aes.java)
 export alias download = java (build-string $env.DOTFILES /tools/ download.java)
 export alias download_jar = java (build-string $env.DOTFILES /tools/ download_jar.java)
-
-# Open manual page.
-# On Windows, a man web page is opened.
-export def man [
-  ...rest: string # Arguments to man
-] {
-  if $env.WIN32? {
-    ^start (build-string https://man.archlinux.org/man/ ($rest | to-string))
-  } else {
-    ^man $rest
-  }
-}
-
-# Search the given query on the web with the default browser in DuckDuckGo.
-export def web [
-  ...rest:string # The search query
-] {
-  let query = (build-string "https://duckduckgo.com/?q=" ($rest | to-string))
-  if $env.WIN32? {
-    # There seems to be an issue with the nu start command on windows: It does not handle URLs
-    # Using windows command for now:
-    ^start $query
-  } else {
-    xdg-open $query
-  }
-}

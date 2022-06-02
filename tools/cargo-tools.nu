@@ -1,33 +1,52 @@
+# names of binaries in cargo must not necessarily be equal to the crate name.
+# this table resolves the binary name of a crate.
+# also, a crate can have more than one binary, but for the purpose of checking if a crate is
+# already installed on the system, finding one binary is sufficient.
+# we also cannot use `cargo install --list` to search for the binary name, in case the crate 
+# is not installed yet
 let cargo_crates = [
-  "sccache"  
-  "sd"
-  "cbs"
-  "ouch"
-  "fd-find"
-  "ripgrep"
-  "eva"
-  "mdcat"
-  "hexyl"
-  "hyperfine"
-  "so"
-  "tealdeer"
-  "tokei"
-  "bat"
-  "pastel"
-  "diskonaut"
-  "menyoki"
-  "grex"
-  "xh"
-  "comrak"
-  "bandwhich"
-  "linky"
-  "viu"
-  "licensor"
-  "gib"
-  "silicon"
-  "bottom"
-  "sic"
+  [name bin features];
+  ["sccache" "sccache" []]
+  ["nu" "nu" ["--features=extra"]]
+  ["sd" "sd" []]
+  ["cbs" "cbs" []]
+  ["ouch" "ouch" []]
+  ["fd-find" "fd" []]
+  ["ripgrep" "rg" []]
+  ["onefetch" "onefetch" []]
+  ["eva" "eva" []]
+  ["mdcat" "mdcat" []]
+  ["cargo-update" "cargo-install-update" []]
+  ["hexyl" "hexyl" []]
+  ["hyperfine" "hyperfine" []]
+  ["so" "so" so-features]
+  ["tealdeer" "tldr" []]
+  ["tokei" "tokei" []]
+  ["bat" "bat" []]
+  ["pastel" "pastel" []]
+  ["diskonaut" "diskonaut" []]
+  ["menyoki" "menyoki" []]
+  ["zoxide" "zoxide" []]
+  ["grex" "grex" []]
+  ["xh" "xh" []]
+  ["comrak" "comrak" []]
+  # ["bandwhich" "bandwhich" []] masked until https://github.com/imsnif/bandwhich/issues/233
+  ["linky" "linky" []]
+  ["viu" "viu" []]
+  ["licensor" "licensor" []]
+  ["gib" "gib" []]
+  ["silicon" "silicon" []]
+  ["bottom" "btm" []]
+  ["sic" "sic" []]
 ]
+
+def so-features [] {
+  if $env.WIN32? {
+    ["--no-default-features" "--features=windows"]
+  } else {
+    []
+  }
+}
 
 let cargo_git_crates = [
   "https://github.com/mosmeh/indexa"
@@ -35,25 +54,31 @@ let cargo_git_crates = [
 
 def install-helix-editor [] {
   cd $env.WORKSPACE
-  git clone https://github.com/helix-editor/helix
+  if ( $env.WORKSPACE | path join "helix/.git" | path exists ) {
+    git -C helix pull
+  } else {
+    git clone https://github.com/helix-editor/helix
+  }
   cd helix
   cargo install --locked --path helix-term
-  hx --grammar fetch
-  hx --grammar build
+  hx --grammar fetch | ignore
+  hx --grammar build | ignore
 }
 
+# install all my favorite crate, only if they are not already in PATH.
 def main [] {
-  $cargo_crates | each { |crate|
-    if ( which $crate | empty? ) {
-      cargo install --locked $crate
+  $cargo_crates | each { | crate |
+    if ( which $crate.bin | empty? ) {
+      echo $'cargo install --locked ($crate.name) ($crate.features)'
+      cargo install --locked $crate.name $crate.features
     } else {
-      echo $"($crate) already installed"
+      echo $"($crate.name) already installed"
     }
   }
-  
+  # crates, that are not even on crates.io are not likely to be packeged anywhere else.
+  # so we skip the check if the binary is already in path
   $cargo_git_crates | each { |crate| 
     cargo install --locked --git $crate
   }
-  
   install-helix-editor
 }

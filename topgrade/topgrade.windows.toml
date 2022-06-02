@@ -12,12 +12,18 @@ no_retry = true
 # Do not set the terminal title
 set_title = true
 
+# Display the time in step titles
+display_time = true
+
 # Cleanup temporary or old files
 cleanup = true
 
+[composer]
+self_update = true
+
 [git]
 # Additional git repositories to pull
-repos = ["W:/misc/*/", "W:/*/"]
+repos = ["W:/*/"]
 
 max_concurrency = 12
 
@@ -30,13 +36,12 @@ arguments = "--ff --rebase --autostash"
 enable_winget = true
 
 # Commands to run before anything
-#[pre_commands]
-#"Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
+[pre_commands]
+"00 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
+"01 - Winget Backup" = "winget export --source winget 'D:/Tools/winget_installed_apps.json' *> $null"
 
 # Custom commands
 [commands]
-"00 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
-
 "01 - Install Cargo Tools" = "nu W:/dotfiles/tools/cargo-tools.nu"
 
 # Diese Skripte beziehen APM und MeMate aus dem Transfer.

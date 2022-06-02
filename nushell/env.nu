@@ -3,7 +3,7 @@
 let-env WIN32? = $nu.os-info.name =~ "windows" 
 let-env NURC_DIR  = ($nu.config-path| path expand | path dirname)
 let-env DOTFILES  = ($env.NURC_DIR| path join ".." | path expand) 
-let-env WORKSPACE = if $env.WIN32? { "W:/misc" } else { "~/Workspace" } 
+let-env WORKSPACE = if $env.WIN32? { "W:/" } else { "~/Workspace" } 
 let-env CARGO_HOME = if $env.WIN32? { "C:/Users/okr/.cargo" } else { "~/.cargo" } 
 
 # Specifies how environment variables are:

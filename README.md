@@ -20,6 +20,7 @@ Initial setup on windows is a little more sophisticated, because I am used to a 
 1. Install Build Tools with C++ Option (for Rust and cargo tools)
 1. Install Git without internal SSH
 1. Start ssh-agent service
+1. Enable `UTF-8` in regional settings
 
 ## rough goals
 
