@@ -15,7 +15,9 @@
 
 ## x230
 
+- [ ] package indexa AUR
 - [ ] pacman hook reflector on mirrorlist
+- [ ] pacman trigger for "needs reboot"
 - [ ] install pipewire
 - [ ] Configure makepkg and paru
   - [ ] pacman paru makepkg sscache ? 
