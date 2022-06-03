@@ -33,8 +33,8 @@ pull_predefined= false
 arguments = "--ff --rebase --autostash"
 
 # Commands to run before anything
-#[pre_commands]
-#"Emacs Snapshot" = "rm -rf ~/.emacs.d/elpa.bak && cp -rl ~/.emacs.d/elpa ~/.emacs.d/elpa.bak"
+[pre_commands]
+"00 - Create BTRFS snapshot" = "echo TODO"
 
 # Custom commands
 [commands]
@@ -42,8 +42,13 @@ arguments = "--ff --rebase --autostash"
 # Updating my configuration files
 "00 - Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
 
+# install tools from cargo, that are not already in path
+# TODO: this could be annoying when setting up a machine first time?
+"01 - Install Cargo Tools" = "nu W:/dotfiles/tools/cargo-tools.nu"
+
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
-"01 - TLDR" = "tldr --update"
+"03 - TLDR" = "tldr --update"
 
 # Dateisystem-Indexer ix erfrischen
-"02 - Indexa Update" = "ix --update"
+"03 - Indexa Update" = "ix --update"
+
