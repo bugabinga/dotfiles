@@ -12,6 +12,7 @@ let cargo_crates = [
   ["cbs" "cbs" []]
   ["ouch" "ouch" []]
   ["fd-find" "fd" []]
+  ["choose", "choose", []]
   ["ripgrep" "rg" []]
   ["onefetch" "onefetch" []]
   ["eva" "eva" []]

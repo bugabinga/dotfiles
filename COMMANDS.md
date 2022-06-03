@@ -1,7 +1,9 @@
 ## Commands to remember
 
+- sbyte: byte editor cli
 - cbs: copy and paste
 - ouch: compress and decompress archives
+- choose: `choose` sections from each line of files
 - sd: search and replace
 - diskonaut: explore file system visually for large files
 - btm (bottom): system overview
