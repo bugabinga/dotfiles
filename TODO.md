@@ -4,7 +4,7 @@
 - [ ] interactive zoxide jump function with skim
 - [ ] encrypt box key
 - [ ] get SIM card to work on x230
-- [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
+- [ ] rewrite bootstripper and java commands with zig. how to run them? precompile? zig run?
 - [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
   - [ ] expand nugu theme to wezterm and eclipse, and more
 - [ ] system status command: network, disk space, todo, vsc status, time date, pacsave files
@@ -20,7 +20,7 @@
 - [ ] pacman trigger for "needs reboot"
 - [ ] install pipewire
 - [ ] Configure makepkg and paru
-  - [ ] pacman paru makepkg sscache ? 
+  - [ ] pacman paru makepkg sscache ?
 - [ ] check out river recommended tools
 - [ ] bootstripper encrypt keys + ssh config
 - [ ] create snapper snapshot + systemd-boot entries

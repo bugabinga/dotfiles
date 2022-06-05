@@ -1,25 +1,24 @@
 local wez = require'wezterm'
-local hostname = wez.hostname()
 
+local hostname = wez.hostname()
 local enable_wayland = false
-local window_decorations = 'TITLE|RESIZE'
-local dpi = nil
-local color_scheme = 'nord-light'
+local window_decorations = 'RESIZE'
+local color_scheme = 'nugu' -- not there yet ;)
 
 if hostname == "x230" then
   enable_wayland = true
   window_decorations = 'NONE'
-  dpi = 125.37
   color_scheme = 'nord'
+elseif hostname == "pop-os" then
+  color_scheme = 'Ubuntu'
 end
 
-local configuration = {
-  font = wez.font'JetBrainsMono Nerd Font',
-  font_size = 13.0,
+return {
+  font = wez.font'BlexMono Nerd Font',
+  font_size = 14.0,
   color_scheme = color_scheme,
-  default_prog  = {'nu'},
-  dpi = dpi,
-  window_decorations = window_decorations, 
+  default_prog  = { 'nu' },
+  window_decorations = window_decorations,
   enable_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
   check_for_updates = false,
@@ -33,4 +32,3 @@ local configuration = {
     bottom = 8,
   }
 }
-return configuration

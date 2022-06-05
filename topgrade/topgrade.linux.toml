@@ -27,7 +27,7 @@ repos = ["/home/oli/Workspace/*"]
 
 max_concurrency = 12
 
-pull_predefined= false
+pull_predefined = false
 
 # Arguments to pass Git when pulling Repositories
 arguments = "--ff --rebase --autostash"
@@ -44,11 +44,10 @@ arguments = "--ff --rebase --autostash"
 
 # install tools from cargo, that are not already in path
 # TODO: this could be annoying when setting up a machine first time?
-"01 - Install Cargo Tools" = "nu W:/dotfiles/tools/cargo-tools.nu"
+"01 - Install Cargo Tools" = "nu ~/Workspace/dotfiles/tools/cargo-tools.nu"
 
 # Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
 "03 - TLDR" = "tldr --update"
 
 # Dateisystem-Indexer ix erfrischen
 "03 - Indexa Update" = "ix --update"
-
