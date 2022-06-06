@@ -15,7 +15,21 @@
 
 ## x230
 
+- [ ] wayland (river) systemd user target
+  - [x] river.service
+  - [ ] wayland.target
+  - [ ] way-display.service
+  - [ ] wluma.service
+  - [ ] wlsunset@latitude&longitude.service
+  - [ ] waylock.service
+  - [ ] bar
+  - [ ] notification
+  - [ ] clipboard history
+- [ ] wezterm multiplexer service
+- [ ] use systemd user for autostart stuff
 - [ ] package indexa AUR
+- [ ] OFFLINE
+  - [ ] local web proxy cache (squid?)
 - [ ] pacman hook reflector on mirrorlist
 - [ ] pacman trigger for "needs reboot"
 - [ ] install pipewire

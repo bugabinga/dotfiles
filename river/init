@@ -8,6 +8,12 @@
 # See the river(1), riverctl(1), and rivertile(1) man pages for complete
 # documentation.
 
+# systemd user integration
+# in order to export the environment variables, that river sets for other services, we need to tell
+# systemd about those
+riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XCURSOR_SIZE XDG_CURRENT_DESKTOP"
+riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XCURSOR_SIZE XDG_CURRENT_DESKTOP"
+
 # Use the "logo" key as the primary modifier
 super="Mod4"
 alt="Mod1"
@@ -165,4 +171,4 @@ riverctl csd-filter-add "gedit"
 # Set and exec into the default layout generator, rivertile.
 # River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
-exec rivertile
+exec rivertile -view-padding 0 -outer-padding 0 -main-location right -main-ratio 0.666 -main-count 2
