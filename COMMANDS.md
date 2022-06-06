@@ -2,6 +2,8 @@
 
 - sbyte: byte editor cli
 - cbs: copy and paste
+- lswt: list wayland toplevel windows
+- dex: run and make xdg desktop files
 - ouch: compress and decompress archives
 - choose: `choose` sections from each line of files
 - sd: search and replace

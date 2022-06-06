@@ -1,5 +1,5 @@
 # Disable specific steps - same options as the command line flag
-disable = ["tldr"]
+disable = []
 
 assume_yes = true
 
@@ -46,9 +46,6 @@ arguments = "--ff --rebase --autostash"
 # TODO: this could be annoying when setting up a machine first time?
 "01 - Install Cargo Tools" = "nu W:/dotfiles/tools/cargo-tools.nu"
 
-# Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
-"03 - TLDR" = "tldr --update"
-
 # Dateisystem-Indexer ix erfrischen
-"03 - Indexa Update" = "ix --update"
+"02 - Indexa Update" = "ix --update"
 
