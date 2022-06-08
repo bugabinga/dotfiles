@@ -14,15 +14,16 @@ lint:
     # java files
     javac -Werror -Xlint:all bootstripper.java
     rm bootstripper.class
-    # json files 
+    # json files
     # markdown files
-    linky --check --follow --urldecode README.md
+    # links
+    lychee .
 
 # format config files
 fmt:
     # Justfiles
     just --fmt --unstable
-    # lua 
+    # lua
     stylua --verify .
     # shell files
     # toml files
