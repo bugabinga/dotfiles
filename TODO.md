@@ -5,6 +5,7 @@
 - [ ] encrypt box key
 - [ ] get SIM card to work on x230
 - [ ] rewrite bootstripper and java commands with zig. how to run them? precompile? zig run?
+- [ ] move vscode config into dorkfiles
 - [ ] learn basic helix
 - [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
   - [ ] expand nugu theme to wezterm and eclipse, and more
