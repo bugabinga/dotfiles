@@ -39,6 +39,10 @@ let cargo_crates = [
   ["silicon" "silicon" []]
   ["bottom" "btm" []]
   ["sic" "sic" []]
+  ["just" "just" []]
+  ["mdsh" "mdsh" []]
+  ["selene" "selene" ["--no-default-features"]]
+  ["stylua" "stylua" ["--features=lua52"]]
 ]
 
 def so-features [] {

@@ -27,7 +27,7 @@ repos = ["W:/*/"]
 
 max_concurrency = 12
 
-pull_predefined= false
+pull_predefined = false
 
 # Arguments to pass Git when pulling Repositories
 arguments = "--ff --rebase --autostash"
