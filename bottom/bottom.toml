@@ -73,7 +73,7 @@ temperature_type = "celsius"
 #table_header_color="LightBlue"
 
 # Represents the colour of the label each widget has.
-widget_title_color="Blue"
+widget_title_color = "Blue"
 
 # Represents the average CPU color.
 #avg_cpu_color="Red"
@@ -82,7 +82,7 @@ widget_title_color="Blue"
 #cpu_core_colors=["LightMagenta", "LightYellow", "LightCyan", "LightGreen", "LightBlue", "LightRed", "Cyan", "Green", "Blue", "Red"]
 
 # Represents the colour RAM will use in the memory legend and graph.
-ram_color="LightGreen"
+ram_color = "LightGreen"
 
 # Represents the colour SWAP will use in the memory legend and graph.
 #swap_color="LightYellow"
@@ -94,13 +94,13 @@ ram_color="LightGreen"
 #tx_color="LightGreen"
 
 # Represents the colour of the border of unselected widgets.
-border_color="Blue"
+border_color = "Blue"
 
 # Represents the colour of the border of selected widgets.
 #highlighted_border_color="LightBlue"
 
 # Represents the colour of most text.
-text_color="Blue"
+text_color = "Blue"
 
 # Represents the colour of text that is selected.
 #selected_text_color="Black"
@@ -109,7 +109,7 @@ text_color="Blue"
 #selected_bg_color="LightBlue"
 
 # Represents the colour of the lines and text of the graph.
-graph_color="Blue"
+graph_color = "Blue"
 
 # Represents the colours of the battery based on charge
 #battery_colors = ["red", "yellow", "yellow", "green", "green", "green"]
@@ -127,15 +127,15 @@ graph_color="Blue"
 
 # The default widget layout:
 [[row]]
-  ratio=60
-  [[row.child]]
-    type="proc"
-    default=true
+ratio = 60
+[[row.child]]
+type = "proc"
+default = true
 [[row]]
-  ratio=20
-  [[row.child]]
-    type="cpu"
+ratio = 20
+[[row.child]]
+type = "cpu"
 [[row]]
-  ratio=10
-  [[row.child]]
-    type="mem"
+ratio = 10
+[[row.child]]
+type = "mem"

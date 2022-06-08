@@ -30,29 +30,27 @@ match_path = "auto"
 # File/directory statuses to index.
 # basename, path and extension are implicitly specified.
 index = [
-    # "size",
-    # "mode",
-    # "created",
-    # "modified",
-    # "accessed",
+  # "size",
+  # "mode",
+  # "created",
+  # "modified",
+  # "accessed",
 ]
 
 # File/directory statuses to enable fast sorting for.
 # basename is implicitly specified.
 fast_sort = [
-    # "path",
-    # "extension",
-    # "size",
-    # "mode",
-    # "created",
-    # "modified",
-    # "accessed",
+  # "path",
+  # "extension",
+  # "size",
+  # "mode",
+  # "created",
+  # "modified",
+  # "accessed",
 ]
 
 # Root directories to index. Defaults to / on Unix and %HOMEDRIVE%\ (usually C:\) on Windows.
-dirs = [
-     "C:\\"
- ]
+dirs = ["C:\\"]
 
 # Whether to ignore hidden files/directories.
 ignore_hidden = false
