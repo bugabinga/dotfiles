@@ -9,6 +9,8 @@ def "complete svn subcommands" [] {
   | get column1
 }
 
+# TODO: parse xml output
+
 def "complete svn add paths" [] {
   ^svn status --depth files
   | lines
@@ -49,7 +51,36 @@ export extern svn [
 # usage: help [SUBCOMMAND...]
 export extern "svn help" [
   subcommand?: string@"complete svn subcommands" # for help on a specific subcommand.
-  --verbose(-v) # also show experimental subcommands and options 
+  --verbose(-v) # also show experimental subcommands and options
+]
+
+# FIXME:
+# SVN has short options with double dashes: --changelist(--cl).
+# This is not allowed in nu.
+
+# FIXME:
+# Multiline doccomments will be rendered without the newlines.
+
+# Print the status of working copy files and directories.
+export extern "svn status" [
+  ...paths: path                        # PATHs
+  --show-updates(-u)                    # display update information
+  --verbose(-v)                         # print extra information
+  --depth: string@"complete svn depth"  # limit operation by depth ARG ('empty', 'files', 'immediates', or 'infinity')
+  --revision(-r): string                # ARG (some commands also take ARG1:ARG2 range)
+                                        # A revision argument can be one of:
+                                        # NUMBER       revision number
+                                        # '{' DATE '}' revision at start of the date
+                                        # 'HEAD'       latest in repository
+                                        # 'BASE'       base rev of item's working copy
+                                        # 'COMMITTED'  last commit at or before BASE
+                                        # 'PREV'       revision just before COMMITTED
+  --quiet(-q)                           # don't print unversioned items
+  --no-ignore                           # disregard default and svn:ignore and svn:global-ignores property ignores
+  --incremental                         # give output suitable for concatenation
+  --xml                                 # output in XML
+  --ignore-externals                    # ignore externals definitions
+  --changelist:string@"complete svn changelists" # operate only on members of changelist ARG
 ]
 
 # FIXME: https://github.com/nushell/nushell/issues/5012
@@ -70,6 +101,7 @@ export extern "svn add" [
   --parents                # add intermediate parents
 ]
 
+# Restore pristine working copy state (undo local changes).
 export extern "svn revert" [
   paths: path@"complete svn revert paths"
   --targets: path             # pass contents of file as additional args
@@ -78,4 +110,26 @@ export extern "svn revert" [
   --quiet(-q)                 # print nothing, or only summary information
   --changelist: string@"complete svn changelists" # operate only on members of changelist ARG
   --remove-added              # reverting an added item will remove it from disk
+]
+
+# FIXME
+# SVN uses aliases for subcommands. E.g. `co` for `checkout`.
+# How to express that with nu extern commands?
+
+# Check out a working copy from a repository.
+export extern "svn checkout" [
+  ...url_with_rev:string  # source
+  path: path              # destination
+  --revision(-r)          # ARG (some commands also take ARG1:ARG2 range)
+                          # A revision argument can be one of:
+                          #    NUMBER       revision number
+                          #    '{' DATE '}' revision at start of the date
+                          #    'HEAD'       latest in repository
+                          #    'BASE'       base rev of item's working copy
+                          #    'COMMITTED'  last commit at or before BASE
+                          #    'PREV'       revision just before COMMITTED
+  --quiet(-q)             # print nothing, or only summary information
+  --depth: string@"complete svn depth"  # limit operation by depth ARG ('empty', 'files', 'immediates', or 'infinity')
+  --force                 # force operation to run
+  --ignore-externals      # ignore externals definitions
 ]
