@@ -41,6 +41,7 @@ let cargo_crates = [
   ["sic" "sic" []]
   ["just" "just" []]
   ["mdsh" "mdsh" []]
+  ["git-delta" "delta" []]
   ["selene" "selene" ["--no-default-features"]]
   ["stylua" "stylua" ["--features=lua52"]]
 ]
