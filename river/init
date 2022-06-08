@@ -11,8 +11,7 @@
 # systemd user integration
 # in order to export the environment variables, that river sets for other services, we need to tell
 # systemd about those
-riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XCURSOR_SIZE XDG_CURRENT_DESKTOP"
-riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XCURSOR_SIZE XDG_CURRENT_DESKTOP"
+systemd-notify --status="Initializing river"
 
 # Use the "logo" key as the primary modifier
 super="Mod4"
@@ -152,7 +151,7 @@ riverctl input pointer-2-10-TPPS/2_IBM_TrackPoint disable-while-typing enabled
 riverctl set-cursor-warp on-output-change
 
 # Set background and border color
-riverctl background-color 0x000000
+riverctl background-color 0x131313
 riverctl border-color-focused 0x31ae99
 riverctl border-color-unfocused 0x113131
 riverctl border-color-urgent 0xaefeff
@@ -162,13 +161,15 @@ riverctl border-width 1
 riverctl set-repeat 50 300
 
 # Set app-ids of views which should float
-riverctl float-filter-add "float"
-riverctl float-filter-add "popup"
+riverctl float-filter-add app-id "float"
+riverctl float-filter-add app-id "popup"
+riverctl float-filter-add app-id "waybar"
 
 # Set app-ids of views which should use client side decorations
-riverctl csd-filter-add "gedit"
+riverctl csd-filter-add app-id "geary"
 
-# Set and exec into the default layout generator, rivertile.
-# River will send the process group of the init executable SIGTERM on exit.
-riverctl default-layout rivertile
-exec rivertile -view-padding 0 -outer-padding 0 -main-location right -main-ratio 0.666 -main-count 2
+# Export some environment variables into the systemd user scope and dbus for dependent services
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XCURSOR_SIZE XDG_CURRENT_DESKTOP 
+# Notify systemd that river is now "booted up"
+systemd-notify --ready
+systemd-notify --status="Initialized river"

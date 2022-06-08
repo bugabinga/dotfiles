@@ -4,12 +4,19 @@
 - [ ] interactive zoxide jump function with skim
 - [ ] encrypt box key
 - [ ] get SIM card to work on x230
-- [ ] rewrite bootstripper and java commmands with zig. how to run them? precompile? zig run?
+- [ ] rewrite bootstripper and java commands with zig. how to run them? precompile? zig run?
+- [ ] learn basic helix
 - [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
   - [ ] expand nugu theme to wezterm and eclipse, and more
-- [ ] system status command: network, disk space, todo, vsc status, time date, pacsave files
+- [ ] system status command into waybar:
+  -[x] network
+  -[x] disk space
+  -[ ] todo
+  -[ ] vsc status
+  -[x] time date
+  -[ ] pacsave files
 - [ ] wrap mv and rm to use git/svn versions if applicable
-- [ ] global dark/light theme switch
+- [ ] global dark/light theme switch, with nugu
 - [x] port nushell config to new config script
 - [x] configure tiny irc
 
@@ -17,16 +24,16 @@
 
 - [ ] wayland (river) systemd user target
   - [x] river.service
-  - [ ] wayland.target
-  - [ ] way-display.service
-  - [ ] wluma.service
-  - [ ] wlsunset@latitude&longitude.service
-  - [ ] waylock.service
-  - [ ] bar
-  - [ ] notification
+  - [x] kanshi.service
+  - [x] wluma.service
+  - [x] wlsunset@latitude&longitude.service
+  - [x] waybar.service
+  - [x] mako.service
   - [ ] clipboard history
+  - [ ] wayshot in river init
+  - [ ] IME input method for emojis 
 - [ ] wezterm multiplexer service
-- [ ] use systemd user for autostart stuff
+- [x] use systemd user for autostart stuff
 - [ ] package indexa AUR
 - [ ] OFFLINE
   - [ ] local web proxy cache (squid?)
@@ -34,8 +41,8 @@
 - [ ] pacman trigger for "needs reboot"
 - [ ] install pipewire
 - [ ] Configure makepkg and paru
-  - [ ] pacman paru makepkg sscache ? 
-- [ ] check out river recommended tools
+  - [ ] pacman paru makepkg sscache ?
+- [x] check out river recommended tools
 - [ ] bootstripper encrypt keys + ssh config
 - [ ] create snapper snapshot + systemd-boot entries
 - [ ] install GRML rescue system into systemd-boot
@@ -44,7 +51,7 @@
 - [ ] create custom optimized pacman repo
 - [ ] Toolbox on Arch? Custom tool based on nspawn?
 - [ ] install circular clipboard thingy
-- [ ] restart iwd on wakeup
+- [x] restart iwd on wakeup
 - [x] river + systemd user + tty2
 - [x] dotfiles + refresh configs
 - [x] disable TAB key in tty
