@@ -11,6 +11,7 @@
 - btm (bottom): system overview
 - mdcat: render markdown in the terminal
 - menyoki: capture screenshots, record gifs
+- mdsh: markdown pre processor
 - tldr: tool documentation
 - grex: regular expression pattern generator
 - xh: make HTTP requests

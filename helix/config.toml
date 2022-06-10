@@ -1,7 +1,7 @@
 theme = "nugu"
 
 [editor]
-shell = [ "nu", "--commands" ]
+shell = ["nu", "--commands"]
 true-color = true
 mouse = true
 

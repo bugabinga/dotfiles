@@ -1,9 +1,9 @@
 # SYNTAX THEME
 
-"string" = { fg = "accent", modifiers = [ "italic" ] }
+"string" = { fg = "accent", modifiers = ["italic"] }
 "string.regexp" = { fg = "accent", bg = "minor_backdrop" }
 "string.special" = { fg = "debug", bg = "minor_backdrop" }
-"comment" = { fg = "important_global", modifiers = [ "bold" ] }
+"comment" = { fg = "important_global", modifiers = ["bold"] }
 "comment.block.documentation" = { fg = "minor", modifiers = ["dim"] }
 "punctuation" = { fg = "minor" }
 "keyword" = { fg = "minor" }
@@ -36,7 +36,7 @@
 "ui.cursor.primary" = { fg = "important_global", bg = "ui_cursor" }
 "ui.cursor.insert" = { bg = "debug" }
 "ui.cursor.select" = { fg = "debug", bg = "debug" }
-"ui.cursor.match" = { fg = "important_global" , modifiers = ["slow_blink"] }
+"ui.cursor.match" = { fg = "important_global", modifiers = ["slow_blink"] }
 
 "ui.selection" = { fg = "minor", bg = "ui_minor" }
 "ui.selection.primary" = { fg = "normal", bg = "ui_selection" }

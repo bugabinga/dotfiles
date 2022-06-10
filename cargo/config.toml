@@ -2,7 +2,7 @@
 # enable a cache for crates between builds
 rustc-wrapper = "sccache"
 # since we only care for builds for our own machine, let's benefit from thise juicy modern cpu features
-rustflags = [ "-C","target-cpu=native" ]
+rustflags = ["-C", "target-cpu=native"]
 
 # let's have some fun with "omgz performance rice dat cake"
 # aaand we get out of memory errors when building nu...

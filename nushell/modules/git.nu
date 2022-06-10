@@ -51,3 +51,9 @@ export def glog [
   git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 $rest | lines | split column "»¦«" commit subject name email date | update date { get date | into datetime} | sort-by date
 }
 
+# Show the effective configuration of git
+export def git-effective-config [] {
+  git config --list --show-origin
+}
+
+export alias ghead = git rev-parse HEAD

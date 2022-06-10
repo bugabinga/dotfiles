@@ -47,9 +47,4 @@ arguments = "--ff --rebase --autostash"
 "01 - Install Cargo Tools" = "nu ~/Workspace/dotfiles/tools/cargo-tools.nu"
 
 # Dateisystem-Indexer ix erfrischen
-<<<<<<< HEAD
 "02 - Indexa Update" = "ix --update"
-
-=======
-"03 - Indexa Update" = "ix --update"
->>>>>>> 6e776c53721196aa1f34d22b8f6dfe2185b26bac
