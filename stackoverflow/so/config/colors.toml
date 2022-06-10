@@ -18,23 +18,23 @@ background = "default"
 
 # If the terminal doesn't support custom color (like the linux TTY),
 # non-base colors will be skipped.
-shadow     = []
-view       = "default"
+shadow = []
+view = "default"
 
 # An array with a single value has the same effect as a simple value.
-primary   = ["default"]
-secondary = "cyan" # secondary style is used for code hightlighting
-tertiary  = "green"
+primary = ["default"]
+secondary = "cyan"    # secondary style is used for code hightlighting
+tertiary = "green"
 
 # Hex values can use lower or uppercase.
 # (base color MUST be lowercase)
 # If the value is an array, the first valid
 # and supported color will be used.
-title_primary   = ["BLUE", "red"] # `BLUE` will be skipped.
+title_primary = ["BLUE", "red"] # `BLUE` will be skipped.
 title_secondary = "yellow"
 
 # Lower precision values can use only 3 digits.
-highlight          = "yellow"
+highlight = "yellow"
 highlight_inactive = "light yellow"
 # Note: you may want to change hightlight_text for darker terminal themes.
-highlight_text     = "black" # or "default"
+highlight_text = "black" # or "default"

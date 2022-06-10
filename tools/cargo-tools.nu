@@ -2,7 +2,7 @@
 # this table resolves the binary name of a crate.
 # also, a crate can have more than one binary, but for the purpose of checking if a crate is
 # already installed on the system, finding one binary is sufficient.
-# we also cannot use `cargo install --list` to search for the binary name, in case the crate 
+# we also cannot use `cargo install --list` to search for the binary name, in case the crate
 # is not installed yet
 let cargo_crates = [
   [name bin features];
@@ -32,13 +32,19 @@ let cargo_crates = [
   ["xh" "xh" []]
   ["comrak" "comrak" []]
   # ["bandwhich" "bandwhich" []] masked until https://github.com/imsnif/bandwhich/issues/233
-  ["linky" "linky" []]
+  ["lychee" "lychee" []]
   ["viu" "viu" []]
   ["licensor" "licensor" []]
   ["gib" "gib" []]
   ["silicon" "silicon" []]
   ["bottom" "btm" []]
   ["sic" "sic" []]
+  ["just" "just" []]
+  ["mdsh" "mdsh" []]
+  ["git-delta" "delta" []]
+  ["selene" "selene" ["--no-default-features"]]
+  ["stylua" "stylua" ["--features=lua52"]]
+  ["taplo-cli" "taplo" []]
 ]
 
 def so-features [] {
@@ -78,7 +84,7 @@ def main [] {
   }
   # crates, that are not even on crates.io are not likely to be packeged anywhere else.
   # so we skip the check if the binary is already in path
-  $cargo_git_crates | each { |crate| 
+  $cargo_git_crates | each { |crate|
     cargo install --locked --git $crate
   }
   install-helix-editor
