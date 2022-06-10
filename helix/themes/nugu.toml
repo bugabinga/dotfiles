@@ -68,6 +68,9 @@
 # selected line in buffer picker
 "ui.highlight" = { bg = "ui_cursor" }
 
+"ui.virtual.ruler" = { bg = "ui_backdrop" }
+"ui.virtual.whitespace" = { fg = "minor", modifiers = ["dim"] }
+
 "diagnostic" = { fg = "ui_normal", modifiers = ["underlined"] }
 
 "warning" = { bg = "ui_warning" }

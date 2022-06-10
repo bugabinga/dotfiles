@@ -3,9 +3,19 @@ theme = "nugu"
 [editor]
 shell = [ "nu", "--commands" ]
 true-color = true
+mouse = true
+
 line-number = "relative"
-auto-completion = false
-auto-pairs = false
+rulers = [81,121,141]
+
+auto-completion = true
+completion-trigger-len = 3
+auto-info = true
+auto-pairs = true
+auto-format = true
+
+scrolloff = 5
+scroll-lines = 1
 
 [editor.lsp]
 display-messages = true
@@ -17,3 +27,12 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
+
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+nbsp = "␠"
+newline = "␤"
