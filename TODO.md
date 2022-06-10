@@ -9,13 +9,6 @@
 - [ ] learn basic helix
 - [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
   - [ ] expand nugu theme to wezterm and eclipse, and more
-- [ ] system status command into waybar:
-  -[x] network
-  -[x] disk space
-  -[ ] todo
-  -[ ] vsc status
-  -[x] time date
-  -[ ] pacsave files
 - [ ] wrap mv and rm to use git/svn versions if applicable
 - [ ] global dark/light theme switch, with nugu
 - [x] port nushell config to new config script
@@ -23,6 +16,15 @@
 
 ## x230
 
+- [ ] system status command into waybar:
+  - [x] network
+  - [x] disk space
+  - [ ] todo
+  - [ ] vsc status
+  - [x] time date
+  - [ ] pacsave files
+  - [ ] reboot
+  - [ ] poweroff
 - [ ] wayland (river) systemd user target
   - [x] river.service
   - [x] kanshi.service
