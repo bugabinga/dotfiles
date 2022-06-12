@@ -12,14 +12,14 @@ export def pacnew [] {
         let original_tmp = "/tmp/" + ( $original | path basename )
         cp $pacnew_to_merge $pacnew_tmp
         cp $original $original_tmp
-        meld --label $pacnew_to_merge $pacnew_tmp --label $original $original_tmp
+        meld --label $original $original_tmp --label $pacnew_to_merge $pacnew_tmp 
         let success = ( input "Merged? [yN] " )
         if ( $success | str downcase | str contains 'y' ) {
-            echo $"Saving merged ($pacnew_to_merge) to ($original)"
+            echo $"Merged ($original) with ($pacnew_to_merge)"
             doas mv $original_tmp $original
             doas rm $pacnew_to_merge
         } else {
-            echo $"Merge of ($pacnew_to_merge) aborted."
+            echo $"Merge of ($original) aborted."
             rm $original_tmp
         }
         rm $pacnew_tmp
