@@ -1,8 +1,19 @@
 # SYNTAX THEME
+# modifiers:
+# 
+# - bold
+# - dim
+# - italic
+# - underlined
+# - slow_blink
+# - rapid_blink
+# - reversed
+# - hidden
+# - crossed_out
 
 "string" = { fg = "accent", modifiers = ["italic"] }
 "string.regexp" = { fg = "accent", bg = "minor_backdrop" }
-"string.special" = { fg = "debug", bg = "minor_backdrop" }
+"string.special" = { fg = "info", bg = "minor_backdrop" }
 "comment" = { fg = "important_global", modifiers = ["bold"] }
 "comment.block.documentation" = { fg = "minor", modifiers = ["dim"] }
 "punctuation" = { fg = "minor" }
@@ -25,9 +36,9 @@
 "markup.raw.inline" = { fg = "accent" }
 "markup.raw.block" = { fg = "accent", modifiers = ["dim"] }
 
-"diff.plus" = { fg = "debug" }
-"diff.delta" = { fg = "debug" }
-"diff.minus" = { fg = "debug" }
+"diff.plus" = { fg = "important_local", modifiers = ["bold"]}
+"diff.delta" = { fg = "ui_normal" }
+"diff.minus" = { fg = "minor", modifiers = ["crossed_out"] }
 
 # UI THEME
 "ui.background" = { bg = "backdrop" }
@@ -73,10 +84,10 @@
 
 "diagnostic" = { fg = "ui_normal", modifiers = ["underlined"] }
 
-"warning" = { bg = "ui_warning" }
-"error" = { bg = "ui_error", modifiers = ["rapid_blink"] }
-"info" = { bg = "ui_info" }
-"hint" = { fg = "ui_info", modifiers = ["dim"] }
+"warning" = { bg = "warning" }
+"error" = { bg = "error", modifiers = ["rapid_blink"] }
+"info" = { bg = "info" }
+"hint" = { fg = "info", modifiers = ["dim"] }
 
 [palette]
 normal = "#c9c9c9"
@@ -96,9 +107,9 @@ ui_backdrop = "#18574C"
 ui_important = "#aefeff"
 ui_minor = "#113131"
 
-ui_error = "#A21300"
-ui_warning = "#A2A213"
-ui_info = "#13A2A2"
+error = "#A21300"
+warning = "#A2A213"
+info = "#13A2A2"
 
 ui_fg_debug = "#ffffff"
 ui_bg_debug = "#000000"
