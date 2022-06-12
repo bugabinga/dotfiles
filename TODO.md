@@ -1,16 +1,36 @@
 # To-Do
 
 - [ ] write svn completions for nushell
+- [ ] how to handle Notes and TODOs?
 - [ ] interactive zoxide jump function with skim
 - [ ] encrypt box key
 - [ ] get SIM card to work on x230
 - [ ] rewrite bootstripper and java commands with zig. how to run them? precompile? zig run?
-- [ ] move vscode config into dorkfiles
+- [ ] move config into dorkfiles
+  - [ ] vscode
+  - [ ] systemd user
+  - [ ] darkman
 - [ ] learn basic helix
 - [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
-  - [ ] expand nugu theme to wezterm and eclipse, and more
-- [ ] wrap mv and rm to use git/svn versions if applicable
+  - [x] define dark palette
+  - [ ] define light palette
+  - [ ] define colors relative to base colors
+  - [ ] create app themes
+    - [ ] helix
+    - [ ] eclipse
+    - [ ] firefox
+    - [ ] wezterm
+    - [ ] foot
+    - [ ] river
 - [ ] global dark/light theme switch, with nugu
+  - [x] install darkman
+  - [x] firefox
+  - [ ] helix
+  - [ ] mako
+  - [ ] wezterm
+  - [ ] foot
+  - [ ] vscode
+- [ ] wrap mv and rm to use git/svn versions if applicable
 - [x] port nushell config to new config script
 - [x] configure tiny irc
 
@@ -40,9 +60,9 @@
 - [ ] package indexa AUR
 - [ ] OFFLINE
   - [ ] local web proxy cache (squid?)
-- [ ] pacman hook reflector on mirrorlist
+- [x] pacman hook reflector on mirrorlist
 - [ ] pacman trigger for "needs reboot"
-- [ ] install pipewire
+- [x] install pipewire
 - [ ] Configure makepkg and paru
   - [ ] pacman paru makepkg sscache ?
 - [x] check out river recommended tools
