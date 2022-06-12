@@ -155,7 +155,7 @@ riverctl background-color 0x131313
 riverctl border-color-focused 0x31ae99
 riverctl border-color-unfocused 0x113131
 riverctl border-color-urgent 0xaefeff
-riverctl border-width 1
+riverctl border-width 8
 
 # Set repeat rate
 riverctl set-repeat 50 300
