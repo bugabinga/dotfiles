@@ -40,6 +40,7 @@ local color_schemes = {
 		-- holding input pending the result of input composition, change the cursor
 		-- to this color to give a visual cue about the compose state.
 		compose_cursor = "#2F77AE",
+		visual_bell = "#A21300",
 	},
 }
 local font_size = 12.0
@@ -69,6 +70,12 @@ return {
 	hide_tab_bar_if_only_one_tab = true,
 	check_for_updates = false,
 	show_update_window = false,
+	audible_bell = "Disabled",
+  visual_bell = {
+    fade_in_duration_ms = 75,
+    fade_out_duration_ms = 75,
+    target = "CursorColor",
+  },
 	tab_max_width = 24,
 	enable_wayland = enable_wayland,
 	window_padding = {

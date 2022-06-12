@@ -46,14 +46,6 @@ riverctl map normal $super+Shift Comma send-to-output previous
 # bump the focused view to the top of the layout stack
 riverctl map normal $super+Shift Space zoom
 
-# decrease/increase the main ratio of rivertile(1)
-riverctl map normal $super H send-layout-cmd rivertile "main-ratio -0.05"
-riverctl map normal $super L send-layout-cmd rivertile "main-ratio +0.05"
-
-# increment/decrement the main count of rivertile(1)
-riverctl map normal $super+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal $super+Shift L send-layout-cmd rivertile "main-count -1"
-
 # move views
 riverctl map normal $super+$alt H move left 100
 riverctl map normal $super+$alt J move down 100
@@ -128,8 +120,8 @@ riverctl map passthrough $super F11 enter-mode normal
 for mode in normal locked
 do
     # TODO these do nothing for now. do i even want sound here?
-    # riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
-    # riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
+    riverctl map $mode None XF86AudioRaiseVolume  spawn 'kira +10'
+    riverctl map $mode None XF86AudioLowerVolume  spawn 'kira -10'
     # riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
     # riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
     # riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
@@ -140,8 +132,7 @@ do
     riverctl map $mode None XF86MonBrightnessUp   spawn 'kira +5'
     riverctl map $mode None XF86MonBrightnessDown spawn 'kira -5'
 
-    riverctl map $mode None XF86Launch1 spawn 'code'
-
+    riverctl map $mode None XF86Launch1 spawn 'darkman toogle'
 done
 
 riverctl input pointer-2-10-TPPS/2_IBM_TrackPoint natural-scroll enabled

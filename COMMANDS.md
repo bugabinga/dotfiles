@@ -6,6 +6,7 @@
 - dex: run and make xdg desktop files
 - ouch: compress and decompress archives
 - choose: `choose` sections from each line of files
+- handlr: manage default applications
 - sd: search and replace
 - diskonaut: explore file system visually for large files
 - btm (bottom): system overview
