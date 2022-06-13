@@ -1,11 +1,16 @@
 ## Commands to remember
 
 - sbyte: byte editor cli
+- jql: json query cli
+- jfmt: json formatter
 - cbs: copy and paste
 - lswt: list wayland toplevel windows
 - dex: run and make xdg desktop files
+- gpg-tui: manage gpg keys in a tui
 - ouch: compress and decompress archives
 - choose: `choose` sections from each line of files
+- httm: time machine cli
+- pacman-repo-builder: build pacman repo
 - handlr: manage default applications
 - sd: search and replace
 - diskonaut: explore file system visually for large files
