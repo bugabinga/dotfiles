@@ -1,6 +1,6 @@
 # GLOBAL VARIABLES
 
-let-env WIN32? = $nu.os-info.name =~ "windows" 
+let-env WIN32? = ( $nu.os-info.name =~ "windows" ) 
 let-env NURC_DIR  = ( $nu.config-path | path expand | path dirname )
 let-env DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand ) 
 let-env WORKSPACE = if $env.WIN32? { "W:/" } else { "~/Workspace" | path expand } 
