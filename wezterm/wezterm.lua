@@ -71,11 +71,11 @@ return {
 	check_for_updates = false,
 	show_update_window = false,
 	audible_bell = "Disabled",
-  visual_bell = {
-    fade_in_duration_ms = 75,
-    fade_out_duration_ms = 75,
-    target = "CursorColor",
-  },
+	visual_bell = {
+		fade_in_duration_ms = 75,
+		fade_out_duration_ms = 75,
+		target = "CursorColor",
+	},
 	tab_max_width = 24,
 	enable_wayland = enable_wayland,
 	window_padding = {
