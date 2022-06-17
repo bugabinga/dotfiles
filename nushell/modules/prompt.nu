@@ -47,9 +47,11 @@ export alias z = zoxide-jump
 def icons [] {
     [
         [ path icon ];
+        [ "/home/oli/Notes" (char -u "1f4d3") ]
+        [ "C:\\Users\\okr\\Notes" (char -u "1f4d3") ]
         [ "/home/oli/Workspace" (char -u "1f4bb") ]
-        [ "/home/oli" (char nf_house2) ]
         [ "C:\\Users\\okr\\Workspaces" (char -u "1f4bb") ]
+        [ "/home/oli" (char nf_house2) ]
         [ "C:\\Users\\okr" (char nf_house2) ]
     ]
 }
