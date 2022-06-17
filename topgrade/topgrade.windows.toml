@@ -30,7 +30,7 @@ max_concurrency = 12
 pull_predefined = false
 
 # Arguments to pass Git when pulling Repositories
-arguments = "--ff --rebase --autostash"
+# arguments = "--ff --rebase"
 
 [windows]
 enable_winget = true
@@ -42,7 +42,7 @@ enable_winget = true
 
 # Custom commands
 [commands]
-"01 - Install Cargo Tools" = "nu W:/dotfiles/tools/cargo-tools.nu"
+"01 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
 
 # Diese Skripte beziehen APM und MeMate aus dem Transfer.
 "02 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
