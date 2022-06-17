@@ -6,7 +6,7 @@ true-color = true
 mouse = true
 
 line-number = "relative"
-rulers = [81,121,141]
+rulers = [81, 121, 141]
 
 auto-completion = true
 completion-trigger-len = 3
