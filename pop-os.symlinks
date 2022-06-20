@@ -27,3 +27,6 @@ helix/config.toml
 
 helix/themes
 ~/.config/helix/themes
+
+ssh/config
+~/.ssh/config
