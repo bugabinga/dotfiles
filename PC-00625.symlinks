@@ -33,3 +33,6 @@ helix/config.toml
 
 helix/themes
 ~/AppData/Roaming/helix/themes
+
+neovim
+~/AppData/Local/nvim

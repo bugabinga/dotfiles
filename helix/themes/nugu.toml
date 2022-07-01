@@ -36,7 +36,7 @@
 "markup.raw.inline" = { fg = "accent" }
 "markup.raw.block" = { fg = "accent", modifiers = ["dim"] }
 
-"diff.plus" = { fg = "important_local", modifiers = ["bold"]}
+"diff.plus" = { fg = "important_local", modifiers = ["bold"] }
 "diff.delta" = { fg = "ui_normal" }
 "diff.minus" = { fg = "minor", modifiers = ["crossed_out"] }
 

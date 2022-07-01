@@ -6,7 +6,7 @@ Shared configuration files between some Linux and some Windows hosts.
 
 1. Install git
 1. Install a JDK
-1. git clone git@github.com:bugabinga/dotfiles
+1. `git clone git@github.com:bugabinga/dotfiles`
 1. `cd dotfiles`
 1. `java bootstripper.java`
 
@@ -16,7 +16,7 @@ Shared configuration files between some Linux and some Windows hosts.
 
 Initial setup on windows is a little more sophisticated, because I am used to a developers environment.
 
-1. Enable Devoloper Mode, so that it is allowed to make symlinks without admin permissions.
+1. Enable Developer Mode, so that it is allowed to make symlinks without admin permissions.
 1. Install Build Tools with C++ Option (for Rust and cargo tools)
 1. Install Git without internal SSH
 1. Start ssh-agent service
@@ -30,8 +30,8 @@ Initial setup on windows is a little more sophisticated, because I am used to a 
   The current state is a compromise reached after some experimentation.
 - editing and applying configs is "natural"
   Natural in this context is to mean: as if there was no dotfiles repository used for sharing.
-  This is achieved by symlinking the files from the dotfiles repository into their normal locations.
-  So when it comes time to edit a confg file, you can stay blissfully unaware of the dotfiles repository.
+  This is achieved by sym-linking the files from the dotfiles repository into their normal locations.
+  So when it comes time to edit a config file, you can stay blissfully unaware of the dotfiles repository.
 
 ## handling per host differences
 
@@ -40,26 +40,30 @@ There are two classes of differences in configurations between platforms (specif
 ### differing locations of config files
 
 For example, [NeoVim] stores its configuration at `~/.config/nvim` in Linux and at `~/AppData/Roaming/nvim` in Windows.
-In order to handle theses differences each host gets its own symlink file wiht the naming pattern `(hostname).symlinks`.
+In order to handle theses differences each host gets its own symlink file with the naming pattern `(hostname).symlinks`.
 The format of this file is:
-```
+
+```txt
 path to configuration file/directory relative to dotfiles root
 absolute path of symlink on host
 ```
+
 Each symlink path pair is to be delimited by a newline.
 Example:
-```
+
+```txt
 neovim
 ~/.config/nvim
 
 foo/bar.conf
 ~/.config/foobar.conf
 ```
+
 This file will be parsed by [bootstripper] in order to create those symlinks.
 
-### differing values in configration files
+### differing values in configuration files
 
-Most often, these come down to different paths of stuff, that get refered to in config files.
+Most often, these come down to different paths of stuff, that get referred to in config files.
 For example, [topgrade], an abstraction over a bunch of package managers and updaters, might want to know the location of your git repositories, so it can pull them for you.
 Some programs, e.g. [NeoVim], have rich configuration languages that are powerful enough for you to resolve those differences with conditionals.
 However some programs, e.g. [topgrade], offer only declarative configuration languages, which make it impossible to resolve this problem in the config.
@@ -73,7 +77,7 @@ Instead, I use the `(hostname).symlink` files to resolve such cases.
 That means, that config files are completely independent per host, and as such some duplication of configuration occurs.
 A tradeoff well worth it in my opinion.
 
-## secrets
+## WIP:secrets
 
 Secrets are encrypted and saved as file into the `tresor` folder.
 The name of these file is a random UUID, which I map to their original purpose somewhere else.
@@ -93,7 +97,7 @@ Things I tried in the past to solve this problem:
 - dotfiles managers (e.g. [chezmoi])
   > too much work
 - writing a bootstrap/installer with [cosmopolitan]
-  > extremely cool tech. unfortunatelly I am not a C programmer so I struggled a lot.
+  > extremely cool tech. unfortunately I am not a C programmer so I struggled a lot.
   > also, the resulting binary rewrites itself on first run. How do I keep a file version controlled that is allowed to change on first use, but should not result in a new modification...?
   > furthermore, managing the [cosmopolitan] toolchain for windows made extra work.
 - use POSIX shell for Unix, use PowerShell for Windows
@@ -117,3 +121,4 @@ Things I have not tried (yet?):
 [PowerShell Core]: https://github.com/PowerShell/PowerShell
 [PowerShell Windows]: https://de.wikipedia.org/wiki/PowerShell
 [OpenBSD]: https://www.openbsd.org/
+[cosmopolitan]: https://github.com/jart/cosmopolitan

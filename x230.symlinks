@@ -33,3 +33,9 @@ helix/themes
 
 river
 ~/.config/river
+
+ssh/config
+~/.ssh/config
+
+neovim
+~/.config/nvim

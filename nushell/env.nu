@@ -1,10 +1,11 @@
 # GLOBAL VARIABLES
 
-let-env WIN32? = $nu.os-info.name =~ "windows" 
+let-env WIN32? = ( $nu.os-info.name =~ "windows" )
 let-env NURC_DIR  = ( $nu.config-path | path expand | path dirname )
-let-env DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand ) 
-let-env WORKSPACE = if $env.WIN32? { "W:/" } else { "~/Workspace" | path expand } 
-let-env CARGO_HOME = ( "~/.cargo" | path expand ) 
+let-env DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
+let-env WORKSPACE = if $env.WIN32? { "W:/" } else { "~/Workspace" | path expand }
+let-env NOTES = if $env.WIN32? { "N:/" } else { "~/Notes" | path expand }
+let-env CARGO_HOME = ( "~/.cargo" | path expand )
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
