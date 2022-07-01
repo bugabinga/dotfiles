@@ -30,3 +30,6 @@ helix/themes
 
 ssh/config
 ~/.ssh/config
+
+neovim
+~/.config/nvim
