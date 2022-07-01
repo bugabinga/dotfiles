@@ -36,6 +36,9 @@
 
 ## x230
 
+- [ ] systemd-udevd sometimes high cpu. why?
+- [ ] desktop i/o and cpu schedulers
+- [ ] x230 lnx kernel
 - [ ] system status command into waybar:
   - [x] network
   - [x] disk space

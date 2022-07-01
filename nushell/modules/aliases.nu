@@ -17,3 +17,6 @@ export alias download_jar = java (build-string $env.DOTFILES /tools/ download_ja
 
 # systemd
 export alias userctl = systemctl --user
+
+# nushell
+alias now = (date now)
