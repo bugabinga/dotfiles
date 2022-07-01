@@ -51,7 +51,6 @@ if hostname == "x230" then
 	window_decorations = "NONE"
 	font_size = 11.0
 elseif hostname == "pop-os" then
-	color_scheme = "Ubuntu"
 	font_size = 13.0
 elseif hostname == "PC-00625" then
 	window_decorations = "TITLE|RESIZE"
@@ -71,11 +70,11 @@ return {
 	check_for_updates = false,
 	show_update_window = false,
 	audible_bell = "Disabled",
-  visual_bell = {
-    fade_in_duration_ms = 75,
-    fade_out_duration_ms = 75,
-    target = "CursorColor",
-  },
+	visual_bell = {
+		fade_in_duration_ms = 75,
+		fade_out_duration_ms = 75,
+		target = "CursorColor",
+	},
 	tab_max_width = 24,
 	enable_wayland = enable_wayland,
 	window_padding = {

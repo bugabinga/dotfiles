@@ -39,15 +39,15 @@ password-stores = windows-cryptoapi
 ###   This will override the environment variables that Subversion
 ###   examines by default to find this information ($EDITOR,
 ###   et al).
-editor-cmd = hx
+# editor-cmd = hx
 ### Set diff-cmd to the absolute path of your 'diff' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff implementation.
-diff-cmd = meld
+# diff-cmd = delta
 ### Diff-extensions are arguments passed to an external diff
 ### program or to Subversion's internal diff implementation.
 ### Set diff-extensions to override the default arguments ('-u').
-# diff-extensions = -u -p
+# diff-extensions = --tabs 2
 ### Set diff3-cmd to the absolute path of your 'diff3' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff3 implementation.

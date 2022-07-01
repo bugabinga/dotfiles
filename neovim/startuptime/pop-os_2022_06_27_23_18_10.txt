@@ -1,0 +1,94 @@
+Extra options: [init.lua]
+Measured: 100 times
+
+Total Average: 330.425160 msec
+Total Max:     353.171000 msec
+Total Min:     306.636000 msec
+
+   AVERAGE        MAX        MIN
+---------------------------------
+307.146770 332.320000 285.215000: /home/oli/.config/nvim/init.lua
+  3.417290   3.626000   3.284000: loading packages
+  2.347780   2.534000   2.299000: reading ShaDa
+  2.076240   2.368000   1.996000: loading after plugins
+  2.030220   2.687000   1.435000: sourcing vimrc file(s)
+  1.742430   1.887000   1.693000: loading rtp plugins
+  1.027430   3.641000   0.572000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+  1.022760   2.227000   0.594000: BufEnter autocommands
+  0.970310   3.310000   0.530000: opening buffers
+  0.797970   1.728000   0.526000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-treesitter/plugin/nvim-treesitter.lua
+  0.632780   2.606000   0.320000: /home/oli/.local/share/nvim/site/pack/paqs/start/symbols-outline.nvim/plugin/symbols-outline.vim
+  0.560600   0.775000   0.362000: init lua interpreter
+  0.466050   0.680000   0.308000: init highlight
+  0.440650   1.171000   0.227000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-ts-autotag/plugin/nvim-ts-autotag.vim
+  0.436120   0.912000   0.268000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-treesitter-refactor/plugin/nvim-treesitter-refactor.vim
+  0.373980   0.766000   0.219000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-cmp/plugin/cmp.lua
+  0.347830   0.475000   0.332000: /home/oli/.local/share/nvim/runtime/syntax/syntax.vim
+  0.302180   0.884000   0.160000: /home/oli/.local/share/nvim/site/pack/paqs/start/cmp-buffer/after/plugin/cmp_buffer.lua
+  0.287140   0.487000   0.224000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-gomove/plugin/gomove.lua
+  0.279180   0.367000   0.176000: inits 1
+  0.251830   0.573000   0.137000: /home/oli/.local/share/nvim/site/pack/paqs/start/playground/plugin/nvim-treesitter-playground.lua
+  0.251160   2.157000   0.126000: /home/oli/.local/share/nvim/site/pack/paqs/start/telescope.nvim/plugin/telescope.lua
+  0.200730   2.431000   0.099000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-treesitter-textsubjects/plugin/nvim-treesitter-textsubjects.vim
+  0.198670   0.267000   0.119000: locale set
+  0.197260   0.352000   0.159000: /home/oli/.local/share/nvim/site/pack/paqs/start/indent-blankline.nvim/plugin/indent_blankline.vim
+  0.194680   0.410000   0.113000: /home/oli/.local/share/nvim/site/pack/paqs/start/Comment.nvim/after/plugin/Comment.lua
+  0.161590   0.287000   0.101000: /home/oli/.local/share/nvim/site/pack/paqs/start/leap.nvim/plugin/init.lua
+  0.160300   2.336000   0.068000: /home/oli/.local/share/nvim/site/pack/paqs/start/cmp-path/after/plugin/cmp_path.lua
+  0.150740   0.216000   0.142000: /home/oli/.local/share/nvim/site/pack/paqs/start/LuaSnip/plugin/luasnip.vim
+  0.149110   0.397000   0.078000: /home/oli/.local/share/nvim/site/pack/paqs/start/cmp_luasnip/after/plugin/cmp_luasnip.lua
+  0.114480   0.321000   0.062000: /home/oli/.local/share/nvim/site/pack/paqs/start/cmp-nvim-lsp-document-symbol/after/plugin/cmp_nvim_lsp_document_symbol.lua
+  0.107320   0.252000   0.056000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-ts-context-commentstring/plugin/ts_context_commentstring.vim
+  0.098290   0.114000   0.095000: /home/oli/.local/share/nvim/runtime/plugin/matchparen.vim
+  0.093800   0.115000   0.091000: /home/oli/.local/share/nvim/site/pack/paqs/start/registers.nvim/plugin/registers.vim
+  0.093220   0.106000   0.089000: /home/oli/.local/share/nvim/runtime/plugin/rplugin.vim
+  0.088560   0.278000   0.055000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-lspconfig/plugin/lspconfig.vim
+  0.063790   0.174000   0.041000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-dap/plugin/dap.lua
+  0.062230   0.074000   0.059000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-lsp-installer/plugin/nvim-lsp-installer.vim
+  0.061600   0.083000   0.058000: /home/oli/.local/share/nvim/runtime/syntax/synload.vim
+  0.053980   0.135000   0.036000: /home/oli/.local/share/nvim/site/pack/paqs/start/hydra.nvim/plugin/hydra.lua
+  0.051870   0.141000   0.029000: /home/oli/.local/share/nvim/site/pack/paqs/start/cmp-nvim-lua/after/plugin/cmp_nvim_lua.lua
+  0.048220   0.077000   0.035000: /home/oli/.local/share/nvim/runtime/ftplugin.vim
+  0.047910   0.117000   0.037000: /home/oli/.local/share/nvim/site/pack/paqs/start/dressing.nvim/plugin/dressing.lua
+  0.042600   0.093000   0.031000: /home/oli/.local/share/nvim/site/pack/paqs/start/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua
+  0.042500   0.059000   0.038000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-hlslens/plugin/hlslens.vim
+  0.042050   0.048000   0.040000: /home/oli/.local/share/nvim/site/pack/paqs/start/FixCursorHold.nvim/plugin/fix_cursorhold_nvim.vim
+  0.040890   0.047000   0.039000: /home/oli/.local/share/nvim/runtime/plugin/shada.vim
+  0.039820   0.069000   0.027000: expanding arguments
+  0.038420   0.062000   0.026000: inits 2
+  0.038000   0.047000   0.037000: /home/oli/.local/share/nvim/site/pack/paqs/start/statusline.lua/plugin/statusline.vim
+  0.037020   0.053000   0.035000: /home/oli/.local/share/nvim/site/pack/paqs/start/trouble.nvim/plugin/trouble.vim
+  0.035180   0.116000   0.019000: /home/oli/.local/share/nvim/runtime/filetype.lua
+  0.031620   0.057000   0.021000: /home/oli/.local/share/nvim/site/pack/paqs/start/filetype.nvim/filetype.vim
+  0.031240   0.045000   0.020000: parsing arguments
+  0.030480   0.045000   0.020000: init default autocommands
+  0.027760   0.037000   0.026000: /home/oli/.local/share/nvim/runtime/plugin/man.vim
+  0.026370   0.049000   0.025000: /home/oli/.local/share/nvim/site/pack/paqs/start/editorconfig.nvim/plugin/editorconfig.vim
+  0.026020   0.035000   0.024000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+  0.025180   0.037000   0.018000: /home/oli/.local/share/nvim/runtime/indent.vim
+  0.024910   0.035000   0.023000: /home/oli/.local/share/nvim/site/pack/paqs/start/plenary.nvim/plugin/plenary.vim
+  0.024180   0.042000   0.016000: init default mappings
+  0.023240   0.032000   0.022000: /home/oli/.local/share/nvim/site/pack/paqs/start/neo-tree.nvim/plugin/neo-tree.vim
+  0.022390   0.031000   0.021000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-colorizer.lua/plugin/colorizer.vim
+  0.018430   0.025000   0.017000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-regexplainer/plugin/nvim-regexplainer.vim
+  0.018260   0.024000   0.017000: /home/oli/.local/share/nvim/site/pack/paqs/start/telescope-frecency.nvim/plugin/frecency.vim
+  0.016700   0.024000   0.015000: /home/oli/.local/share/nvim/site/pack/paqs/start/todo-comments.nvim/plugin/todo.vim
+  0.016490   0.018000   0.016000: /home/oli/.local/share/nvim/site/pack/paqs/start/nvim-jdtls/plugin/nvim_jdtls.vim
+  0.014980   0.019000   0.014000: /home/oli/.local/share/nvim/site/pack/paqs/start/lsp-zero.nvim/plugin/lsp-zero.vim
+  0.013480   0.016000   0.012000: clearing screen
+  0.011540   0.017000   0.010000: /home/oli/.local/share/nvim/runtime/filetype.vim
+  0.011510   0.028000   0.007000: window checked
+  0.011180   0.023000   0.011000: /home/oli/.local/share/nvim/runtime/plugin/tutor.vim
+  0.011160   0.015000   0.011000: /home/oli/.local/share/nvim/runtime/plugin/netrwPlugin.vim
+  0.011140   0.013000   0.010000: /home/oli/.local/share/nvim/runtime/plugin/gzip.vim
+  0.010120   0.013000   0.009000: /home/oli/.local/share/nvim/site/pack/paqs/start/rust-tools.nvim/plugin/rust-tools.vim
+  0.010100   0.013000   0.010000: /home/oli/.local/share/nvim/runtime/plugin/zipPlugin.vim
+  0.009850   0.010000   0.009000: /home/oli/.local/share/nvim/runtime/plugin/tarPlugin.vim
+  0.008620   0.011000   0.008000: inits 3
+  0.007590   0.009000   0.007000: /home/oli/.local/share/nvim/runtime/plugin/matchit.vim
+  0.007020   0.010000   0.006000: /home/oli/.local/share/nvim/runtime/plugin/spellfile.vim
+  0.006950   0.008000   0.006000: /home/oli/.local/share/nvim/runtime/plugin/tohtml.vim
+  0.006710   0.026000   0.003000: --- NVIM STARTING ---
+  0.006090   0.008000   0.006000: /home/oli/.local/share/nvim/rplugin.vim
+  0.006060   0.009000   0.006000: /home/oli/.local/share/nvim/runtime/plugin/health.vim
+  0.002450   0.004000   0.002000: editing files in windows
