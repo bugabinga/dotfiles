@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.util.regex.Pattern;
 
 class bootstripper {
   public static void main(String[] arguments) throws Throwable {
@@ -16,7 +17,8 @@ class bootstripper {
       throw fail();
     }
     var dorkfiles_root = Path.of(dorkfile_path_input).toRealPath();
-    log("Assuming dorkfiles root repo in {0}.", emphasize_local(dorkfiles_root.toString()));
+    log("Assuming dorkfiles root repo in {0}.",
+        emphasize_local(dorkfiles_root.toString()));
     decrypt_secrets(dorkfiles_root.resolve("tresor"));
     var hostname = hostname();
     log("Hostname: {0}", emphasize_global(hostname));
@@ -24,7 +26,8 @@ class bootstripper {
     if (Files.exists(symlinks_file)) {
       create_symlinks(dorkfiles_root, symlinks_file);
     } else {
-      throw fail("Expected a file containing symlinks at: {0}. Found nothing!", symlinks_file);
+      throw fail("Expected a file containing symlinks at: {0}. Found nothing!",
+                 symlinks_file);
     }
   }
 
@@ -61,11 +64,13 @@ class bootstripper {
     var is_directory = Files.isDirectory(source_path);
     if (Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)) {
       if (Files.exists(target_path)) {
-        log("\nOK {0} already exists!\nNot linking {1}.", emphasize_global(target_path.toString()),
+        log("\nOK {0} already exists!\nNot linking {1}.",
+            emphasize_global(target_path.toString()),
             emphasize_local(source_path.toString()));
         return;
       } else {
-        log("\nNOPE {0} exists, but it points into nirvana. Removing broken link!", target_path.toString());
+        log("\nNOPE {0} exists, but it points into nirvana. Removing broken link!",
+            target_path.toString());
         Files.delete(target_path);
       }
     }
@@ -76,13 +81,11 @@ class bootstripper {
       Files.createSymbolicLink(target_path, source_path);
     } catch (Exception __) {
       /*
-       * Creating symbolic links on Windows only recently became possible without
-       * admin rights.
-       * And even that, is only available in Developer Mode.
-       * However, most tools (including JDK) have not yet adapted to this change and
-       * still require admin rights.
-       * Until that is fixed, we escape to a system tool that is known to behave
-       * correctly in this regard.
+       * Creating symbolic links on Windows only recently became possible
+       * without admin rights. And even that, is only available in Developer
+       * Mode. However, most tools (including JDK) have not yet adapted to this
+       * change and still require admin rights. Until that is fixed, we escape
+       * to a system tool that is known to behave correctly in this regard.
        */
       var operating_system = System.getProperty("os.name");
       if (operating_system.toLowerCase().contains("win")) {
@@ -97,10 +100,7 @@ class bootstripper {
         command.add(target_path.toString());
         command.add(source_path.toString());
         log(command.toString());
-        process.inheritIO()
-            .start()
-            .onExit()
-            .join();
+        process.inheritIO().start().onExit().join();
       } else {
         __.printStackTrace();
         throw fail("Could not create symbolic link!");
@@ -112,16 +112,13 @@ class bootstripper {
     var process_builder = new ProcessBuilder().command("hostname");
     Process process;
     try {
-      process = process_builder
-          .start()
-          .onExit()
-          .join();
+      process = process_builder.start().onExit().join();
     } catch (IOException __) {
       process = new ProcessBuilder()
-          .command("hostnamectl", "hostname")
-          .start()
-          .onExit()
-          .join();
+                    .command("hostnamectl", "hostname")
+                    .start()
+                    .onExit()
+                    .join();
     }
     try (var reader = new InputStreamReader(process.getInputStream())) {
       int character = -1;
@@ -129,7 +126,7 @@ class bootstripper {
       while ((character = reader.read()) != -1) {
         if (character == '\n' || character == '\r')
           continue;
-        output.append((char) character);
+        output.append((char)character);
       }
       return output.toString();
     }
@@ -137,7 +134,8 @@ class bootstripper {
 
   static void usage() {
     log("Bootstraps bugabingas {0}.", emphasize_local("dorkfiles"));
-    log("{0}: java bootstripper.java [dotfiles root path]", emphasize_global("Usage"));
+    log("{0}: java bootstripper.java [dotfiles root path]",
+        emphasize_global("Usage"));
   }
 
   static String emphasize_global(String message) {

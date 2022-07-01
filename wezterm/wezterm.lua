@@ -51,7 +51,6 @@ if hostname == "x230" then
 	window_decorations = "NONE"
 	font_size = 11.0
 elseif hostname == "pop-os" then
-	color_scheme = "Ubuntu"
 	font_size = 13.0
 elseif hostname == "PC-00625" then
 	window_decorations = "TITLE|RESIZE"
