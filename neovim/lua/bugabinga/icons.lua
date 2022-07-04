@@ -1,82 +1,82 @@
 local want = require 'bugabinga.std.want'
-want { 'nvim-web-devicons' } (function(devicons)
-	devicons.setup {
-		override = {
-			sh = {
-				icon = '',
-				color = '#1DC123',
-				cterm_color = '59',
-				name = 'Sh',
-			},
-			toml = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '59',
-				name = 'Toml',
-			},
-			justfile = {
-				icon = 'ﮧ',
-				color = '#999eff',
-				cterm_color = '59',
-				name = 'Justfile',
-			},
-			Justfile = {
-				icon = 'ﮧ',
-				color = '#999eff',
-				cterm_color = '59',
-				name = 'Justfile',
-			},
-			['.justfile'] = {
-				icon = 'ﮧ',
-				color = '#999eff',
-				cterm_color = '59',
-				name = 'Justfile',
-			},
-			['.Justfile'] = {
-				icon = 'ﮧ',
-				color = '#999eff',
-				cterm_color = '59',
-				name = 'Justfile',
-			},
-			['.gitattributes'] = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '59',
-				name = 'GitAttributes',
-			},
-			['.gitconfig'] = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '59',
-				name = 'GitConfig',
-			},
-			['.gitignore'] = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '59',
-				name = 'GitIgnore',
-			},
-			['.gitlab-ci.yml'] = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '166',
-				name = 'GitlabCI',
-			},
-			['.gitmodules'] = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '59',
-				name = 'GitModules',
-			},
-			['diff'] = {
-				icon = '',
-				color = '#e24329',
-				cterm_color = '59',
-				name = 'Diff',
-			},
-		},
-		default = true,
-	}
+want { 'nvim-web-devicons' }(function(devicons)
+  devicons.setup {
+    override = {
+      sh = {
+        icon = '',
+        color = '#1DC123',
+        cterm_color = '59',
+        name = 'Sh',
+      },
+      toml = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '59',
+        name = 'Toml',
+      },
+      justfile = {
+        icon = 'ﮧ',
+        color = '#999eff',
+        cterm_color = '59',
+        name = 'Justfile',
+      },
+      Justfile = {
+        icon = 'ﮧ',
+        color = '#999eff',
+        cterm_color = '59',
+        name = 'Justfile',
+      },
+      ['.justfile'] = {
+        icon = 'ﮧ',
+        color = '#999eff',
+        cterm_color = '59',
+        name = 'Justfile',
+      },
+      ['.Justfile'] = {
+        icon = 'ﮧ',
+        color = '#999eff',
+        cterm_color = '59',
+        name = 'Justfile',
+      },
+      ['.gitattributes'] = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '59',
+        name = 'GitAttributes',
+      },
+      ['.gitconfig'] = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '59',
+        name = 'GitConfig',
+      },
+      ['.gitignore'] = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '59',
+        name = 'GitIgnore',
+      },
+      ['.gitlab-ci.yml'] = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '166',
+        name = 'GitlabCI',
+      },
+      ['.gitmodules'] = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '59',
+        name = 'GitModules',
+      },
+      ['diff'] = {
+        icon = '',
+        color = '#e24329',
+        cterm_color = '59',
+        name = 'Diff',
+      },
+    },
+    default = true,
+  }
 end)
 
 --[[ FIXME: integrate those into devicons

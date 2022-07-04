@@ -18,7 +18,7 @@ lint:
 update:
 	nvim --headless -u NONE -c 'lua require"bugabinga.plugins.headless"'
 
-profile_file := `$"startuptime/(hostname | str trim)_(date now | date format '%Y_%m_%d_%H_%M_%S').txt"`
+profile_file := `$"startuptime/(sys | get host | get hostname)_(date now | date format '%Y_%m_%d_%H_%M_%S').txt"`
 
 # Profile startuptime of neovim. Depends on vim-startuptime.
 profile:
