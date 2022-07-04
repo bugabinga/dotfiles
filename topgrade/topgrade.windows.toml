@@ -1,5 +1,5 @@
 # Disable specific steps - same options as the command line flag
-disable = ["wsl", "tldr"]
+disable = ["wsl"]
 
 assume_yes = true
 
@@ -37,19 +37,11 @@ enable_winget = true
 
 # Commands to run before anything
 [pre_commands]
-"00 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
 "01 - Winget Backup" = "winget export --source winget 'D:/Tools/winget_installed_apps.json' *> $null"
 
-# Custom commands
 [commands]
+"00 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
 "01 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
-
-# Diese Skripte beziehen APM und MeMate aus dem Transfer.
 "02 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
 "03 - MeMate" = "nu X:/update_memate.nu"
-
-# Dateisystem-Indexer ix erfrischen
 "04 - Indexa Update" = "ix --update"
-
-# Leider scheint der eingebaute "tldr" step von topgrade nicht für meine Version von TLDR funktionieren
-"05 - TLDR" = "tldr --update"
