@@ -20,3 +20,24 @@ vim.keymap.set('', '<Up>', '<NOP>', { silent = true })
 vim.keymap.set('', '<Down>', '<NOP>', { silent = true })
 vim.keymap.set('', '<Left>', '<NOP>', { silent = true })
 vim.keymap.set('', '<Right>', '<NOP>', { silent = true })
+
+local function open_link_under_cursor()
+  local file_under_cursor = vim.fn.expand '<cfile>'
+  --check that it vaguely resembles an URI
+  if file_under_cursor and file_under_cursor:match '%a+://.+' then
+    local Job = require 'plenary.job'
+    Job
+      :new({
+        --FIXME: a x-platform command is needed here
+        command = 'firefox',
+        args = { file_under_cursor },
+        on_exit = function(status, code)
+          print(status:result(), code)
+          vim.notify('Openend ' .. file_under_cursor)
+        end,
+      })
+      :start()
+  end
+end
+
+vim.keymap.set('n', 'gx', open_link_under_cursor, { silent = true })
