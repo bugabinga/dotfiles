@@ -8,9 +8,6 @@
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
 
-local profiler = require 'plenary.profile'
-profiler.start('profile.log', { flame = true })
-
 -- the order of the first module to load is non-obvious.
 -- we want to load the plugins first, because the config depends on those.
 -- but we also want to load the module-cache plugin first, in order to benefit from caching most modules.
@@ -49,7 +46,6 @@ require 'bugabinga.windows'
 require 'bugabinga.problems'
 
 -- load editor features
-require 'bugabinga.filetype'
 require 'bugabinga.move-code'
 require 'bugabinga.last-known-position'
 require 'bugabinga.fast-navigation'
@@ -67,27 +63,22 @@ require 'bugabinga.treesitter'
 -- lsp
 require 'bugabinga.lsp'
 
--- should be one of the last things to do.
--- applies all the declared keybindings to neovim.
-local keymap_build = require('bugabinga.std.keymap').build
-keymap_build()
-
-profiler.stop()
 -- TODO:
 -- [ ] DAP
+-- [ ] preview multimedia with telescope
 -- [ ] icon facade: icon.get("name")
+-- [ ] make keymap facade immediate and support buffer local binds
 -- [ ] put all keybinds into facade
 -- [ ] hydra cycle buffers
--- [ ] make keymap facade immediate and support buffer local binds
--- [ ] change style for read only files
 -- [ ] add fstabfmt to null-ls
--- [ ] undofile not work?
--- [ ] why does redo not work?
 -- [ ] add keybind to dismiss notify window
 -- [ ] start a toggleterm with: watch <buffer> { clear; mdcat <buffer> }
 -- [ ] load plugins/init.lua and sync on write. reload init.lua?
--- [ ] disable gomove in special buffers
--- [ ] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
+-- [ ] change style for read only files
+-- [~] disable gomove in special buffers
+-- [x] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
+-- [x] undofile not work?
+-- [x] why does redo not work?
 -- [x] JDTLS
 -- [~] bindings for luadev
 -- [~] close toogleterms on quit
