@@ -6,7 +6,7 @@ want {
   'hlargs',
   'neogen',
 }(function(install, configs, parsers, hlargs, neogen)
-  install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
+  install.compilers = { 'zig cc', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
   install.prefer_git = true
 
   configs.setup {
@@ -33,6 +33,7 @@ want {
       'lua',
       'make',
       'markdown',
+      'markdown_inline',
       'ninja',
       'proto',
       'python',

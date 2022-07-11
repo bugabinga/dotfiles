@@ -64,10 +64,6 @@ def so-features [] {
   }
 }
 
-let cargo_git_crates = [
-  "https://github.com/mosmeh/indexa"
-]
-
 def install-helix-editor [] {
   cd $env.WORKSPACE
   if ( $env.WORKSPACE | path join "helix/.git" | path exists ) {
@@ -90,11 +86,6 @@ def main [] {
     } else {
       echo $"($crate.name) already installed"
     }
-  }
-  # crates, that are not even on crates.io are not likely to be packeged anywhere else.
-  # so we skip the check if the binary is already in path
-  $cargo_git_crates | each { |crate|
-    cargo install --locked --git $crate
   }
   install-helix-editor
 }
