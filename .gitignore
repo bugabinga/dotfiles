@@ -7,5 +7,9 @@ tresor/box_do_key
 nushell/zoxide.nu
 nushell/history.txt
 nushell/plugin.nu
+<<<<<<< HEAD
 neovim/profile.log
+=======
+profile.log
+>>>>>>> trunk
 neovim/profile.svg
