@@ -73,6 +73,7 @@ keymap_build()
 -- [ ] load plugins/init.lua and sync on write. reload init.lua?
 -- [ ] disable gomove in special buffers
 -- [ ] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
+-- [ ] lsp diagnostics hide in insert mode
 -- [x] JDTLS
 -- [~] bindings for luadev
 -- [~] close toogleterms on quit
@@ -107,6 +108,7 @@ keymap_build()
 
 --
 -- PLUGINS TO TRY
+-- https://github.com/lukas-reineke/lsp-format.nvim
 -- https://github.com/ThePrimeagen/refactoring.nvim
 -- https://github.com/windwp/windline.nvim
 -- https://github.com/hrsh7th/nvim-pasta

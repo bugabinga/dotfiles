@@ -1,7 +1,14 @@
 -- show trailing whitespace
 vim.opt.list = true
-vim.opt.listchars:append 'trail:⋅'
-vim.opt.listchars:append 'lead:⋅'
+vim.opt.listchars = {
+	space = '⋅',
+	eol = '↴',
+	tab = '__',
+	trail = '•',
+	extends = '❯',
+	precedes = '❮',
+	nbsp = '_',
+}
 
 -- do not spam the cmdline with every little input
 vim.opt.showcmd = false
@@ -16,14 +23,15 @@ vim.opt.signcolumn = 'yes'
 -- what is a ruler? me?
 vim.opt.ruler = false
 
--- do not echo every little thing
-vim.opt.showcmd = false
-
 -- avoid jitter by keeping status area big
 vim.opt.laststatus = 3
 
 -- hide weird symbol at end of buffer
-vim.opt.fillchars:append 'eob: '
+vim.opt.fillchars = {
+	eob = ' ',
+	fold = ' ',
+	diff = '╱',
+}
 
 -- hide output of insert completion popup in status
 vim.opt.shortmess:append 'c'
@@ -31,7 +39,7 @@ vim.opt.shortmess:append 'c'
 -- hide cmd window to give status more room
 vim.opt.cmdheight = 0
 
--- do not conceal special character, e.g. in markdown files
+-- do not conceal special characters by default. filestypes can enable this on demand.
 vim.opt.conceallevel = 0
 
 -- I do not care for folding
@@ -45,6 +53,10 @@ vim.opt.cursorline = false
 
 -- pop up menu height
 vim.opt.pumheight = 10
+
+-- transparent popups and floating windows
+vim.opt.pumblend = 30
+vim.opt.winblend = 15
 
 -- hide the mode indicator in status
 vim.opt.showmode = false
