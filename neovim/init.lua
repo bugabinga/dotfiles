@@ -69,6 +69,8 @@ require 'bugabinga.lsp'
 -- [ ] icon facade: icon.get("name")
 -- [ ] make keymap facade immediate and support buffer local binds
 -- [ ] put all keybinds into facade
+-- [ ] use nvim-specific lsp only in neovim config
+-- [ ] fix gitsigns highights
 -- [ ] hydra cycle buffers
 -- [ ] add fstabfmt to null-ls
 -- [ ] add keybind to dismiss notify window
