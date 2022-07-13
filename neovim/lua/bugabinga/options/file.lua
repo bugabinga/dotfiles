@@ -4,21 +4,6 @@ vim.opt.autoread = true
 -- encode files in UTF-8
 vim.opt.fileencoding = 'utf-8'
 
-<<<<<<< HEAD
--- create backup files
-vim.opt.backup = true
-
--- keep track of file state in case of neovim crashes
-vim.opt.swapfile = true
-
--- enable persistent undo. save undo history across neovim instances
-vim.opt.undofile = true
-
--- make a backup before writing to a file
-vim.opt.writebackup = true
-
-
-=======
 -- do not create local backup files
 vim.opt.backup = true
 -- by default backups are created next to the edited file.
@@ -39,4 +24,3 @@ vim.opt.updatecount = 100
 
 -- enable persistent undo. save undo history across neovim instances
 vim.opt.undofile = true
->>>>>>> trunk
