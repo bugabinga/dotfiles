@@ -4,11 +4,6 @@ paq {
 	'savq/paq-nvim',
 	-- caches other plugins for faster startup
 	'lewis6991/impatient.nvim',
-<<<<<<< HEAD
-	-- faster implementation of filetypes.vim
-	'nathom/filetype.nvim',
-=======
->>>>>>> trunk
 	-- Utilities used by some plugins, e.g. telescope
 	'nvim-lua/plenary.nvim',
 	-- collection of icons used by other plugins. needs a nerd font
@@ -73,9 +68,6 @@ paq {
 	'declancm/cinnamon.nvim',
 	-- fast navigation in buffer via shortcut labels
 	'ggandor/leap.nvim',
-	-- dim inactive windows
-	-- 'sunjon/shade.nvim',
-	'dapc11/Shade.nvim',
 	-- breadcrumbs in window bar
 	'SmiteshP/nvim-navic',
 	-- show color values inline
@@ -147,11 +139,7 @@ paq {
 	-- autoclose pairs on enter and completion
 	'windwp/nvim-autopairs',
 	-- glue, that binds all the neovim lsp crap
-<<<<<<< HEAD
-	-- 'VonHeikemen/lsp-zero.nvim',
-=======
 	'VonHeikemen/lsp-zero.nvim',
->>>>>>> trunk
 	-- LSP Support
 	'neovim/nvim-lspconfig',
 	'williamboman/nvim-lsp-installer',

@@ -125,3 +125,7 @@ require 'bugabinga.lsp'
 -- https://github.com/VonHeikemen/project-settings.nvim
 -- https://github.com/Saecki/crates.nvim
 -- https://github.com/VonHeikemen/little-wonder
+-- https://github.com/jinh0/eyeliner.nvim
+-- https://github.com/iamcco/markdown-preview.nvim
+-- https://github.com/jakewvincent/mkdnflow.nvim
+-- https://github.com/rktjmp/lush.nvim

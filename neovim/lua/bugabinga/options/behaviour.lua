@@ -19,6 +19,8 @@ vim.opt.tabstop = tab_size
 vim.opt.shiftwidth = tab_size
 vim.opt.softtabstop = tab_size
 vim.opt.shiftround = true
+-- insert whitespace type based on whitespace on previous line
+vim.opt.smarttab = true
 
 -- keep distance to borders while scrolling
 vim.opt.scrolloff = 8
@@ -45,8 +47,6 @@ vim.opt.shellredir = '| save %s'
 vim.opt.shellquote = ''
 vim.opt.shellxquote = ''
 
--- insert whitespace type based on whitespace on previous line
-vim.opt.smarttab = true
 -- highlight all search matches
 vim.opt.hlsearch = true
 -- enable smart case in searches
