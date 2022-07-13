@@ -58,6 +58,8 @@ paq {
 	'lukas-reineke/indent-blankline.nvim',
 	-- move blocks of code around
 	'booperlv/nvim-gomove',
+	-- toolkit for creating themes
+	'rktjmp/lush.nvim',
 	-- theme with colors i like
 	'rockerBOO/boo-colorscheme-nvim',
 	-- display the colorcolumn as a virtual character
