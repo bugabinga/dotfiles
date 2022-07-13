@@ -74,17 +74,16 @@ require 'bugabinga.lsp'
 -- [ ] add keybind to dismiss notify window
 -- [ ] start a toggleterm with: watch <buffer> { clear; mdcat <buffer> }
 -- [ ] load plugins/init.lua and sync on write. reload init.lua?
-<<<<<<< HEAD
 -- [ ] disable gomove in special buffers
 -- [ ] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
 -- [ ] lsp diagnostics hide in insert mode
-=======
 -- [ ] change style for read only files
+-- [ ] make cursor red if diagnostics
+-- [ ] toggle diagnostics keybind
 -- [~] disable gomove in special buffers
 -- [x] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
 -- [x] undofile not work?
 -- [x] why does redo not work?
->>>>>>> trunk
 -- [x] JDTLS
 -- [~] bindings for luadev
 -- [~] close toogleterms on quit
