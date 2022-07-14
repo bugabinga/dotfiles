@@ -169,8 +169,6 @@ paq {
   'mfussenegger/nvim-jdtls',
   -- debug adapter protocol
   'mfussenegger/nvim-dap',
-  -- repls in neovim
-  'hkupty/iron.nvim',
   -- color picker
   'ziontee113/color-picker.nvim',
   -- motions around object
