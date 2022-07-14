@@ -45,6 +45,3 @@ pull_predefined = false
 # install tools from cargo, that are not already in path
 # TODO: this could be annoying when setting up a machine first time?
 "01 - Install Cargo Tools" = "nu --env-config ~/.config/nushell/env.nu ~/Workspace/dotfiles/tools/cargo-tools.nu"
-
-# Dateisystem-Indexer ix erfrischen
-"02 - Indexa Update" = "ix --update"
