@@ -137,6 +137,6 @@ export env PROMPT_COMMAND_RIGHT { {create_right_prompt} }
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
 export env PROMPT_INDICATOR { $"(ansi purple) (char prompt) (ansi reset)" }
-export env PROMPT_INDICATOR_VI_INSERT { $"(ansi purple_reverse) (char pipe) (ansi reset)" }
-export env PROMPT_INDICATOR_VI_NORMAL { $"(ansi purple_bold) (char prompt) (ansi reset)" }
-export env PROMPT_MULTILINE_INDICATOR { $"(ansi purple_dimmed)(char prompt)(char prompt) (ansi reset)" }
+export env PROMPT_INDICATOR_VI_INSERT { $"(ansi purple) (char pipe) (ansi reset)" }
+export env PROMPT_INDICATOR_VI_NORMAL { $"(ansi purple) (char prompt) (ansi reset)" }
+export env PROMPT_MULTILINE_INDICATOR { $"(ansi purple) (char prompt)(char prompt) (ansi reset)" }
