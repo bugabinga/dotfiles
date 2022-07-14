@@ -1,7 +1,3 @@
--- TODO: add kool conceals for java syntax
--- https://github.com/alok/python-conceal/blob/master/after/syntax/python.vim
-vim.opt_local.conceallevel = 2
-
 local want = require 'bugabinga.std.want'
 want {
   'jdtls',
@@ -32,9 +28,6 @@ want {
     vim.notify 'starting eclipse.jdt.ls in syntaxserver mode'
   end
 
-  -- TODO: refactor most jdtls setup into module
-  -- TODO: is there stuf that can be cached here?
-  -- profile this file
   local installed, jdtls_installer = installer.get_server 'jdtls'
   if not installed then
     vim.notify('jdtls is not installed!', error)
@@ -74,7 +67,7 @@ want {
   else
     shared_configuration = jdtls_config_dir
   end
-  --FIXME: sometimes the jdtls cannot start (code 13).
+  -- sometimes the jdtls cannot start (code 13).
   -- it seems to have to do with invalif configuration "config_linux" and/or "~/.config/jdtls"
   local jdtls_command = {
     'java',
@@ -82,16 +75,13 @@ want {
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
-    -- '-Dosgi.checkConfiguration=true',
-    -- '-Dosgi.sharedConfiguration.area=' .. shared_configuration,
-    -- '-Dosgi.sharedConfiguration.area.readOnly=true',
-    -- '-Dosgi.configuration.cascaded=true',
     '-Dlog.protocol=' .. tostring(debug_log),
     '-Dlog.level=ALL',
-    --TODO: switch to ZGC
-    '-XX:+UseParallelGC',
-    '-XX:GCTimeRatio=4',
-    '-XX:AdaptiveSizePolicyWeight=90',
+    '-XX:+UnlockExperimentalVMOptions',
+		'-XX:+UseZGC',
+    -- '-XX:+UseParallelGC',
+    -- '-XX:GCTimeRatio=4',
+    -- '-XX:AdaptiveSizePolicyWeight=90',
     '-Dsun.zip.disableMemoryMapping=true',
     '-Djava.import.generatesMetadataFilesAtProjectRoot=false',
     '-Xmx4G',
@@ -104,7 +94,6 @@ want {
     '-jar',
     vim.fn.glob(jdtls_install_dir .. '/plugins/org.eclipse.equinox.launcher_*.jar', false, false),
     '-configuration',
-    -- vim.fn.expand('~/.config/jdtls', false, false),
     shared_configuration,
     '-data',
     jdtls_workspace_dir,

@@ -54,7 +54,6 @@ require 'bugabinga.clipboard'
 require 'bugabinga.autopairs'
 require 'bugabinga.todo'
 require 'bugabinga.markdown'
-require 'bugabinga.repl'
 require 'bugabinga.surround'
 
 -- treesitter
@@ -63,63 +62,22 @@ require 'bugabinga.treesitter'
 -- lsp
 require 'bugabinga.lsp'
 
--- TODO:
--- [ ] DAP
--- [ ] put all keybinds into facade
--- [ ] preview multimedia with telescope
--- [ ] icon facade: icon.get("name")
--- [ ] use nvim-specific lsp only in neovim config
--- [ ] stop treesitter error highlight while typing
--- [ ] fix gitsigns highights
--- [ ] hydra cycle buffers
--- [ ] add fstabfmt to null-ls
--- [ ] load plugins/init.lua and sync on write. reload init.lua?
--- [ ] lsp diagnostics hide in insert mode
--- [ ] cross platform status bar
--- [ ] show winbar
--- [ ] show read only files in winbar
--- [ ] make cursor red if diagnostics
--- [ ] toggle diagnostics keybind
--- [~] start a toggleterm with: watch <buffer> { clear; mdcat <buffer> }
--- [~] disable gomove in special buffers
--- [x] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
--- [x] add keybind to dismiss notify window
--- [x] make keymap facade immediate and support buffer local binds
--- [~] disable gomove in special buffers
--- [x] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
--- [x] undofile not work?
--- [x] why does redo not work?
--- [x] JDTLS
--- [~] bindings for luadev
--- [~] close toogleterms on quit
--- [-] LSP diagnostics on save
--- [x] make focus handle hybrid linenumbers and less jitter
--- [x] disable shade for some buffers
--- [~] turn off colorcolumns in certain buffers, only show in active buffer, use focus?
--- [~] check for system dependecneis, extend checkhealth?
--- [~] illuminate+LSP + treesitter.refactor.highlight.definitions
--- [x] LSP
--- [~] gf to lua modules
--- [x] AUTOCMD
--- [x] COMPLETION
--- [x] JAVA, RUST, ZIG
--- [~] MARKDOWN
--- [~] nushell
--- [x] XML, TOML, JSON, YAML
--- [x] TREESITTER
--- [~] ~~SVN~~
--- [~] ~~VIM-ENEUCH for nvim~~
--- [x] KEYBINDINGS
--- [x] PAQ
--- [x] impatient
--- [x] icons + colorscheme
--- [x] TELESCOPE
--- [x] TERMINAL
--- [x] GIT
--- [x] TREE
--- [x] restore last cursor position
--- [x] bind nohl
--- [x] configure Comment
+-- TODO: DAP
+-- TODO: put all keybinds into facade
+-- TODO: preview multimedia with telescope
+-- TODO: icon facade: icon.get("name")
+-- TODO: use nvim-specific lsp only in neovim config
+-- TODO: stop treesitter error highlight while typing
+-- TODO: fix gitsigns highights
+-- TODO: hydra cycle buffers
+-- TODO: add fstabfmt to null-ls
+-- TODO: load plugins/init.lua and sync on write. reload init.lua?
+-- TODO: lsp diagnostics hide in insert mode
+-- TODO: cross platform status bar
+-- TODO: show winbar
+-- TODO: show read only files in winbar
+-- TODO: make cursor red if diagnostics
+-- TODO: toggle diagnostics keybind
 
 --
 -- PLUGINS TO TRY
@@ -135,3 +93,10 @@ require 'bugabinga.lsp'
 -- https://github.com/jakewvincent/mkdnflow.nvim
 -- https://github.com/rktjmp/lush.nvim
 -- https://github.com/jbyuki/venn.nvim
+-- https://github.com/ziontee113/color-picker.nvim
+--
+-- DAP PLUGINS
+-- https://github.com/mfussenegger/nvim-dap
+-- https://github.com/nvim-telescope/telescope-dap.nvim
+-- https://github.com/theHamsta/nvim-dap-virtual-text
+-- https://github.com/rcarriga/nvim-dap-ui
