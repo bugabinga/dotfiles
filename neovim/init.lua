@@ -65,23 +65,26 @@ require 'bugabinga.lsp'
 
 -- TODO:
 -- [ ] DAP
+-- [ ] put all keybinds into facade
 -- [ ] preview multimedia with telescope
 -- [ ] icon facade: icon.get("name")
--- [ ] make keymap facade immediate and support buffer local binds
--- [ ] put all keybinds into facade
 -- [ ] use nvim-specific lsp only in neovim config
+-- [ ] stop treesitter error highlight while typing
 -- [ ] fix gitsigns highights
 -- [ ] hydra cycle buffers
 -- [ ] add fstabfmt to null-ls
--- [ ] add keybind to dismiss notify window
--- [ ] start a toggleterm with: watch <buffer> { clear; mdcat <buffer> }
 -- [ ] load plugins/init.lua and sync on write. reload init.lua?
--- [ ] disable gomove in special buffers
--- [ ] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
 -- [ ] lsp diagnostics hide in insert mode
--- [ ] change style for read only files
+-- [ ] cross platform status bar
+-- [ ] show winbar
+-- [ ] show read only files in winbar
 -- [ ] make cursor red if diagnostics
 -- [ ] toggle diagnostics keybind
+-- [~] start a toggleterm with: watch <buffer> { clear; mdcat <buffer> }
+-- [~] disable gomove in special buffers
+-- [x] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
+-- [x] add keybind to dismiss notify window
+-- [x] make keymap facade immediate and support buffer local binds
 -- [~] disable gomove in special buffers
 -- [x] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
 -- [x] undofile not work?
@@ -124,10 +127,11 @@ require 'bugabinga.lsp'
 -- https://github.com/ThePrimeagen/refactoring.nvim
 -- https://github.com/windwp/windline.nvim
 -- https://github.com/hrsh7th/nvim-pasta
--- https://github.com/VonHeikemen/project-settings.nvim
 -- https://github.com/Saecki/crates.nvim
 -- https://github.com/VonHeikemen/little-wonder
+-- https://github.com/VonHeikemen/project-settings.nvim
 -- https://github.com/jinh0/eyeliner.nvim
 -- https://github.com/iamcco/markdown-preview.nvim
 -- https://github.com/jakewvincent/mkdnflow.nvim
 -- https://github.com/rktjmp/lush.nvim
+-- https://github.com/jbyuki/venn.nvim
