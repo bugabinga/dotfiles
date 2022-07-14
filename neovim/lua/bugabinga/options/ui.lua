@@ -1,13 +1,13 @@
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-	space = '⋅',
-	eol = '↴',
-	tab = '__',
-	trail = '•',
-	extends = '❯',
-	precedes = '❮',
-	nbsp = '_',
+  space = '⋅',
+  eol = '↴',
+  tab = '__',
+  trail = '•',
+  extends = '❯',
+  precedes = '❮',
+  nbsp = '_',
 }
 
 -- do not spam the cmdline with every little input
@@ -28,9 +28,9 @@ vim.opt.laststatus = 3
 
 -- hide weird symbol at end of buffer
 vim.opt.fillchars = {
-	eob = ' ',
-	fold = ' ',
-	diff = '╱',
+  eob = ' ',
+  fold = ' ',
+  diff = '╱',
 }
 
 -- hide output of insert completion popup in status

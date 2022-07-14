@@ -1,4 +1,4 @@
-local map = require('bugabinga.std.keymap')
+local map = require 'bugabinga.std.keymap'
 local want = require 'bugabinga.std.want'
 want { 'telescope', 'command_center', 'dressing' }(function(telescope, command_center, dressing)
   -- Command Center gets loaded here to configure it in the context of Telescope.
