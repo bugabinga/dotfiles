@@ -9,7 +9,6 @@ let cargo_crates = [
   [ "sccache" "sccache" [] ]
   [ "nu" "nu" [ "--features" "extra" ] ]
   [ "sd" "sd" [] ]
-  [ "cbs" "cbs" [] ]
   [ "ouch" "ouch" [] ]
   [ "fd-find" "fd" [] ]
   [ "choose", "choose", [] ]
