@@ -1,5 +1,11 @@
 local want = require 'bugabinga.std.want'
 want { 'nvim-surround' }(function(surround)
-  --FIXME: add bindings, that do not conflict with fast navigation plugin
-  surround.setup {}
+  surround.setup {
+		insert = "ys",
+		insert_line = "yss",
+		-- this thing does seemingly nothing?
+		-- visual = "<CR>",
+		delete = "ds",
+		change = 'cs',
+  }
 end)

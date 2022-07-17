@@ -4,8 +4,8 @@
 - [ ] how to handle Notes and TODOs?
 - [ ] interactive zoxide jump function with skim
 - [ ] encrypt box key
+- [ ] encrypt codeberg key
 - [ ] get SIM card to work on x230
-- [ ] rewrite bootstripper and java commands with zig. how to run them? precompile? zig run?
 - [ ] move config into dorkfiles
   - [ ] vscode
   - [ ] systemd user
@@ -13,8 +13,8 @@
 - [ ] learn basic helix
 - [ ] nugu theme creator: wezterm, hx, zellij, river, eclipse
   - [x] define dark palette
-  - [ ] define light palette
-  - [ ] define colors relative to base colors
+  - [x] define light palette
+  - [x] define colors relative to base colors
   - [ ] create app themes
     - [ ] helix
     - [ ] eclipse
@@ -38,6 +38,7 @@
 
 - [ ] systemd-udevd sometimes high cpu. why?
 - [ ] desktop i/o and cpu schedulers
+- [ ] configure systemd-oomd
 - [ ] x230 lnx kernel
 - [ ] system status command into waybar:
   - [x] network

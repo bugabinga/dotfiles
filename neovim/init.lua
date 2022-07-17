@@ -29,8 +29,8 @@ require 'bugabinga.options'
 -- load ui stuff
 require 'bugabinga.notify'
 require 'bugabinga.colortheme'
-require 'bugabinga.colorcolumn'
 require 'bugabinga.icons'
+require 'bugabinga.colorcolumn'
 require 'bugabinga.fuzzy-search-ui'
 require 'bugabinga.colorizer'
 require 'bugabinga.smooth-scroll'
@@ -67,6 +67,7 @@ require 'bugabinga.lsp'
 -- TODO: preview multimedia with telescope
 -- TODO: icon facade: icon.get("name")
 -- TODO: use nvim-specific lsp only in neovim config
+-- TODO: is it possible to cache LSP init per project?
 -- TODO: stop treesitter error highlight while typing
 -- TODO: fix gitsigns highights
 -- TODO: hydra cycle buffers
@@ -94,6 +95,8 @@ require 'bugabinga.lsp'
 -- https://github.com/rktjmp/lush.nvim
 -- https://github.com/jbyuki/venn.nvim
 -- https://github.com/ziontee113/color-picker.nvim
+-- https://github.com/sQVe/sort.nvim
+-- https://github.com/ThePrimeagen/harpoon
 --
 -- DAP PLUGINS
 -- https://github.com/mfussenegger/nvim-dap
