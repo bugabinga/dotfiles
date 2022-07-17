@@ -11,53 +11,15 @@ want {
 
   configs.setup {
     -- A list of parser names, or "all"
-    ensure_installed = {
-      'c',
-      'bash',
-      'cmake',
-      'comment',
-      'cpp',
-      'css',
-      'devicetree',
-      'dockerfile',
-      'dot',
-      'help',
-      'html',
-      'http',
-      'java',
-      'javascript',
-      'json',
-      'json5',
-      'jsonc',
-      'llvm',
-      'lua',
-      'make',
-      'markdown',
-      'markdown_inline',
-      'ninja',
-      'proto',
-      'python',
-      'query',
-      'regex',
-      'rust',
-      'toml',
-      'vim',
-      'yaml',
-      'zig',
-    },
+    ensure_installed = 'all',
     -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
+    sync_install = true,
     -- List of parsers to ignore installing (for "all")
     ignore_install = {},
 
     highlight = {
       -- `false` will disable the whole extension
       enable = true,
-
-      -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-      -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-      -- the name of the parser)
-      -- list of language that will be disabled
       disable = {},
 
       -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -81,30 +43,8 @@ want {
     },
     -- These features are mostly useful when there is treesitter parser, but no
     -- LSP.
-    -- FIXME harmonize the keybinds with LSP equivalents
-    refactor = {
-      highlight_definitions = {
-        enable = true,
-        -- Set to false if you have an `updatetime` of ~100.
-        clear_on_cursor_move = false,
-      },
-      smart_rename = {
-        enable = true,
-        keymaps = {
-          smart_rename = 'grr',
-        },
-      },
-      navigation = {
-        enable = true,
-        keymaps = {
-          goto_definition = 'gnd',
-          list_definitions = 'gnD',
-          list_definitions_toc = 'gO',
-          goto_next_usage = '<a-*>',
-          goto_previous_usage = '<a-#>',
-        },
-      },
-    },
+    -- FIXME: harmonize the keybinds with LSP equivalents
+    refactor = 'all',
     textsubjects = {
       enable = true,
       prev_selection = '<Down>', -- (Optional) keymap to select the previous selection
@@ -202,8 +142,10 @@ want {
   }
 
   -- highlight function arguments
+  -- TODO: define color
   hlargs.setup()
 
   -- generate doc comment annotations
+  -- TODO: setup keybind
   neogen.setup()
 end)

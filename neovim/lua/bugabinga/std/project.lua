@@ -84,12 +84,13 @@ local function determine_root(directory, markers, root)
 end
 
 --- Determines the project root directory of the current buffer file. A "project" is not clearly defined for all programming languages, so this function uses a heuristic approach.
----@param custom_markers table list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
+---@param custom_markers table<string, number> list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
 ---@param custom_root string Given a `custom_root` the path traversal can be aborted before the filesystem root is reached. A useful value might be `~` for example, if your source code is always in your home directory. the root directory itself does __not__ get searched for markers!
----@return string project_root The project root of the current buffer, or `nil`, if none could be determined.
+---@return string|nil project_root The project root of the current buffer, or `nil`, if none could be determined.
 local function determine_project_root(custom_markers, custom_root)
   -- glob expands user defined root and checks, that it exists
-  local root = vim.fn.glob(custom_root, false, false)
+	---@diagnostic disable-next-line: missing-parameter
+  local root = vim.fn.glob(custom_root)
   if root == '' then
     vim.notify('the custom root ' .. custom_root .. ' does not exist!', error)
     return nil

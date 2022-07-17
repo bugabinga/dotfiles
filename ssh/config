@@ -21,3 +21,4 @@ Host codeberg.org
 Host *
     User root
     Compression yes
+    AddKeysToAgent yes

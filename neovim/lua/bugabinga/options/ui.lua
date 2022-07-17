@@ -1,13 +1,13 @@
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-  space = '⋅',
-  eol = '↴',
-  tab = '__',
-  trail = '•',
-  extends = '❯',
-  precedes = '❮',
-  nbsp = '_',
+	space = '⋅',
+	eol = '↴',
+	tab = '__',
+	trail = '•',
+	extends = '❯',
+	precedes = '❮',
+	nbsp = '_',
 }
 
 -- do not spam the cmdline with every little input
@@ -28,9 +28,9 @@ vim.opt.laststatus = 3
 
 -- hide weird symbol at end of buffer
 vim.opt.fillchars = {
-  eob = ' ',
-  fold = ' ',
-  diff = '╱',
+	eob = ' ',
+	fold = ' ',
+	diff = '╱',
 }
 
 -- hide output of insert completion popup in status
@@ -55,8 +55,8 @@ vim.opt.cursorline = false
 vim.opt.pumheight = 10
 
 -- transparent popups and floating windows
-vim.opt.pumblend = 30
-vim.opt.winblend = 15
+vim.opt.pumblend = 5
+vim.opt.winblend = 5
 
 -- hide the mode indicator in status
 vim.opt.showmode = false
@@ -73,12 +73,12 @@ vim.opt.guifont = 'BlexMono Nerd Font:h16:antialias=true'
 
 -- neovide only options
 if vim.g.neovide then
-  vim.g.neovide_floating_blur_amount_x = 4.0
-  vim.g.neovide_floating_blur_amount_y = 4.0
-  vim.g.neovide_scroll_animation_length = 0.33
-  vim.g.neovide_fullscreen = true
-  vim.g.neovide_profiler = false
-  vim.g.neovide_cursor_animation_length = 0.11
-  vim.g.neovide_cursor_trail_length = 0.666
-  vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+	vim.g.neovide_floating_blur_amount_x = 4.0
+	vim.g.neovide_floating_blur_amount_y = 4.0
+	vim.g.neovide_scroll_animation_length = 0.33
+	vim.g.neovide_fullscreen = true
+	vim.g.neovide_profiler = false
+	vim.g.neovide_cursor_animation_length = 0.11
+	vim.g.neovide_cursor_trail_length = 0.666
+	vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 end
