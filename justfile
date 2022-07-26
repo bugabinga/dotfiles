@@ -10,7 +10,6 @@ default:
 
 # TODO: markdown files
 lint:
-    selene .
     taplo lint
     javac -Werror -Xlint:all bootstripper.java
     rm bootstripper.class
@@ -23,7 +22,6 @@ lint:
 # TODO: markdown files
 fmt:
     just --fmt --unstable
-    stylua --verify .
     taplo fmt
 
 # link dorkfiles into HOME
