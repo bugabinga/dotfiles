@@ -40,7 +40,7 @@ want { 'gomove' }(function(move)
   }
   map {
     description = 'Move line up',
-    category = map.CATEGORY.EDITING,
+		category = map.CATEGORY.EDITING,
     command = '<Plug>GoNSMUp',
     mode = map.MODE.NORMAL,
     keys = map.KEY.ALT_K,
@@ -74,8 +74,8 @@ want { 'gomove' }(function(move)
   }
   map {
     description = 'Move block up',
-    category = map.CATEGORY.EDITING,
     command = '<Plug>GoVSMUp',
+		category = map.CATEGORY.EDITING,
     mode = map.MODE.VISUAL,
     keys = map.KEY.ALT_K,
     options = options,
@@ -85,7 +85,7 @@ want { 'gomove' }(function(move)
     category = map.CATEGORY.EDITING,
     command = '<Plug>GoVSMRight',
     mode = map.MODE.VISUAL,
-    keys = map.KEY.ALT_K,
+    keys = map.KEY.ALT_L,
     options = options,
   }
 

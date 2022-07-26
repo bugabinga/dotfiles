@@ -7,7 +7,7 @@ want { 'cinnamon' } (function(cinnamon)
 		default_keymaps = false,
 		hide_cursor = true,
 	}
-	-- FIXME: weird. when using the Scroll function via lua directly, it does seemingly nothing...
+	-- weird. when using the Scroll function via lua directly, it does seemingly nothing...
 	--
 	-- Half-window movements:
 	map {
