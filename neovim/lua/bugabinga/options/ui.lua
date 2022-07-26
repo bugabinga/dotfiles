@@ -36,8 +36,8 @@ vim.opt.fillchars = {
 -- hide output of insert completion popup in status
 vim.opt.shortmess:append 'c'
 
--- hide cmd window to give status more room
-vim.opt.cmdheight = 0
+-- show cmd window to prevent jitter ui
+vim.opt.cmdheight = 1
 
 -- do not conceal special characters by default. filestypes can enable this on demand.
 vim.opt.conceallevel = 0
@@ -68,8 +68,11 @@ vim.opt.showtabline = 1
 vim.opt.termguicolors = true
 vim.opt.lazyredraw = true
 
+-- cursor
+vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
+
 -- font
-vim.opt.guifont = 'BlexMono Nerd Font:h16:antialias=true'
+vim.opt.guifont = 'BlexMono Nerd Font:h11:antialias=true'
 
 -- neovide only options
 if vim.g.neovide then

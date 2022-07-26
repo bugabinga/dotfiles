@@ -19,8 +19,9 @@ alt="Mod1"
 ctrl="Control"
 
 riverctl map normal $super Return spawn wezterm
+riverctl map normal $super+Shift Return spawn foot
 riverctl map normal $super B spawn firefox
-riverctl map normal $super asciicircum spawn 'fuzzel --terminal "wezterm start"'
+riverctl map normal $super grave spawn 'fuzzel --terminal "wezterm start"'
 
 # close the focused view
 riverctl map normal $super Q close

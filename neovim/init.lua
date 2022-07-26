@@ -29,7 +29,7 @@ require 'bugabinga.options'
 -- load ui stuff
 require 'bugabinga.notify'
 require 'bugabinga.colortheme'
-require 'bugabinga.icons'
+require 'bugabinga.devicons'
 require 'bugabinga.colorcolumn'
 require 'bugabinga.fuzzy-search-ui'
 require 'bugabinga.colorizer'
@@ -62,23 +62,22 @@ require 'bugabinga.treesitter'
 -- lsp
 require 'bugabinga.lsp'
 
--- TODO: DAP
--- TODO: put all keybinds into facade
--- TODO: preview multimedia with telescope
--- TODO: icon facade: icon.get("name")
--- TODO: use nvim-specific lsp only in neovim config
--- TODO: is it possible to cache LSP init per project?
--- TODO: stop treesitter error highlight while typing
+-- diagnostic
+require 'bugabinga.diagnostic'
+
 -- TODO: fix gitsigns highights
+-- TODO: preview multimedia with telescope
+-- TODO: nugu theme
 -- TODO: hydra cycle buffers
--- TODO: add fstabfmt to null-ls
--- TODO: load plugins/init.lua and sync on write. reload init.lua?
--- TODO: lsp diagnostics hide in insert mode
 -- TODO: cross platform status bar
 -- TODO: show winbar
 -- TODO: show read only files in winbar
--- TODO: make cursor red if diagnostics
--- TODO: toggle diagnostics keybind
+-- TODO: load plugins/init.lua and sync on write. reload init.lua?
+-- TODO: use nvim-specific lsp only in neovim config
+-- TODO: steal filetype settings from shark, astrovim, lunarvim etc
+-- TODO: is it possible to cache LSP init per project?
+-- TODO: DAP
+-- TODO: fix cursor flicker when openinig neotree and other windows stuff in lsp buffers
 
 --
 -- PLUGINS TO TRY

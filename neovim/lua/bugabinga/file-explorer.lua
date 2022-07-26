@@ -1,14 +1,12 @@
 local want = require 'bugabinga.std.want'
-local map = require'bugabinga.std.keymap'
-local fmt = require'bugabinga.std.fmt'
+local map = require 'bugabinga.std.keymap'
+local fmt = require 'bugabinga.std.fmt'
+local icon = require 'bugabinga.std.icon'
 
 want {
 	'window-picker',
 	'neo-tree',
-	'nvim-web-devicons',
-} (function(picker, tree, icons)
-	local icon = icons.get_icon
-
+} (function(picker, tree)
 	picker.setup {
 		autoselect_one = true,
 		include_current = false,
@@ -29,26 +27,26 @@ want {
 	-- Unless you are still migrating, remove the deprecated commands from v1.x
 	vim.g.neo_tree_remove_legacy_commands = 1
 
-	map{
-		description = "Open File Explorer",
+	map {
+		description = 'Open File Explorer',
 		category = map.CATEGORY.NAVIGATION,
 		mode = map.MODE.NORMAL,
 		keys = map.KEY.LEADER .. map.KEY.E,
-		command = fmt.cmd'Neotree filesystem reveal right toggle',
+		command = fmt.cmd 'Neotree filesystem reveal right toggle',
 	}
-	map{
-		description = "Open Buffer Explorer",
+	map {
+		description = 'Open Buffer Explorer',
 		category = map.CATEGORY.NAVIGATION,
 		mode = map.MODE.NORMAL,
 		keys = map.KEY.LEADER .. map.KEY.E .. map.KEY.B,
-		command = fmt.cmd'Neotree buffers reveal float toggle',
+		command = fmt.cmd 'Neotree buffers reveal float toggle',
 	}
-	map{
-		description = "Open Git Explorer",
+	map {
+		description = 'Open Git Explorer',
 		category = map.CATEGORY.NAVIGATION,
 		mode = map.MODE.NORMAL,
 		keys = map.KEY.LEADER .. map.KEY.E .. map.KEY.G,
-		command = fmt.cmd'Neotree git_status reveal current toggle',
+		command = fmt.cmd 'Neotree git_status reveal current toggle',
 	}
 
 	tree.setup {
@@ -93,17 +91,17 @@ want {
 				highlight = 'NeoTreeIndentMarker',
 				-- expander config, needed for nesting files
 				with_expanders = nil, -- if nil and file nesting is enabled, will enable expanders
-				expander_collapsed = icon'ArrowClosed',
-				expander_expanded = icon'ArrowOpen',
+				expander_collapsed = icon 'ArrowClosed',
+				expander_expanded = icon 'ArrowOpen',
 				expander_highlight = 'NeoTreeExpander',
 			},
 			icon = {
-				folder_closed = icon'Folder',
-				folder_open = icon'OpenFolder',
-				folder_empty = icon'EmptyFolder',
+				folder_closed = icon 'Folder',
+				folder_open = icon 'OpenFolder',
+				folder_empty = icon 'EmptyFolder',
 			},
 			modified = {
-				symbol = icon'VcsModified',
+				symbol = icon 'VcsModified',
 				highlight = 'NeoTreeModified',
 			},
 			name = {
@@ -114,16 +112,16 @@ want {
 			git_status = {
 				symbols = {
 					-- Change type
-					added = icon'VcsAdded',
-					deleted =icon'VcsRemoved',
-					modified = icon'VcsModified',
-					renamed = icon'VcsRenamed',
+					added = icon 'VcsAdded',
+					deleted = icon 'VcsRemoved',
+					modified = icon 'VcsModified',
+					renamed = icon 'VcsRenamed',
 					-- Status type
-					untracked = icon'VcsUntracked',
-					ignored = icon'VcsIgnored',
-					unstaged = icon'VcsUnstaged',
-					staged = icon'VcsStaged',
-					conflict = icon'VcsConflicted',
+					untracked = icon 'VcsUntracked',
+					ignored = icon 'VcsIgnored',
+					unstaged = icon 'VcsUnstaged',
+					staged = icon 'VcsStaged',
+					conflict = icon 'VcsConflicted',
 				},
 				align = 'right',
 			},
@@ -221,7 +219,7 @@ want {
 				},
 				['A'] = 'add_directory', -- also accepts the config.show_path option.
 				['d'] = 'delete',
-				['r'] = 'rename',
+				['<F2>'] = 'rename',
 				['y'] = 'copy_to_clipboard',
 				['x'] = 'cut_to_clipboard',
 				['p'] = 'paste_from_clipboard',
