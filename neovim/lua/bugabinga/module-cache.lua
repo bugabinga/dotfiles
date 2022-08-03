@@ -1,3 +1,6 @@
-local impatient = require 'impatient'
--- FIXME: enable profile only when neovim was startet with --startuptime?
-impatient.enable_profile()
+local want = require'bugabinga.std.want'
+want { 'impatient' } (function (impatient)
+	if vim.g.profile_mode then
+		impatient.enable_profile()
+	end
+	end)

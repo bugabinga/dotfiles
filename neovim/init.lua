@@ -8,6 +8,16 @@
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
 
+-- set a global variable other parts of the config can query in order to enable
+-- profiling features, if available.
+-- `profile_mode` will be our little indicator that other plugins should enable
+-- their profiling capabilities.
+vim.g.profile_mode = false
+
+-- Profiling methods to nothing, if not in profiling mode.
+local profiler = require 'bugabinga.profile'
+profiler.start()
+
 -- set general neovim editor settings
 require 'bugabinga.options'
 -- install plugin manager and declare plugins to use
@@ -59,6 +69,7 @@ require 'bugabinga.lsp'
 local keymap_build = require('bugabinga.std.keymap').build
 keymap_build()
 
+profiler.stop()
 -- TODO:
 -- [ ] icon facade: icon.get("name")
 -- [ ] DAP
@@ -67,12 +78,16 @@ keymap_build()
 -- [ ] make keymap facade immediate and support buffer local binds
 -- [ ] change style for read only files
 -- [ ] add fstabfmt to null-ls
+-- [ ] add nu-check to null-ls
+-- [ ] add languiageserver to null-ls
 -- [ ] undofile not work?
 -- [ ] why does redo not work?
 -- [ ] start a toggleterm with: watch <buffer> { clear; mdcat <buffer> }
 -- [ ] load plugins/init.lua and sync on write. reload init.lua?
 -- [ ] disable gomove in special buffers
 -- [ ] replace filetype.lua plugin with builtin: https://neovim.io/news/2022/04
+-- [ ] use languagetool
+-- [ ] evaluate using nvim-lint, formatter.nvim, hober.nvim and instead of nullls
 -- [x] JDTLS
 -- [~] bindings for luadev
 -- [~] close toogleterms on quit
@@ -113,3 +128,7 @@ keymap_build()
 -- https://github.com/VonHeikemen/project-settings.nvim
 -- https://github.com/Saecki/crates.nvim
 -- https://github.com/VonHeikemen/little-wonder
+-- https://github.com/mfussenegger/nvim-lint
+-- https://github.com/mhartington/formatter.nvim
+-- https://github.com/lewis6991/hover.nvim
+--

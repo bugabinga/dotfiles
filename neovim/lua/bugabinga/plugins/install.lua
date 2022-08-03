@@ -1,4 +1,4 @@
-local path = vim.fn.stdpath 'data' .. '/site/pack/paqs/start/paq-nvim'
+local path = vim.fn.stdpath('data') .. '/site/pack/paqs/start/paq-nvim'
 if vim.fn.filewritable(path) == 0 then
   vim.fn.system {
     'git',
