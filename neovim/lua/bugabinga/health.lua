@@ -21,7 +21,6 @@ end
 _.check = function()
   check_program('ripgrep', 'rg')
   check_program('find-fd', 'fd')
-  check_program('SQLite3', 'sqlite3')
   check_program('Nushell', 'nu')
   check_program('vim-startuptime', 'vim-startuptime')
   check_program('Pandoc', 'pandoc')

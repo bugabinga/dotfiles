@@ -12,8 +12,7 @@ want {
   local syntax_server = false
   local project = require 'bugabinga.std.project'
 
-  local home = vim.fn.glob('~', false, false)
-  local jdtls_root_dir = project.determine_java_project_root(home)
+  local jdtls_root_dir = project.determine_java_project_root('~')
   if jdtls_root_dir then
     vim.notify('eclipse.jdt.ls java project root is ' .. jdtls_root_dir)
     -- even when a project root as found, it does not necessarily mean it is a

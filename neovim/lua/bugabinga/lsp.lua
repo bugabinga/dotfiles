@@ -43,62 +43,45 @@ want {
     },
   }
 
-  -- Format on Save when any LSP supports it.
-  local auto = require 'bugabinga.std.auto'
-  local null_opts = zero.build_options('null-ls', {
-    on_attach = function(client)
-      if client.server_capabilities.documentFormattingProvider then
-        auto 'format_buffer_on_write' {
-          description = 'Format the current buffer before writing.',
-          events = 'BufWritePre',
-          pattern = '<buffer>',
-          callback = function(context)
-            vim.lsp.buf.format()
-            vim.notify('Formatted ' .. context.file)
-          end,
-        }
-      end
-    end,
-  })
-
   local formatting = null_ls.builtins.formatting
   local diagnostics = null_ls.builtins.diagnostics
   local code_actions = null_ls.builtins.code_actions
-  local hover = null_ls.builtins.hover
+  -- local hover = null_ls.builtins.hover
   local completion = null_ls.builtins.completion
 
   -- run diagnostics on save
   local diagnostics_on_save = { method = null_ls.methods.DIAGNOSTICS_ON_SAVE }
+
+  local null_opts = zero.build_options 'null-ls'
   null_ls.setup {
     on_attach = null_opts.on_attach,
     sources = {
-      formatting.black.with { extra_args = { '--fast' } },
       formatting.stylua,
       formatting.clang_format,
-      formatting.codespell,
       formatting.jq,
       formatting.protolint,
       formatting.shellharden,
       formatting.shfmt,
       formatting.taplo,
-
-      hover.dictionary,
+      formatting.google_java_format,
+      formatting.tidy,
 
       diagnostics.actionlint.with(diagnostics_on_save),
       diagnostics.checkmake.with(diagnostics_on_save),
-      diagnostics.codespell.with(diagnostics_on_save),
       diagnostics.editorconfig_checker.with(diagnostics_on_save).with { command = 'editorconfig-checker' },
-      diagnostics.gitlint.with(diagnostics_on_save),
       diagnostics.protoc_gen_lint.with(diagnostics_on_save),
       diagnostics.protolint.with(diagnostics_on_save),
       diagnostics.selene.with(diagnostics_on_save),
       diagnostics.shellcheck.with(diagnostics_on_save),
       diagnostics.tidy.with(diagnostics_on_save),
+      diagnostics.trail_space.with(diagnostics_on_save),
 
       code_actions.refactoring,
       code_actions.shellcheck,
+      code_actions.gitsigns,
 
-      completion.luasnip,
+      completion.spell,
+      completion.tags,
     },
   }
 

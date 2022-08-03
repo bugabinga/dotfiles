@@ -7,6 +7,7 @@
 let cargo_crates = [
   [ name bin features];
   [ "sccache" "sccache" [] ]
+  [ "inferno" "inferno" [] ]
   [ "nu" "nu" [ "--features" "extra" ] ]
   [ "sd" "sd" [] ]
   [ "cbs" "cbs" [] ]

@@ -52,16 +52,12 @@ want { 'telescope', 'command_center', 'dressing' }(function(telescope, command_c
     'neoclip',
     -- telescope for vim.ui.select
     'ui-select',
-    -- sort by frecency
-    'frecency',
     -- cheat sheet
     'cheat',
     -- file browser
     'file_browser',
     -- manage projects
     'project',
-    -- project specific history
-    'smart_history',
   }
 
   for _, extension in pairs(extensions) do

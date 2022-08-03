@@ -16,22 +16,14 @@ paq {
   'nvim-telescope/telescope-ui-select.nvim',
   -- use telescope as `vim.ui.input`
   'stevearc/dressing.nvim',
-  -- use frecency algorithm when sorting files. Needs sqlite3 installed
-  'nvim-telescope/telescope-frecency.nvim',
   -- display cheat sheet with telesope
   'nvim-telescope/telescope-cheat.nvim',
-  -- keep project specific histories in telescope
-  'nvim-telescope/telescope-smart-history.nvim',
   -- show file browser in telescope
   'nvim-telescope/telescope-file-browser.nvim',
   -- manage projects via telescope
   'nvim-telescope/telescope-project.nvim',
   -- pick a symbol (emoji, icon, kaomoji,...) via telescope
   'nvim-telescope/telescope-symbols.nvim',
-  -- sqplite lua bindings some plugins use
-  'tami5/sqlite.lua',
-  -- status and tablines
-  'beauwilliams/statusline.lua',
   -- visual indicator if code actions are available
   'kosayoda/nvim-lightbulb',
   -- some bug fix for LSP
@@ -70,9 +62,6 @@ paq {
   'declancm/cinnamon.nvim',
   -- fast navigation in buffer via shortcut labels
   'ggandor/leap.nvim',
-  -- dim inactive windows
-  -- 'sunjon/shade.nvim',
-  'dapc11/Shade.nvim',
   -- breadcrumbs in window bar
   'SmiteshP/nvim-navic',
   -- show color values inline
