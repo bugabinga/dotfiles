@@ -1,3 +1,4 @@
+local map = require 'bugabinga.std.keymap'
 local auto = require 'bugabinga.std.auto'
 local want = require 'bugabinga.std.want'
 
@@ -13,8 +14,7 @@ want {
 
 	configs.setup {
 		-- A list of parser names, or "all"
-		-- FIXME: temporarily deactivated, because i am offline
-		-- ensure_installed = 'all',
+		ensure_installed = 'all',
 		-- Install parsers synchronously (only applied to `ensure_installed`)
 		sync_install = true,
 		-- Automatically install missing parsers when entering buffer
