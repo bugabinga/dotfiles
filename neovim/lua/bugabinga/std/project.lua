@@ -92,7 +92,7 @@ local function determine_project_root(custom_markers, custom_root)
 	---@diagnostic disable-next-line: missing-parameter
   local root = vim.fn.glob(custom_root)
   if root == '' then
-    vim.notify('the custom root ' .. custom_root .. ' does not exist!', error)
+    vim.notify('the custom root ' .. custom_root .. ' does not exist!', 'error')
     return nil
   end
   -- define some language-independent markers
@@ -111,7 +111,7 @@ local function determine_project_root(custom_markers, custom_root)
   }
   markers = vim.tbl_deep_extend('force', markers, custom_markers)
 
-  local buffer_name = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
+  local buffer_name = vim.api.nvim_buf_get_name(0)
   local directory_name = vim.fn.fnamemodify(buffer_name, ':p:h')
   return determine_root(directory_name, markers, root)
 end
