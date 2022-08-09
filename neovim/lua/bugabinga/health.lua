@@ -19,11 +19,11 @@ local function check_program(name, name_of_executable)
 end
 
 _.check = function()
-	check_program('ripgrep', 'rg')
-	check_program('find-fd', 'fd')
-	check_program('Nushell', 'nu')
-	check_program('vim-startuptime', 'vim-startuptime')
-	check_program('Pandoc', 'pandoc')
+  check_program('ripgrep', 'rg')
+  check_program('find-fd', 'fd')
+  check_program('Nushell', 'nu')
+  check_program('vim-startuptime', 'vim-startuptime')
+  check_program('Pandoc', 'pandoc')
 end
 
 return _
