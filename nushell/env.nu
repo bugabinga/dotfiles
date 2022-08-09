@@ -7,6 +7,9 @@ let-env WORKSPACE = if $env.WIN32? { "W:/" } else { "~/Workspace" | path expand 
 let-env NOTES = if $env.WIN32? { "N:/" } else { "~/Notes" | path expand }
 let-env CARGO_HOME = ( "~/.cargo" | path expand )
 
+# theme for ls and other programs, that use LS_COLORS
+let-env LS_COLORS = (vivid generate nord)
+
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
 # - converted from a value back to a string when running external commands (to_string)

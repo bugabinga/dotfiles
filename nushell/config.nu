@@ -84,7 +84,7 @@ let-env config = {
   sync_history_on_enter: true # Enable to share the history between multiple sessions, else you have to close the session to persist history to file
   menus: [
       # Configuration for default nushell menus
-      # Note the lack of souce parameter
+      # Note the lack of source parameter
       {
         name: completion_menu
         only_buffer_difference: false

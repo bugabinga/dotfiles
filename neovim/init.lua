@@ -18,19 +18,29 @@ vim.g.profile_mode = false
 local profiler = require 'bugabinga.profile'
 profiler.start()
 
--- set general neovim editor settings
-require 'bugabinga.options'
+-- the order of the first module to load is non-obvious.
+-- we want to load the plugins first, because the config depends on those.
+-- but we also want to load the module-cache plugin first, in order to benefit from caching most modules.
+-- for this and other reasons, all modules defined here should use a graceful version `require`, that allows handling the absence of modules.
+-- use either `bugabinga.std.want` or `pcall`.
+--
+--that way, we can order the modules here logically, assuming all plugins are installed.
+--if (some) plugins are not installed, the config gracefully degrades in features, but does not throw errors.
+--
+-- load this before all other plugins so that they may be cached
+require 'bugabinga.module-cache'
+
 -- install plugin manager and declare plugins to use
 require 'bugabinga.plugins'
 
--- load this before all other plugins so that they may be cached
-require 'bugabinga.module-cache'
+-- set general neovim editor settings
+require 'bugabinga.options'
 
 -- load ui stuff
 require 'bugabinga.notify'
 require 'bugabinga.colortheme'
+require 'bugabinga.devicons'
 require 'bugabinga.colorcolumn'
-require 'bugabinga.icons'
 require 'bugabinga.fuzzy-search-ui'
 require 'bugabinga.colorizer'
 require 'bugabinga.smooth-scroll'
@@ -46,7 +56,6 @@ require 'bugabinga.windows'
 require 'bugabinga.problems'
 
 -- load editor features
-require 'bugabinga.filetype'
 require 'bugabinga.move-code'
 require 'bugabinga.last-known-position'
 require 'bugabinga.fast-navigation'
@@ -55,7 +64,6 @@ require 'bugabinga.clipboard'
 require 'bugabinga.autopairs'
 require 'bugabinga.todo'
 require 'bugabinga.markdown'
-require 'bugabinga.repl'
 require 'bugabinga.surround'
 
 -- treesitter
@@ -64,12 +72,11 @@ require 'bugabinga.treesitter'
 -- lsp
 require 'bugabinga.lsp'
 
--- should be one of the last things to do.
--- applies all the declared keybindings to neovim.
-local keymap_build = require('bugabinga.std.keymap').build
-keymap_build()
+-- diagnostic
+require 'bugabinga.diagnostic'
 
 profiler.stop()
+
 -- TODO:
 -- [ ] icon facade: icon.get("name")
 -- [ ] DAP
@@ -122,13 +129,27 @@ profiler.stop()
 
 --
 -- PLUGINS TO TRY
+-- https://github.com/lukas-reineke/lsp-format.nvim
 -- https://github.com/ThePrimeagen/refactoring.nvim
 -- https://github.com/windwp/windline.nvim
 -- https://github.com/hrsh7th/nvim-pasta
--- https://github.com/VonHeikemen/project-settings.nvim
 -- https://github.com/Saecki/crates.nvim
 -- https://github.com/VonHeikemen/little-wonder
 -- https://github.com/mfussenegger/nvim-lint
 -- https://github.com/mhartington/formatter.nvim
 -- https://github.com/lewis6991/hover.nvim
+-- https://github.com/VonHeikemen/project-settings.nvim
+-- https://github.com/jinh0/eyeliner.nvim
+-- https://github.com/iamcco/markdown-preview.nvim
+-- https://github.com/jakewvincent/mkdnflow.nvim
+-- https://github.com/rktjmp/lush.nvim
+-- https://github.com/jbyuki/venn.nvim
+-- https://github.com/ziontee113/color-picker.nvim
+-- https://github.com/sQVe/sort.nvim
+-- https://github.com/ThePrimeagen/harpoon
 --
+-- DAP PLUGINS
+-- https://github.com/mfussenegger/nvim-dap
+-- https://github.com/nvim-telescope/telescope-dap.nvim
+-- https://github.com/theHamsta/nvim-dap-virtual-text
+-- https://github.com/rcarriga/nvim-dap-ui

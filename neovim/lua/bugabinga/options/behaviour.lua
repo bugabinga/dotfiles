@@ -18,6 +18,9 @@ local tab_size = 2
 vim.opt.tabstop = tab_size
 vim.opt.shiftwidth = tab_size
 vim.opt.softtabstop = tab_size
+vim.opt.shiftround = true
+-- insert whitespace type based on whitespace on previous line
+vim.opt.smarttab = true
 
 -- keep distance to borders while scrolling
 vim.opt.scrolloff = 8
@@ -44,8 +47,6 @@ vim.opt.shellredir = '| save %s'
 vim.opt.shellquote = ''
 vim.opt.shellxquote = ''
 
--- insert whitespace type based on whitespace on previous line
-vim.opt.smarttab = true
 -- highlight all search matches
 vim.opt.hlsearch = true
 -- enable smart case in searches
@@ -54,12 +55,13 @@ vim.opt.smartcase = true
 vim.opt.incsearch = true
 vim.opt.showmatch = true
 vim.opt.hidden = true
+vim.opt.wildignorecase = true
 -- Show the effects of substitutions incrementally
 vim.opt.inccommand = 'nosplit'
 
 -- use ripgrep instead of grep
-vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
--- vim.opt.grepformat = '%f:%1:%c:%m'
+vim.opt.grepprg = 'rg --hidden --vimgrep --no-heading --smart-case --'
+vim.opt.grepformat = '%f:%l:%c:%m'
 
 -- ask me to force failed commands
 vim.opt.confirm = true

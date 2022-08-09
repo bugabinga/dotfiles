@@ -168,4 +168,6 @@ paq {
   -- motions around object
   'kylechui/nvim-surround',
 }
+-- local plugins. they may override plugins from above
+vim.opt.runtimepath:append '~/Workspace/lsp-zero.nvim'
 return paq

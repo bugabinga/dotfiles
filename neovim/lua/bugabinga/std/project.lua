@@ -1,3 +1,31 @@
+--- Determines the path to a root directory, starting from the given directory.
+-- Markers have a name and weight.
+-- Each name is checked for existence in all directories up to the root.
+-- The sum of all markers and their weight determines a directories score.
+-- The directory with the highest score will be returned.
+--
+-- ## Example
+-- Assuming you want to determine the root of your current buffer, that is part
+-- of some project.
+-- Buffer: `/home/user/workspace/some\_project/a/b/c/d/the\_buffer.c`
+-- Project root: `/home/user/workspace/some\_project`
+--							 -> contains `.git`, `README` and `Makefile`
+--
+-- ```lua
+-- local project = require'bugabinga.std.project'
+-- local current_buffer = vim.api.nvim_buf_get_name(0)
+-- local markers = {
+--	{ name = ".git", weight = 1 },
+--	{ name = "README", weight = 2 },
+--	{ naem = "Makefile", weight = 3 },
+-- }
+-- local root = project.determine_root(current_buffer, markers, "~")
+-- print(root) -- /home/user/workspace/some_project
+-- ```
+---@param directory string The starting directory, from where to begin the search.
+---@param markers table<string,number> List of markers, that define the root, that is searched for.
+---@param root string The last directory on the path to root, when to stop searching. Usually '/' or '~'.
+---@return string? #A directory, that contains the `markers` and lies on the path from `directory` to `root`.
 local function determine_root(directory, markers, root)
   local dirname = function(path)
     return vim.fn.fnamemodify(path, ':h')
@@ -56,12 +84,13 @@ local function determine_root(directory, markers, root)
 end
 
 --- Determines the project root directory of the current buffer file. A "project" is not clearly defined for all programming languages, so this function uses a heuristic approach.
----@param custom_markers table list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
+---@param custom_markers table<string, number> list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
 ---@param custom_root string Given a `custom_root` the path traversal can be aborted before the filesystem root is reached. A useful value might be `~` for example, if your source code is always in your home directory. the root directory itself does __not__ get searched for markers!
----@return string project_root The project root of the current buffer, or `nil`, if none could be determined.
+---@return string|nil project_root The project root of the current buffer, or `nil`, if none could be determined.
 local function determine_project_root(custom_markers, custom_root)
   -- glob expands user defined root and checks, that it exists
-  local root = vim.fn.glob(custom_root, false, false)
+	---@diagnostic disable-next-line: missing-parameter
+  local root = vim.fn.glob(custom_root)
   if root == '' then
     vim.notify('the custom root ' .. custom_root .. ' does not exist!', 'error')
     return nil
