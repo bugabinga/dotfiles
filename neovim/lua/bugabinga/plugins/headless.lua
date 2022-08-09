@@ -3,7 +3,8 @@ local paq = require 'bugabinga.plugins'
 
 auto 'close_neovim' {
   description = 'Close neovim after updating plugins.',
-  events = { 'User PaqDoneSync' },
+  events = { 'User' },
+  pattern = 'PaqDoneSync',
   command = 'quit',
 }
 

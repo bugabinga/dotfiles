@@ -44,4 +44,3 @@ enable_winget = true
 "01 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
 "02 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
 "03 - MeMate" = "nu X:/update_memate.nu"
-"04 - Indexa Update" = "ix --update"
