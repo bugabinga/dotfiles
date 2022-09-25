@@ -1,3 +1,4 @@
+local map = require 'bugabinga.std.keymap'
 local auto = require 'bugabinga.std.auto'
 local want = require 'bugabinga.std.want'
 
@@ -162,6 +163,20 @@ want {
 		mode = map.MODE.NORMAL,
 		keys = map.KEY.LEADER .. map.KEY.N .. map.KEY.F,
 		command = function() neogen.generate{ type = 'func'} end,
+	}
+	map {
+		description = 'Generate Doc Comment for File',
+		category = map.CATEGORY.EDITING,
+		mode = map.MODE.NORMAL,
+		keys = map.KEY.LEADER .. map.KEY.N .. map.KEY.F .. map.KEY.F,
+		command = function() neogen.generate{ type = 'file'} end,
+	}
+	map {
+		description = 'Generate Doc Comment for Class',
+		category = map.CATEGORY.EDITING,
+		mode = map.MODE.NORMAL,
+		keys = map.KEY.LEADER .. map.KEY.N .. map.KEY.C,
+		command = function() neogen.generate{ type = 'class'} end,
 	}
 
 	-- FIXME: this aucmd needs to be restricted to buffers where treesitter is loaded

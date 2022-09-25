@@ -8,6 +8,10 @@
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
 
+vim.g.profile_config = false
+local profiler = require 'bugabinga.profiler'
+if vim.g.profile_config then profiler.start() end
+
 -- the order of the first module to load is non-obvious.
 -- we want to load the plugins first, because the config depends on those.
 -- but we also want to load the module-cache plugin first, in order to benefit from caching most modules.
@@ -64,6 +68,8 @@ require 'bugabinga.lsp'
 
 -- diagnostic
 require 'bugabinga.diagnostic'
+
+if vim.g.profile_config then profiler.stop() end
 
 -- TODO: fix gitsigns highights
 -- TODO: preview multimedia with telescope
