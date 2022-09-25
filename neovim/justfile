@@ -24,3 +24,6 @@ profile_file := `$"startuptime/(sys | get host | get hostname)_(date now | date 
 profile:
 	vim-startuptime -vimpath nvim -count 100 -warmup 10 init.lua | save {{profile_file}}
 	open {{profile_file}}
+
+profile_baseline:
+	vim-startuptime -vimpath nvim -count 100 -warmup 10 -- init.lua --noplugin -i NONE -u NONE -n
