@@ -12,7 +12,7 @@ def "complete svn subcommands" [] {
 # TODO: parse xml output
 
 def "complete svn add paths" [] {
-  ^svn status --depth files
+  ^svn status --depth infinity
   | lines
   | parse "{mode} {file}"
   | str trim
@@ -21,7 +21,7 @@ def "complete svn add paths" [] {
 }
 
 def "complete svn revert paths" [] {
-  ^svn status --depth files
+  ^svn status --depth infinity
   | lines
   | parse "{mode} {file}"
   | where mode == M
@@ -32,20 +32,22 @@ def "complete svn revert paths" [] {
 def "complete svn depth" [] { ['empty', 'files', 'immediates', 'infinity'] }
 
 def "complete svn changelists" [] {
-  ^svn status --depth files
+  ^svn status --depth infinity
   | lines
   | parse "--- Changelist '{changelist}':"
   | get --ignore-errors changelist
 }
 
+# FIXME: This is commented out in order to leave unexterne'd commands be.
+# 
 # Subversion is a tool for version control.
 # For additional information, see http://subversion.apache.org/
-export extern svn [
-  subcommand?: string@"complete svn subcommands" # for help on a specific subcommand.
-  --version # to see the program version and RA modules
-  --quiet # to see just the version number
-  --verbose # to see dependency versions as well
-]
+#export extern svn [
+  #subcommand?: string@"complete svn subcommands" # for help on a specific subcommand.
+  #--version # to see the program version and RA modules
+  #--quiet # to see just the version number
+  #--verbose # to see dependency versions as well
+#]
 
 # help (?, h): Describe the usage of this program or its subcommands.
 # usage: help [SUBCOMMAND...]

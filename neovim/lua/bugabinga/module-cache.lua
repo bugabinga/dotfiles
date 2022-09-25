@@ -7,4 +7,6 @@ if not ok then
 	return
 end
 -- FIXME: enable profile only when global vim.g.profile_mode is true
-impatient.enable_profile()
+	if vim.g.profile_mode then
+		impatient.enable_profile()
+	end
