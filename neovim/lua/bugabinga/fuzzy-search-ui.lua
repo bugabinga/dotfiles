@@ -35,22 +35,22 @@ want { 'telescope', 'command_center', 'dressing' } (function(telescope, command_
 		},
 	}
 
-	local extensions = {
-		-- Plug Command Center into Telescope
-		'command_center',
-		-- show history of notifications
-		'notify',
-		-- save yank history
-		'neoclip',
-		-- telescope for vim.ui.select
-		'ui-select',
-		-- cheat sheet
-		'cheat',
-		-- file browser
-		'file_browser',
-		-- manage projects
-		'project',
-	}
+  local extensions = {
+    -- Plug Command Center into Telescope
+    'command_center',
+    -- show history of notifications
+    'notify',
+    -- save yank history
+    'neoclip',
+    -- telescope for vim.ui.select
+    'ui-select',
+    -- cheat sheet
+    'cheat',
+    -- file browser
+    'file_browser',
+    -- manage projects
+    'project',
+  }
 
 	for _, extension in pairs(extensions) do
 		if not pcall(telescope.load_extension, extension) then
