@@ -20,7 +20,7 @@ subversion/config
 ~/AppData/Roaming/Subversion/config
 
 cargo/config.toml
-~/.cargo/config.toml
+~/scoop/persist/rustup/.cargo/config.toml
 
 indexa/config.windows.toml
 ~/AppData/Roaming/indexa/config.toml

@@ -7,7 +7,7 @@
 let cargo_crates = [
   [ name bin features];
   [ "sccache" "sccache" [] ]
-  [ "inferno" "inferno" [] ]
+  [ "inferno" "inferno-flamegraph" [] ]
   [ "nu" "nu" [ "--features" "extra" ] ]
   [ "sd" "sd" [] ]
   [ "ouch" "ouch" [] ]
@@ -34,6 +34,7 @@ let cargo_crates = [
   # [ "bandwhich" "bandwhich" [] ] masked until https://github.com/imsnif/bandwhich/issues/233
   [ "lychee" "lychee" [] ]
   [ "viu" "viu" [] ]
+  [ "vivid" "vivid" [] ]
   [ "licensor" "licensor" [] ]
   [ "gib" "gib" [] ]
   [ "silicon" "silicon" [] ]
@@ -66,23 +67,26 @@ def so-features [] {
 
 def install-helix-editor [] {
   cd $env.WORKSPACE
-  if ( $env.WORKSPACE | path join "helix/.git" | path exists ) {
-    git -C helix pull
-  } else {
+  if ( not ($env.WORKSPACE | path join "helix/.git" | path exists) ) {
     git clone https://github.com/helix-editor/helix
-  }
+  } 
   cd helix
-  cargo install --locked --path helix-term
-  hx --grammar fetch | ignore
-  hx --grammar build | ignore
+  git fetch
+  # check if fetch actually downloaded anything new
+  if (not ((git rev-parse HEAD) == (git rev-parse @{u}))) {
+    git pull
+    cargo +stable-msvc install --path helix-term  --profile opt
+    hx --grammar fetch | ignore
+    hx --grammar build | ignore
+  }
 }
 
 # install all my favorite crate, only if they are not already in PATH.
 def main [] {
   $cargo_crates | each { | crate |
-    if ( which $crate.bin | empty? ) {
-      echo $'cargo install --locked ($crate.name) ($crate.features)'
-      cargo install --locked $crate.name $crate.features
+    if ( which $crate.bin | is-empty ) {
+      echo $'cargo install ($crate.name) ($crate.features)'
+      cargo install $crate.name $crate.features
     } else {
       echo $"($crate.name) already installed"
     }
