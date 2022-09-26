@@ -9,8 +9,8 @@ want {
 	'hlargs',
 	'neogen',
 } (function(install, configs, parsers, hlargs, neogen)
-	install.compilers = { 'zig cc', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
-	install.prefer_git = true
+	install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
+	-- install.prefer_git = true
 
 	configs.setup {
 		-- A list of parser names, or "all"

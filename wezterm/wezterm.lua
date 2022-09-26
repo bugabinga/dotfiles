@@ -8,7 +8,7 @@ local hostname = wez.hostname()
 local enable_wayland = false
 local window_decorations = 'RESIZE'
 local font_size = 11.0
-local font = wez.font('BlexMono Nerd Font', { weight = 'Regular', stretch = 'Condensed' })
+local font = wez.font('IBM Plex Mono')
 
 if hostname == 'x230' then
 	enable_wayland = true
@@ -16,7 +16,8 @@ if hostname == 'x230' then
 elseif hostname == 'pop-os' then
 	font_size = 12
 elseif hostname == 'PC-00625' then
-	font_size = 12
+	font_size = 14
+	font = wez.font('Cascadia Mono')
 	window_decorations = 'TITLE|RESIZE'
 end
 

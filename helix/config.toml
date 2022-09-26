@@ -17,6 +17,16 @@ auto-format = true
 scrolloff = 5
 scroll-lines = 1
 
+cursorline = true
+gutters = [ "line-numbers", "diagnostics", "spacer" ]
+color-modes = true
+
+[editor.statusline]
+left = ["mode", "spacer","selections", "position", "separator", "position-percentage"]
+center = ["file-name", "separator", "file-encoding", "file-line-ending", "file-type"]
+right = ["diagnostics", "spacer", "spinner"]
+separator = "·"
+
 [editor.lsp]
 display-messages = true
 
@@ -34,5 +44,8 @@ tab = "all"
 newline = "none"
 
 [editor.whitespace.characters]
-nbsp = "␠"
-newline = "␤"
+space = "·"
+nbsp = "⍽"
+tab = "─"
+tabpad = "╴"
+newline = "⏎"
