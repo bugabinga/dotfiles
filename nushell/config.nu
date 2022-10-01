@@ -67,6 +67,7 @@ let default_theme = {
 
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
+	show_banner: false
   filesize_metric: false
   table_mode: light # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
   use_ls_colors: true
