@@ -45,8 +45,8 @@
 
 "ui.cursor" = { bg = "ui_cursor" }
 "ui.cursor.primary" = { fg = "important_global", bg = "ui_cursor" }
-"ui.cursor.insert" = { bg = "debug" }
-"ui.cursor.select" = { fg = "debug", bg = "debug" }
+"ui.cursor.insert" = { bg = "accent" }
+"ui.cursor.select" = { fg = "accent", bg = "accent" }
 "ui.cursor.match" = { fg = "important_global", modifiers = ["slow_blink"] }
 
 "ui.selection" = { fg = "minor", bg = "ui_minor" }
@@ -80,7 +80,7 @@
 "ui.highlight" = { bg = "ui_cursor" }
 
 "ui.virtual.ruler" = { bg = "ui_backdrop" }
-"ui.virtual.whitespace" = { fg = "minor", modifiers = ["dim"] }
+"ui.virtual.whitespace" = { fg = "minor_backdrop" }
 
 "diagnostic" = { fg = "ui_normal", modifiers = ["underlined"] }
 
