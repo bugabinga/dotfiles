@@ -131,12 +131,12 @@ def create_right_prompt [] {
 }
 
 # Use nushell functions to define your right and left prompt
-export env PROMPT_COMMAND { {create_left_prompt} }
-export env PROMPT_COMMAND_RIGHT { {create_right_prompt} }
+export def-env PROMPT_COMMAND [] { create_left_prompt }
+export def-env PROMPT_COMMAND_RIGHT [] { create_right_prompt }
 
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-export env PROMPT_INDICATOR { $"(ansi purple) (char prompt) (ansi reset)" }
-export env PROMPT_INDICATOR_VI_INSERT { $"(ansi purple) (char pipe) (ansi reset)" }
-export env PROMPT_INDICATOR_VI_NORMAL { $"(ansi purple) (char prompt) (ansi reset)" }
-export env PROMPT_MULTILINE_INDICATOR { $"(ansi purple) (char prompt)(char prompt) (ansi reset)" }
+export def-env PROMPT_INDICATOR [] { $"(ansi purple) (char prompt) (ansi reset)" }
+export def-env PROMPT_INDICATOR_VI_INSERT [] { $"(ansi purple) (char pipe) (ansi reset)" }
+export def-env PROMPT_INDICATOR_VI_NORMAL [] { $"(ansi purple) (char prompt) (ansi reset)" }
+  export def-env PROMPT_MULTILINE_INDICATOR [] { $"(ansi purple) (char prompt)(char prompt) (ansi reset)" }
