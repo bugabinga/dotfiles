@@ -72,7 +72,7 @@ vim.opt.lazyredraw = true
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
-vim.opt.guifont = 'BlexMono Nerd Font:h11:antialias=true'
+vim.opt.guifont = 'BlexMono NF:h16:antialias=true'
 
 -- neovide only options
 if vim.g.neovide then

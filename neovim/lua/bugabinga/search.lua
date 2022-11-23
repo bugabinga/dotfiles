@@ -3,6 +3,8 @@ local want = require 'bugabinga.std.want'
 
 want { 'hlslens' } (function(lens)
 
+	lens.setup()
+
 	-- this highlight links by default to WildMenu, which is to offensive
   vim.api.nvim_set_hl(0, 'HlSearchLens', { link = 'Search' })
 

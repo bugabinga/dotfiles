@@ -46,6 +46,7 @@ let cargo_crates = [
   [ "selene" "selene" [ "--no-default-features" ] ]
   [ "stylua" "stylua" [ "--features" "lua52" ] ]
   [ "taplo-cli" "taplo" [] ]
+  [ "lms" "lms" [] ]
   [ "coreutils" "coreutils" (coreutils-features) ]
 ]
 
