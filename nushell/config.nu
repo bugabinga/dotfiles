@@ -269,3 +269,6 @@ let-env config = {
       event: { send: menu name: commands_with_description }
     }  ]
 }
+
+# must be done, after defining config, since zoxide mutates it
+use zoxide.nu *

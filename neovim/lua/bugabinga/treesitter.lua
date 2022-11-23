@@ -10,13 +10,15 @@ want {
 	'neogen',
 } (function(install, configs, parsers, hlargs, neogen)
 	install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
-	-- install.prefer_git = true
+	install.prefer_git = true
 
 	configs.setup {
 		-- A list of parser names, or "all"
 		ensure_installed = 'all',
-		-- Install parsers synchronously (only applied to `ensure_installed`)
-		sync_install = true,
+		-- Install parsers asynchronously (only applied to `ensure_installed`)
+		-- The synchronous install method seems to rely on a posix shell, which i
+		-- do not use.
+		sync_install = false,
 		-- Automatically install missing parsers when entering buffer
 		auto_install = true,
 

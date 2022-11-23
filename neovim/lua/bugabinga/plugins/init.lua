@@ -67,9 +67,7 @@ paq {
   -- show color values inline
   -- this plugins seems a little unmaintained right now.
   -- using some forks for now
-  --'norcalli/nvim-colorizer.lua',
-  --'NvChad/nvim-colorizer.lua',
-  'lasse16/nvim-colorizer.lua',
+  'NvChad/nvim-colorizer.lua',
   -- intelligent commenting
   'numToStr/Comment.nvim',
   -- show git status in ui

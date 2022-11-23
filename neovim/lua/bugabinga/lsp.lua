@@ -10,11 +10,11 @@ want {
 	'lsp-zero',
 	'null-ls',
 	'nvim-lsp-installer',
-	'lua-dev',
+	'neodev',
 	'rust-tools',
 	'nvim-navic',
 	'lsp-status',
-} (function(zero, null_ls, installer, luadev, rust, navic, lsp_status)
+} (function(zero, null_ls, installer, neodev, rust, navic, lsp_status)
 	installer.settings {
 		ui = {
 			--TODO: use some global float window settings
@@ -50,7 +50,7 @@ want {
 	zero.build_options('jdtls', {})
 
 	-- lua neovim lsp
-	luadev.setup {
+	neodev.setup {
 		lspconfig = zero.defaults.nvim_workspace(),
 	}
 
@@ -76,7 +76,6 @@ want {
 		sources = {
 			formatting.stylua,
 			formatting.clang_format,
-			formatting.codespell,
 			formatting.jq,
 			formatting.protolint,
 			formatting.shellharden,
@@ -87,8 +86,6 @@ want {
 
 			diagnostics.actionlint.with(diagnostics_on_save),
 			diagnostics.checkmake.with(diagnostics_on_save),
-			diagnostics.codespell.with(diagnostics_on_save),
-			diagnostics.editorconfig_checker.with(diagnostics_on_save).with { command = 'editorconfig-checker' },
 			diagnostics.gitlint.with(diagnostics_on_save),
 			diagnostics.protoc_gen_lint.with(diagnostics_on_save),
 			diagnostics.protolint.with(diagnostics_on_save),
@@ -113,7 +110,7 @@ want {
 
 local function setup_keybinds_and_actions(client, buffer_number)
 		-- TODO: make format changed lines command
-		local capabilities = client.resolved_capabilities
+		local capabilities = client.server_capabilities
 		if capabilities.document_formatting then
 			map {
 				description = 'Format buffer using LSP',
