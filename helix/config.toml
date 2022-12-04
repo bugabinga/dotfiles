@@ -18,12 +18,25 @@ scrolloff = 5
 scroll-lines = 1
 
 cursorline = true
-gutters = [ "line-numbers", "diagnostics", "spacer" ]
+gutters = ["line-numbers", "diagnostics", "spacer"]
 color-modes = true
 
 [editor.statusline]
-left = ["mode", "spacer","selections", "position", "separator", "position-percentage"]
-center = ["file-name", "separator", "file-encoding", "file-line-ending", "file-type"]
+left = [
+  "mode",
+  "spacer",
+  "selections",
+  "position",
+  "separator",
+  "position-percentage",
+]
+center = [
+  "file-name",
+  "separator",
+  "file-encoding",
+  "file-line-ending",
+  "file-type",
+]
 right = ["diagnostics", "spacer", "spinner"]
 separator = "·"
 
