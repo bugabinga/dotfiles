@@ -31,7 +31,7 @@ def get_vcs_path [] {
     #normalize path
     let pwd = ($env.PWD | path expand)
 
-    let svn_relative_cmd = ( do --ignore-errors { ^svn info --show-item relative-url --no-newline $pwd } | complete )
+    let svn_relative_cmd = ( do --ignore-errors { ^svn info --show-item relative-url --no-newline $pwd | complete } )
     let svn_relative_path = if ($svn_relative_cmd.exit_code == 0) { $" 🐢 (char nf_branch) ($svn_relative_cmd.stdout)" }
 
     let git_status = ( gstat )
@@ -93,8 +93,8 @@ export-env {
 
   # The prompt indicators are environmental variables that represent
   # the state of the prompt
-  let-env PROMPT_INDICATOR = $"(ansi purple) (char prompt) (ansi reset)" 
-  let-env PROMPT_INDICATOR_VI_INSERT = $"(ansi purple) (char pipe) (ansi reset)" 
-  let-env PROMPT_INDICATOR_VI_NORMAL = $"(ansi purple) (char prompt) (ansi reset)" 
-  let-env PROMPT_MULTILINE_INDICATOR = $"(ansi purple) (char prompt)(char prompt) (ansi reset)" 
+  let-env PROMPT_INDICATOR = $"(ansi purple) (char prompt) (ansi reset)"
+  let-env PROMPT_INDICATOR_VI_INSERT = $"(ansi purple) (char pipe) (ansi reset)"
+  let-env PROMPT_INDICATOR_VI_NORMAL = $"(ansi purple) (char prompt) (ansi reset)"
+  let-env PROMPT_MULTILINE_INDICATOR = $"(ansi purple) (char prompt)(char prompt) (ansi reset)"
 }
