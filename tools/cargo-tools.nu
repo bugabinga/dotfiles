@@ -74,12 +74,15 @@ def install-helix-editor [] {
   cd helix
   git fetch
   # check if fetch actually downloaded anything new
-  if (not ((git rev-parse HEAD) == (git rev-parse @{u}))) {
+  # if (not ((git rev-parse HEAD) == (git rev-parse @{u}))) {
+  # topgrade has already updated the repo by this point, so that we never hit this case.
+  # needs alternative idea
     git pull
-    cargo +stable-msvc install --path helix-term  --profile opt
+    let toolchain = (if $nu.os-info.family == "windows" {"+stable-mvsc"} else {"+stable"})
+    cargo $toolchain install --path helix-term  --profile opt
     hx --grammar fetch | ignore
     hx --grammar build | ignore
-  }
+  # }
 }
 
 # install all my favorite crate, only if they are not already in PATH.
