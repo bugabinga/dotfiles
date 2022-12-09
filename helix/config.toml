@@ -14,12 +14,15 @@ auto-info = true
 auto-pairs = true
 auto-format = true
 
+idle-timeout = 200
+
 scrolloff = 5
 scroll-lines = 1
 
 cursorline = true
-gutters = ["line-numbers", "diagnostics", "spacer"]
 color-modes = true
+auto-save = true
+bufferline = "always"
 
 [editor.statusline]
 left = [
@@ -62,3 +65,8 @@ nbsp = "⍽"
 tab = "─"
 tabpad = "╴"
 newline = "⏎"
+
+[editor.indent-guides]
+render = true
+character = "▏"
+skip-levels = 2

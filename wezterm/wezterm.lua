@@ -80,6 +80,16 @@ local keys = {
     action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' },
   },
   {
+    key = 't',
+    mods = 'LEADER',
+    action = wez.action.SpawnTab 'CurrentPaneDomain',
+  },
+  {
+    key = 'w',
+    mods = 'LEADER',
+    action = wez.action.CloseCurrentTab { confirm = true },
+  },
+  {
     key = 'q',
     mods = 'LEADER',
     action = wez.action.QuitApplication,
