@@ -78,7 +78,7 @@ def install-helix-editor [] {
   # topgrade has already updated the repo by this point, so that we never hit this case.
   # needs alternative idea
     git pull
-    let toolchain = (if $nu.os-info.family == "windows" {"+stable-mvsc"} else {"+stable"})
+    let toolchain = (if $nu.os-info.family == "windows" {"+stable-msvc"} else {"+stable"})
     cargo $toolchain install --path helix-term  --profile opt
     hx --grammar fetch | ignore
     hx --grammar build | ignore
