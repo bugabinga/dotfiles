@@ -2,7 +2,7 @@ def to_original [] { str replace .pacnew '' }
 
 # Looks for *.pacnew files that need merging.
 # If found, start a merge in meld for each file.
-export def pacnew [] {
+export def main [] {
     let pacnew_to_merge = ( fd '.*\.pacnew$' /etc | sk -0 -1 | str trim )
     if ( $pacnew_to_merge | empty? ) {
         echo "No pacnew file to merge"

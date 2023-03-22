@@ -2,7 +2,7 @@
 export def "has-column?" [
   name: string # Name of the column to check for
 ] {
-  transpose | any Column0 == $name
+    transpose | values | get 0 | any { |column| $column == $name }
 }
 
 # Flattens a table into a string separated by a single space character.
