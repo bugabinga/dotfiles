@@ -128,6 +128,12 @@ class bootstripper {
           continue;
         output.append((char)character);
       }
+      var name = output.toString();
+      if( "localhost".equals(name) ) {
+        // we are inside termux
+        assert System.getenv("PREFIX") != null;
+        return "termux";
+      }
       return output.toString();
     }
   }
