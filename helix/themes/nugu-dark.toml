@@ -90,28 +90,23 @@
 "hint" = { fg = "info", modifiers = ["dim"] }
 
 [palette]
-normal = "#c9c9c9"
-accent = "#8BABA5"
+
+accent = "#921592"
 backdrop = "#131313"
-important_local = "#f0f0f0"
-important_global = "#ffffff"
-minor = "#818181"
-minor_backdrop = "#0B2B25"
-
-ui_normal = "#31ae99"
-ui_selection = "#287F70"
-ui_cursor = "#56968C"
-ui_cursor_insert = "#2F77AE"
-ui_cursor_select = "#992FAE"
-ui_backdrop = "#18574C"
-ui_important = "#aefeff"
-ui_minor = "#113131"
-
-error = "#A21300"
-warning = "#A2A213"
-info = "#13A2A2"
-
-ui_fg_debug = "#ffffff"
-ui_bg_debug = "#000000"
-
-debug = "#FF2EDD"
+debug = "#ff00ff"
+error = "#640e23"
+important_global = "#beacfb"
+important_local = "#9a8bce"
+info = "#4c8093"
+minor = "#949494"
+minor_backdrop = "#547f65"
+normal = "#c9c9c9"
+ui_backdrop = "#272727"
+ui_cursor = "#516d63"
+ui_cursor_insert = "#907ec2"
+ui_cursor_selection = "#7e297e"
+ui_important = "#bdb2db"
+ui_minor = "#5e5e5e"
+ui_normal = "#949494"
+ui_selection = "#7e297e"
+warning = "#917938"

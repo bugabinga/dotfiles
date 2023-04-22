@@ -1,0 +1,112 @@
+# SYNTAX THEME
+# modifiers:
+# 
+# - bold
+# - dim
+# - italic
+# - underlined
+# - slow_blink
+# - rapid_blink
+# - reversed
+# - hidden
+# - crossed_out
+
+"string" = { fg = "accent", modifiers = ["italic"] }
+"string.regexp" = { fg = "accent", bg = "minor_backdrop" }
+"string.special" = { fg = "info", bg = "minor_backdrop" }
+"comment" = { fg = "important_global", modifiers = ["bold"] }
+"comment.block.documentation" = { fg = "minor", modifiers = ["dim"] }
+"punctuation" = { fg = "minor" }
+"keyword" = { fg = "minor" }
+"keyword.control.return" = { modifiers = ["bold", "underlined"] }
+"keyword.control.exception" = { modifiers = ["bold", "underlined"] }
+"operator" = { fg = "minor" }
+
+"program.import_declaration.import" = { fg = "debug" }
+
+"markup" = "debug"
+"markup.heading" = { fg = "important_global", modifiers = ["bold"] }
+"markup.list" = "minor"
+"markup.bold" = { fg = "normal", modifiers = ["bold"] }
+"markup.italic" = { fg = "normal", modifiers = ["italic"] }
+"markup.link.url" = "minor"
+"markup.link.text" = "important_local"
+"markup.link.label" = "important_global"
+"markup.quote" = { fg = "important_local", modifiers = ["italic"] }
+"markup.raw.inline" = { fg = "accent" }
+"markup.raw.block" = { fg = "accent", modifiers = ["dim"] }
+
+"diff.plus" = { fg = "important_local", modifiers = ["bold"] }
+"diff.delta" = { fg = "ui_normal" }
+"diff.minus" = { fg = "minor", modifiers = ["crossed_out"] }
+
+# UI THEME
+"ui.background" = { bg = "backdrop" }
+
+"ui.cursor" = { bg = "ui_cursor" }
+"ui.cursor.primary" = { fg = "important_global", bg = "ui_cursor" }
+"ui.cursor.insert" = { bg = "accent" }
+"ui.cursor.select" = { fg = "accent", bg = "accent" }
+"ui.cursor.match" = { fg = "important_global", modifiers = ["slow_blink"] }
+
+"ui.selection" = { fg = "minor", bg = "ui_minor" }
+"ui.selection.primary" = { fg = "normal", bg = "ui_selection" }
+
+"ui.linenr" = { fg = "ui_minor" }
+"ui.linenr.selected" = { fg = "ui_normal" }
+
+"ui.statusline" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.statusline.inactive" = { fg = "ui_minor" }
+
+"ui.popup" = { fg = "ui_fg_debug", bg = "ui_bg_debug" }
+# the special popup on SPACE
+"ui.popup.info" = { fg = "ui_normal", bg = "ui_backdrop" }
+
+# space between buffers
+"ui.window" = { fg = "ui_minor", bg = "ui_backdrop" }
+
+# help text box above command input
+"ui.help" = { fg = "ui_important", bg = "ui_backdrop" }
+
+"ui.text" = { fg = "normal" }
+# focused item in file picker
+"ui.text.focus" = { fg = "ui_important" }
+# text in SPACE popup
+"ui.text.info" = { fg = "ui_normal" }
+
+"ui.menu.selected" = { fg = "ui_important", modifiers = ["underlined"] }
+
+# selected line in buffer picker
+"ui.highlight" = { bg = "ui_cursor" }
+
+"ui.virtual.ruler" = { bg = "ui_backdrop" }
+"ui.virtual.whitespace" = { fg = "minor_backdrop" }
+
+"diagnostic" = { fg = "ui_normal", modifiers = ["underlined"] }
+
+"warning" = { bg = "warning" }
+"error" = { bg = "error", modifiers = ["rapid_blink"] }
+"info" = { bg = "info" }
+"hint" = { fg = "info", modifiers = ["dim"] }
+
+[palette]
+
+accent = "#921592"
+backdrop = "#c9c9c9"
+debug = "#ff00ff"
+error = "#640e23"
+important_global = "#6e5df0"
+important_local = "#5f54ab"
+info = "#4c8093"
+minor = "#949494"
+minor_backdrop = "#364b3e"
+normal = "#131313"
+ui_backdrop = "#292929"
+ui_cursor = "#2f3e39"
+ui_cursor_insert = "#4e467f"
+ui_cursor_selection = "#7e297e"
+ui_important = "#7167ac"
+ui_minor = "#5e5e5e"
+ui_normal = "#949494"
+ui_selection = "#7e297e"
+warning = "#917938"
