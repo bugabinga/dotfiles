@@ -35,7 +35,7 @@ export def github-upload-key [
       echo (build-string "[" ID : $id "]" " key with title " (ansi gb) $title (ansi reset) " was created at " (ansi yi) $created_at (ansi reset) "." (char newline) )
       echo (build-string (ansi wu) "PUBLIC SSH KEY:" (ansi reset))
       echo (char newline)
-      echo ($key | ansi gradient --fgstart 0xaefe9f --fgend 0xfefefe)
+      echo ($key | ansi gradient --fgstart "0xaefe9f" --fgend "0xfefefe")
       echo (char newline)
     }
   } else {
@@ -48,7 +48,7 @@ export def github-upload-key [
 export def glog [
   ...rest: string # Extra arguments to git log
 ] {
-  git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 $rest | lines | split column "»¦«" commit subject name email date | update date { get date | into datetime} | sort-by date
+  git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD -n 25 $rest | lines | split column "»¦«" commit subject name email date | update date { || get date | into datetime } | sort-by date
 }
 
 # Show the effective configuration of git
