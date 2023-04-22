@@ -1,13 +1,13 @@
 # GLOBAL VARIABLES
 
-let-env WIN32? = ( $nu.os-info.name =~ "windows" )
+let-env WIN32 = ( $nu.os-info.name =~ "windows" )
 let-env NURC_DIR  = ( $nu.config-path | path expand | path dirname )
 let-env DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
-let-env WORKSPACE = if $env.WIN32? { "W:/" } else { "~/Workspace" | path expand }
-let-env NOTES = if $env.WIN32? { "N:/" } else { "~/Notes" | path expand }
+let-env WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
+let-env NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
 
 # theme for ls and other programs, that use LS_COLORS
-let-env LS_COLORS = (vivid generate nord)
+let-env LS_COLORS = ( do -i { vivid generate nord } )
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
@@ -16,11 +16,11 @@ let-env LS_COLORS = (vivid generate nord)
 let-env ENV_CONVERSIONS = {
   "PATH": {
     from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
+    to_string: { |v| $v | str join (char esep) }
   }
   "Path": {
     from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
+    to_string: { |v| $v | str join (char esep) }
   }
 }
 
