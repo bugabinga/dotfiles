@@ -1,7 +1,6 @@
 local wez = require 'wezterm'
 local nugu = require 'bugabinga.nugu'
 
-local color_scheme = 'nugu-dark' -- not there yet ;)
 local color_schemes = nugu
 
 local hostname = wez.hostname()
@@ -12,7 +11,7 @@ local font = wez.font 'IBM Plex Mono'
 
 if hostname == 'x230' then
   enable_wayland = true
-  window_decorations = 'NONE'
+  window_decorations = 'RESIZE'
 elseif hostname == 'pop-os' then
   font_size = 12
 elseif hostname == 'PC-00625' then
@@ -28,6 +27,33 @@ wez.on('update-right-status', function(window, pane)
     name = 'TABLE: ' .. name
   end
   window:set_right_status(name or '')
+end)
+
+-- wezterm.gui is not available to the mux server, so take care to
+-- do something reasonable when this config is evaluated by the mux
+function get_appearance()
+  if wez.gui then
+    return wez.gui.get_appearance()
+  end
+  return 'Dark'
+end
+
+function scheme_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return 'nugu-dark'
+  else
+    return 'nugu-light'
+  end
+end
+
+wez.on("window-config-reloaded", function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+  local appearance = window:get_appearance()
+  local scheme = scheme_for_appearance(appearance)
+  if overrides.color_scheme ~= scheme then
+    overrides.color_scheme = scheme
+    window:set_config_overrides(overrides)
+  end
 end)
 
 local leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
@@ -146,7 +172,7 @@ local key_tables = {
 return {
   font = font,
   font_size = font_size,
-  color_scheme = color_scheme,
+  color_scheme = scheme_for_appearance(get_appearance()),
   color_schemes = color_schemes,
   default_prog = { 'nu', '--login', '--interactive' },
   window_decorations = window_decorations,

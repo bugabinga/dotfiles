@@ -5,10 +5,13 @@ def icons [] {
     [
         [ path icon ];
         [ "/home/oli/Notes" (char -u "1f4d3") ]
+        [ "/home/bugabinga/Notes" (char -u "1f4d3") ]
         [ "C:\\Users\\okr\\Notes" (char -u "1f4d3") ]
         [ "/home/oli/Workspace" (char -u "1f4bb") ]
+        [ "/home/bugabinga/Workspace" (char -u "1f4bb") ]
         [ "C:\\Users\\okr\\Workspaces" (char -u "1f4bb") ]
         [ "/home/oli" (char nf_house2) ]
+        [ "/home/bugabinga" (char nf_house2) ]
         [ "C:\\Users\\okr" (char nf_house2) ]
     ]
 }
@@ -23,7 +26,7 @@ def set-window-title [] {
     let icon = if (icons | any { |icon| $icon.path == $pwd } ) { ( icons | where path == $pwd | get icon.0 ) } else { $"(char nf_folder1)" }
     # Some terminals freeze, if they do not support this OSC
     if ($env | get -i TERM_PROGRAM) == WezTerm {
-      echo ([ (ansi title) $icon " " ( $pwd | path basename ) (ansi reset) ] | str collect)
+      echo ([ (ansi title) $icon " " ( $pwd | path basename ) (ansi reset) ] | str join)
     }
 }
 
@@ -32,15 +35,15 @@ def get_vcs_path [] {
     let pwd = ($env.PWD | path expand)
 
     let svn_relative_cmd = ( do --ignore-errors { ^svn info --show-item relative-url --no-newline $pwd | complete } )
-    let svn_relative_path = if ($svn_relative_cmd.exit_code == 0) { $" 🐢 (char nf_branch) ($svn_relative_cmd.stdout)" }
+    let svn_relative_path = if ( (not ($svn_relative_cmd | is-empty)) and ($svn_relative_cmd.exit_code == 0)) { $" 🐢 (char nf_branch) ($svn_relative_cmd.stdout)" }
 
-    let git_status = ( gstat )
-    let git_branch = if ( $git_status.branch != "no_branch" ) { $" (char nf_git) (char nf_branch) ($git_status.branch)" }
+    let git_status = ( do --ignore-errors { gstat } )
+    let git_branch = if ( ( not ($git_status | is-empty)) and ($git_status.branch != "no_branch") ) { $" (char nf_git) (char nf_branch) ($git_status.branch)" }
 
     [
       $svn_relative_path
       $git_branch
-    ] | str collect
+    ] | str join
 }
 
 def create_left_prompt [] {
@@ -48,12 +51,12 @@ def create_left_prompt [] {
 
     # normalize path
     let pwd = ($env.PWD | path expand)
-    let pwd = (icons | reduce --fold $pwd { |item, accumulator| $accumulator | str replace --string $item.path $item.icon })
+    let pwd = ( (icons) | reduce --fold $pwd { |item, accumulator| $accumulator | str replace --string $item.path $item.icon })
     let truncate_level = 5
     let truncate_symbol = $"…(char path_sep)"
     let path_segment = if ($pwd | path split | length) >= $truncate_level { ($pwd | path dirname --num-levels 2 --replace $truncate_symbol ) } else { $pwd }
 
-    let vcs_segment = get_vcs_path
+    let vcs_segment = (get_vcs_path)
 
     [
       (ansi dark_gray)
@@ -62,13 +65,13 @@ def create_left_prompt [] {
       (ansi green)
       $vcs_segment
       (ansi reset)
-    ] | str collect
+    ] | str join
 }
 
 def create_right_prompt [] {
     let time_segment = ([
         (date now | date format '%d.%m %R')
-    ] | str collect)
+    ] | str join)
 
     let command_status_segment = if $env.LAST_EXIT_CODE == 0 { $" (char -u '2713') " } else { $"(ansi red) (char failed) (ansi reset)" }
     let command_duration_segment = if ( $env.CMD_DURATION_MS | into int) > 0 { $"($env.CMD_DURATION_MS)ms" | into duration }
@@ -83,13 +86,13 @@ def create_right_prompt [] {
       (ansi dark_gray)
       $time_segment
       (ansi reset)
-    ] | str collect
+    ] | str join
 }
 
 export-env {
   # Use nushell functions to define your right and left prompt
-  let-env PROMPT_COMMAND = { create_left_prompt }
-  let-env PROMPT_COMMAND_RIGHT = { create_right_prompt }
+  let-env PROMPT_COMMAND = { || create_left_prompt }
+  let-env PROMPT_COMMAND_RIGHT = { || create_right_prompt }
 
   # The prompt indicators are environmental variables that represent
   # the state of the prompt
