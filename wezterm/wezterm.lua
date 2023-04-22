@@ -90,6 +90,11 @@ local keys = {
     action = wez.action.CloseCurrentTab { confirm = true },
   },
   {
+    key = 'p',
+    mods = 'LEADER',
+    action = wez.action.ShowLauncherArgs { flags = 'FUZZY|TABS|LAUNCH_MENU_ITEMS|DOMAINS|KEY_ASSIGNMENTS|WORKSPACES|COMMANDS'}
+  },
+  {
     key = 'q',
     mods = 'LEADER',
     action = wez.action.QuitApplication,
@@ -143,7 +148,7 @@ return {
   font_size = font_size,
   color_scheme = color_scheme,
   color_schemes = color_schemes,
-  default_prog = { 'nu' },
+  default_prog = { 'nu', '--login', '--interactive' },
   window_decorations = window_decorations,
   enable_tab_bar = true,
   -- if this is hidden, we cannot see the right status area

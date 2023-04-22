@@ -28,8 +28,14 @@ wezterm
 helix/config.toml
 ~/.config/helix/config.toml
 
+helix/languages.toml
+~/.config/helix/languages.toml
+
 helix/themes
 ~/.config/helix/themes
+
+xplr
+~/.config/xplr
 
 river
 ~/.config/river
