@@ -96,8 +96,8 @@ export-env {
 
   # The prompt indicators are environmental variables that represent
   # the state of the prompt
-  let-env PROMPT_INDICATOR = $"(ansi purple) (char prompt) (ansi reset)"
-  let-env PROMPT_INDICATOR_VI_INSERT = $"(ansi purple) (char pipe) (ansi reset)"
-  let-env PROMPT_INDICATOR_VI_NORMAL = $"(ansi purple) (char prompt) (ansi reset)"
-  let-env PROMPT_MULTILINE_INDICATOR = $"(ansi purple) (char prompt)(char prompt) (ansi reset)"
+  let-env PROMPT_INDICATOR = $"(ansi green) (char prompt) (ansi reset)"
+  let-env PROMPT_INDICATOR_VI_INSERT = $"(ansi magenta) (char pipe) (ansi reset)"
+  let-env PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta) (char prompt) (ansi reset)"
+  let-env PROMPT_MULTILINE_INDICATOR = $"(ansi magenta) (char prompt)(char prompt) (ansi reset)"
 }
