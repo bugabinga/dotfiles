@@ -1,114 +1,114 @@
 return {
     ['nugu-dark'] = {
     -- The default text color
-    foreground = '#949494',
+    foreground = '#e2e2e2',
     -- The default background color
-    background = '#272727',
+    background = '#000000',
 
     -- Overrides the cell background color when the current cell is occupied by the
     -- cursor and the cursor style is set to Block
-    cursor_bg = '#7e297e',
+    cursor_bg = '#1e011e',
     -- Overrides the text color when the current cell is occupied by the cursor
-    cursor_fg = '#907ec2',
+    cursor_fg = '#5f368d',
     -- Specifies the border color of the cursor when the cursor style is set to Block,
     -- or the color of the vertical or horizontal bar when the cursor style is set to
     -- Bar or Underline.
-    cursor_border = '#5e5e5e',
+    cursor_border = '#1e011e',
 
     -- the foreground color of selected text
-    selection_fg = '#907ec2',
+    selection_fg = '#4c2b72',
     -- the background color of selected text
-    selection_bg = '#516d63',
+    selection_bg = '#788984',
 
     -- The color of the scrollbar 'thumb'; the portion that represents the current viewport
-    scrollbar_thumb = '#232f2b',
+    scrollbar_thumb = '#121212',
 
     -- The color of the split lines between panes
-    split = '#232f2b',
+    split = '#121212',
 
     ansi = {
-      '#c9c9c9', -- black
-      '#640e23', -- red
-      '#4c8093', -- green
-      '#917938', -- yellow
-      '#9a8bce', -- blue
-      '#921592', -- magenta
-      '#a3c2af', -- cyan
-      '#949494', -- white
+      '#cfcfcf', -- black
+      '#740523', -- red
+      '#4187a7', -- green
+      '#a7802d', -- yellow
+      '#7a3bc3', -- blue
+      '#800080', -- magenta
+      '#a5bdb6', -- cyan
+      '#727272', -- white
     },
 
     brights = {
-      '#e2e2e2',
-      '#891d38',
-      '#6f95a3',
-      '#a99253',
-      '#bcb4d7',
-      '#b426b4',
-      '#c7d1cb',
-      '#adadad',
+      '#e9e9e9',
+      '#9c1035',
+      '#679cb4',
+      '#be9949',
+      '#966cc5',
+      '#aa09aa',
+      '#c8cdcc',
+      '#8b8b8b',
     },
 
     -- Since: 20220319-142410-0fcdea07
     -- When the IME, a dead key or a leader key are being processed and are effectively
     -- holding input pending the result of input composition, change the cursor
     -- to this color to give a visual cue about the compose state.
-    compose_cursor = '#516d63',
-    visual_bell = '#bdb2db',
+    compose_cursor = '#788984',
+    visual_bell = '#5f368d',
   },
     ['nugu-light'] = {
     -- The default text color
-    foreground = '#949494',
+    foreground = '#000000',
     -- The default background color
-    background = '#292929',
+    background = '#dadada',
 
     -- Overrides the cell background color when the current cell is occupied by the
     -- cursor and the cursor style is set to Block
-    cursor_bg = '#7e297e',
+    cursor_bg = '#7c047c',
     -- Overrides the text color when the current cell is occupied by the cursor
-    cursor_fg = '#4e467f',
+    cursor_fg = '#551991',
     -- Specifies the border color of the cursor when the cursor style is set to Block,
     -- or the color of the vertical or horizontal bar when the cursor style is set to
     -- Bar or Underline.
-    cursor_border = '#5e5e5e',
+    cursor_border = '#7c047c',
 
     -- the foreground color of selected text
-    selection_fg = '#4e467f',
+    selection_fg = '#1d0931',
     -- the background color of selected text
-    selection_bg = '#2f3e39',
+    selection_bg = '#3a3b3b',
 
     -- The color of the scrollbar 'thumb'; the portion that represents the current viewport
-    scrollbar_thumb = '#010101',
+    scrollbar_thumb = '#3a3b3b',
 
     -- The color of the split lines between panes
-    split = '#010101',
+    split = '#3a3b3b',
 
     ansi = {
       '#131313', -- black
-      '#640e23', -- red
-      '#4c8093', -- green
-      '#917938', -- yellow
-      '#5f54ab', -- blue
-      '#921592', -- magenta
-      '#779c86', -- cyan
-      '#949494', -- white
+      '#67031e', -- red
+      '#3a7f9f', -- green
+      '#9e7827', -- yellow
+      '#1d0733', -- blue
+      '#800080', -- magenta
+      '#373f3c', -- cyan
+      '#6b6b6b', -- white
     },
 
     brights = {
-      '#2d2d2d',
-      '#891d38',
-      '#6f95a3',
-      '#a99253',
-      '#8780b2',
-      '#b426b4',
-      '#9ea8a2',
-      '#adadad',
+      '#000000',
+      '#330411',
+      '#355e71',
+      '#6e5624',
+      '#040106',
+      '#490449',
+      '#212121',
+      '#525252',
     },
 
     -- Since: 20220319-142410-0fcdea07
     -- When the IME, a dead key or a leader key are being processed and are effectively
     -- holding input pending the result of input composition, change the cursor
     -- to this color to give a visual cue about the compose state.
-    compose_cursor = '#2f3e39',
-    visual_bell = '#7167ac',
+    compose_cursor = '#3a3b3b',
+    visual_bell = '#551991',
   },
   }

@@ -22,7 +22,7 @@ scroll-lines = 1
 cursorline = true
 color-modes = true
 auto-save = true
-bufferline = "always"
+bufferline = "multiple"
 
 [editor.statusline]
 left = [
@@ -62,11 +62,9 @@ newline = "none"
 [editor.whitespace.characters]
 space = "·"
 nbsp = "⍽"
-tab = "─"
-tabpad = "╴"
 newline = "⏎"
 
 [editor.indent-guides]
-render = true
+render = false
 character = "▏"
 skip-levels = 2
