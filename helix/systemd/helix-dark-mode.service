@@ -1,0 +1,14 @@
+[Unit]
+Description=Helix Dark Mode Service
+Documentation=https://github.com/helix-editor/helix/issues/2158
+After=gnome-session.target
+
+[Service]
+Type=simple
+RestartSec=5
+Restart=always
+ExecStart=%h/.config/helix/themes/dark-mode/monitor.sh
+
+[Install]
+WantedBy=gnome-session.target
+
