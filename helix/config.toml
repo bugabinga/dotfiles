@@ -19,7 +19,7 @@ idle-timeout = 200
 scrolloff = 5
 scroll-lines = 1
 
-cursorline = true
+cursorline = false
 color-modes = true
 auto-save = true
 bufferline = "multiple"
@@ -42,6 +42,9 @@ center = [
 ]
 right = ["diagnostics", "spacer", "spinner"]
 separator = "·"
+mode.normal = ""
+mode.insert = ""
+mode.select = ""
 
 [editor.lsp]
 display-messages = true
