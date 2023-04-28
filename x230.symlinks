@@ -7,8 +7,20 @@ git/gitconfig.linux
 cargo/config.toml
 ~/.cargo/config.toml
 
-nushell
-~/.config/nushell
+nushell/completions
+~/.config/nushell/completions
+
+nushell/config.nu
+~/.config/nushell/config.nu
+
+nushell/env.nu
+~/.config/nushell/env.nu
+
+nushell/modules
+~/.config/nushell/modules
+
+nushell/plugin.nu
+~/.config/nushell/plugin.nu
 
 icc/thinkpad_x230.icc
 ~/.config/icc/thinkpad_x230.icc
