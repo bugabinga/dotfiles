@@ -51,32 +51,32 @@
 "ui.background" = { fg = "normal", bg = "backdrop" }
 "ui.background.separator" = { fg = "ui_minor" }
 
-"ui.cursor" = { fg = "normal", bg = "accent" }
-"ui.cursor.primary" = { fg = "normal", bg = "accent" }
-"ui.cursor.match" = { fg = "normal", bg = "unfocus", modifiers = [
+"ui.cursor" = { fg = "normal", bg = "ui_accent" }
+"ui.cursor.primary" = { fg = "normal", bg = "ui_accent" }
+"ui.cursor.match" = { fg = "normal", bg = "ui_unfocus", modifiers = [
   "slow_blink",
 ] }
 
-"ui.cursorline.primary" = { bg = "debug" }
+"ui.cursorline.primary" = { underline = { style = "line", color = "ui_unfocus" } }
 
-"ui.selection" = { fg = "normal", bg = "ui_important_local" }
-"ui.selection.primary" = { fg = "normal", bg = "ui_important_global" }
+"ui.selection" = { fg = "normal", bg = "ui_unfocus" }
+"ui.selection.primary" = { fg = "normal", bg = "ui_important_local" }
 
-"ui.linenr" = { fg = "ui_unfocus" }
-"ui.linenr.selected" = { fg = "ui_accent" }
+"ui.linenr" = { fg = "ui_minor", bg = "backdrop" }
+"ui.linenr.selected" = { fg = "ui_focus" }
 
-"ui.statusline" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.statusline" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.statusline.separator" = { fg = "ui_unfocus", bg = "ui_backdrop" }
 "ui.statusline.insert" = { fg = "ui_important_global", modifiers = ["bold"] }
 "ui.statusline.select" = { fg = "ui_focus", modifiers = ["bold"] }
-"ui.statusline.inactive" = { fg = "ui_unfocus", bg = "ui_backdrop" }
+"ui.statusline.inactive" = { fg = "ui_minor", bg = "ui_backdrop" }
 
-"ui.bufferline" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.bufferline" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.bufferline.active" = { fg = "ui_important_global", bg = "ui_unfocus", modifiers = [
   "bold",
-], underline = { style = "double_line", color = "ui_backdrop" } }
+], underline = { style = "double_line", color = "ui_important_global" } }
 
-"ui.gutter" = { bg = "ui_backdrop" }
+"ui.gutter" = { bg = "backdrop" }
 
 "ui.debug.breakpoint" = { fg = "ui_important_global" }
 "ui.debug.active" = { fg = "ui_important_global" }
@@ -122,7 +122,7 @@
 
 accent = "#800080"
 backdrop = "#131313"
-debug = "#ff00ff"
+debug = "#3dd45d"
 error = "#740523"
 focus = "#a5bdb6"
 important_global = "#8e58cc"
@@ -130,12 +130,12 @@ important_local = "#7a3bc3"
 info = "#4187a7"
 minor = "#727272"
 normal = "#cfcfcf"
-ui_accent = "#1e011e"
+ui_accent = "#7a067a"
 ui_backdrop = "#000000"
 ui_focus = "#788984"
 ui_important_global = "#5f368d"
 ui_important_local = "#4c2b72"
-ui_minor = "#9f9f9f"
+ui_minor = "#424242"
 ui_normal = "#e2e2e2"
 ui_unfocus = "#121212"
 unfocus = "#3f4543"

@@ -28,6 +28,7 @@ let cargo_crates = [
   [ "diskonaut" "diskonaut" [] ]
   [ "menyoki" "menyoki" [] ]
   [ "zoxide" "zoxide" [] ]
+  [ "difftastic" "difft" []]
   [ "grex" "grex" [] ]
   [ "xh" "xh" [] ]
   [ "comrak" "comrak" [] ]

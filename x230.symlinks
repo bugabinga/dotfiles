@@ -37,6 +37,9 @@ stackoverflow/so
 wezterm
 ~/.config/wezterm
 
+wezterm/wezterm.service
+~/.config/systemd/user/wezterm.service
+
 helix/config.toml
 ~/.config/helix/config.toml
 

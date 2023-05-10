@@ -1,24 +1,24 @@
 return {
-    ['nugu-dark'] = {
+  ['nugu-dark'] = {
     -- The default text color
-    foreground = '#e2e2e2',
+    foreground = '#cfcfcf',
     -- The default background color
-    background = '#000000',
+    background = '#131313',
 
     -- Overrides the cell background color when the current cell is occupied by the
     -- cursor and the cursor style is set to Block
-    cursor_bg = '#1e011e',
+    cursor_bg = '#7a067a',
     -- Overrides the text color when the current cell is occupied by the cursor
     cursor_fg = '#5f368d',
     -- Specifies the border color of the cursor when the cursor style is set to Block,
     -- or the color of the vertical or horizontal bar when the cursor style is set to
     -- Bar or Underline.
-    cursor_border = '#1e011e',
+    cursor_border = '#7a067a',
 
     -- the foreground color of selected text
-    selection_fg = '#4c2b72',
+    selection_fg = '#cfcfcf',
     -- the background color of selected text
-    selection_bg = '#788984',
+    selection_bg = '#4c2b72',
 
     -- The color of the scrollbar 'thumb'; the portion that represents the current viewport
     scrollbar_thumb = '#121212',
@@ -27,25 +27,25 @@ return {
     split = '#121212',
 
     ansi = {
-      '#cfcfcf', -- black
-      '#740523', -- red
-      '#4187a7', -- green
-      '#a7802d', -- yellow
-      '#7a3bc3', -- blue
-      '#800080', -- magenta
-      '#a5bdb6', -- cyan
-      '#727272', -- white
+      '#5d355c',
+      '#c41653',
+      '#acc1a0',
+      '#a08d7b',
+      '#6d15c0',
+      '#c015c0',
+      '#929396',
+      '#c7c7c7',
     },
 
     brights = {
-      '#e9e9e9',
-      '#9c1035',
-      '#679cb4',
-      '#be9949',
-      '#966cc5',
-      '#aa09aa',
-      '#c8cdcc',
-      '#8b8b8b',
+      '#9d9d9d',
+      '#ea4571',
+      '#a6a78f',
+      '#e0cfaa',
+      '#8940ea',
+      '#ea3fea',
+      '#c0d5df',
+      '#f2eef1',
     },
 
     -- Since: 20220319-142410-0fcdea07
@@ -53,62 +53,88 @@ return {
     -- holding input pending the result of input composition, change the cursor
     -- to this color to give a visual cue about the compose state.
     compose_cursor = '#788984',
-    visual_bell = '#5f368d',
+    -- Colors for copy_mode and quick_select
+    -- available since: 20220807-113146-c2fee766
+    -- In copy_mode, the color of the active text is:
+    -- 1. copy_mode_active_highlight_* if additional text was selected using the mouse
+    -- 2. selection_* otherwise
+    copy_mode_active_highlight_bg = { Color = '#5f368d' },
+    copy_mode_active_highlight_fg = { Color = '#cfcfcf' },
+    copy_mode_inactive_highlight_bg = { Color = '#121212' },
+    copy_mode_inactive_highlight_fg = { Color = '#727272' },
+
+    quick_select_label_bg = { Color = '#5f368d' },
+    quick_select_label_fg = { Color = '#cfcfcf' },
+    quick_select_match_bg = { Color = '#4c2b72' },
+    quick_select_match_fg = { Color = '#cfcfcf' },
   },
-    ['nugu-light'] = {
+  ['nugu-light'] = {
     -- The default text color
-    foreground = '#000000',
+    foreground = '#494949',
     -- The default background color
-    background = '#dadada',
+    background = '#e3e3e3',
 
     -- Overrides the cell background color when the current cell is occupied by the
     -- cursor and the cursor style is set to Block
-    cursor_bg = '#7c047c',
+    cursor_bg = '#d43dd4',
     -- Overrides the text color when the current cell is occupied by the cursor
-    cursor_fg = '#551991',
+    cursor_fg = '#9170b5',
     -- Specifies the border color of the cursor when the cursor style is set to Block,
     -- or the color of the vertical or horizontal bar when the cursor style is set to
     -- Bar or Underline.
-    cursor_border = '#7c047c',
+    cursor_border = '#d43dd4',
 
     -- the foreground color of selected text
-    selection_fg = '#1d0931',
+    selection_fg = '#494949',
     -- the background color of selected text
-    selection_bg = '#3a3b3b',
+    selection_bg = '#ae95c8',
 
     -- The color of the scrollbar 'thumb'; the portion that represents the current viewport
-    scrollbar_thumb = '#3a3b3b',
+    scrollbar_thumb = '#c9c9c9',
 
     -- The color of the split lines between panes
-    split = '#3a3b3b',
+    split = '#c9c9c9',
 
     ansi = {
-      '#131313', -- black
-      '#67031e', -- red
-      '#3a7f9f', -- green
-      '#9e7827', -- yellow
-      '#1d0733', -- blue
-      '#800080', -- magenta
-      '#373f3c', -- cyan
-      '#6b6b6b', -- white
+      '#060406',
+      '#4a081f',
+      '#668355',
+      '#55493d',
+      '#280845',
+      '#450845',
+      '#4e4f51',
+      '#838383',
     },
 
     brights = {
-      '#000000',
-      '#330411',
-      '#355e71',
-      '#6e5624',
-      '#040106',
-      '#490449',
-      '#212121',
-      '#525252',
+      '#595959',
+      '#961134',
+      '#60624c',
+      '#bb9647',
+      '#481091',
+      '#901090',
+      '#6599b1',
+      '#b6a1b4',
     },
 
     -- Since: 20220319-142410-0fcdea07
     -- When the IME, a dead key or a leader key are being processed and are effectively
     -- holding input pending the result of input composition, change the cursor
     -- to this color to give a visual cue about the compose state.
-    compose_cursor = '#3a3b3b',
-    visual_bell = '#551991',
+    compose_cursor = '#646464',
+    -- Colors for copy_mode and quick_select
+    -- available since: 20220807-113146-c2fee766
+    -- In copy_mode, the color of the active text is:
+    -- 1. copy_mode_active_highlight_* if additional text was selected using the mouse
+    -- 2. selection_* otherwise
+    copy_mode_active_highlight_bg = { Color = '#9170b5' },
+    copy_mode_active_highlight_fg = { Color = '#494949' },
+    copy_mode_inactive_highlight_bg = { Color = '#c9c9c9' },
+    copy_mode_inactive_highlight_fg = { Color = '#878787' },
+
+    quick_select_label_bg = { Color = '#9170b5' },
+    quick_select_label_fg = { Color = '#494949' },
+    quick_select_match_bg = { Color = '#ae95c8' },
+    quick_select_match_fg = { Color = '#494949' },
   },
-  }
+}

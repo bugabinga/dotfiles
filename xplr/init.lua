@@ -1,7 +1,7 @@
 ---@diagnostic disable
 
 -- See https://xplr.dev/en/upgrade-guide
-version = "0.20.1"
+version = "0.21.1"
 
 local xplr = xplr
 
