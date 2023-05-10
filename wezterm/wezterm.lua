@@ -19,7 +19,7 @@ elseif hostname == 'pop-os' then
   font_size = 12
 elseif hostname == 'PC-00625' then
   font_size = 14
-  font = wez.font 'Cascadia Mono'
+  font = wez.font 'Cascadia Code'
   window_decorations = 'TITLE|RESIZE'
 end
 
