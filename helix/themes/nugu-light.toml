@@ -51,32 +51,32 @@
 "ui.background" = { fg = "normal", bg = "backdrop" }
 "ui.background.separator" = { fg = "ui_minor" }
 
-"ui.cursor" = { fg = "normal", bg = "accent" }
-"ui.cursor.primary" = { fg = "normal", bg = "accent" }
-"ui.cursor.match" = { fg = "normal", bg = "unfocus", modifiers = [
+"ui.cursor" = { fg = "normal", bg = "ui_accent" }
+"ui.cursor.primary" = { fg = "normal", bg = "ui_accent" }
+"ui.cursor.match" = { fg = "normal", bg = "ui_unfocus", modifiers = [
   "slow_blink",
 ] }
 
-"ui.cursorline.primary" = { bg = "debug" }
+"ui.cursorline.primary" = { underline = { style = "line", color = "ui_unfocus" } }
 
-"ui.selection" = { fg = "normal", bg = "ui_important_local" }
-"ui.selection.primary" = { fg = "normal", bg = "ui_important_global" }
+"ui.selection" = { fg = "normal", bg = "ui_unfocus" }
+"ui.selection.primary" = { fg = "normal", bg = "ui_important_local" }
 
-"ui.linenr" = { fg = "ui_unfocus" }
-"ui.linenr.selected" = { fg = "ui_accent" }
+"ui.linenr" = { fg = "ui_minor", bg = "backdrop" }
+"ui.linenr.selected" = { fg = "ui_focus" }
 
-"ui.statusline" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.statusline" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.statusline.separator" = { fg = "ui_unfocus", bg = "ui_backdrop" }
 "ui.statusline.insert" = { fg = "ui_important_global", modifiers = ["bold"] }
 "ui.statusline.select" = { fg = "ui_focus", modifiers = ["bold"] }
-"ui.statusline.inactive" = { fg = "ui_unfocus", bg = "ui_backdrop" }
+"ui.statusline.inactive" = { fg = "ui_minor", bg = "ui_backdrop" }
 
-"ui.bufferline" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.bufferline" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.bufferline.active" = { fg = "ui_important_global", bg = "ui_unfocus", modifiers = [
   "bold",
-], underline = { style = "double_line", color = "ui_backdrop" } }
+], underline = { style = "double_line", color = "ui_important_global" } }
 
-"ui.gutter" = { bg = "ui_backdrop" }
+"ui.gutter" = { bg = "backdrop" }
 
 "ui.debug.breakpoint" = { fg = "ui_important_global" }
 "ui.debug.active" = { fg = "ui_important_global" }
@@ -121,22 +121,22 @@
 [palette]
 
 accent = "#800080"
-backdrop = "#c7c7c7"
-debug = "#ff00ff"
-error = "#67031e"
-focus = "#373f3c"
-important_global = "#551496"
-important_local = "#1d0733"
-info = "#3a7f9f"
-minor = "#6b6b6b"
-normal = "#131313"
-ui_accent = "#7c047c"
-ui_backdrop = "#dadada"
-ui_focus = "#3a3b3b"
-ui_important_global = "#551991"
-ui_important_local = "#1d0931"
-ui_minor = "#7e7e7e"
-ui_normal = "#000000"
-ui_unfocus = "#3a3b3b"
-unfocus = "#7e8e88"
-warning = "#9e7827"
+backdrop = "#e3e3e3"
+debug = "#3dd45d"
+error = "#f27a9a"
+focus = "#646464"
+important_global = "#48256e"
+important_local = "#643398"
+info = "#e7f0f3"
+minor = "#878787"
+normal = "#494949"
+ui_accent = "#d43dd4"
+ui_backdrop = "#c7c7c7"
+ui_focus = "#646464"
+ui_important_global = "#9170b5"
+ui_important_local = "#ae95c8"
+ui_minor = "#d0d0d0"
+ui_normal = "#929292"
+ui_unfocus = "#c9c9c9"
+unfocus = "#c9c9c9"
+warning = "#f1e8d6"

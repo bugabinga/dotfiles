@@ -7,6 +7,9 @@ git/gitconfig.linux
 cargo/config.toml
 ~/.cargo/config.toml
 
+bat/config
+~/.config/bat/config
+
 nushell/completions
 ~/.config/nushell/completions
 
@@ -33,6 +36,9 @@ indexa/config.linux.toml
 
 wezterm
 ~/.config/wezterm
+
+wezterm/wezterm.service
+~/.config/systemd/user/wezterm.service
 
 helix/config.toml
 ~/.config/helix/config.toml

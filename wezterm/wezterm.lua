@@ -1,7 +1,10 @@
 local wez = require 'wezterm'
 local nugu = require 'bugabinga.nugu'
 
-local color_schemes = nugu
+local key_binds = require 'bugabinga.key_binds'
+local dark_mode = require 'bugabinga.dark_mode'
+local workspaces = require 'bugabinga.workspaces'
+local status = require 'bugabinga.status'
 
 local hostname = wez.hostname()
 local enable_wayland = false
@@ -20,161 +23,17 @@ elseif hostname == 'PC-00625' then
   window_decorations = 'TITLE|RESIZE'
 end
 
--- Show which key table is active in the status area
-wez.on('update-right-status', function(window, pane)
-  local name = window:active_key_table()
-  if name then
-    name = 'TABLE: ' .. name
-  end
-  window:set_right_status(name or '')
-end)
-
--- wezterm.gui is not available to the mux server, so take care to
--- do something reasonable when this config is evaluated by the mux
-function get_appearance()
-  if wez.gui then
-    return wez.gui.get_appearance()
-  end
-  return 'Dark'
-end
-
-function scheme_for_appearance(appearance)
-  if appearance:find 'Dark' then
-    return 'nugu-dark'
-  else
-    return 'nugu-light'
-  end
-end
-
-wez.on("window-config-reloaded", function(window, pane)
-  local overrides = window:get_config_overrides() or {}
-  local appearance = window:get_appearance()
-  local scheme = scheme_for_appearance(appearance)
-  if overrides.color_scheme ~= scheme then
-    overrides.color_scheme = scheme
-    window:set_config_overrides(overrides)
-  end
-end)
-
-local leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 1000 }
-local keys = {
-  -- CTRL+SHIFT+Space, followed by 'r' will put us in resize-pane
-  -- mode until we cancel that mode.
-  {
-    key = 'r',
-    mods = 'LEADER',
-    action = wez.action.ActivateKeyTable {
-      name = 'resize_pane',
-      one_shot = false,
-    },
-  },
-
-  -- CTRL+SHIFT+Space, followed by 'a' will put us in activate-pane
-  -- mode until we press some other key or until 1 second (1000ms)
-  -- of time elapses
-  {
-    key = 'a',
-    mods = 'LEADER',
-    action = wez.action.ActivateKeyTable {
-      name = 'activate_pane',
-      timeout_milliseconds = 1000,
-    },
-  },
-
-  -- Copy
-  {
-    key = 'c',
-    mods = 'CTRL|SHIFT',
-    action = wez.action.CopyTo 'Clipboard',
-  },
-  -- Paste
-  {
-    key = 'v',
-    mods = 'CTRL|SHIFT',
-    action = wez.action.PasteFrom 'Clipboard',
-  },
-  -- Split left-right
-  {
-    key = 'v',
-    mods = 'LEADER',
-    action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  },
-  -- Split top-bottom
-  {
-    key = 'h',
-    mods = 'LEADER',
-    action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' },
-  },
-  {
-    key = 't',
-    mods = 'LEADER',
-    action = wez.action.SpawnTab 'CurrentPaneDomain',
-  },
-  {
-    key = 'w',
-    mods = 'LEADER',
-    action = wez.action.CloseCurrentTab { confirm = true },
-  },
-  {
-    key = 'p',
-    mods = 'LEADER',
-    action = wez.action.ShowLauncherArgs { flags = 'FUZZY|TABS|LAUNCH_MENU_ITEMS|DOMAINS|KEY_ASSIGNMENTS|WORKSPACES|COMMANDS'}
-  },
-  {
-    key = 'q',
-    mods = 'LEADER',
-    action = wez.action.QuitApplication,
-  },
-}
-
-local key_tables = {
-  -- Defines the keys that are active in our resize-pane mode.
-  -- Since we're likely to want to make multiple adjustments,
-  -- we made the activation one_shot=false. We therefore need
-  -- to define a key assignment for getting out of this mode.
-  -- 'resize_pane' here corresponds to the name="resize_pane" in
-  -- the key assignments above.
-  resize_pane = {
-    { key = 'LeftArrow', action = wez.action.AdjustPaneSize { 'Left', 1 } },
-    { key = 'h', action = wez.action.AdjustPaneSize { 'Left', 1 } },
-
-    { key = 'RightArrow', action = wez.action.AdjustPaneSize { 'Right', 1 } },
-    { key = 'l', action = wez.action.AdjustPaneSize { 'Right', 1 } },
-
-    { key = 'UpArrow', action = wez.action.AdjustPaneSize { 'Up', 1 } },
-    { key = 'k', action = wez.action.AdjustPaneSize { 'Up', 1 } },
-
-    { key = 'DownArrow', action = wez.action.AdjustPaneSize { 'Down', 1 } },
-    { key = 'j', action = wez.action.AdjustPaneSize { 'Down', 1 } },
-
-    -- Cancel the mode by pressing escape
-    { key = 'Escape', action = 'PopKeyTable' },
-  },
-
-  -- Defines the keys that are active in our activate-pane mode.
-  -- 'activate_pane' here corresponds to the name="activate_pane" in
-  -- the key assignments above.
-  activate_pane = {
-    { key = 'LeftArrow', action = wez.action.ActivatePaneDirection 'Left' },
-    { key = 'h', action = wez.action.ActivatePaneDirection 'Left' },
-
-    { key = 'RightArrow', action = wez.action.ActivatePaneDirection 'Right' },
-    { key = 'l', action = wez.action.ActivatePaneDirection 'Right' },
-
-    { key = 'UpArrow', action = wez.action.ActivatePaneDirection 'Up' },
-    { key = 'k', action = wez.action.ActivatePaneDirection 'Up' },
-
-    { key = 'DownArrow', action = wez.action.ActivatePaneDirection 'Down' },
-    { key = 'j', action = wez.action.ActivatePaneDirection 'Down' },
-  },
-}
 
 return {
   font = font,
   font_size = font_size,
-  color_scheme = scheme_for_appearance(get_appearance()),
-  color_schemes = color_schemes,
+  warn_about_missing_glyphs = false,
+  color_scheme = dark_mode,
+  color_schemes = nugu,
   default_prog = { 'nu', '--login', '--interactive' },
+  default_cursor_style = 'SteadyBlock',
+  cursor_blink_rate = 0,
+  cursor_thickness = '1.0cell',
   window_decorations = window_decorations,
   enable_tab_bar = true,
   -- if this is hidden, we cannot see the right status area
@@ -196,7 +55,20 @@ return {
     bottom = 8,
   },
   disable_default_key_bindings = true,
-  leader = leader,
-  keys = keys,
-  key_tables = key_tables,
+  leader = key_binds.leader,
+  keys = key_binds.keys,
+  key_tables = key_binds.key_tables,
+  unix_domains = {
+    {
+      name = 'unix',
+    } },
+  default_domain = 'unix',
+  default_gui_startup_args = { 'connect', 'unix' },
+  -- TODO(oli): create different launchers per OS
+  launch_menu = {
+    {
+      label = 'Bash',
+      args = {'bash', '-l'},
+    }
+  }
 }
