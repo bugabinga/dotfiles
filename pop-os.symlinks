@@ -4,6 +4,9 @@ git/gitconfig
 git/gitconfig.linux
 ~/.config/git/.gitconfig.include
 
+tools/git-info
+~/.local/bin/git-info
+
 cargo/config.toml
 ~/.cargo/config.toml
 
