@@ -31,9 +31,9 @@ wez.on('mux-startup', function()
   local reign_tab, reign_pane, reign_window = mux.spawn_window { args = { 'hx', '.' }, cwd = WORKSPACE .. '/reign', workspace =
       reign_ws }
   local reign_right_pane = reign_pane:split { direction = 'Right', size = 0.36 }
+  reign_right_pane:send_text "watch src {clear; just build}\n"
   reign_right_pane:split { direction = 'Bottom', size = 0.33 }
   reign_tab:set_title 'Reign Development'
-  reign_right_pane:send_text 'watch src {clear; just build}\n'
   reign_pane:activate()
 
   local dork_tab, dork_pane, dork_window = mux.spawn_window { cwd = WORKSPACE .. '/dotfiles', workspace = dork_ws }
