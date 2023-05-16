@@ -52,7 +52,7 @@ let cargo_crates = [
 ]
 
 def coreutils-features [] {
-  if $env.WIN32? {
+  if $nu.os-info.family == 'windows' {
     [ "--features" "windows" ]
   } else {
     [ "--features" "unix" ]
@@ -60,7 +60,7 @@ def coreutils-features [] {
 }
 
 def so-features [] {
-  if $env.WIN32? {
+  if $nu.os-info.family == 'windows' {
     [ "--no-default-features" "--features" "windows" ]
   } else {
     []
