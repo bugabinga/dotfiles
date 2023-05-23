@@ -25,15 +25,22 @@ end
 
 
 return {
+  -- logs key presses
+  debug_key_events = true,
+
   font = font,
   font_size = font_size,
   warn_about_missing_glyphs = false,
   color_scheme = dark_mode,
   color_schemes = nugu,
+  window_background_opacity = 1.0,
+  -- nightly
+  -- win32_system_backdrop = 'Acrylic',
+  default_cwd = wez.home_dir,
   default_prog = { 'nu', '--login', '--interactive' },
   default_cursor_style = 'SteadyBlock',
   cursor_blink_rate = 0,
-  cursor_thickness = '1.0cell',
+  cursor_thickness = '0.6cell',
   window_decorations = window_decorations,
   enable_tab_bar = true,
   -- if this is hidden, we cannot see the right status area
