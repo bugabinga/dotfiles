@@ -1,5 +1,5 @@
 return {
-  ['nugu-dark'] = {
+    ['nugu-dark'] = {
     -- The default text color
     foreground = '#cfcfcf',
     -- The default background color
@@ -24,7 +24,7 @@ return {
     scrollbar_thumb = '#121212',
 
     -- The color of the split lines between panes
-    split = '#121212',
+    split = '#5f368d',
 
     ansi = {
       '#5d355c',
@@ -67,8 +67,81 @@ return {
     quick_select_label_fg = { Color = '#cfcfcf' },
     quick_select_match_bg = { Color = '#4c2b72' },
     quick_select_match_fg = { Color = '#cfcfcf' },
+
+    tab_bar = {
+        -- The color of the strip that goes along the top of the window
+        -- does not apply when fancy tab bar is in use
+        background = '#000000',
+
+        -- The active tab is the one that has focus in the window
+        active_tab = {
+          -- The color of the background area for the tab
+          bg_color = '#000000',
+          -- The color of the text for the tab
+          fg_color = '#5f368d',
+
+          -- Specify whether you want 'Half', 'Normal' or 'Bold' intensity for the
+          -- label shown for this tab.
+          -- The default is 'Normal'
+          intensity = 'Bold',
+
+          -- Specify whether you want 'None', 'Single' or 'Double' underline for
+          -- label shown for this tab.
+          -- The default is 'None'
+          underline = 'Double',
+
+          -- Specify whether you want the text to be italic or not
+          -- for this tab.  The default is false.
+          italic = false,
+
+          -- Specify whether you want the text to be rendered with strikethrough 
+          -- or not for this tab.  The default is false.
+          strikethrough = false,
+        },
+
+        -- Inactive tabs are the tabs that do not have focus
+        inactive_tab = {
+          bg_color = '#000000',
+          fg_color = '#e2e2e2',
+          intensity = 'Normal',
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `inactive_tab`.
+        },
+
+        -- You can configure some alternate styling when the mouse pointer
+        -- moves over inactive tabs
+        inactive_tab_hover = {
+          bg_color = '#788984',
+          fg_color = '#e2e2e2',
+          italic = true,
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `inactive_tab_hover`.
+        },
+
+        -- The new tab button that let you create new tabs
+        new_tab = {
+          bg_color = '#000000',
+          fg_color = '#121212',
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `new_tab`.
+        },
+
+        -- You can configure some alternate styling when the mouse pointer
+        -- moves over the new tab button
+        new_tab_hover = {
+          bg_color = '#788984',
+          fg_color = '#e2e2e2',
+          italic = true,
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `new_tab_hover`.
+        },
+      },
   },
-  ['nugu-light'] = {
+    ['nugu-light'] = {
     -- The default text color
     foreground = '#494949',
     -- The default background color
@@ -93,7 +166,7 @@ return {
     scrollbar_thumb = '#c9c9c9',
 
     -- The color of the split lines between panes
-    split = '#c9c9c9',
+    split = '#9170b5',
 
     ansi = {
       '#060406',
@@ -136,5 +209,78 @@ return {
     quick_select_label_fg = { Color = '#494949' },
     quick_select_match_bg = { Color = '#ae95c8' },
     quick_select_match_fg = { Color = '#494949' },
+
+    tab_bar = {
+        -- The color of the strip that goes along the top of the window
+        -- does not apply when fancy tab bar is in use
+        background = '#c7c7c7',
+
+        -- The active tab is the one that has focus in the window
+        active_tab = {
+          -- The color of the background area for the tab
+          bg_color = '#c7c7c7',
+          -- The color of the text for the tab
+          fg_color = '#9170b5',
+
+          -- Specify whether you want 'Half', 'Normal' or 'Bold' intensity for the
+          -- label shown for this tab.
+          -- The default is 'Normal'
+          intensity = 'Bold',
+
+          -- Specify whether you want 'None', 'Single' or 'Double' underline for
+          -- label shown for this tab.
+          -- The default is 'None'
+          underline = 'Double',
+
+          -- Specify whether you want the text to be italic or not
+          -- for this tab.  The default is false.
+          italic = false,
+
+          -- Specify whether you want the text to be rendered with strikethrough 
+          -- or not for this tab.  The default is false.
+          strikethrough = false,
+        },
+
+        -- Inactive tabs are the tabs that do not have focus
+        inactive_tab = {
+          bg_color = '#c7c7c7',
+          fg_color = '#929292',
+          intensity = 'Normal',
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `inactive_tab`.
+        },
+
+        -- You can configure some alternate styling when the mouse pointer
+        -- moves over inactive tabs
+        inactive_tab_hover = {
+          bg_color = '#646464',
+          fg_color = '#929292',
+          italic = true,
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `inactive_tab_hover`.
+        },
+
+        -- The new tab button that let you create new tabs
+        new_tab = {
+          bg_color = '#c7c7c7',
+          fg_color = '#c9c9c9',
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `new_tab`.
+        },
+
+        -- You can configure some alternate styling when the mouse pointer
+        -- moves over the new tab button
+        new_tab_hover = {
+          bg_color = '#646464',
+          fg_color = '#929292',
+          italic = true,
+
+          -- The same options that were listed under the `active_tab` section above
+          -- can also be used for `new_tab_hover`.
+        },
+      },
   },
-}
+  }

@@ -1,5 +1,5 @@
 local wez = require 'wezterm'
-local leader = { key = 'Grave', mods = 'CTRL', timeout_milliseconds = 1000 }
+local leader = { key = 'Grave', mods = 'CTRL' }
 
 local resize_pane_mode = 'ﭕ Resize Pane Mode'
 local activate_pane_mode = ' Activate Pane Mode'

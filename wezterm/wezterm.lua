@@ -38,6 +38,7 @@ return {
   enable_tab_bar = true,
   -- if this is hidden, we cannot see the right status area
   hide_tab_bar_if_only_one_tab = false,
+  use_fancy_tab_bar = false;
   check_for_updates = false,
   show_update_window = false,
   audible_bell = 'Disabled',
@@ -45,6 +46,10 @@ return {
     fade_in_duration_ms = 75,
     fade_out_duration_ms = 75,
     target = 'CursorColor',
+  },
+  inactive_pane_hsb = {
+    saturation = 0.33,
+    brightness = 0.66,
   },
   tab_max_width = 24,
   enable_wayland = enable_wayland,

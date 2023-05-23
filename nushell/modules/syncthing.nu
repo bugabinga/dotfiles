@@ -1,4 +1,8 @@
-export def "conflicts list" [] { fd sync-conflict $env.HOME | lines }
+export def "conflicts list" [] {
+  fd --hidden --no-ignore sync-conflict $env.HOME |
+  lines |
+  filter { |path| not ($path =~ "/Trash/") }
+}
 
 export def "conflicts merge" [] {
   (conflicts list) |
