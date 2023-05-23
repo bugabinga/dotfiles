@@ -1,4 +1,4 @@
-theme = "nugu-dark"
+theme = "nugu-light"
 
 [editor]
 shell = ["nu", "--commands"]
@@ -8,20 +8,19 @@ mouse = true
 line-number = "relative"
 rulers = [81, 121, 141]
 
-auto-completion = true
+auto-completion = false
 completion-trigger-len = 3
 auto-info = true
-auto-pairs = true
+auto-pairs = false
 auto-format = true
+auto-save = true
 
 idle-timeout = 200
 
 scrolloff = 5
 scroll-lines = 1
 
-cursorline = false
 color-modes = true
-auto-save = true
 bufferline = "multiple"
 
 [editor.statusline]
@@ -34,13 +33,21 @@ left = [
   "position-percentage",
 ]
 center = [
+  "version-control",
+  "separator",
   "file-name",
+  "spacer",
+  "file-modification-indicator",
   "separator",
   "file-encoding",
   "file-line-ending",
   "file-type",
 ]
-right = ["diagnostics", "spacer", "spinner"]
+right = [
+  "diagnostics",
+  "spacer",
+  "spinner"
+]
 separator = "·"
 mode.normal = ""
 mode.insert = ""
@@ -48,6 +55,8 @@ mode.select = ""
 
 [editor.lsp]
 display-messages = true
+display-inlay-hints = true
+
 
 [editor.cursor-shape]
 normal = "block"
@@ -71,3 +80,21 @@ newline = "⏎"
 render = false
 character = "▏"
 skip-levels = 2
+
+[editor.soft-wrap]
+enable = true
+
+[keys.normal]
+ret = ["add_newline_below","move_line_down"]
+A-ret = ["add_newline_above", "move_line_up"]
+
+# move current line up
+A-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+
+# move current line down
+A-down = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+
+[keys.insert]
+"C-space" = "completion"
