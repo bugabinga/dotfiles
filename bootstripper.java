@@ -5,7 +5,8 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-import java.util.Comparator;
+import java.util.List;
+import java.util.function.BiFunction;
 
 class bootstripper {
     public static void main(String[] arguments) throws Throwable {
@@ -58,43 +59,14 @@ class bootstripper {
         log("Creating symlinks as defined in {0} file.",
                 emphasize_local(symlinks_file.getFileName().toString()));
         var lines = Files.readAllLines(symlinks_file);
-        String source = null;
-        String target = null;
-        for (String line : lines) {
-            if (line.isBlank())
-                continue;
-            if (source == null)
-                source = line;
-            else
-                target = line;
-            if (target != null) {
-                link(root, source, target);
-                source = null;
-                target = null;
-            }
-        }
+        for_each_mapping(lines, (source, target) -> link(root, source, target));
     }
 
     static void delete_symlinks(Path root, Path symlinks_file) throws Throwable {
         log("Deleting symlinks as defined in {0} file.",
                 emphasize_local(symlinks_file.getFileName().toString()));
-        // TODO extract parse pattern into method
         var lines = Files.readAllLines(symlinks_file);
-        String source = null;
-        String target = null;
-        for (String line : lines) {
-            if (line.isBlank())
-                continue;
-            if (source == null)
-                source = line;
-            else
-                target = line;
-            if (target != null) {
-                delete(root, source, target);
-                source = null;
-                target = null;
-            }
-        }
+        for_each_mapping(lines, (source, target) -> delete(root, source, target));
     }
 
     static void delete(Path root, String source, String target) throws Throwable {
@@ -218,5 +190,39 @@ class bootstripper {
 
     static void log(String message, Object... arguments) {
         System.out.println(format(message, arguments));
+    }
+
+    static interface ThrowUp<A, B> {
+        default Throwable gurgh(A a, B b) {
+            try {
+                apply(a, b);
+                return null;
+            } catch (Throwable vomit) {
+                return vomit;
+            }
+        }
+
+        void apply(A a, B b) throws Throwable;
+    }
+
+    static void for_each_mapping(List<String> lines, ThrowUp<String, String> block)
+            throws Throwable {
+        String source = null;
+        String target = null;
+        for (String line : lines) {
+            if (line.isBlank())
+                continue;
+            if (source == null)
+                source = line;
+            else
+                target = line;
+            if (target != null) {
+                var vomit = block.gurgh(source, target);
+                if (vomit != null)
+                    throw vomit;
+                source = null;
+                target = null;
+            }
+        }
     }
 }
