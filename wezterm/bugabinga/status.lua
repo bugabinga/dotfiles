@@ -5,9 +5,11 @@ local DELIMITER = ' · '
 local zoomed = function(pane)
   local tab = pane:tab()
   local any_is_zoomed = false
-  for _, info in ipairs(tab:panes_with_info()) do
-    if info.is_zoomed then
-      any_is_zoomed = true
+  if tab then
+    for _, info in ipairs(tab:panes_with_info()) do
+      if info.is_zoomed then
+        any_is_zoomed = true
+      end
     end
   end
   return any_is_zoomed and '🔎 Zoomed Pane' .. DELIMITER or ''

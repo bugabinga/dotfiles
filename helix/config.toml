@@ -1,4 +1,4 @@
-theme = "nugu-dark"
+theme = "nugu-light"
 
 [editor]
 shell = ["nu", "--commands"]

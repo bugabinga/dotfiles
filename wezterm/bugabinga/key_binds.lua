@@ -1,5 +1,5 @@
 local wez = require 'wezterm'
-local leader = { key = 'Grave', mods = 'CTRL', timeout_milliseconds = 1000 }
+local leader = { key = 'raw:255'}
 
 local resize_pane_mode = 'ﭕ Resize Pane Mode'
 local activate_pane_mode = ' Activate Pane Mode'
@@ -12,14 +12,6 @@ local keys = {
     mods = 'LEADER',
     action = wez.action.ActivateKeyTable {
       name = resize_pane_mode,
-      one_shot = false,
-    },
-  },
-  {
-    key = 'Grave',
-    mods = 'LEADER|CTRL',
-    action = wez.action.ActivateKeyTable {
-      name = activate_pane_mode,
       one_shot = false,
     },
   },
@@ -151,23 +143,6 @@ local key_tables = {
 
     { key = 'DownArrow',  action = wez.action.AdjustPaneSize { 'Down', 1 } },
     { key = 'j',          action = wez.action.AdjustPaneSize { 'Down', 1 } },
-
-    -- Cancel the mode
-    { key = 'Escape',     action = 'PopKeyTable' },
-    { key = 'Enter',      action = 'PopKeyTable' },
-  },
-  [activate_pane_mode] = {
-    { key = 'LeftArrow',  action = wez.action.ActivatePaneDirection 'Left' },
-    { key = 'h',          action = wez.action.ActivatePaneDirection 'Left' },
-
-    { key = 'RightArrow', action = wez.action.ActivatePaneDirection 'Right' },
-    { key = 'l',          action = wez.action.ActivatePaneDirection 'Right' },
-
-    { key = 'UpArrow',    action = wez.action.ActivatePaneDirection 'Up' },
-    { key = 'k',          action = wez.action.ActivatePaneDirection 'Up' },
-
-    { key = 'DownArrow',  action = wez.action.ActivatePaneDirection 'Down' },
-    { key = 'j',          action = wez.action.ActivatePaneDirection 'Down' },
 
     -- Cancel the mode
     { key = 'Escape',     action = 'PopKeyTable' },
