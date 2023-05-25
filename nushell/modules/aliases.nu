@@ -9,13 +9,13 @@ export alias edit = hx
 # TODO: HOST SPECIFIC ALIASES
 # I do not see a way right now the have different aliases per host with nu.
 
+# update windows user environment variables
+alias ue = let-env Path = (do $env.ENV_CONVERSIONS.Path.from_string (powershell -C '[System.Environment]::GetEnvironmentVariable('PATH', [System.EnvironmentVariableTarget]::User)') | append $env.Path | flatten | uniq)
+
 # CUSTOM LITTLE JAVA COMMANDS
-export alias aes = java (build-string $env.DOTFILES /tools/ aes.java)
-export alias download = java (build-string $env.DOTFILES /tools/ download.java)
-export alias download_jar = java (build-string $env.DOTFILES /tools/ download_jar.java)
+export alias aes = java ($env.DOTFILES + /tools/ + aes.java)
+export alias download = java ($env.DOTFILES + /tools/ + download.java)
+export alias download_jar = java ($env.DOTFILES + /tools/ + download_jar.java)
 
 # systemd
 export alias userctl = systemctl --user
-
-# nushell
-alias now = (date now)

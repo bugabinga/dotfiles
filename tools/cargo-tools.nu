@@ -28,6 +28,7 @@ let cargo_crates = [
   [ "diskonaut" "diskonaut" [] ]
   [ "menyoki" "menyoki" [] ]
   [ "zoxide" "zoxide" [] ]
+  [ "difftastic" "difft" []]
   [ "grex" "grex" [] ]
   [ "xh" "xh" [] ]
   [ "comrak" "comrak" [] ]
@@ -51,7 +52,7 @@ let cargo_crates = [
 ]
 
 def coreutils-features [] {
-  if $env.WIN32? {
+  if $nu.os-info.family == 'windows' {
     [ "--features" "windows" ]
   } else {
     [ "--features" "unix" ]
@@ -59,30 +60,11 @@ def coreutils-features [] {
 }
 
 def so-features [] {
-  if $env.WIN32? {
+  if $nu.os-info.family == 'windows' {
     [ "--no-default-features" "--features" "windows" ]
   } else {
     []
   }
-}
-
-def install-helix-editor [] {
-  cd $env.WORKSPACE
-  if ( not ($env.WORKSPACE | path join "helix/.git" | path exists) ) {
-    git clone https://github.com/helix-editor/helix
-  } 
-  cd helix
-  git fetch
-  # check if fetch actually downloaded anything new
-  # if (not ((git rev-parse HEAD) == (git rev-parse @{u}))) {
-  # topgrade has already updated the repo by this point, so that we never hit this case.
-  # needs alternative idea
-    git pull
-    let toolchain = (if $nu.os-info.family == "windows" {"+stable-msvc"} else {"+stable"})
-    cargo $toolchain install --path helix-term  --profile opt
-    hx --grammar fetch | ignore
-    hx --grammar build | ignore
-  # }
 }
 
 # install all my favorite crate, only if they are not already in PATH.
@@ -95,5 +77,4 @@ def main [] {
       echo $"($crate.name) already installed"
     }
   }
-  install-helix-editor
 }
