@@ -1,15 +1,9 @@
-bootstripper
-neovim/plugin
-bootstripper/bootstripper.com.dbg
-bootstripper/cosmopolitan
-bootstripper/win32/cross9
 tresor/box_do_key
+
 nushell/zoxide.nu
 nushell/history.txt
 nushell/plugin.nu
-<<<<<<< HEAD
+
 neovim/profile.log
-=======
-profile.log
->>>>>>> trunk
+neovim/plugin
 neovim/profile.svg

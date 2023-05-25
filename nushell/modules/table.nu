@@ -6,5 +6,5 @@ export def "has-column?" [
 }
 
 # Flattens a table into a string separated by a single space character.
-export def to-string [] { flatten | into string | str collect ' ' }
+export def to-string [] { flatten | into string | str join ' ' }
 

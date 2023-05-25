@@ -1,0 +1,142 @@
+# SYNTAX THEME
+# modifiers:
+# # - bold
+# - dim
+# - italic
+# - slow_blink
+# - rapid_blink
+# - reversed
+# - hidden
+# - crossed_out
+
+# underline:
+# - style
+#   - line
+#   - curl
+#   - dashed
+#   - dotted
+#   - double_line
+# - color
+
+"comment" = { fg = "important_global", modifiers = ["bold"] }
+"string" = { fg = "important_local", modifiers = ["italic"] }
+"comment.block.documentation" = { fg = "minor", modifiers = ["dim"] }
+"punctuation" = { fg = "minor" }
+"keyword" = { fg = "minor" }
+"tag" = { fg = "minor" }
+"keyword.control.return" = { modifiers = ["bold"], underline.style = "line" }
+"keyword.control.exception" = { modifiers = ["bold"], underline.style = "line" }
+"operator" = { fg = "minor" }
+"variable.parameter" = { fg = "focus", modifiers = ["bold"] }
+
+"markup.heading" = { fg = "important_global", modifiers = [
+  "bold",
+], underline.style = "double_line" }
+"markup.heading.marker" = { fg = "minor" }
+"markup.list" = "minor"
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = "accent"
+"markup.link.text" = "important_local"
+"markup.link.label" = "important_global"
+"markup.quote" = { fg = "important_local", modifiers = ["italic"] }
+"markup.raw.inline" = { fg = "important_local" }
+"markup.raw.block" = { fg = "important_global" }
+
+"diff.plus" = { fg = "important_local", modifiers = ["bold"] }
+"diff.delta" = { fg = "unfocus" }
+"diff.minus" = { fg = "focus", modifiers = ["crossed_out"] }
+
+"ui.background" = { fg = "normal", bg = "backdrop" }
+"ui.background.separator" = { fg = "ui_minor" }
+
+"ui.cursor" = { fg = "normal", bg = "ui_accent" }
+"ui.cursor.primary" = { fg = "normal", bg = "ui_accent" }
+"ui.cursor.match" = { fg = "normal", bg = "ui_unfocus", modifiers = [
+  "slow_blink",
+] }
+
+"ui.cursorline.primary" = { underline = { style = "line", color = "ui_unfocus" } }
+
+"ui.selection" = { fg = "normal", bg = "ui_unfocus" }
+"ui.selection.primary" = { fg = "normal", bg = "ui_important_local" }
+
+"ui.linenr" = { fg = "ui_minor", bg = "backdrop" }
+"ui.linenr.selected" = { fg = "ui_focus" }
+
+"ui.statusline" = { fg = "ui_normal", bg = "ui_backdrop" }
+"ui.statusline.separator" = { fg = "ui_unfocus", bg = "ui_backdrop" }
+"ui.statusline.insert" = { fg = "ui_important_global", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "ui_focus", modifiers = ["bold"] }
+"ui.statusline.inactive" = { fg = "ui_minor", bg = "ui_backdrop" }
+
+"ui.bufferline" = { fg = "ui_normal", bg = "ui_backdrop" }
+"ui.bufferline.active" = { fg = "ui_important_global", bg = "ui_unfocus", modifiers = [
+  "bold",
+], underline = { style = "double_line", color = "ui_important_global" } }
+
+"ui.gutter" = { bg = "backdrop" }
+
+"ui.debug.breakpoint" = { fg = "ui_important_global" }
+"ui.debug.active" = { fg = "ui_important_global" }
+
+"ui.window" = { fg = "ui_unfocus", bg = "ui_backdrop" }
+
+"ui.help" = { fg = "ui_important_global", bg = "ui_backdrop" }
+
+"ui.text" = { fg = "normal", bg = "backdrop" }
+"ui.text.focus" = { fg = "ui_focus" }
+"ui.text.info" = { fg = "ui_normal", bg = "ui_backdrop" }
+"ui.text.inactive" = { fg = "ui_minor" }
+
+"ui.menu" = { fg = "ui_normal", bg = "ui_backdrop" }
+"ui.menu.selected" = { fg = "ui_focus", bg = "ui_backdrop", modifiers = [
+  "bold",
+] }
+"ui.menu.scroll" = { fg = "ui_accent", bg = "ui_backdrop" }
+
+"ui.popup" = { fg = "normal", bg = "backdrop" }
+"ui.popup.info" = { fg = "ui_minor", bg = "ui_backdrop" }
+
+"ui.highlight" = { bg = "ui_focus" }
+"ui.highlight.frameline" = { bg = "ui_important_global" }
+
+"ui.virtual.ruler" = { bg = "ui_unfocus" }
+"ui.virtual.whitespace" = { fg = "ui_unfocus" }
+"ui.virtual.inlay-hint" = { fg = "ui_minor" }
+
+"error" = { bg = "error" }
+"warning" = { bg = "warning" }
+"info" = { bg = "info" }
+"hint" = { fg = "info", modifiers = ["dim"] }
+"diagnostic.error" = { underline = { style = "double_line", color = "error" } }
+"diagnostic.warning" = { underline = { style = "double_line", color = "warning" } }
+"diagnostic.info" = { underline = { style = "double_line", color = "info" } }
+"diagnostic.hint" = { underline = { style = "double_line", color = "info" }, modifiers = [
+  "dim",
+] }
+"special" = { fg = "debug" }
+
+[palette]
+
+accent = "#800080"
+backdrop = "#131313"
+debug = "#3dd45d"
+error = "#740523"
+focus = "#a5bdb6"
+important_global = "#8e58cc"
+important_local = "#7a3bc3"
+info = "#4187a7"
+minor = "#727272"
+normal = "#cfcfcf"
+ui_accent = "#7a067a"
+ui_backdrop = "#000000"
+ui_focus = "#788984"
+ui_important_global = "#5f368d"
+ui_important_local = "#4c2b72"
+ui_minor = "#424242"
+ui_normal = "#e2e2e2"
+ui_unfocus = "#121212"
+unfocus = "#3f4543"
+warning = "#a7802d"

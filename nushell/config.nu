@@ -8,6 +8,7 @@ use git.nu *
 use svn.nu *
 use openssl.nu *
 use pacnew.nu
+use syncthing.nu
 
 # CUSTOM COMPLETIONS
 use svn-completions.nu *

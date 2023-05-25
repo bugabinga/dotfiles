@@ -1,0 +1,14 @@
+# apply colors from my terminal color scheme
+--theme=ansi
+--style=full
+
+--tabs 2
+#--show-all
+#--nonprintable-notation=unicode
+
+# use features of modern terminals
+--italic-text=always
+
+# Map some unknown file types to (hopefully similar) known ones
+--map-syntax "*.nu:Rust"
+--map-syntax ".stignore:Git Ignore"

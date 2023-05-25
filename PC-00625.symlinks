@@ -36,3 +36,6 @@ helix/themes
 
 neovim
 ~/AppData/Local/nvim
+
+bat/config
+~/AppData/Roaming/bat/config

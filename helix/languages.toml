@@ -1,0 +1,5 @@
+[[language]]
+name = "java"
+auto-format = true
+# language-server = { command = "jdtls" }
+config = { "settings" = { "java" = { "saveActions" = { "organizeImports" = true } } } }
