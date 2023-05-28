@@ -5,6 +5,8 @@ export alias tree = exa --tree --group-directories-first
 export alias look = xplr
 export alias browse = firefox
 export alias edit = hx
+# TODO ewrite bak command
+export alias backup = bak
 
 # TODO: HOST SPECIFIC ALIASES
 # I do not see a way right now the have different aliases per host with nu.

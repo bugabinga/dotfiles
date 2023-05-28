@@ -19,6 +19,12 @@
 [difftool "meld"]
   cmd = "meld \"$LOCAL\" \"$REMOTE\""
 
+[difftool "difftastic"]
+  cmd = "difft \"$LOCAL\" \"$REMOTE\""
+
+[pager]
+  difftool = true
+
 [merge]
   tool = meld_merge
 

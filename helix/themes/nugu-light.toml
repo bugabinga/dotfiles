@@ -41,8 +41,8 @@
 "markup.link.text" = "important_local"
 "markup.link.label" = "important_global"
 "markup.quote" = { fg = "important_local", modifiers = ["italic"] }
-"markup.raw.inline" = { fg = "important_local" }
-"markup.raw.block" = { fg = "important_global" }
+# "markup.raw.inline" = { fg = "important_local" }
+# "markup.raw.block" = { fg = "important_global" }
 
 "diff.plus" = { fg = "important_local", modifiers = ["bold"] }
 "diff.delta" = { fg = "unfocus" }
@@ -81,12 +81,12 @@
 "ui.debug.breakpoint" = { fg = "ui_important_global" }
 "ui.debug.active" = { fg = "ui_important_global" }
 
-"ui.window" = { fg = "ui_unfocus", bg = "ui_backdrop" }
+"ui.window" = { fg = "ui_important_global", bg = "ui_backdrop" }
 
 "ui.help" = { fg = "ui_important_global", bg = "ui_backdrop" }
 
-"ui.text" = { fg = "normal", bg = "backdrop" }
-"ui.text.focus" = { fg = "ui_focus" }
+# "ui.text" = { fg = "normal", bg = "backdrop" }
+"ui.text.focus" = { fg = "ui_accent" , bg= "ui_backdrop"}
 "ui.text.info" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.text.inactive" = { fg = "ui_minor" }
 
@@ -96,15 +96,15 @@
 ] }
 "ui.menu.scroll" = { fg = "ui_accent", bg = "ui_backdrop" }
 
-"ui.popup" = { fg = "normal", bg = "backdrop" }
-"ui.popup.info" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.popup" = { fg = "debug", bg = "debug" }
+"ui.popup.info" = { fg = "ui_important_local", bg = "ui_backdrop" }
 
-"ui.highlight" = { bg = "ui_focus" }
+"ui.highlight" = { bg = "debug" }
 "ui.highlight.frameline" = { bg = "ui_important_global" }
 
 "ui.virtual.ruler" = { bg = "ui_unfocus" }
 "ui.virtual.whitespace" = { fg = "ui_unfocus" }
-"ui.virtual.inlay-hint" = { fg = "ui_minor" }
+"ui.virtual.inlay-hint" = { fg = "minor", modifiers = ["italic"] }
 
 "error" = { bg = "error" }
 "warning" = { bg = "warning" }

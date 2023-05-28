@@ -1,0 +1,60 @@
+#!/usr/bin/java --source 17
+
+import static java.lang.System.* ;
+import java.util.*;
+
+class merge {
+  public static void main(String[] command_line_arguments) throws Throwable
+  {
+    if(command_line_arguments.length != 5)
+      throw fail("svn diff was supposed to give us 5 arguments. did the interface change? we got %s arguments.", command_line_arguments.length);
+
+    var base_file = command_line_arguments[0];
+    var theirs_file = command_line_arguments[1];
+    var mine_file = command_line_arguments[2];
+    var merged_file = command_line_arguments[3];
+    var wcpath_file = command_line_arguments[4];
+
+    var code = call("meld", "--label", "Mine", mine_file, "--label", "WC", wcpath_file, "--label", "Theirs", theirs_file, "--output", merged_file);
+    throw exit(code); 
+  }
+
+  static int call( String... command) throws Exception
+  {
+    return new ProcessBuilder()
+    .command(command)
+    .inheritIO()
+    .start()
+    .onExit()
+    .join()
+    .exitValue();
+  }
+
+  static Throwable exit(int code) {
+    System.exit(code);
+    //abuse control flow to make compiler realize `exit` will never return
+    return new Throwable(); 
+  }
+
+  static String emphasize_global(String message) {
+    return "\033[4m" + message + "\033[0m";
+  }
+
+  static String emphasize_local(String message) {
+    return "\033[3m" + message + "\033[0m";
+  }
+
+  static Throwable fail(String message, Object... arguments) {
+    out.printf(message, arguments);
+    System.exit(1);
+    //abuse control flow to make compiler realize `exit` will never return
+    return new Throwable(); 
+  }
+
+  static Throwable fail() {
+    System.exit(1);
+    //abuse control flow to make compiler realize `exit` will never return
+    return new Throwable(); 
+  }
+}
+// vim:ft=java

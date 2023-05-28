@@ -4,6 +4,18 @@ git/gitconfig
 git/gitconfig.linux
 ~/.config/git/.gitconfig.include
 
+subversion/config
+~/.subversion/config
+
+subversion/diff
+~/.subversion/diff
+
+subversion/diff3
+~/.subversion/diff3
+
+subversion/merge
+~/.subversion/merge
+
 tools/git-info
 ~/.local/bin/git-info
 
