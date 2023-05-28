@@ -2,8 +2,7 @@
 Description=Wezterm Multiplexing Server
 
 [Service]
-# start with system shell as parent in order to inherit environment variables
-ExecStart=/bin/bash -c /usr/bin/wezterm-mux-server
+ExecStart=/usr/bin/wezterm-mux-server
 Restart=on-failure
 
 [Install]

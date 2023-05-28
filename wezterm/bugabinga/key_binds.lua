@@ -1,5 +1,5 @@
 local wez = require 'wezterm'
-local leader = { key = 'raw:255'}
+local leader = { key = 'VoidSymbol'}
 
 local resize_pane_mode = 'ﭕ Resize Pane Mode'
 local activate_pane_mode = ' Activate Pane Mode'
