@@ -291,3 +291,6 @@ let-env config = {
 
 # must be done, after defining config, since zoxide mutates it
 use zoxide.nu *
+
+overlay use coreutils.nu
+

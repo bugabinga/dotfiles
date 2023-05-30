@@ -1,9 +1,10 @@
 [Unit]
 Description=Wezterm Multiplexing Server
+After=gnome-session.target
 
 [Service]
 ExecStart=/usr/bin/wezterm-mux-server
 Restart=on-failure
 
 [Install]
-WantedBy=default.target
+WantedBy=gnome-session.target
