@@ -205,7 +205,6 @@ class aes {
   }
 
   static Throwable exit() {
-    out.printf("%s!%n", emphasize_local("Done"));
     System.exit(0);
     // abuse control flow to make compiler realize `exit` will never return
     return new Throwable();
