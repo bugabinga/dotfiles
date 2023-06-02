@@ -3,8 +3,8 @@
 
 
 Host box
-    HostName box.bugabinga.net
-    IdentityFile ~/.ssh/box_do.key
+	HostName 46.101.206.216
+    IdentityFile ~/.ssh/box.bugabinga.net.key
 
 Host github.com
     HostName github.com
@@ -12,9 +12,9 @@ Host github.com
     IdentityFile ~/.ssh/github.key
 
 Host codeberg.org
-		HostName codeberg.org
-		User git
-		IdentityFile ~/.ssh/codeberg.key
+	HostName codeberg.org
+	User git
+	IdentityFile ~/.ssh/codeberg.key
 
 
 # catch-all pattern

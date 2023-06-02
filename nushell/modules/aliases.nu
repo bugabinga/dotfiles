@@ -4,6 +4,8 @@ export def list [] { ls --all --long --du --mime-type | where type == dir | appe
 export def tree [] { ls | each { if $in.type == dir { tree $in.name } else { $in }} | flatten | table -e }
 export alias browse = firefox
 export alias edit = hx
+# TODO ewrite bak command
+export alias backup = bak
 
 # TODO: HOST SPECIFIC ALIASES
 # I do not see a way right now the have different aliases per host with nu.
