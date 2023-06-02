@@ -19,6 +19,16 @@ stackoverflow/so
 subversion/config
 ~/AppData/Roaming/Subversion/config
 
+subversion/diff
+~/AppData/Roaming/Subversion/diff
+
+subversion/diff3
+~/AppData/Roaming/Subversion/diff3
+
+subversion/merge
+~/AppData/Roaming/Subversion/merge
+
+
 cargo/config.toml
 ~/scoop/persist/rustup/.cargo/config.toml
 
