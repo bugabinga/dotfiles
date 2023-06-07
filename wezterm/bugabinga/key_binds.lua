@@ -1,8 +1,9 @@
 local wez = require 'wezterm'
 local leader = { key = 'VoidSymbol'}
-
+if wez.target_triple:find'windows' then 
+  leader = { key = 'raw:255'}
+end
 local resize_pane_mode = 'ﭕ Resize Pane Mode'
-local activate_pane_mode = ' Activate Pane Mode'
 local font_size_mode = ' Change Font Size Mode'
 
 local keys = {

@@ -1,7 +1,6 @@
 # Semantic aliases
 export alias show = bat
 export def list [] { ls --all --long --du --mime-type | where type == dir | append (ls --all --long --du --mime-type | where type != dir) }
-export def tree [] { ls | each { if $in.type == dir { tree $in.name } else { $in }} | flatten | table -e }
 export alias browse = firefox
 export alias edit = hx
 # TODO ewrite bak command
