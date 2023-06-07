@@ -10,9 +10,6 @@ use openssl.nu *
 use pacnew.nu
 use syncthing.nu
 
-# CUSTOM COMPLETIONS
-use svn-completions.nu *
-
 # for more information on themes see
 # https://github.com/nushell/nushell/blob/main/docs/How_To_Coloring_and_Theming.md
 let default_theme = {
