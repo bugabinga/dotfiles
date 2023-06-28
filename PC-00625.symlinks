@@ -16,7 +16,7 @@ bottom
 stackoverflow/so
 ~/AppData/Roaming/Sam Tay/so
 
-subversion/config
+subversion/config.win32
 ~/AppData/Roaming/Subversion/config
 
 subversion/diff
@@ -28,6 +28,14 @@ subversion/diff3
 subversion/merge
 ~/AppData/Roaming/Subversion/merge
 
+subversion/diff.bat
+~/AppData/Roaming/Subversion/diff.bat
+
+subversion/diff3.bat
+~/AppData/Roaming/Subversion/diff3.bat
+
+subversion/merge.bat
+~/AppData/Roaming/Subversion/merge.bat
 
 cargo/config.toml
 ~/scoop/persist/rustup/.cargo/config.toml

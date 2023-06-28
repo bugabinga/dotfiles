@@ -26,7 +26,7 @@ class diff {
     var left_file = command_line_arguments[5];
     var right_file = command_line_arguments[6];
 
-    var code = call("difft", "--tab-width","2", right_file, left_file);
+    var code = call("difft", "--display", "inline", "--tab-width", "2", right_file, left_file);
     throw exit(code);
   }
 
