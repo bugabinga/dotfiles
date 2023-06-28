@@ -41,6 +41,9 @@ wezterm
 helix/config.toml
 ~/AppData/Roaming/helix/config.toml
 
+helix/languages.toml
+~/AppData/Roaming/helix/languages.toml
+
 helix/themes
 ~/AppData/Roaming/helix/themes
 
