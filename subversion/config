@@ -52,7 +52,7 @@ editor-cmd = hx
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff implementation.
 # TODO windows versions as bat files
-diff-cmd = /home/oli/.subversion/diff
+diff-cmd = /home/oli/.subversion/diff.bat
 ### Diff-extensions are arguments passed to an external diff
 ### program or to Subversion's internal diff implementation.
 ### Set diff-extensions to override the default arguments ('-u').
@@ -60,14 +60,14 @@ diff-cmd = /home/oli/.subversion/diff
 ### Set diff3-cmd to the absolute path of your 'diff3' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff3 implementation.
-# diff3-cmd = /home/oli/.subversion/diff3
+# diff3-cmd = /home/oli/.subversion/diff3.bat
 ### Set diff3-has-program-arg to 'yes' if your 'diff3' program
 ###   accepts the '--diff-program' option.
 # diff3-has-program-arg = no
 ### Set merge-tool-cmd to the command used to invoke your external
 ### merging tool of choice. Subversion will pass 5 arguments to
 ### the specified command: base theirs mine merged wcfile
-merge-tool-cmd = /home/oli/.subversion/merge
+merge-tool-cmd = /home/oli/.subversion/merge.bat
 
 ### Section for configuring tunnel agents.
 [tunnels]
