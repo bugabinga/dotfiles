@@ -6,6 +6,8 @@ let-env DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
 let-env WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
 let-env NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
 
+let-env TERM = if ($env | get -i TERM_PROGRAM) == WezTerm { "wezterm" } else { "xterm-256color" }
+
 # theme for ls and other programs, that use LS_COLORS
 let-env LS_COLORS = ( do -i { vivid generate nord } )
 

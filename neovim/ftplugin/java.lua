@@ -1,4 +1,4 @@
-local want = require 'bugabinga.std.want'
+local want = require 'std.want'
 want {
   'jdtls',
   'lsp-zero',
@@ -6,9 +6,10 @@ want {
 }(function(jdtls, zero, installer)
   local debug_log = true
   local syntax_server = false
-  local project = require 'bugabinga.std.project'
+  local project = require 'std.project'
+  local home = os.getenv 'HOME'
 
-  local jdtls_root_dir = project.determine_java_project_root('~')
+  local jdtls_root_dir = project.determine_java_project_root '~'
   if jdtls_root_dir then
     vim.notify('eclipse.jdt.ls java project root is ' .. jdtls_root_dir)
     -- even when a project root as found, it does not necessarily mean it is a
@@ -75,9 +76,9 @@ want {
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=' .. tostring(debug_log),
-    '-Dlog.level=ALL',
+    '-Dlog.level=INFO',
     '-XX:+UnlockExperimentalVMOptions',
-		'-XX:+UseZGC',
+    '-XX:+UseZGC',
     -- '-XX:+UseParallelGC',
     -- '-XX:GCTimeRatio=4',
     -- '-XX:AdaptiveSizePolicyWeight=90',
