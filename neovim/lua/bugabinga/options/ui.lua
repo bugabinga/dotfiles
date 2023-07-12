@@ -1,13 +1,13 @@
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-	space = '⋅',
-	eol = '↴',
-	tab = '__',
-	trail = '•',
-	extends = '❯',
-	precedes = '❮',
-	nbsp = '_',
+  space = '⋅',
+  eol = '↴',
+  tab = '__',
+  trail = '•',
+  extends = '❯',
+  precedes = '❮',
+  nbsp = '_',
 }
 
 -- do not spam the cmdline with every little input
@@ -28,10 +28,13 @@ vim.opt.laststatus = 3
 
 -- hide weird symbol at end of buffer
 vim.opt.fillchars = {
-	eob = ' ',
-	fold = ' ',
-	diff = '╱',
+  eob = ' ',
+  fold = ' ',
+  diff = '╱',
 }
+
+-- better have no syntax highlighting than regex based, treesitter will take over later
+vim.cmd.syntax 'off'
 
 -- hide output of insert completion popup in status
 vim.opt.shortmess:append 'c'
@@ -66,7 +69,7 @@ vim.opt.showtabline = 1
 
 -- Use true colors
 vim.opt.termguicolors = true
-vim.opt.lazyredraw = true
+vim.opt.lazyredraw = false
 
 -- cursor
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
@@ -76,12 +79,12 @@ vim.opt.guifont = 'BlexMono NF:h16:antialias=true'
 
 -- neovide only options
 if vim.g.neovide then
-	vim.g.neovide_floating_blur_amount_x = 4.0
-	vim.g.neovide_floating_blur_amount_y = 4.0
-	vim.g.neovide_scroll_animation_length = 0.33
-	vim.g.neovide_fullscreen = true
-	vim.g.neovide_profiler = false
-	vim.g.neovide_cursor_animation_length = 0.11
-	vim.g.neovide_cursor_trail_length = 0.666
-	vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+  vim.g.neovide_floating_blur_amount_x = 4.0
+  vim.g.neovide_floating_blur_amount_y = 4.0
+  vim.g.neovide_scroll_animation_length = 0.33
+  vim.g.neovide_fullscreen = true
+  vim.g.neovide_profiler = false
+  vim.g.neovide_cursor_animation_length = 0.11
+  vim.g.neovide_cursor_trail_length = 0.666
+  vim.g.neovide_cursor_vfx_mode = 'pixiedust'
 end
