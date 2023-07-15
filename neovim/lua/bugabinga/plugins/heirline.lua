@@ -34,10 +34,10 @@ return {
 						niR = "Νr",
 						niV = "Νv",
 						nt = "Νt",
-						v = "𝗩",
-						vs = "𝗩 s",
-						V = "𝗩 _",
-						Vs = "𝗩 s",
+						v = "𝗩 ",
+						vs = "𝗩 s",
+						V = "𝗩 _",
+						Vs = "𝗩 s",
 						["\22"] = "^V",
 						["\22s"] = "^V",
 						s = "S",
@@ -46,19 +46,19 @@ return {
 						i = "Ι",
 						ic = "Ιc",
 						ix = "Ιx",
-						R = " ",
-						Rc = " c",
-						Rx = " x",
-						Rv = " v",
-						Rvc = " v",
-						Rvx = " v",
-						c = "C",
-						cv = "Ex",
-						r = "...",
+						R = "𝐑 ",
+						Rc = "𝐑c",
+						Rx = "𝐑x",
+						Rv = "𝐑v",
+						Rvc = "𝐑v",
+						Rvx = "𝐑v",
+						c = "𝐂 ",
+						cv = "𝐄x",
+						r = " ",
 						rm = "M",
 						["r?"] = "?",
 						["!"] = "!",
-						t = " ",
+						t = " ",
 					},
 					mode_colors = {
 						n = "ui_normal" ,
@@ -130,7 +130,7 @@ return {
 					condition = function()
 						return vim.bo.modified
 					end,
-					provider = "  ",
+					provider = "  ",
 					hl = 'Comment',
 				},
 				{
@@ -156,7 +156,7 @@ return {
 
 			local file_type = {
 				provider = function()
-					return ' ' .. string.upper(vim.bo.filetype)
+					return ' ' .. string.upper(vim.bo.filetype)
 				end,
 			}
 
@@ -291,12 +291,11 @@ return {
 					command = 'svn',
 					args = { 'info', '--show-item', 'relative-url',  '--no-newline' },
 					on_exit = function(current_job, exit_code)
-						vim.print(vim.inspect(out), exit_code)
 						if exit_code == 0 then relative_url = current_job:result() end
 					end,
 				}:sync()
 
-				return relative_url
+				return relative_url[1]
 			end
 
 			local svn = {
@@ -329,21 +328,21 @@ return {
 				{
 					provider = function(self)
 						local count = self.status_dict.added or 0
-						return count > 0 and (" " .. count .. ' ')
+						return count > 0 and (" " .. count .. ' ')
 					end,
 					hl = 'DiffAdd',
 				},
 				{
 					provider = function(self)
 						local count = self.status_dict.removed or 0
-						return count > 0 and (" " .. count .. ' ')
+						return count > 0 and (" " .. count .. ' ')
 					end,
 					hl = 'DiffDelete',
 				},
 				{
 					provider = function(self)
 						local count = self.status_dict.changed or 0
-						return count > 0 and (" " .. count .. ' ')
+						return count > 0 and (" " .. count .. ' ')
 					end,
 					hl = 'DiffChange',
 				},
@@ -402,8 +401,10 @@ return {
 			}
 
 			local togglers = {
-
-				provider = function(self) end,
+					provider = function(self)
+						local togglers = require'bugabinga.options.togglers'
+						return tostring(togglers)
+					end,
 			}
 
 			local macro_recording = {
@@ -507,7 +508,6 @@ return {
 					file_type, space, terminal_name,
 				},
 
-				-- TODO: replace with navic. file name is already in statusline
 				file_name_block,
 			}
 
@@ -535,13 +535,13 @@ return {
 
 			local tabline = { tab_pages }
 
-			local statuscolumn = {}
+			-- local statuscolumn = {}
 
 			heirline.setup {
 				statusline = statuslines,
 				winbar = winbars,
 				tabline = tabline,
-				statuscolumn =  statuscolumn,
+				-- statuscolumn =  statuscolumn,
 
 				opts = {
 					colors = nugu,

@@ -50,15 +50,15 @@ local add_toggler = function( display_name, togglers  )
 	table.insert(_, make_toggler(display_name, togglers ))
 end
 
-add_toggler('spell check', {  make_option'spell' } )
-add_toggler('line numbers', { make_option'number',  make_option'relativenumber'})
-add_toggler('cursor line', {  make_option'cursorline'} ) 
+add_toggler('暈', {  make_option'spell' } )
+add_toggler(' ', { make_option'number',  make_option'relativenumber'})
+add_toggler('―', {  make_option'cursorline'} ) 
 
 local tostring = function(self)
 	return vim.iter(self)
 	:map(toggler_tostring)
 	:fold('', function(buffer, text)
-	  return buffer .. (buffer == '' and '' or '  ⃒ ') .. text	
+	  return buffer .. (buffer == '' and '' or ' ') .. text	
 	end)
 end
 
