@@ -2,6 +2,7 @@ return {
 	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
+		branch = 'main',
 		opts = {
 			cmdline = {
 				view = 'cmdline', -- cmdline on bottom
@@ -26,7 +27,8 @@ return {
 				popupmenu = { border = { style = "shadow" } },
 				popup = { border = { style = "shadow" } },
 				hover = { border = { style = "shadow" } },
-				cmdline = { relative = "cursor", position = { row = 0, col = 0 }, border = { style = "shadow" } },
+				-- does not seem to play well with other popups
+				-- cmdline = { relative = "cursor", position = { row = 0, col = 0 }, border = { style = "shadow" } },
 			},
 		},
 		dependencies = {

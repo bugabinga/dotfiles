@@ -41,7 +41,7 @@ local nugu = lush(function(injects)
     Normal { fg = content_normal, bg = content_backdrop },
     NotifyBackground { bg = ui_backdrop },
     Comment { fg = content_important_global, gui = 'bold italic' },
-    LineNr { fg = content_unfocus, bg = content_backdrop },
+    LineNr { fg = ui_minor, bg = ui_backdrop },
     CursorLineNr { fg = ui_focus, bg = ui_backdrop },
     Search { fg = content_important_global.readable(), bg = content_important_global },
     IncSearch { fg = content_important_local.readable(), bg = content_important_local },
@@ -65,7 +65,7 @@ local nugu = lush(function(injects)
     VertSplit { fg = ui_important_global, bg = content_backdrop }, -- the column separating vertically split windows
     Folded { Conceal }, -- line used for closed folds
     FoldColumn { Conceal }, -- 'foldcolumn'
-    SignColumn { LineNr }, -- column where |signs| are displayed
+    SignColumn { bg = ui_backdrop }, -- column where |signs| are displayed
     ModeMsg { gui = 'bold' }, -- 'showmode' message (e.g., "-- INSERT -- ")
     MsgArea { Normal }, -- Area for messages and cmdline
     MsgSeparator { fg = ui_accent }, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -106,8 +106,8 @@ local nugu = lush(function(injects)
     Boolean { String }, --  a boolean constant: TRUE, false
     Float { String }, --    a floating point constant: 2.3e10
 
-    Identifier { Normal, gui = 'bold' }, -- (preferred) any variable name
-    Function { Normal, gui = 'bold' }, -- function name (also: methods for classes)
+    Identifier { Normal }, -- (preferred) any variable name
+    Function { Normal }, -- function name (also: methods for classes)
 
     Statement { fg = content_minor }, -- (preferred) any statement
     Conditional { Statement }, --  if, then, else, endif, switch, etc.
@@ -128,10 +128,10 @@ local nugu = lush(function(injects)
     Structure { Statement }, --  struct, union, enum, etc.
     Typedef { Statement }, --  A typedef
 
-    Special { fg = content_accent, gui = 'italic bold' }, -- (preferred) any special symbol
+    Special { fg = content_normal, gui = 'italic bold' }, -- (preferred) any special symbol
     SpecialChar { Special }, --  special character in a constant
     Tag { Special }, --    you can use CTRL-] on this
-    Delimiter { Special }, --  character that needs attention
+    Delimiter { fg = content_minor }, --  character that needs attention
     SpecialComment { Special }, -- special things inside a comment
 
     Underlined { sp = content_normal, gui = 'underline' }, -- (preferred) text that stands out, HTML links

@@ -13,7 +13,7 @@ end
 
 local function check_program(name, name_of_executable)
   local display_name = name and (name .. '(' .. name_of_executable .. ')') or name_of_executable
-  vim.health.start(name .. ' report')
+  vim.health.start(display_name .. ' report')
   if program_installed(name_of_executable) then
     vim.health.ok(display_name .. ' found on system')
   else
@@ -27,17 +27,15 @@ _.add_dependency = function(program)
 	check_parameter(program, 'add_program', 'program', 'table')
 	check_parameter(program.name_of_executable, 'add_program', 'program.name_of_executable', 'string')
 
-	if not programs_to_check[program] then
-		table.insert(programs_to_check, program)
-	end
-	
+	programs_to_check[program.name_of_executable] = program
+
 	-- returns itself so that multiple programs can be chain-added
 	return _.add_dependency
 end
 
 _.check = function()
 	vim.iter(programs_to_check)
-		:each(function(program)
+		:each(function(_, program)
 			check_program(program.name, program.name_of_executable)
 		end)
 end

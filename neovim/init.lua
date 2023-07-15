@@ -7,25 +7,14 @@
 -- ███   █▄ ▄█  ███     █ ███    ▐ █  █ █  ███     █
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
-
-local want = require'std.want'
-
-want {
-	-- set general neovim editor settings
-	'bugabinga.options',
-	-- install plugin manager and declare plugins to use
-	'bugabinga.lazy',
-	-- configures the vim diagnostic subsystem
-	'bugabinga.diagnostic',
-	'bugabinga.trim',
-}()
-
--- load ui stuff
--- require 'bugabinga.windows'
-
--- treesitter
--- require 'buabinga.treesitter'
-
+-- set general neovim editor settings
+require'bugabinga.options'
+-- install plugin manager and declare plugins to use
+require'bugabinga.lazy'
+-- configures the vim diagnostic subsystem
+require'bugabinga.diagnostic'
+-- FIXME(buga): should this be moved somewhere else?
+require'bugabinga.trim'
 -- lsp
 -- require 'bugabinga.lsp'
 
