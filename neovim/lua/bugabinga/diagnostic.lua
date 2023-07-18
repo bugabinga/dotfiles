@@ -1,153 +1,155 @@
--- the topic 'diagnotics' was refactored out of LSP into its own thing some time
--- ago. that is why it gets its own section in this config now, but right now,
--- those settings overlap with lsp-zero.
+local want = require 'std.want'
+local auto = require 'std.auto'
+local map = require 'std.keymap'
 
-local auto = require 'bugabinga.std.auto'
-local map = require 'bugabinga.std.keymap'
-local icon = require 'bugabinga.std.icon'
+local icon = { ' ', ' ', '', '💡' }
+icon.error = icon[1]
+icon.warn = icon[2]
+icon.info = icon[3]
+icon.hint = icon[4]
+
+local display_name = {
+	'Error',
+	'Warning',
+	'Information',
+	'Hint',
+}
 
 local diagnostic = vim.diagnostic
+diagnostic.disable(0)
 
 local diagnostic_format = function(context)
-	local message = context.message
-	local severity = context.severity
-	local symbol = ''
-	if severity == diagnostic.severity.ERROR then
-		symbol = icon 'Error'
-	elseif severity == diagnostic.severity.WARN then
-		symbol = icon 'Warning'
-	elseif severity == diagnostic.severity.INFO then
-		symbol = icon 'Information'
-	elseif severity == diagnostic.severity.HINT then
-		symbol = icon 'Hint'
-	end
-	return string.format('%s | %s', symbol, message)
+  return string.format('%s: %s', display_name[context.severity], context.message)
 end
 
 local prefix_format = function(context, index, total)
-	local source = context.source
-	local severity = context.severity
-	local symbol = ''
-	if severity == diagnostic.severity.ERROR then
-		symbol = icon 'Error'
-	elseif severity == diagnostic.severity.WARN then
-		symbol = icon 'Warning'
-	elseif severity == diagnostic.severity.INFO then
-		symbol = icon 'Information'
-	elseif severity == diagnostic.severity.HINT then
-		symbol = icon 'Hint'
-	end
-	return string.format('%s/%s %s %s ', index, total, source, symbol)
+  return string.format('%s/%s %s %s ', index, total, context.source, icon[context.severity]), 'DiagnosticVirtualText'.. display_name[context.severity]
 end
 
 diagnostic.config {
-	underline = {
-		severity = diagnostic.severity.ERROR,
-	},
-	virtual_text = {
-		severity = diagnostic.severity.HINT,
-		source = false,
-		spacing = 0,
-		prefix = '',
-		format = diagnostic_format,
-	},
-	float = {
-		focusable = false,
-		style = 'minimal',
-		border = 'rounded',
-		source = false,
-		header = '',
-		prefix = prefix_format,
-	},
-	update_in_insert = false,
-	signs = true,
-	severity_sort = true,
+  underline = true,
+  virtual_text = {
+    severity =  { min = diagnostic.severity.WARN },
+    source = false,
+    spacing = 2,
+    prefix = '⦿ ',
+    format = diagnostic_format,
+  },
+  float = {
+    focusable = false,
+    style = 'minimal',
+    border = 'rounded',
+    source = 'if_many',
+    header = 'Diagnostic',
+    suffix = header_format,
+    prefix = prefix_format,
+  },
+  update_in_insert = false,
+  signs = true,
+  severity_sort = true,
 }
 
 local sign = function(options)
-	vim.fn.sign_define(options.name, {
-		texthl = options.name,
+  vim.fn.sign_define(options.name, {
 		text = options.text,
-		numhl = '',
-	})
+    texthl = options.name,
+    numhl = options.name,
+    culhl = options.name,
+    linehl = options.name,
+  })
 end
 
-sign { name = 'DiagnosticSignError', text = icon 'Error' }
-sign { name = 'DiagnosticSignWarn', text = icon 'Warning' }
-sign { name = 'DiagnosticSignHint', text = icon 'Hint' }
-sign { name = 'DiagnosticSignInfo', text = icon 'Information' }
+sign { name = 'DiagnosticSignError', text = icon.error }
+sign { name = 'DiagnosticSignWarn', text = icon.warn }
+sign { name = 'DiagnosticSignHint', text = icon.hint }
+sign { name = 'DiagnosticSignInfo', text = icon.info }
 
-auto 'hide_diagnostics' {
-	description = 'Hide diagnostics by default',
-	events = { 'BufReadPre' },
-	pattern = '*',
-	command = function()
-		diagnostic.disable(0)
-	end,
-}
-local saved_cursor_highlight = vim.api.nvim_get_hl_by_name('Cursor', true)
--- TODO: get colors from theme
-local noticeable = { foreground = '#ffffff', background = '#ff0000'}
-
-auto 'cursor_attention_if_diagnostics' {
-	description = 'Make cursor very noticeable, if diagnostics are present',
-	events = 'DiagnosticChanged',
-	pattern = '*',
-	command = function()
-		local diagnostic_number = #vim.diagnostic.get(0,{severity = vim.diagnostic.severity.ERROR})
-		if diagnostic_number > 0 then
-			vim.api.nvim_set_hl(0, 'Cursor', noticeable)
+map.normal {
+  name = 'Toggle diagnostics',
+  category = 'diagnostic',
+  keys = '<F6><F6>',
+  command = function()
+  	if diagnostic.is_disabled(0) then
+			diagnostic.enable(0)
+			vim.notify 'Enabling Diagnostics'
 		else
-			vim.api.nvim_set_hl(0, 'Cursor', saved_cursor_highlight)
+			diagnostic.disable(0)
+			vim.notify 'Disabling Diagnostics'
+		end
+  end,
+}
+
+local show_diagnostics = function()
+	want'telescope.builtin'(
+		function(builtin)
+			builtin.diagnostics()
+		end,
+		function()
+			-- seems to have bug: https://github.com/neovim/neovim/issues/21949
+			diagnostic.open_float()
+		end)
+end
+
+map.normal {
+	name = 'Show diagnostics in float window',
+	category = 'diagnostic',
+	keys = '<F6>',
+	command = function()
+		if #diagnostic.get(0) > 0 then
+			if diagnostic.is_disabled(0) then
+				diagnostic.enable(0)
+				vim.notify 'Enabling Diagnostics'
+			end
+			show_diagnostics()
+		else
+			vim.notify 'No diagnostics to show!'
 		end
 	end,
 }
 
-map {
-	description = 'Enable diagnostics',
-	category = map.CATEGORY.PROBLEMS,
-	mode = map.MODE.NORMAL,
-	keys = map.KEY.LEADER .. map.KEY.P,
-	command = function()
-		diagnostic.enable(0)
-	end,
-}
-map {
-	description = 'Disable diagnostics',
-	category = map.CATEGORY.PROBLEMS,
-	mode = map.MODE.NORMAL,
-	keys = map.KEY.LEADER .. map.KEY.P .. map.KEY.P,
-	command = function()
-		diagnostic.disable(0)
-	end,
-}
-map {
-	description = 'Show diagnostics in float window',
-	category = map.CATEGORY.PROBLEMS,
-	mode = map.MODE.NORMAL,
-	keys = map.KEY.F6,
-	command = function()
-		diagnostic.enable(0)
-		diagnostic.open_float()
-	end,
-}
-map {
-	description = 'Go to previous diagnostic',
-	category = map.CATEGORY.PROBLEMS,
-	mode = map.MODE.NORMAL,
-	keys = map.KEY.F7,
+map.normal {
+	name = 'Go to previous diagnostic',
+	category = 'diagnostic',
+	keys = '<C-F6>',
 	command = function()
 		diagnostic.enable(0)
 		diagnostic.goto_prev()
 	end,
 }
-map {
-	description = 'Go to next diagnostic',
-	category = map.CATEGORY.PROBLEMS,
-	mode = map.MODE.NORMAL,
-	keys = map.KEY.F8,
+
+map.normal {
+	name = 'Go to next diagnostic',
+	category = 'diagnostic',
+	keys = '<S-F6>',
 	command = function()
 		diagnostic.enable(0)
 		diagnostic.goto_next()
 	end,
 }
+
+-- a little debug helper to show all kinds of diagnostics
+
+local dia = function( severity, line )
+	local ns = vim.api.nvim_create_namespace('test'.. tostring(severity))
+	local bufnr = vim.api.nvim_get_current_buf()
+	local diagnostic = {
+		bufnr = bufnr,
+		lnum = line,
+		end_lnum = line,
+		col = 0,
+		severity = severity,
+		message = 'This is a test ' .. tostring(severity) .. ' diagnostic',
+	}
+
+	vim.diagnostic.set(ns, bufnr, {diagnostic}) 
+	vim.diagnostic.show(ns, bufnr, {diagnostic}) 
+end
+
+local send_dia = function()
+	dia(vim.diagnostic.severity.ERROR, 1)
+	dia(vim.diagnostic.severity.WARN, 2)
+	dia(vim.diagnostic.severity.INFO, 3)
+	dia(vim.diagnostic.severity.HINT, 4)
+end
+
+vim.g.send_dia = send_dia

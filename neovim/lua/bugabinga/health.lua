@@ -3,27 +3,41 @@
 -- * i like to use with neovim.
 -- * plugins need.
 
+local check_parameter = require'std.check_parameter'
+
 local _ = {}
 
 local function program_installed(name_of_executable)
-	return (vim.fn.executable(name_of_executable) ~= 0)
+  return (vim.fn.executable(name_of_executable) ~= 0)
 end
 
 local function check_program(name, name_of_executable)
-	vim.health.report_start(name .. ' report')
-	if program_installed(name_of_executable) then
-		vim.health.report_ok(name_of_executable .. ' found on system')
-	else
-		vim.health.report_error(name .. ' is not installed on the system')
-	end
+  local display_name = name and (name .. '(' .. name_of_executable .. ')') or name_of_executable
+  vim.health.start(display_name .. ' report')
+  if program_installed(name_of_executable) then
+    vim.health.ok(display_name .. ' found on system')
+  else
+    vim.health.error(display_name .. ' is not installed on the system')
+  end
+end
+
+local programs_to_check = {}
+
+_.add_dependency = function(program)
+	check_parameter(program, 'add_program', 'program', 'table')
+	check_parameter(program.name_of_executable, 'add_program', 'program.name_of_executable', 'string')
+
+	programs_to_check[program.name_of_executable] = program
+
+	-- returns itself so that multiple programs can be chain-added
+	return _.add_dependency
 end
 
 _.check = function()
-  check_program('ripgrep', 'rg')
-  check_program('find-fd', 'fd')
-  check_program('Nushell', 'nu')
-  check_program('vim-startuptime', 'vim-startuptime')
-  check_program('Pandoc', 'pandoc')
+	vim.iter(programs_to_check)
+		:each(function(_, program)
+			check_program(program.name, program.name_of_executable)
+		end)
 end
 
 return _

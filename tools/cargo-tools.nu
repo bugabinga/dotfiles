@@ -6,6 +6,7 @@
 # is not installed yet
 let cargo_crates = [
   [ name bin features];
+  [ "wiki-tui" "wiki-tui" [] ]
   [ "sccache" "sccache" [] ]
   [ "inferno" "inferno-flamegraph" [] ]
   [ "nu" "nu" [ "--features" "extra" ] ]
