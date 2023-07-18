@@ -14,16 +14,9 @@ lint:
 	selene --num-threads 100 .
 	taplo lint
 
-# Update neovim plugins via paq sync. Closes itself right after update.
-update:
-	nvim --headless -u NONE -i NONE --cmd "lua require('bugabinga.plugins.headless')"
-
-profile_file := `$"startuptime/(sys | get host | get hostname)_(date now | date format '%Y_%m_%d_%H_%M_%S').txt"`
-
-# Profile startuptime of neovim. Depends on vim-startuptime.
-profile:
-	vim-startuptime -vimpath nvim -count 100 -warmup 10 init.lua | save {{profile_file}}
-	open {{profile_file}}
-
-profile_baseline:
-	vim-startuptime -vimpath nvim -count 100 -warmup 10 -- init.lua --noplugin -i NONE -u NONE -n
+# delete all current neovim state, cache and other ephemeral data.
+# does NOT delete the configs
+nuke:
+	rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[data]]' +:q  | lines | last)
+	rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[cache]]' +:q  | lines | last)
+	rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[state]]' +:q  | lines | last)

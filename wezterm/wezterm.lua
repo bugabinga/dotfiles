@@ -17,9 +17,9 @@ if hostname == 'x230' then
   enable_wayland = true
   window_decorations = 'RESIZE'
 elseif hostname == 'pop-os' then
-  font_size = 12
+  font_size = 16
 elseif hostname == 'PC-00625' then
-  font_size = 14
+  font_size = 16
   font = wez.font 'Cascadia Code'
   window_decorations = 'TITLE|RESIZE'
 end
@@ -31,6 +31,7 @@ return {
 
   font = font,
   font_size = font_size,
+  underline_position = "-2pt",
   warn_about_missing_glyphs = false,
   color_scheme = dark_mode,
   color_schemes = nugu,

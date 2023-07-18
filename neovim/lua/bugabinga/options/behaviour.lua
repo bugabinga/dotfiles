@@ -23,8 +23,8 @@ vim.opt.shiftround = true
 vim.opt.smarttab = true
 
 -- keep distance to borders while scrolling
-vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 8
+vim.opt.scrolloff = 0
+vim.opt.sidescrolloff = 0
 
 -- try to guess indentation based on context
 vim.opt.smartindent = true
@@ -35,6 +35,7 @@ vim.opt.copyindent = true
 -- open splits to the right and below
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.splitkeep = 'screen'
 
 -- enable mouse
 vim.opt.mouse = 'a'
@@ -46,6 +47,12 @@ vim.opt.shellpipe = '| save %s'
 vim.opt.shellredir = '| save %s'
 vim.opt.shellquote = ''
 vim.opt.shellxquote = ''
+
+require'bugabinga.health'.add_dependency
+{
+	name = 'Nushell',
+	name_of_executable = 'nu'
+}
 
 -- highlight all search matches
 vim.opt.hlsearch = true

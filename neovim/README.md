@@ -13,6 +13,6 @@ local why_does_my_heart = "feel so bad"
 <div> some value </div>
 ```
 
-## it must be a sickness
+## it must be a sicknses
 
 _why_ do I do *this* to ~myself~ ...?

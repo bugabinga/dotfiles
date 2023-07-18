@@ -105,7 +105,7 @@
 "ui.highlight.frameline" = { bg = "ui_important_global" }
 
 "ui.virtual.wrap" = { fg = "ui_unfocus" }
-"ui.virtual.ruler" = { fg = "ui_unfocus" }
+"ui.virtual.ruler" = { bg = "ui_unfocus" }
 "ui.virtual.whitespace" = { fg = "ui_unfocus" }
 "ui.virtual.inlay-hint" = { fg = "minor", modifiers = ["italic"] }
 
