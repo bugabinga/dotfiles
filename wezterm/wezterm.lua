@@ -3,7 +3,8 @@ local nugu = require 'bugabinga.nugu'
 
 local key_binds = require 'bugabinga.key_binds'
 local dark_mode = require 'bugabinga.dark_mode'
-local workspaces = require 'bugabinga.workspaces'
+-- TODO mux server seems slow.
+-- local workspaces = require 'bugabinga.workspaces'
 local status = require 'bugabinga.status'
 
 local hostname = wez.hostname()
@@ -33,10 +34,10 @@ return {
   warn_about_missing_glyphs = false,
   color_scheme = dark_mode,
   color_schemes = nugu,
-  window_background_opacity = 1.0,
+  window_background_opacity = 0.69,
   -- nightly
-  -- win32_system_backdrop = 'Acrylic',
-  --default_cwd = wez.home_dir,
+  win32_system_backdrop = 'Acrylic',
+  default_cwd = wez.home_dir,
   default_prog = { 'nu' },
   default_cursor_style = 'SteadyBlock',
   cursor_blink_rate = 0,
@@ -70,17 +71,4 @@ return {
   leader = key_binds.leader,
   keys = key_binds.keys,
   key_tables = key_binds.key_tables,
-  unix_domains = {
-    {
-      name = 'unix',
-    } },
-  default_domain = 'unix',
-  default_gui_startup_args = { 'connect', 'unix' },
-  -- TODO(oli): create different launchers per OS
-  launch_menu = {
-    {
-      label = 'Bash',
-      args = {'bash', '-l'},
-    }
-  }
 }
