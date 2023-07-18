@@ -225,8 +225,8 @@ return {
 				command = function()
 					local highlight = require'nvim-treesitter.highlight'
 					pcall(highlight.detach)
-					pcall(highlight.set_custom_captures, { error = 'TSError' })
-					pcall(highlight.attach)
+						pcall(highlight.set_custom_captures, { error = 'TSError' })
+						pcall(highlight.attach)
 				end,
 			},
 		}
