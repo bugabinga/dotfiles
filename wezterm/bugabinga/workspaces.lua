@@ -1,9 +1,9 @@
 local wez = require 'wezterm'
 local mux = wez.mux
-
+local win32 = wez.target_triple:find'windows'
 
 local get_my_code_workspace = function()
-  if wez.target_triple:find('windows') then
+  if win32 then
     return 'W:'
   else
     return os.getenv 'HOME' .. '/Workspace'
@@ -12,20 +12,17 @@ end
 
 local WORKSPACE = get_my_code_workspace()
 
-wez.on('gui-attached', function()
-  -- maximize all displayed windows on startup
+-- maximize all displayed windows
+local maximize_window = function()
   local workspace = mux.get_active_workspace()
   for _, window in ipairs(mux.all_windows()) do
     if window:get_workspace() == workspace then
       window:gui_window():maximize()
     end
   end
-end)
+end
 
--- NOTE(oli): errors in here do not show up as configuration errors
--- check the log file in the wezterm mux server runtime directory
--- e.g. /run/user/1000/wezterm/log
-wez.on('mux-startup', function()
+local setup_workspaces = function()
   local dork_ws = 'dorkfiles editing'
   local dork_cwd = WORKSPACE .. '/dotfiles'
   local dork_tab, dork_pane, dork_window = mux.spawn_window { cwd = dork_cwd, workspace = dork_ws }
@@ -51,4 +48,17 @@ wez.on('mux-startup', function()
   default_top_pane:activate()
 
   mux.set_active_workspace(default_ws)
+end
+
+wez.on('gui-attached', function()
+  maximize_window()
+  -- mux server seems very slow on windows...
+  if win32 then setup_workspaces() end
+end)
+
+-- NOTE(oli): errors in here do not show up as configuration errors
+-- check the log file in the wezterm mux server runtime directory
+-- e.g. /run/user/1000/wezterm/log
+wez.on('mux-startup', function()
+  setup_workspaces()
 end)
