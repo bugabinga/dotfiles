@@ -16,6 +16,17 @@ return {
     branch = '0.1.x',
     cmd = 'Telescope',
     event = 'VeryLazy',
+    dependencies = {
+    	'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-symbols.nvim',
+			'AckslD/nvim-neoclip.lua',
+      'nvim-tree/nvim-web-devicons',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+      },
+    },
     config = function()
       local telescope = require 'telescope'
       local builtin = require 'telescope.builtin'
@@ -172,16 +183,5 @@ return {
       }
 
     end,
-    dependencies = {
-    	'nvim-telescope/telescope-file-browser.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-symbols.nvim',
-			'AckslD/nvim-neoclip.lua',
-      'nvim-tree/nvim-web-devicons',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-      },
-    },
   },
 }

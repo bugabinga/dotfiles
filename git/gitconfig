@@ -64,3 +64,9 @@
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
   path = .gitconfig.include
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
