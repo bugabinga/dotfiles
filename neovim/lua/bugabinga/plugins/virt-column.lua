@@ -1,7 +1,7 @@
 return {
   {
     'lukas-reineke/virt-column.nvim',
-    lazy = false,
+    event = { 'BufReadPost', 'BufNew' },
     opts = {
       char = '│',
     },

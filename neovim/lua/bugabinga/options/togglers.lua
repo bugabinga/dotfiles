@@ -1,7 +1,9 @@
+local icon = require'std.icon'
+
 local _ = {}
 
-local toggle_on_icon = '蘒'
-local toggle_off_icon = '﨡'
+local toggle_on_icon = icon.toggle_on
+local toggle_off_icon = icon.toggle_off
 
 
 local get_option = function(name) return vim.api.nvim_get_option_value(name, {}) end
@@ -24,7 +26,7 @@ end
 local toggler_tostring = function(self)
 	local all_default = vim.iter(self.options)
 	:all(function(option) return get_option(option.name) == option.default end)
-	return self.display_name .. ':' .. ( all_default and toggle_off_icon or toggle_on_icon )
+	return self.display_name .. ' ' .. ( all_default and toggle_off_icon or toggle_on_icon )
 end
 
 local make_toggler = function( display_name, options)
@@ -50,16 +52,15 @@ local add_toggler = function( display_name, togglers  )
 	table.insert(_, make_toggler(display_name, togglers ))
 end
 
-add_toggler('暈', {  make_option'spell' } )
-add_toggler('', { make_option'number',  make_option'relativenumber'})
-add_toggler('―', {  make_option'cursorline'} ) 
+add_toggler(icon.spelling, { make_option'spell' } )
+add_toggler(icon.linenumber, { make_option'number',  make_option'relativenumber'})
+add_toggler(icon.linehighlight, {  make_option'cursorline'} ) 
 
 local tostring = function(self)
 	return vim.iter(self)
 	:map(toggler_tostring)
 	:fold('', function(buffer, text)
-		local delimiter = '|'
-	  return buffer .. (buffer == '' and delimiter or ' ') .. text	
+	  return buffer .. (buffer == '' and '' or '  ') .. text	
 	end)
 end
 

@@ -24,10 +24,9 @@ lazy.setup('bugabinga.plugins', {
   },
   install = {
     missing = true,
-    colorthemes = { 'lunaperche' },
   },
   checker = {
-    enabled = true,
+    enabled = not vim.loop.os_uname().sysname:match'Win',
   },
   ui = {
   	size = { width = 0.69 , heigth = 0.69 },

@@ -1,7 +1,7 @@
 return {
 	{
 		'kylechui/nvim-surround',
-		event = 'VeryLazy',
+		keys = { '<C-g>s', '<C-g>S', 'ms', 'mss', 'mS', 'mSS', 'S', 'gS', 'md', 'mr', 'mR'},
 		opts = {
 			keymaps = {
 				insert = '<C-g>s',
@@ -17,9 +17,8 @@ return {
 				change_line = 'mR',
 			},
 		},
-		-- dependencies = {
-		-- 	'nvim-treesitter/nvim-treesitter',
-		-- 	'nvim-treesitter/nvim-treesitter-textobjects',
-		-- },
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+		},
 	}
 }

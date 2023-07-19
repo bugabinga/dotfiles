@@ -1,6 +1,6 @@
 return {
 	'lewis6991/gitsigns.nvim',
-	branch='main',
+	-- branch='main',
 	event = 'VeryLazy',
 	opts = {},
 }
