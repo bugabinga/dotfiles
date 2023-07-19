@@ -73,7 +73,7 @@ local nugu = lush(function(injects)
     NonText { fg = ui_unfocus }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     NormalNC {}, -- normal text in non-current windows
     Pmenu { NormalFloat }, -- Popup menu: normal item.
-    PmenuSel { fg = ui_focus.readable(), sp = ui_focus.readable(), bg = ui_focus, gui = 'underline' }, -- Popup menu: selected item.
+    PmenuSel { fg = ui_focus.readable(), sp = ui_focus.readable(), bg = ui_unfocus, gui = 'underline' }, -- Popup menu: selected item.
     PmenuSbar { bg = ui_unfocus }, -- Popup menu: scrollbar.
     PmenuThumb { bg = ui_minor }, -- Popup menu: Thumb of the scrollbar.
     Question { fg = ui_important_global, gui = 'bold' }, -- |hit-enter| prompt and yes/no questions

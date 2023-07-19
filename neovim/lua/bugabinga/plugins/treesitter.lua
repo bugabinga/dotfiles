@@ -21,7 +21,7 @@ require'bugabinga.health'.add_dependency
 return {
 	'nvim-treesitter/nvim-treesitter',
 	branch = "master",
-	event = {"BufReadPost", "BufNewFile"},
+	event = "BufRead",
 	cmd = {
 		"TSBufDisable",
 		"TSBufEnable",
@@ -212,10 +212,7 @@ return {
 				events = 'InsertEnter',
 				pattern = '*',
 				command = function()
-					local highlight = require'nvim-treesitter.highlight'
-					pcall(highlight.detach)
-					pcall(highlight.set_custom_captures, { error = 'None' })
-					pcall(highlight.attach)
+
 				end,
 			},
 			{
@@ -223,10 +220,7 @@ return {
 				events = 'InsertLeave',
 				pattern = '*',
 				command = function()
-					local highlight = require'nvim-treesitter.highlight'
-					pcall(highlight.detach)
-						pcall(highlight.set_custom_captures, { error = 'TSError' })
-						pcall(highlight.attach)
+
 				end,
 			},
 		}

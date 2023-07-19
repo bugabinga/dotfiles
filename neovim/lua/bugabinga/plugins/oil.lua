@@ -2,7 +2,8 @@ local map = require'std.keymap'
 
 return {
 	'stevearc/oil.nvim',
-	event = 'VeryLazy',
+	lazy = false,
+	-- event = 'VeryLazy',
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		local oil = require'oil'
@@ -21,6 +22,8 @@ return {
 				["q"] = "actions.close",
 				["<esc>"] = "actions.close",
         ["<C-/>"] = "actions.show_help",
+        ["<C-_>"] = "actions.show_help",
+        ["<C-?>"] = "actions.show_help",
         ["<C-v>"] = "actions.select_vsplit",
         ["<C-x>"] = "actions.select_split",
         ["<C-h>"] = "actions.toggle_hidden",

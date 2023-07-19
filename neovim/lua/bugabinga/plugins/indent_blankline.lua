@@ -1,6 +1,6 @@
-return {{
+return {
 	"lukas-reineke/indent-blankline.nvim" ,
-	lazy = false,
+	event = { 'BufReadPost', 'BufNew' },
 	config = function()
 		local indent_blankline = require'indent_blankline'
 
@@ -11,4 +11,4 @@ return {{
 			show_trailing_blankline_indent = false,
 		}
 	end,
-}}
+}

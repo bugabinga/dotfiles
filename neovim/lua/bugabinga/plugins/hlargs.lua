@@ -1,6 +1,6 @@
 return {
 	'm-demare/hlargs.nvim',
-	event = { 'BufReadPost', 'BufNewFile'},
+	event = 'BufRead',
 	opts = {
 		paint_arg_declarations = true,
 		paint_arg_usages = true,

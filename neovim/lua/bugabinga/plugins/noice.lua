@@ -4,6 +4,11 @@ return {
 	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
+		dependencies = {
+			'MunifTanjim/nui.nvim',
+			'rcarriga/nvim-notify',
+			-- 'nvim-telescope/telescope.nvim',
+		},
 		opts = {
 			cmdline = {
 				view = 'cmdline', -- cmdline on bottom
@@ -34,23 +39,20 @@ return {
 		},
 		config = function(_, opts)
 			local noice = require'noice'
-			local telescope = require'telescope'
 			noice.setup(opts)
-			telescope.load_extension'noice'
 
 			map.normal {
 				name = 'Open search for notifications...',
 				category = 'search',
 				keys = '<C-n><C-n>', 
-				command = function() telescope.extensions.noice.noice() end,
+				command = function()
+					local telescope = require'telescope'
+					-- telescope.load_extension'noice'
+					telescope.extensions.noice.noice()
+				end,
 			}
 
 		end,
-		dependencies = {
-			'MunifTanjim/nui.nvim',
-			'rcarriga/nvim-notify',
-			'nvim-telescope/telescope.nvim',
-		},
 	},
 	{
 		'rcarriga/nvim-notify',
