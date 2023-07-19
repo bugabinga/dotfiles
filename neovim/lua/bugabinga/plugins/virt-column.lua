@@ -1,7 +1,7 @@
 return {
   {
     'lukas-reineke/virt-column.nvim',
-    lazy = false,
+    event = 'VeryLazy',
     opts = {
       char = '│',
     },

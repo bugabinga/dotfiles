@@ -11,7 +11,35 @@ local hostname = wez.hostname()
 local enable_wayland = false
 local window_decorations = 'RESIZE'
 local font_size = 11.0
-local font = wez.font 'IBM Plex Mono'
+local font = wez.font'IBM Plex Mono'
+local font_rules = {
+  {
+    intensity = 'Bold',
+    italic = true,
+    font = wez.font {
+      family = 'VictorMono',
+      weight = 'Bold',
+      style = 'Italic',
+    },
+  },
+  {
+    italic = true,
+    intensity = 'Half',
+    font = wez.font {
+      family = 'VictorMono',
+      weight = 'DemiBold',
+      style = 'Italic',
+    },
+  },
+  {
+    italic = true,
+    intensity = 'Normal',
+    font = wez.font {
+      family = 'VictorMono',
+      style = 'Italic',
+    },
+  },
+}
 
 if hostname == 'x230' then
   font_size = 11
@@ -19,6 +47,7 @@ if hostname == 'x230' then
 elseif hostname == 'pop-os' then
   font_size = 16
 elseif hostname == 'PC-00625' then
+  font = wez.font'BlexMono Nerd Font' 
   font_size = 12
 end
 
@@ -27,6 +56,7 @@ return {
   --debug_key_events = true,
 
   font = font,
+  font_rules = font_rules,
   font_size = font_size,
   underline_position = "-2pt",
   warn_about_missing_glyphs = false,
