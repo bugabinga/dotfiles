@@ -18,8 +18,7 @@ vim.opt.wildmode = 'list:longest'
 vim.opt.wrap = true
 
 -- always display the signcolumn to avoid jitter
--- also, merge it with numbercolumn
-vim.opt.signcolumn = 'number'
+vim.opt.signcolumn = 'yes:1'
 
 -- what is a ruler? me?
 vim.opt.ruler = false

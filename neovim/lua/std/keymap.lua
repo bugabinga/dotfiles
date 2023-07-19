@@ -1,4 +1,3 @@
-local want = require 'std.want'
 local check_parameter = require 'std.check_parameter'
 
 local available_modes = {
@@ -46,8 +45,6 @@ local bind = function(self, map)
   local options = vim.tbl_extend('keep', map.options, {
     silent = true,
     desc = map.description,
-    -- our custom option to be filtered by some time later
-    visible = visible,
   })
 
 	if vim.tbl_isempty(self.mode) then self.mode[1] = available_modes.normal_visual_select_operator_pending end

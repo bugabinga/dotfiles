@@ -1,8 +1,7 @@
 local want = require 'std.want'
-local auto = require 'std.auto'
 local map = require 'std.keymap'
 
-local icon = { ' ', ' ', '', '💡' }
+local icon = { ' ', ' ', ' ', ' ' }
 icon.error = icon[1]
 icon.warn = icon[2]
 icon.info = icon[3]
@@ -16,6 +15,7 @@ local display_name = {
 }
 
 local diagnostic = vim.diagnostic
+--TODO do this on LspAttach?
 diagnostic.disable(0)
 
 local diagnostic_format = function(context)
@@ -41,7 +41,6 @@ diagnostic.config {
     border = 'rounded',
     source = 'if_many',
     header = 'Diagnostic',
-    suffix = header_format,
     prefix = prefix_format,
   },
   update_in_insert = false,
@@ -52,11 +51,11 @@ diagnostic.config {
 local sign = function(options)
   vim.fn.sign_define(options.name, {
 		text = options.text,
-    texthl = options.name,
-    numhl = options.name,
-    culhl = options.name,
-    linehl = options.name,
-  })
+		texthl = options.name,
+		numhl = nil,
+		culhl = nil,
+		linehl = nil,
+	})
 end
 
 sign { name = 'DiagnosticSignError', text = icon.error }
@@ -79,52 +78,53 @@ map.normal {
   end,
 }
 
-local show_diagnostics = function()
-	want'telescope.builtin'(
-		function(builtin)
-			builtin.diagnostics()
-		end,
-		function()
-			-- seems to have bug: https://github.com/neovim/neovim/issues/21949
-			diagnostic.open_float()
-		end)
+map.normal {
+	name = 'Show diagnostics under cursor',
+	category = 'diagnostic',
+	keys = 'H',
+	command = diagnostic.open_float,
+}
+
+local show_diagnostics_in_buffer = function()
+want{ 'telescope.builtin', 'telescope.themes' }(
+	function(builtin, themes)
+		builtin.diagnostics(themes.get_dropdown{ bufnr=0 })
+	end)
 end
 
 map.normal {
-	name = 'Show diagnostics in float window',
+	name = 'Show all diagnostics in buffer',
 	category = 'diagnostic',
 	keys = '<F6>',
-	command = function()
-		if #diagnostic.get(0) > 0 then
-			if diagnostic.is_disabled(0) then
-				diagnostic.enable(0)
-				vim.notify 'Enabling Diagnostics'
-			end
-			show_diagnostics()
-		else
-			vim.notify 'No diagnostics to show!'
-		end
-	end,
+	command = show_diagnostics_in_buffer,
+}
+
+local show_diagnostics_in_workspace = function()
+want{ 'telescope.builtin', 'telescope.themes' }(
+	function(builtin, themes)
+		builtin.diagnostics(themes.get_dropdown{})
+	end)
+end
+
+map.normal {
+	name = 'Show all diagnostics in workspace',
+	category = 'diagnostic',
+	keys = '<leader><F6>',
+	command = show_diagnostics_in_workspace,
 }
 
 map.normal {
 	name = 'Go to previous diagnostic',
 	category = 'diagnostic',
-	keys = '<C-F6>',
-	command = function()
-		diagnostic.enable(0)
-		diagnostic.goto_prev()
-	end,
+	keys = '<C-.>',
+	command = diagnostic.goto_prev,
 }
 
 map.normal {
 	name = 'Go to next diagnostic',
 	category = 'diagnostic',
-	keys = '<S-F6>',
-	command = function()
-		diagnostic.enable(0)
-		diagnostic.goto_next()
-	end,
+	keys = '<C-,>',
+	command = diagnostic.goto_next,
 }
 
 -- a little debug helper to show all kinds of diagnostics
@@ -132,7 +132,7 @@ map.normal {
 local dia = function( severity, line )
 	local ns = vim.api.nvim_create_namespace('test'.. tostring(severity))
 	local bufnr = vim.api.nvim_get_current_buf()
-	local diagnostic = {
+	local options = {
 		bufnr = bufnr,
 		lnum = line,
 		end_lnum = line,
@@ -141,8 +141,8 @@ local dia = function( severity, line )
 		message = 'This is a test ' .. tostring(severity) .. ' diagnostic',
 	}
 
-	vim.diagnostic.set(ns, bufnr, {diagnostic}) 
-	vim.diagnostic.show(ns, bufnr, {diagnostic}) 
+	vim.diagnostic.set(ns, bufnr, {options})
+	vim.diagnostic.show(ns, bufnr, {options})
 end
 
 local send_dia = function()
