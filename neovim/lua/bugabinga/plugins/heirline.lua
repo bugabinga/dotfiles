@@ -4,7 +4,11 @@ local auto = require'std.auto'
 return {
 	{
 		'rebelot/heirline.nvim',
-		event = {'BufReadPost', 'BufNew'},
+		event = 'BufEnter',
+		dependencies = {
+			'nvim-tree/nvim-web-devicons',
+			-- 'lewis6991/gitsigns.nvim',
+		},
 		config = function()
 			local heirline = require'heirline'
 			local conditions = require("heirline.conditions")
@@ -555,9 +559,5 @@ return {
 				},
 			}
 		end,
-		dependencies = {
-			'nvim-tree/nvim-web-devicons',
-			'lewis6991/gitsigns.nvim',
-		},
 	},
 }
