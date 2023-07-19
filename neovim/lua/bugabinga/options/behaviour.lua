@@ -39,6 +39,8 @@ vim.opt.splitkeep = 'screen'
 
 -- enable mouse
 vim.opt.mouse = 'a'
+-- disable popup menu on right click
+vim.opt.mousemodel = 'extend'
 
 -- integrate Nushell with nvim
 vim.opt.shell = 'nu'

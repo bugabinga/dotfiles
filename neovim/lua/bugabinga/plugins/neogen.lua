@@ -1,3 +1,5 @@
+local map = require'std.keymap'
+
 return {
 	'danymat/neogen',
 	keys = {'<A-enter>'},

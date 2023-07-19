@@ -398,6 +398,44 @@ local nugu = lush(function(injects)
 		TelescopeSelectionCaret { PmenuSel },
 		TelescopeSelection { PmenuSel },
 		TelescopeMultiSelection { fg = PmenuSel.fg, bg = ui_important_local },
+
+    GitSignsAdd{fg = DiffAdd.fg, bg = ui_backdrop },
+    GitSignsChange{ fg = DiffChange.fg, bg = ui_backdrop },
+    GitSignsDelete{ fg = DiffDelete.fg, bg = ui_backdrop },
+
+    GitSignsChangedelete{ GitSignsChange },
+    GitSignsTopdelete{ GitSignsDelete },
+    GitSignsUntracked{ GitSignsAdd },
+
+    GitSignsAddNr{ GitSignsAdd },
+    GitSignsChangeNr{ GitSignsChange },
+    GitSignsDeleteNr{ GitSignsDelete },
+
+    GitSignsChangedeleteNr{ GitSignsChange },
+    GitSignsTopdeleteNr{ GitSignsDelete },
+    GitSignsUntrackedNr{ GitSignsAdd },
+
+    GitSignsAddLn{ GitSignsAdd },
+    GitSignsChangeLn{ GitSignsChange },
+    GitSignsChangedeleteLn{ GitSignsChange },
+    GitSignsUntrackedLn{ GitSignsAdd },
+
+    GitSignsAddPreview{ GitSignsAdd },
+    GitSignsDeletePreview{ GitSignsDelete },
+
+    GitSignsCurrentLineBlame{ Debug },
+
+    GitSignsAddInline{ GitSignsAdd },
+    GitSignsDeleteInline{ GitSignsDelete },
+    GitSignsChangeInline{ GitSignsChange },
+
+    GitSignsAddLnInline{ DiffText },
+    GitSignsDeleteLnInline{ DiffText },
+    GitSignsChangeLnInline{ DiffText },
+
+    GitSignsDeleteVirtLn{ GitSignsDelete },
+    GitSignsDeleteVirtLnInLine{ DiffText },
+    GitSignsVirtLnum{ fg = LineNr.fg },
   }
 end)
 
