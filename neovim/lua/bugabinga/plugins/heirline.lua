@@ -1,9 +1,14 @@
+local icon = require'std.icon'
 local auto = require'std.auto'
 
 return {
 	{
 		'rebelot/heirline.nvim',
 		event = 'BufEnter',
+		dependencies = {
+			'nvim-tree/nvim-web-devicons',
+			-- 'lewis6991/gitsigns.nvim',
+		},
 		config = function()
 			local heirline = require'heirline'
 			local conditions = require("heirline.conditions")
@@ -78,7 +83,7 @@ return {
 				},
 
 				provider = function(self)
-					return "  %3(" .. self.mode_names[self.mode] .. "%) "
+					return " ".. icon.vim .." %3(" .. self.mode_names[self.mode] .. "%) "
 				end,
 
 				hl = function(self)
@@ -108,7 +113,7 @@ return {
 			local file_name = {
 				init = function(self)
 					self.lfilename = vim.fn.fnamemodify(self.filename, ":.")
-					if self.lfilename == "" then self.lfilename = " scratch " end
+					if self.lfilename == "" then self.lfilename = "~scratch~" end
 				end,
 
 				flexible = 2,
@@ -130,14 +135,14 @@ return {
 					condition = function()
 						return vim.bo.modified
 					end,
-					provider = "  ",
+					provider = string.format(" %s ", icon.modified),
 					hl = 'Comment',
 				},
 				{
 					condition = function()
 						return not vim.bo.modifiable or vim.bo.readonly
 					end,
-					provider = "",
+					provider = string.format(" %s ", icon.lock),
 					hl = 'ErrorMsg',
 				},
 			}
@@ -156,7 +161,7 @@ return {
 
 			local file_type = {
 				provider = function()
-					return ' ' .. string.upper(vim.bo.filetype)
+					return icon.file .. ' ' .. string.upper(vim.bo.filetype)
 				end,
 			}
 
@@ -169,9 +174,9 @@ return {
 
 			local file_format = {
 				static = {
-					dos = '␤␍',
-					unix = '␤',
-					mac = '␍',
+					dos = icon.newline .. icon.carriage_return,
+					unix = icon.newline,
+					mac = icon.carriage_return,
 				},
 				provider = function(self)
 					local fileformat = vim.bo.fileformat
@@ -213,16 +218,16 @@ return {
 					for i, server in pairs(vim.lsp.get_active_clients{ bufnr = 0 }) do
 						table.insert(names, server.name)
 					end
-					return " [" .. table.concat(names, " ") .. "]"
+					return icon.lsp .. " [" .. table.concat(names, " ") .. "]"
 				end,
 			}
 
 			local diagnostic_enabled = {
 				init = function(self)
-					self.icon = vim.diagnostic.is_disabled() and '﨡' or '蘒'
+					self.icon = vim.diagnostic.is_disabled() and icon.toggle_off or icon.toggle_on
 				end,
 				provider = function(self)
-					return ' ' .. self.icon
+					return icon.diagnostic .. ' ' .. self.icon
 				end,
 			}
 
@@ -307,7 +312,7 @@ return {
 
 				{
 					provider = function(self)
-						return '🐢  ' .. self.relative_url
+						return icon.subversion .. ' ' .. icon.branch.. ' ' .. self.relative_url
 					end,
 				},
 
@@ -322,27 +327,27 @@ return {
 
 				{
 					provider = function(self)
-						return "  " .. self.status_dict.head .. ' '
+						return icon.git .. " " .. icon.branch .. " " .. self.status_dict.head .. ' '
 					end,
 				},
 				{
 					provider = function(self)
 						local count = self.status_dict.added or 0
-						return count > 0 and (" " .. count .. ' ')
+						return count > 0 and (icon.diff_add .. " " .. count .. ' ')
 					end,
 					hl = 'DiffAdd',
 				},
 				{
 					provider = function(self)
 						local count = self.status_dict.removed or 0
-						return count > 0 and (" " .. count .. ' ')
+						return count > 0 and (icon.diff_remove .. " " .. count .. ' ')
 					end,
 					hl = 'DiffDelete',
 				},
 				{
 					provider = function(self)
 						local count = self.status_dict.changed or 0
-						return count > 0 and (" " .. count .. ' ')
+						return count > 0 and (icon.diff_change .. " " .. count .. ' ')
 					end,
 					hl = 'DiffChange',
 				},
@@ -350,7 +355,7 @@ return {
 
 			local work_dir = {
 				init = function(self)
-					self.icon = (vim.fn.haslocaldir(0) == 1 and "local" or "") .. " " .. " "
+					self.icon = (vim.fn.haslocaldir(0) == 1 and "local" or "") .. " " .. icon.folder .. " "
 					local cwd = vim.fn.getcwd(0)
 					self.cwd = vim.fn.fnamemodify(cwd, ":~")
 				end,
@@ -395,7 +400,7 @@ return {
 				provider = function()
 					local tname, _ = vim.api.nvim_buf_get_name(0):gsub(".*:", "")
 					tname = vim.fs.basename(tname)
-					return " " .. tname
+					return icon.terminal .. " " .. tname
 				end,
 				hl = 'Bold',
 			}
@@ -411,7 +416,7 @@ return {
 				condition = function()
 					return vim.fn.reg_recording() ~= "" and vim.o.cmdheight == 0
 				end,
-				provider = " ",
+				provider = icon.macro .. " ",
 				hl = 'PreProc',
 				utils.surround({ "░▒▓ ", " ▓▒░" }, nil, {
 					provider = function()
@@ -431,7 +436,7 @@ return {
 					return ok and lazy_status.has_updates()
 				end,
 				update = { "User", pattern = "LazyUpdate" },
-				provider = function() return '  ' .. require'lazy.status'.updates() .. ' ' end,
+				provider = function() return ' ' .. icon.lazy .. ' ' .. require'lazy.status'.updates() .. ' ' end,
 				on_click = {
 					callback = function() require'lazy'.update() end,
 					name = "update_plugins",
@@ -554,9 +559,5 @@ return {
 				},
 			}
 		end,
-		dependencies = {
-			'nvim-tree/nvim-web-devicons',
-			'lewis6991/gitsigns.nvim',
-		},
 	},
 }
