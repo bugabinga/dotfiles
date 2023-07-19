@@ -4,7 +4,7 @@ local want = require 'std.want'
 -- set <SPACE> as leader key
 map {
 	keys = '<space>',
-	command = '<Nop>',
+	command = '<nop>',
 }
 
 vim.g.mapleader = ' '
@@ -13,7 +13,7 @@ vim.g.maplocalleader = ' '
 -- disable default ENTER binding
 map {
 	keys = '<enter>',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 -- insert newline under or above in normal mode
@@ -46,43 +46,43 @@ map.normal {
 -- disable command history keymap, because i fatfinger it too often
 map {
 	keys = 'q:',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 map {
 	keys = 'Q:',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 map {
 	keys = 'q/',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 map {
 	keys = 'Q',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 -- disable them evil arrows
 map {
 	keys = '<up>',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 map {
 	keys = '<down>',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 map {
 	keys = '<left>',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 map {
 	keys = '<right>',
-	command = '<NOP>',
+	command = '<nop>',
 }
 
 -- system clipboard copy and paste
@@ -200,3 +200,16 @@ map.normal {
 	command = vim.cmd.redo,
 }
 
+map.normal {
+	name = 'Move next in quickfix list',
+	category = 'navigation',
+	keys = '<A-bs>',
+	command = '<cmd>cnext<cr>',
+}
+
+map.normal {
+	name = 'Move back in quickfix list',
+	category = 'navigation',
+	keys = '<bs>',
+	command = '<cmd>cprevious<cr>',
+}

@@ -58,7 +58,7 @@ local nugu = lush(function(injects)
     DiffDelete { fg = content_focus, gui = "strikethrough" }, -- diff mode: Deleted line |diff.txt|
     DiffChange { fg = content_important_global }, -- diff mode: Changed line |diff.txt|
     DiffText { fg = content_important_local.readable(), bg = content_important_local }, -- diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer { LineNr }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
+    EndOfBuffer { Normal }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
     TermCursor { lCursor }, -- cursor in a focused terminal
     TermCursorNC { Cursor }, -- cursor in an unfocused terminal
     ErrorMsg { fg = error.readable(), bg = error }, -- error messages on the command line

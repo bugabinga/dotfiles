@@ -1,8 +1,9 @@
+local map = require'std.keymap'
+
 return {
 	{
 		'folke/noice.nvim',
 		event = 'VeryLazy',
-		branch = 'main',
 		opts = {
 			cmdline = {
 				view = 'cmdline', -- cmdline on bottom
@@ -31,9 +32,24 @@ return {
 				-- cmdline = { relative = "cursor", position = { row = 0, col = 0 }, border = { style = "shadow" } },
 			},
 		},
+		config = function(_, opts)
+			local noice = require'noice'
+			local telescope = require'telescope'
+			noice.setup(opts)
+			telescope.load_extension'noice'
+
+			map.normal {
+				name = 'Open search for notifications...',
+				category = 'search',
+				keys = '<C-n><C-n>', 
+				command = function() telescope.extensions.noice.noice() end,
+			}
+
+		end,
 		dependencies = {
 			'MunifTanjim/nui.nvim',
 			'rcarriga/nvim-notify',
+			'nvim-telescope/telescope.nvim',
 		},
 	},
 	{
@@ -44,11 +60,11 @@ return {
 
 			local shadow_fade = function(...)
 				local opts = fade[1](...)
-          if opts then
-            opts.border = 'shadow'
-            opts.row = opts.row - 1
-          end
-          return opts
+				if opts then
+					opts.border = 'shadow'
+					opts.row = opts.row - 1
+				end
+				return opts
 			end
 
 			notify.setup {
@@ -58,6 +74,6 @@ return {
 				fps = 140,
 				top_down = false,
 			}
-	end,
+		end,
 	},
 }
