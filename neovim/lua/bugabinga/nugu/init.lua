@@ -107,6 +107,7 @@ local nugu = lush(function(injects)
     Float { String }, --    a floating point constant: 2.3e10
 
     Identifier { Normal }, -- (preferred) any variable name
+    MutableVariable { Debug },
     Function { Normal }, -- function name (also: methods for classes)
 
     Statement { fg = content_minor }, -- (preferred) any statement

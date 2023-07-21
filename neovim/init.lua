@@ -15,8 +15,7 @@ require'bugabinga.lazy'
 require'bugabinga.diagnostic'
 -- FIXME(buga): should this be moved somewhere else?
 require'bugabinga.trim'
--- lsp
--- require 'bugabinga.lsp'
+require 'bugabinga.lsp'
 
 -- TODO:
 -- [ ] add nu-check to null-ls

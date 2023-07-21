@@ -1,4 +1,10 @@
---- Determines the path to a root directory, starting from the given directory.
+local dirname = vim.fs.dirname 
+local exists = vim.loop.fs_stat
+
+--- number of max loop iterations when searching for markers 
+local MAX_TRAVERSAL_COUNT = 100
+
+--- Determines the path to a root directory, starting from the given path.
 -- Markers have a name and weight.
 -- Each name is checked for existence in all directories up to the root.
 -- The sum of all markers and their weight determines a directories score.
@@ -19,38 +25,46 @@
 --	{ name = "README", weight = 2 },
 --	{ naem = "Makefile", weight = 3 },
 -- }
--- local root = project.determine_root(current_buffer, markers, "~")
+-- local root = project.find_root(current_buffer, markers, vim.uv.os_homedir())
 -- print(root) -- /home/user/workspace/some_project
 -- ```
----@param directory string The starting directory, from where to begin the search.
+---@param path string? The starting path, from where to begin the search. If `nil`, the path of the current buffer is
+---used.
 ---@param markers table<string,number> List of markers, that define the root, that is searched for.
----@param root string The last directory on the path to root, when to stop searching. Usually '/' or '~'.
----@return string? #A directory, that contains the `markers` and lies on the path from `directory` to `root`.
-local function determine_root(directory, markers, root)
-  local dirname = function(path)
-    return vim.fn.fnamemodify(path, ':h')
+---@param stop string? The last directory on the path to root, when to stop searching. if `nil`, the users home
+---directory is used.
+---@return string? # Directory, that contains the `markers` and lies on the path from `path` to `stop`.
+local function find_root(path, markers, stop)
+  if not path then
+    local buffer_name = vim.api.nvim_buf_get_name(0)
+    local path = dirname(buffer_name)
   end
-  local exists = function(path)
-    return vim.loop.fs_stat(path)
-  end
+
+  stop = stop or vim.uv.os_homedir()
+
+  if not exists(stop) then error( 'the stop directory %s does not exist!':format(stop)) end
+
   local directory_scores = {}
   local current_distance_to_buffer = 0
-  --traverse the path to root and check every directory on the way for files
+  local loop_count = 0
+  --traverse the path to stop and check every directory on the way for files
   --that are named like the given markers. if markers exist, add those to the
   --score of the directory. scores of all directories with markers will be
   --processes later.
-  --the root itself never gets checked for markers!
-  -- stop if we reached the user defined root instead of the file system root
-  while directory ~= root do
+  --the stop itself never gets checked for markers!
+  -- stop if we reached the user defined stop instead of the file system root
+  while path ~= stop do
+    if loop_count > MAX_TRAVERSAL_COUNT then error('searching for markers reached the max traversal count!') end
+
     local score = {
-      path = directory,
+      path = path,
       marker_count = 0,
       distance_to_buffer_file = current_distance_to_buffer,
       markers = {},
     }
 
     for _, marker in ipairs(markers) do
-      local marker_path = directory .. '/' .. marker.name
+      local marker_path = path .. '/' .. marker.name
       if exists(marker_path) then
         score.marker_count = score.marker_count + marker.weight
         table.insert(score.markers, marker_path)
@@ -61,8 +75,10 @@ local function determine_root(directory, markers, root)
       table.insert(directory_scores, score)
     end
 
-    directory = dirname(directory)
+    path = dirname(path)
+
     current_distance_to_buffer = current_distance_to_buffer + 1
+    loop_count = loop_count + 1
   end
 
   local project_root = nil
@@ -84,19 +100,15 @@ local function determine_root(directory, markers, root)
 end
 
 --- Determines the project root directory of the current buffer file. A "project" is not clearly defined for all programming languages, so this function uses a heuristic approach.
----@param custom_markers table<string, number> list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
----@param custom_root string Given a `custom_root` the path traversal can be aborted before the filesystem root is reached. A useful value might be `~` for example, if your source code is always in your home directory. the root directory itself does __not__ get searched for markers!
----@return string|nil project_root The project root of the current buffer, or `nil`, if none could be determined.
-local function determine_project_root(custom_markers, custom_root)
-  -- glob expands user defined root and checks, that it exists
-  ---@diagnostic disable-next-line: missing-parameter
-  local root = vim.fn.glob(custom_root)
-  if root == '' then
-    vim.notify('the custom root ' .. custom_root .. ' does not exist!', 'error')
-    return nil
-  end
+---@param markers table<string, number>? list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
+---
+---@param stop string? Given a custom `stop` the path traversal can be aborted before the filesystem root is reached. the stop directory itself does __not__ get searched for markers!
+---
+---@return string? # The project root of the current buffer, or `nil`, if none could be determined.
+---
+local function find_project_root(markers)
   -- define some language-independent markers
-  local markers = {
+  local default_markers = {
     { name = '.git', weight = 1 },
     { name = '.gitignore', weight = 1 },
     { name = '.svn', weight = 1 },
@@ -104,46 +116,65 @@ local function determine_project_root(custom_markers, custom_root)
     { name = 'Jenkinsfile', weight = 1 },
     { name = '.editorconfig', weight = 1 },
     { name = 'LICENSE', weight = 1 },
+    { name = 'LICENSE.md', weight = 1 },
     { name = 'LICENSE.txt', weight = 1 },
     { name = 'COPYING', weight = 1 },
     { name = 'README', weight = 1 },
     { name = 'README.md', weight = 1 },
+    { name = 'Makefile', weight = 1 },
+    { name = 'flake.nix', weight = 1 },
+    { name = 'flake.nix', weight = 1 },
   }
-  markers = vim.tbl_deep_extend('force', markers, custom_markers)
+  markers = vim.tbl_deep_extend('force', default_markers, markers)
 
-  local buffer_name = vim.api.nvim_buf_get_name(0)
-  local directory_name = vim.fn.fnamemodify(buffer_name, ':p:h')
-  return determine_root(directory_name, markers, root)
+  return find_root(nil, markers)
 end
 
-local java_markers = {
-  { name = '.idea', weight = 2 },
-  { name = '.classpath', weight = 2 },
-  { name = '.settings', weight = 2 },
-  { name = '.project', weight = 2 },
-  { name = 'target', weight = 2 },
-  { name = 'pom.xml', weight = 2 },
-  { name = 'mvnw', weight = 3 },
-  { name = '.mvn', weight = 3 },
-  { name = 'mvnw.cmd', weight = 3 },
-  { name = 'build.gradle', weight = 2 },
-  { name = 'gradle.properties', weight = 3 },
-  { name = 'settings.gradle', weight = 3 },
-  { name = 'gradlew', weight = 3 },
-  { name = 'gradlew.bat', weight = 3 },
+local function find_java_project_root()
+  local java_markers = {
+    { name = '.idea', weight = 2 },
+    { name = '.classpath', weight = 2 },
+    { name = '.settings', weight = 2 },
+    { name = '.project', weight = 2 },
+    { name = 'target', weight = 2 },
+    { name = 'pom.xml', weight = 2 },
+    { name = 'mvnw', weight = 3 },
+    { name = '.mvn', weight = 3 },
+    { name = 'mvnw.cmd', weight = 3 },
+    { name = 'build.gradle', weight = 2 },
+    { name = 'gradle.properties', weight = 3 },
+    { name = 'settings.gradle', weight = 3 },
+    { name = 'gradlew', weight = 3 },
+    { name = 'gradlew.bat', weight = 3 },
+  }
+
+  return find_root(nil, java_markers)
+end
+
+local lua_markers = {
+  {name = '.luacheckrc', weight = 1},
+  {name = '.stylua.toml', weight = 1},
+  {name = 'selene.toml', weight = 1},
 }
-local function determine_java_project_root(user_root)
-  return determine_project_root(java_markers, user_root)
+local nvim_lua_markers = {
+  {name = 'neovim.yml', weight = 1},
+  {name = 'init.lua', weight = 1},
+  {name = 'lua', weight = 2},
+}
+
+local find_lua_project_root = function()
+  return find_root(nil, lua_markers)
 end
 
-local function is_java_project_root(directory, user_root)
-  -- avoid determine_project_root to __not__ check non-java markers
-  return determine_root(directory, java_markers, user_root) ~= nil
+local find_nvim_lua_project_root = function()
+  local markers = vim.tbl_deep_extend('error', lua_markers, nvim_lua_markers)
+  return find_root(nil, markers)
 end
 
 return {
-  is_java_project_root = is_java_project_root,
-  determine_root = determine_root,
-  determine_project_root = determine_project_root,
-  determine_java_project_root = determine_java_project_root,
+  find_root = find_root,
+  find_project_root = find_project_root,
+  find_java_project_root = find_java_project_root,
+  find_lua_project_root = find_lua_project_root,
+  find_nvim_lua_project_root = find_nvim_lua_project_root,
 }
