@@ -48,7 +48,7 @@ elseif hostname == 'pop-os' then
   font_size = 16
 elseif hostname == 'PC-00625' then
   font = wez.font'BlexMono Nerd Font' 
-  font_size = 12
+  font_size = 14
 end
 
 return {
