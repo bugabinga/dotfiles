@@ -26,7 +26,7 @@ end
 local toggler_tostring = function(self)
 	local all_default = vim.iter(self.options)
 	:all(function(option) return get_option(option.name) == option.default end)
-	return self.display_name .. ' ' .. ( all_default and toggle_off_icon or toggle_on_icon )
+	return self.display_name .. ':' .. ( all_default and toggle_off_icon or toggle_on_icon )
 end
 
 local make_toggler = function( display_name, options)
@@ -60,7 +60,8 @@ local tostring = function(self)
 	return vim.iter(self)
 	:map(toggler_tostring)
 	:fold('', function(buffer, text)
-	  return buffer .. (buffer == '' and '' or '  ') .. text	
+		local delimiter = '|'
+	  return buffer .. (buffer == '' and delimiter or ' ') .. text	
 	end)
 end
 
