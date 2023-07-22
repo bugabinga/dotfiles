@@ -12,7 +12,12 @@ declare -a fonts=(
     BitstreamVeraSansMono
     CascadiaCode
     CodeNewRoman
+    ComicShannsMono
+    Cousine
+    DaddyTimeMono
     DroidSansMono
+    EnvyCodeR
+    FantasqueSansMono
     FiraCode
     FiraMono
     Gohu
@@ -24,14 +29,23 @@ declare -a fonts=(
     iA-Writer
     Iosevka
     JetBrainsMono
+    Lekton
+    Lilex
     Meslo
+    Mononoki
+    MPlus
     Overpass
     ProggyClean
+    ProFont
     RobotoMono
     SourceCodePro
+    ShareTechMono
     SpaceMono
     Ubuntu
     UbuntuMono
+    Terminus
+    VictorMono
+    NerdFontsSymbolsOnly
 )
 
 version='2.1.0'
@@ -46,7 +60,7 @@ for font in "${fonts[@]}"; do
     download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
     echo "Downloading $download_url"
     wget "$download_url"
-    unzip "$zip_file" -d "$fonts_dir"
+    unzip -fuo "$zip_file" -d "$fonts_dir"
     rm "$zip_file"
 done
 
