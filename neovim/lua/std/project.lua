@@ -1,7 +1,8 @@
-local dirname = vim.fs.dirname 
+local join = require'std.table'.join
+local dirname = vim.fs.dirname
 local exists = vim.loop.fs_stat
 
---- number of max loop iterations when searching for markers 
+--- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
 
 --- Determines the path to a root directory, starting from the given path.
@@ -35,14 +36,12 @@ local MAX_TRAVERSAL_COUNT = 100
 ---directory is used.
 ---@return string? # Directory, that contains the `markers` and lies on the path from `path` to `stop`.
 local function find_root(path, markers, stop)
-  if not path then
-    local buffer_name = vim.api.nvim_buf_get_name(0)
-    local path = dirname(buffer_name)
-  end
-
+  path = path or dirname(vim.api.nvim_buf_get_name(0))
   stop = stop or vim.uv.os_homedir()
 
-  if not exists(stop) then error( 'the stop directory %s does not exist!':format(stop)) end
+  --FIXME:: vim.validate
+
+  if not exists(stop) then error( ( 'the stop directory %s does not exist!' ):format(stop) ) end
 
   local directory_scores = {}
   local current_distance_to_buffer = 0
@@ -102,8 +101,6 @@ end
 --- Determines the project root directory of the current buffer file. A "project" is not clearly defined for all programming languages, so this function uses a heuristic approach.
 ---@param markers table<string, number>? list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
 ---
----@param stop string? Given a custom `stop` the path traversal can be aborted before the filesystem root is reached. the stop directory itself does __not__ get searched for markers!
----
 ---@return string? # The project root of the current buffer, or `nil`, if none could be determined.
 ---
 local function find_project_root(markers)
@@ -125,9 +122,8 @@ local function find_project_root(markers)
     { name = 'flake.nix', weight = 1 },
     { name = 'flake.nix', weight = 1 },
   }
-  markers = vim.tbl_deep_extend('force', default_markers, markers)
 
-  return find_root(nil, markers)
+  return find_root(nil, join(default_markers, markers))
 end
 
 local function find_java_project_root()
@@ -147,28 +143,31 @@ local function find_java_project_root()
     { name = 'gradlew', weight = 3 },
     { name = 'gradlew.bat', weight = 3 },
   }
-
   return find_root(nil, java_markers)
 end
 
+-- TODO: how to get a marker for luarocks stuff?
 local lua_markers = {
-  {name = '.luacheckrc', weight = 1},
-  {name = '.stylua.toml', weight = 1},
-  {name = 'selene.toml', weight = 1},
+  { name = '.luarc.json', weight = 1 },
+  { name = '.luarc.jsonc', weight = 1 },
+  { name = '.luacheckrc', weight = 1 },
+  { name = '.stylua.toml', weight = 1 },
+  { name = 'stylua.toml', weight = 1 },
+  { name = 'selene.toml', weight = 1 },
+  { name = 'selene.yml', weight = 1 },
 }
+
 local nvim_lua_markers = {
   {name = 'neovim.yml', weight = 1},
-  {name = 'init.lua', weight = 1},
-  {name = 'lua', weight = 2},
+  {name = 'lua', weight = 1},
 }
 
 local find_lua_project_root = function()
   return find_root(nil, lua_markers)
 end
 
-local find_nvim_lua_project_root = function()
-  local markers = vim.tbl_deep_extend('error', lua_markers, nvim_lua_markers)
-  return find_root(nil, markers)
+local find_lua_nvim_project_root = function()
+  return find_root(nil, join(lua_markers, nvim_lua_markers))
 end
 
 return {
@@ -176,5 +175,5 @@ return {
   find_project_root = find_project_root,
   find_java_project_root = find_java_project_root,
   find_lua_project_root = find_lua_project_root,
-  find_nvim_lua_project_root = find_nvim_lua_project_root,
+  find_lua_nvim_project_root = find_lua_nvim_project_root,
 }

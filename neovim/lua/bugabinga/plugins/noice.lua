@@ -36,6 +36,16 @@ return {
 				-- does not seem to play well with other popups
 				-- cmdline = { relative = "cursor", position = { row = 0, col = 0 }, border = { style = "shadow" } },
 			},
+			routes = {
+        {
+          view = 'split',
+          filter = { event = 'msg_show', min_height=20 },
+        },
+        {
+          filter = { event = 'msg_show', kind = ' search_count' },
+          opts = { skip = true },
+        }
+      },
 		},
 		config = function(_, opts)
 			local noice = require'noice'
@@ -52,30 +62,44 @@ return {
 				end,
 			}
 
-		end,
-	},
-	{
-		'rcarriga/nvim-notify',
-		config  = function()
-			local notify = require'notify'
-			local fade = require'notify.stages.fade' 'bottom_up'
+			map.command_line {
+        name = 'Redirect Cmdline',
+        category = 'ui',
+        keys = '<S-cr>',
+        command = function() noice.redirect(vim.fn.getcmdline()) end,
+      }
 
-			local shadow_fade = function(...)
-				local opts = fade[1](...)
-				if opts then
-					opts.border = 'shadow'
-					opts.row = opts.row - 1
-				end
-				return opts
-			end
+      map.normal {
+        name = 'Dismiss current notifications',
+        category = 'notify',
+        keys = '<esc>',
+        command = function() noice.cmd 'dismiss' end,
+      }
 
-			notify.setup {
-				stages = { shadow_fade, unpack(fade, 2) },
-				render = 'compact',
-				timeout = 10000,
-				fps = 140,
-				top_down = false,
-			}
-		end,
-	},
+    end,
+  },
+  {
+    'rcarriga/nvim-notify',
+    config  = function()
+      local notify = require'notify'
+      local fade = require'notify.stages.fade' 'bottom_up'
+
+      local shadow_fade = function(...)
+        local opts = fade[1](...)
+        if opts then
+          opts.border = 'shadow'
+          opts.row = opts.row - 1
+        end
+        return opts
+      end
+
+      notify.setup {
+        stages = { shadow_fade, unpack(fade, 2) },
+        render = 'compact',
+        timeout = 10000,
+        fps = 140,
+        top_down = false,
+      }
+    end,
+  },
 }

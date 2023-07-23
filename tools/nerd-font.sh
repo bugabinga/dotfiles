@@ -1,54 +1,14 @@
 #!/bin/bash
+set -eu fail
 
 # rewrite this some time...
 
 declare -a fonts=(
-    3270
-    Agave
-    AnonymousPro
-    Arimo
-    ArulentSansMono
-    BigBlueTerminal
-    BitstreamVeraSansMono
-    CascadiaCode
-    CodeNewRoman
-    ComicShannsMono
-    Cousine
-    DaddyTimeMono
-    DroidSansMono
-    EnvyCodeR
-    FantasqueSansMono
-    FiraCode
-    FiraMono
-    Gohu
-    Go-Mono
-    Hack
-    Hasklig
-    Hermit
     IBMPlexMono
-    iA-Writer
-    Iosevka
-    JetBrainsMono
-    Lekton
-    Lilex
-    Meslo
-    Mononoki
-    MPlus
-    Overpass
-    ProggyClean
-    ProFont
-    RobotoMono
-    SourceCodePro
-    ShareTechMono
-    SpaceMono
-    Ubuntu
-    UbuntuMono
-    Terminus
     VictorMono
-    NerdFontsSymbolsOnly
 )
 
-version='2.1.0'
+version='3.0.2'
 fonts_dir="${HOME}/.local/share/fonts"
 
 if [[ ! -d "$fonts_dir" ]]; then
@@ -60,7 +20,7 @@ for font in "${fonts[@]}"; do
     download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
     echo "Downloading $download_url"
     wget "$download_url"
-    unzip -fuo "$zip_file" -d "$fonts_dir"
+    ouch decompress --dir "$fonts_dir" --yes --quiet "$zip_file"
     rm "$zip_file"
 done
 

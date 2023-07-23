@@ -211,7 +211,7 @@ return {
 
 			local lsp_active = {
 				condition = conditions.lsp_attached,
-				update = {'LspAttach', 'LspDetach'},
+				update = {'LspAttach', 'LspDetach', 'BufEnter'},
 
 				provider  = function()
 					local names = {}
