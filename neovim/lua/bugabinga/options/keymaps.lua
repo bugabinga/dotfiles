@@ -146,18 +146,6 @@ map.normal {
 	command = open_link_under_cursor,
 }
 
---TODO move to noice config
-map.normal {
-	name = 'Dismiss current notifications',
-	category = 'notify',
-	keys = '<esc>',
-	command = function()
-		want { 'noice' }(function(noice)
-			noice.cmd 'dismiss'
-		end)
-	end,
-}
-
 map.normal {
 	name = 'Dismiss current search highlight',
 	category = 'search',
@@ -200,6 +188,11 @@ map.normal {
 	command = vim.cmd.redo,
 }
 
+map {
+  keys = '<bs>',
+  command = '<nop>',
+}
+
 map.normal {
 	name = 'Move next in quickfix list',
 	category = 'navigation',
@@ -212,4 +205,18 @@ map.normal {
 	category = 'navigation',
 	keys = '<bs>',
 	command = '<cmd>cprevious<cr>',
+}
+
+map.normal {
+  name = 'Open quickfix list',
+  category = 'navigation',
+  keys = '<bs><bs>',
+  command = '<cmd>copen<cr>',
+}
+
+map.normal {
+  name = 'Open nvim configuration',
+  category = 'config',
+  keys = '<F2><F2>',
+  command = '<cmd>tabedit ' .. vim.fn.stdpath'config' .. '<cr>',
 }

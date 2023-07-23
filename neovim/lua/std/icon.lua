@@ -4,7 +4,7 @@ return {
 	diagnostic = '⊙',
 	spelling = '󰓆',
 	linenumber = '󰉻',
-	linehighlight = '―',
+	linehighlight = '󰘤',
 	modified = '',
 	lock = '',
 	file = '',

@@ -1,3 +1,4 @@
+local win32 = vim.loop.os_uname().sysname:match'Win'
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -26,7 +27,7 @@ lazy.setup('bugabinga.plugins', {
     missing = true,
   },
   checker = {
-    enabled = not vim.loop.os_uname().sysname:match'Win',
+    enabled = not win32,
   },
   ui = {
   	size = { width = 0.69 , heigth = 0.69 },
@@ -58,6 +59,11 @@ lazy.setup('bugabinga.plugins', {
         'tutor',
       },
     },
+  },
+  dev = {
+    fallback = true,
+    patterns = { 'bugabinga' },
+    path = win32 and 'W:/' or '~/Workspace'
   },
 })
 

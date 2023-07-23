@@ -85,11 +85,13 @@ return {
 				'zig',
 			},
 
+			ignore_install = { 'oil' },
+
 			auto_install = true,
 
 			autotag = { enable = true },
 
-			-- TODO configure this
+			-- TODO(oli): configure this
 			refactor = 'all',
 
 			context_commentstring = { enable = true, enable_autocmd = false },

@@ -3,21 +3,21 @@ local nugu = require 'bugabinga.nugu'
 
 local key_binds = require 'bugabinga.key_binds'
 local dark_mode = require 'bugabinga.dark_mode'
--- TODO mux server seems slow.
 -- local workspaces = require 'bugabinga.workspaces'
-local status = require 'bugabinga.status'
+require 'bugabinga.status'
+require 'bugabinga.neovim_zen_mode'
 
 local hostname = wez.hostname()
 local enable_wayland = false
 local window_decorations = 'RESIZE'
 local font_size = 11.0
-local font = wez.font'IBM Plex Mono'
+local font = wez.font'Blex Mono Nerd Font'
 local font_rules = {
   {
     intensity = 'Bold',
     italic = true,
     font = wez.font {
-      family = 'VictorMono',
+      family = 'VictorMono Nerd Font',
       weight = 'Bold',
       style = 'Italic',
     },
@@ -26,7 +26,7 @@ local font_rules = {
     italic = true,
     intensity = 'Half',
     font = wez.font {
-      family = 'VictorMono',
+      family = 'VictorMono Nerd Font',
       weight = 'DemiBold',
       style = 'Italic',
     },
@@ -35,7 +35,7 @@ local font_rules = {
     italic = true,
     intensity = 'Normal',
     font = wez.font {
-      family = 'VictorMono',
+      family = 'VictorMono Nerd Font',
       style = 'Italic',
     },
   },

@@ -15,7 +15,7 @@ return {
     config = function()
       -- TODO: setup cmp integration
 
-      -- TODO: setup keymaps
+      -- TODO: setup keymaps with hydra
       -- local keymap = vim.keymap.set
       -- local genghis = require("genghis")
       -- keymap("n", "<leader>yp", genghis.copyFilepath)

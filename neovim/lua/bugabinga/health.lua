@@ -3,8 +3,6 @@
 -- * i like to use with neovim.
 -- * plugins need.
 
-local check_parameter = require'std.check_parameter'
-
 local _ = {}
 
 local function program_installed(name_of_executable)
@@ -24,8 +22,10 @@ end
 local programs_to_check = {}
 
 _.add_dependency = function(program)
-	check_parameter(program, 'add_program', 'program', 'table')
-	check_parameter(program.name_of_executable, 'add_program', 'program.name_of_executable', 'string')
+  vim.validate{
+    program = { program, 'table' },
+    name_of_executable = { program.name_of_executable, 'string' },
+  }
 
 	programs_to_check[program.name_of_executable] = program
 
