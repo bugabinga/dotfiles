@@ -1,4 +1,8 @@
 return {
+  error = '󰇷',
+  warn = '󰱯',
+  info = '󰩖',
+  hint = '󰊪',
 	toggle_on = '',
 	toggle_off = '',
 	diagnostic = '⊙',
@@ -22,5 +26,7 @@ return {
 	terminal = '',
 	macro = '',
 	lazy = '󰄻',
+	global = '󱥔',
+	['local'] = '󱥕',
 }
 

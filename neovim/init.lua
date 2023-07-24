@@ -22,6 +22,3 @@ require 'bugabinga.lsp'
 -- [ ] DAP
 -- [ ] nugu theme
 -- [ ] add nu-check to nvim-lint
-
--- PLUGINS TO TRY
--- https://github.com/ThePrimeagen/refactoring.nvim
