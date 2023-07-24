@@ -1,6 +1,8 @@
-local count = vim.tbl_count
-
-local join = function( tableA, tableB )
+--- Joins to tables into new table.
+--- @param tableA table left table.
+--- @param tableB table right table.
+--- @return table table New table with left and right tables joined.
+return function( tableA, tableB )
 	vim.validate{
 		tableA = { tableA, 'table' },
 		tableB = { tableB, 'table' },
@@ -19,9 +21,3 @@ local join = function( tableA, tableB )
 
 	return newTable
 end
-
---TODO: add methods from lua table and vim.tbl_*
-return {
-	join = join,
-	count = count,
-}
