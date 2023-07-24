@@ -112,8 +112,8 @@ return {
 
 			local file_name = {
 				init = function(self)
-					self.lfilename = vim.fn.fnamemodify(self.filename, ":.")
-					if self.lfilename == "" then self.lfilename = "~scratch~" end
+					self.lfilename = vim.fs.normalize(vim.fn.fnamemodify(self.filename, ":."))
+					if self.lfilename == "" then self.lfilename = "~new~" end
 				end,
 
 				flexible = 2,
@@ -125,7 +125,7 @@ return {
 				},
 				{
 					provider = function(self)
-						return vim.fn.pathshorten(self.lfilename)
+						return vim.fs.normalize(vim.fn.pathshorten(self.lfilename))
 					end,
 				},
 			}
@@ -149,7 +149,7 @@ return {
 
 			local file_name_block = {
 				init = function(self)
-					self.filename = vim.api.nvim_buf_get_name(0)
+					self.filename = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
 				end,
 
 				file_name,
@@ -215,10 +215,10 @@ return {
 
 				provider  = function()
 					local names = {}
-					for i, server in pairs(vim.lsp.get_active_clients{ bufnr = 0 }) do
-						table.insert(names, server.name)
+					for i, client in pairs(vim.lsp.get_active_clients{ bufnr = 0 }) do
+						table.insert(names, client.name)
 					end
-					return icon.lsp .. " [" .. table.concat(names, " ") .. "]"
+					return icon.lsp .. " " .. table.concat(names, " ") 
 				end,
 			}
 
@@ -235,10 +235,10 @@ return {
 				condition = conditions.has_diagnostics,
 
 				static = {
-					error_icon = vim.fn.sign_getdefined("DiagnosticSignError")[1].text,
-					warn_icon = vim.fn.sign_getdefined("DiagnosticSignWarn")[1].text,
-					info_icon = vim.fn.sign_getdefined("DiagnosticSignInfo")[1].text,
-					hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
+				  error_icon = icon.error,
+				  warn_icon = icon.warn,
+				  info_icon = icon.info,
+				  hint_icon = icon.hint,
 				},
 
 				init = function(self)
@@ -355,9 +355,8 @@ return {
 
 			local work_dir = {
 				init = function(self)
-					self.icon = (vim.fn.haslocaldir(0) == 1 and "local" or "") .. " " .. icon.folder .. " "
-					local cwd = vim.fn.getcwd(0)
-					self.cwd = vim.fn.fnamemodify(cwd, ":~")
+					self.icon = (vim.fn.haslocaldir(0) == 1 and icon['local'] or "") .. " " .. icon.global .. " "
+					self.cwd = vim.fs.normalize(vim.uv.cwd()):gsub(vim.fs.normalize(vim.uv.os_homedir()),"~") 
 				end,
 
 				flexible = 1,
@@ -365,16 +364,14 @@ return {
 				{
 					-- evaluates to the full-length path
 					provider = function(self)
-						local trail = self.cwd:sub(-1) == "/" and "" or "/"
-						return self.icon .. self.cwd .. trail
+						return self.icon .. self.cwd
 					end,
 				},
 				{
 					-- evaluates to the shortened path
 					provider = function(self)
 						local cwd = vim.fn.pathshorten(self.cwd)
-						local trail = self.cwd:sub(-1) == "/" and "" or "/"
-						return self.icon .. cwd .. trail
+						return self.icon .. cwd
 					end,
 				},
 				{

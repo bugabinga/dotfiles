@@ -4,6 +4,10 @@ local normalize = vim.fs.normalize
 local exists = vim.loop.fs_stat
 local validate = vim.validate
 
+--TODO: can this be memoized for perf?
+-- is the root of a buffer constant over time?
+-- maybe not truly constant, but constant in relation to the lifetime of a neovim session?
+
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
 

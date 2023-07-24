@@ -5,7 +5,7 @@ local lua_ls =
 {
   name = 'LuaLS',
   filetypes = 'lua',
-  cmd = 'lua-language-server',
+  command = 'lua-language-server',
   root_dir = project.find_lua_project_root,
   single_file_support = true,
   workspaces = true,
@@ -30,7 +30,7 @@ local nvim_lua_ls =
 {
   name = 'LuaLS(nvim)',
   filetypes = 'lua',
-  cmd = 'lua-language-server',
+  command = 'lua-language-server',
   root_dir = project.find_lua_nvim_project_root,
   single_file_support = false,
   workspaces = true,
