@@ -1,6 +1,8 @@
 local join = require'std.table'.join
 local dirname = vim.fs.dirname
+local normalize = vim.fs.normalize
 local exists = vim.loop.fs_stat
+local validate = vim.validate
 
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
@@ -36,10 +38,17 @@ local MAX_TRAVERSAL_COUNT = 100
 ---directory is used.
 ---@return string? # Directory, that contains the `markers` and lies on the path from `path` to `stop`.
 local function find_root(path, markers, stop)
-  path = path or dirname(vim.api.nvim_buf_get_name(0))
-  stop = stop or vim.uv.os_homedir()
 
-  --FIXME:: vim.validate
+  validate{
+  	path = { path, 'string', true },
+  	markers = { markers, 'table'},
+  	stop = { stop, 'string', true},
+	}
+
+  path = path or dirname(vim.api.nvim_buf_get_name(0))
+  path = normalize(path)
+  stop = stop or vim.uv.os_homedir()
+  stop = normalize(stop)
 
   if not exists(stop) then error( ( 'the stop directory %s does not exist!' ):format(stop) ) end
 
