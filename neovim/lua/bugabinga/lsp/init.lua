@@ -21,7 +21,9 @@ local token_update = function(lsp_client)
   end
 
   --TODO: find more use cases for semantic tokens
-  --TODO: global variables
+  --* global variables
+  --* functions with side effects
+  --* closures that capture something
 end
 
 

@@ -75,16 +75,27 @@ vim.opt.lazyredraw = false
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
-vim.opt.guifont = 'BlexMono NF:h16:antialias=true'
+vim.opt.guifont = 'BlexMono_Nerd_Font:h14:#e-subpixelantialias:#h-none'
 
 -- neovide only options
 if vim.g.neovide then
   vim.g.neovide_floating_blur_amount_x = 4.0
   vim.g.neovide_floating_blur_amount_y = 4.0
-  vim.g.neovide_scroll_animation_length = 0.33
-  vim.g.neovide_fullscreen = true
+  vim.g.neovide_scroll_animation_length = 0.42
+  -- vim.g.neovide_fullscreen = true
+  vim.g.neovide_remember_window_size = true
   vim.g.neovide_profiler = false
   vim.g.neovide_cursor_animation_length = 0.11
-  vim.g.neovide_cursor_trail_length = 0.666
+  vim.g.neovide_cursor_trail_length = 0.69
   vim.g.neovide_cursor_vfx_mode = 'pixiedust'
+  vim.g.neovide_cursor_unfocused_outline_width = 0.125
+  vim.g.neovide_cursor_antialiasing = true
+  vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_bottom = 0
+  vim.g.neovide_padding_right = 1
+  vim.g.neovide_padding_left = 1
+  vim.g.neovide_hide_mouse_when_typing = false
+  vim.g.neovide_theme = 'auto'
+  vim.g.neovide_refresh_rate = 60
+  vim.g.neovide_refresh_rate_idle = 5
 end

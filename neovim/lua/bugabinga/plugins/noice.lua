@@ -7,7 +7,6 @@ return {
 		dependencies = {
 			'MunifTanjim/nui.nvim',
 			'rcarriga/nvim-notify',
-			-- 'nvim-telescope/telescope.nvim',
 		},
 		opts = {
 			cmdline = {
@@ -21,48 +20,83 @@ return {
 					['cmp.entry.get_documentation'] = true,
 				},
 			},
-			-- you can enable a preset for easier configuration
 			presets = {
-				bottom_search = true, -- use a classic bottom cmdline for search
-				command_palette = false, -- position the cmdline and popupmenu together
-				long_message_to_split = true, -- long messages will be sent to a split
 				inc_rename = true, -- enables an input dialog for inc-rename.nvim
-				lsp_doc_border = true, -- add a border to hover docs and signature help
 			},
 			views = {
-				popupmenu = { border = { style = "shadow" } },
-				popup = { border = { style = "shadow" } },
-				hover = { border = { style = "shadow" } },
-				-- does not seem to play well with other popups
-				-- cmdline = { relative = "cursor", position = { row = 0, col = 0 }, border = { style = "shadow" } },
-			},
-			routes = {
+			  vsplit = {
+          size = { width = 'auto', height = 'auto'},
+        },
+				popupmenu = {
+          border = { style = "shadow" },
+        },
+				popup = {
+          border = { style = "shadow" },
+        },
+				hover = {
+          border = { style = "shadow" },
+          position = { row = -2, col = 2 },
+        },
+				-- does not seem to play well with other popups?
+				cmdline = {
+          relative = "cursor",
+          position = { row = 0, col = 0 },
+          size = { min_width = 42, width = 'auto', height = 'auto'},
+          border = { style = "shadow" },
+        },
+        cmdline_popupmenu = {
+          relative = "cursor",
+          position = { row = 1, col = 0 },
+          size = { min_width = 42, width = "auto", height = 'auto' },
+          border = { style = "shadow", padding = { 0, 1 } },
+          win_options = { winhighlight = { Normal = "Normal", FloatBorder = "NoiceCmdlinePopupBorder" } },
+        },
+      },
+      routes = {
         {
-          view = 'split',
-          filter = { event = 'msg_show', min_height=20 },
+          filter = { event = 'msg_show', kind = 'quickfix' },
+          opts = { skip = true },
         },
         {
-          filter = { event = 'msg_show', kind = ' search_count' },
+          filter = { event = "msg_show", find = "E42" },
           opts = { skip = true },
+        },
+        {
+          filter = { event = "msg_show", kind = "", find = '^".*" %[.*%]', },
+          opts = { skip = true },
+        },
+        {
+          filter = { event = "notify", min_height = 15 },
+          view = "split",
+        },
+        {
+          filter = { cmdline = "^:%s*!" },
+          --TODO: pipe external commands to terminal?
+          --terminal view does not exist, right?
+          view = "vsplit"
+        },
+        {
+          filter = { cmdline = true, min_height = 2 },
+          view = "cmdline_output",
+        },
+        {
+          filter = { any = { { cmdline = "^:%s*lua%s+"}, { cmdline = "^:%s*lua%s*=%s*"}, { cmdline = "^:%s*=%s*"}, } },
+          view = 'cmdline_output',
         }
       },
-		},
-		config = function(_, opts)
-			local noice = require'noice'
-			noice.setup(opts)
+    },
+    config = function(_, opts)
+      local noice = require'noice'
+      noice.setup(opts)
 
-			map.normal {
-				name = 'Open search for notifications...',
-				category = 'search',
-				keys = '<C-n><C-n>', 
-				command = function()
-					local telescope = require'telescope'
-					-- telescope.load_extension'noice'
-					telescope.extensions.noice.noice()
-				end,
-			}
+      map.normal {
+        name = 'Open search for notifications...',
+        category = 'search',
+        keys = '<C-n><C-n>',
+        command = function() noice.cmd'history' end,
+      }
 
-			map.command_line {
+      map.command_line {
         name = 'Redirect Cmdline',
         category = 'ui',
         keys = '<S-cr>',
@@ -76,13 +110,35 @@ return {
         command = function() noice.cmd 'dismiss' end,
       }
 
+      local noice_lsp = require'noice.lsp'
+
+      map.normal {
+        name = 'Scroll up in documentation popup',
+        category = 'ui',
+        keys = '<C-f>',
+        command = function()
+          if not noice_lsp.scroll(-4) then return '<C-f>' end
+        end,
+        options = { expr = true },
+      }
+
+      map.normal {
+        name = 'Scroll down in documentation popup',
+        category = 'ui',
+        keys = '<C-b>',
+        command = function()
+          if not noice_lsp.scroll(4) then return '<C-b>' end
+        end,
+        options = { expr = true },
+      }
+
     end,
   },
   {
     'rcarriga/nvim-notify',
     config  = function()
       local notify = require'notify'
-      local fade = require'notify.stages.fade' 'bottom_up'
+      local fade = require'notify.stages.fade'('bottom_up')
 
       local shadow_fade = function(...)
         local opts = fade[1](...)
@@ -97,7 +153,7 @@ return {
         stages = { shadow_fade, unpack(fade, 2) },
         render = 'compact',
         timeout = 10000,
-        fps = 140,
+        fps = 60,
         top_down = false,
       }
     end,
