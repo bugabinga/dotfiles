@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy.view.colors').did_setup = true
 
 local lazy = require 'lazy'
+local icon = require'std.icon'
 
 lazy.setup('bugabinga.plugins', {
   defaults = {
@@ -25,14 +26,23 @@ lazy.setup('bugabinga.plugins', {
   },
   install = {
     missing = true,
+    colorscheme = { 'nugu', 'quiet' },
   },
   checker = {
     enabled = not win32,
+    notify = false,
   },
   ui = {
   	size = { width = 0.69 , heigth = 0.69 },
     border = 'shadow',
+    icons = {
+      lazy = icon.lazy,
+      task = icon.terminal,
+      ft = icon.file,
+    },
   },
+  custom_keys = false,
+  concurrency = 8,
   performance = {
     rtp = {
       disabled_plugins = {

@@ -220,3 +220,10 @@ map.normal {
   keys = '<F2><F2>',
   command = '<cmd>tabedit ' .. vim.fn.stdpath'config' .. '<cr>',
 }
+
+map.normal {
+  name = 'Execute current line as lua in neovim',
+  category = 'config',
+  keys = '<cr><cr>',
+  command = '<cmd>lua <c-r><c-l><cr>'
+}

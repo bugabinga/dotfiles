@@ -17,6 +17,7 @@ local display_name = {
 }
 
 local diagnostic = vim.diagnostic
+diagnostic.disable(0)
 
 auto 'disable_diagnostic_initially'{
   description = 'Disable Diagnostics initially, when attaching an LSP client to a buffer',
