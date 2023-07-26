@@ -32,6 +32,7 @@ declare -a fonts=(
     SpaceMono
     Ubuntu
     UbuntuMono
+    VictorMono
 )
 
 version='2.1.0'
