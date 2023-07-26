@@ -7,6 +7,9 @@
 
 local map = require'std.keymap'
 local auto = require'std.auto'
+local deep_concat = require'std.table.deep_concat'
+
+local lsp_client_configs = require'bugabinga.lsp.clients'
 
 local _ = {}
 
@@ -41,7 +44,6 @@ local lsp_start  = function(file_type_event)
 
   -- vim.print( "SEARCHING LSP CLIENT FOR:", match, buffer_path)
 
-  local lsp_client_configs = require'bugabinga.lsp.clients'
 
   local potential_client_configs = vim.iter(lsp_client_configs)
     :map(function(config)
@@ -107,7 +109,7 @@ local lsp_start  = function(file_type_event)
     before_init = config.before_init,
     -- on_init = nil, -- should i send workspace/didChangeConfiguration here?
     on_exit = function(code, signal, client_id) vim.print("LSP CLIENT EXIT", code, signal, client_id) end,
-    on_attach = function(client, bufnr) vim.print("LSP CLIENT ATTACH", client, bufnr) end,
+    on_attach = function(client, bufnr) vim.print("LSP CLIENT ATTACH", client.data.client_id, bufnr) end,
     trace = 'off',
     flags = { allow_incremental_sync = true, debounce_text_changes = 50, exit_timeout = 200},
     root_dir = config.root_dir(buffer_path),
@@ -150,5 +152,56 @@ auto 'lsp' {
   }
 }
 
+local lsp_info = function(command)
+  local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
+  local active_clients = vim.lsp.get_active_clients(all_or_current)
+
+  -- basic info is:
+  -- * id
+  -- * name
+  -- * cmd
+  --  * pid, cpu, mem
+  -- * root_dir/workspaces
+  -- * filetypes
+  -- * single file support
+  -- * workspaces support
+  -- * buffers (if 'all')
+  --
+  -- TODO extended infos (needs GUI)
+  -- * client caps
+  -- * server caps
+  -- * settings
+  -- * ...
+
+  local infos = vim.iter(active_clients)
+    :map(function(client)
+      local name = client.name
+      local config = vim.iter(lsp_client_configs):find(function(config) return config.name == name end)
+      assert(config, ( 'How did we not find a config for %s ?!?!' ):format(name))
+    local basic = {
+        id = client.id,
+        name = name,
+        --TODO: find cmd in (neovim) PATH
+        cmd = { client.config.cmd, client.config.cmd_cwd, 'TODO:pid', 'TODO:cpu', 'TODO:mem'},
+        workspace_folders = vim.iter(client.workspace_folders):map(function(w) return vim.fs.normalize(w.name) end):totable(),
+        filetypes = config.filetypes,
+        single_file_support = config.single_file_support,
+        workspaces = config.workspaces,
+    }
+    return basic
+  end)
+  :totable()
+
+  --TODO replace with GUI
+  vim.print(deep_concat(infos))
+end
+
+vim.api.nvim_create_user_command ('LspInfo',
+  lsp_info,
+  {
+    nargs = '?',
+    complete = function() return {"all"} end,
+    desc = 'Shows basic information about running LSP clients.',
+  })
 
 return setmetatable(_ ,{ })

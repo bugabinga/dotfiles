@@ -11,53 +11,60 @@ local hostname = wez.hostname()
 local enable_wayland = false
 local window_decorations = 'RESIZE'
 local font_size = 11.0
-local font = wez.font'Blex Mono Nerd Font'
-local font_rules = {
-  {
-    intensity = 'Bold',
-    italic = true,
-    font = wez.font {
-      family = 'VictorMono Nerd Font',
-      weight = 'Bold',
-      style = 'Italic',
-    },
-  },
-  {
-    italic = true,
-    intensity = 'Half',
-    font = wez.font {
-      family = 'VictorMono Nerd Font',
-      weight = 'DemiBold',
-      style = 'Italic',
-    },
-  },
-  {
-    italic = true,
-    intensity = 'Normal',
-    font = wez.font {
-      family = 'VictorMono Nerd Font',
-      style = 'Italic',
-    },
-  },
-}
-
+local normal_font_family = 'Blex Mono Nerd Font'
+local italic_font_family = 'Victor Mono Nerd Font'
 if hostname == 'x230' then
   font_size = 11
   enable_wayland = true
 elseif hostname == 'pop-os' then
-  font_size = 16
+  font_size = 14
 elseif hostname == 'PC-00625' then
-  font = wez.font'BlexMono Nerd Font' 
+  normal_font_family = 'BlexMono Nerd Font' 
+  italic_font_family = 'VictorMono Nerd Font'
   font_size = 14
 end
 
+local font_rules = {
+	-- normal
+	{
+		intensity = 'Half',
+		font = wez.font { family = normal_font_family, weight = 'Light', style = 'Normal' }
+	},
+	{
+		intensity = 'Normal',
+		font = wez.font { family = normal_font_family, weight = 'Book', style = 'Normal' }
+	},
+	{
+	intensity = 'Bold',
+		font = wez.font { family = normal_font_family, weight = 'Medium', style = 'Normal' }
+	},
+  -- italic
+  {
+		intensity = 'Half',
+    italic = true,
+    font = wez.font { family = italic_font_family, weight = 'DemiBold', style = 'Italic' },
+  },
+	{
+		intensity = 'Normal',
+		italic = true,
+		font = wez.font { family = italic_font_family, weight = 'Regular', style = 'Italic' },
+	},
+  {
+    intensity = 'Bold',
+    italic = true,
+    font = wez.font { family = italic_font_family, weight = 'Bold', style = 'Italic' },
+  },
+}
+
 return {
   -- logs key presses
-  --debug_key_events = true,
+  -- debug_key_events = true,
 
   font = font,
   font_rules = font_rules,
   font_size = font_size,
+  freetype_load_target = 'Light',
+  freetype_render_target = 'HorizontalLcd',
   underline_position = "-2pt",
   warn_about_missing_glyphs = false,
   color_scheme = dark_mode,
