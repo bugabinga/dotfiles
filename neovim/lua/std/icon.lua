@@ -1,10 +1,14 @@
 return {
+  error = '󰇷',
+  warn = '󰱯',
+  info = '󰩖',
+  hint = '󰊪',
 	toggle_on = '',
 	toggle_off = '',
 	diagnostic = '⊙',
 	spelling = '󰓆',
 	linenumber = '󰉻',
-	linehighlight = '―',
+	linehighlight = '󰘤',
 	modified = '',
 	lock = '',
 	file = '',
@@ -22,5 +26,7 @@ return {
 	terminal = '',
 	macro = '',
 	lazy = '󰄻',
+	global = '󱥔',
+	['local'] = '󱥕',
 }
 

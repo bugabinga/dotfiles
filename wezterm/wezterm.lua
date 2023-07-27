@@ -3,61 +3,52 @@ local nugu = require 'bugabinga.nugu'
 
 local key_binds = require 'bugabinga.key_binds'
 local dark_mode = require 'bugabinga.dark_mode'
--- TODO mux server seems slow.
 -- local workspaces = require 'bugabinga.workspaces'
-local status = require 'bugabinga.status'
+require 'bugabinga.status'
+require 'bugabinga.neovim_zen_mode'
 
 local hostname = wez.hostname()
 local enable_wayland = false
 local window_decorations = 'RESIZE'
 local font_size = 11.0
-local font = wez.font'IBM Plex Mono'
-local font_rules = {
-  {
-    intensity = 'Bold',
-    italic = true,
-    font = wez.font {
-      family = 'VictorMono',
-      weight = 'Bold',
-      style = 'Italic',
-    },
-  },
-  {
-    italic = true,
-    intensity = 'Half',
-    font = wez.font {
-      family = 'VictorMono',
-      weight = 'DemiBold',
-      style = 'Italic',
-    },
-  },
-  {
-    italic = true,
-    intensity = 'Normal',
-    font = wez.font {
-      family = 'VictorMono',
-      style = 'Italic',
-    },
-  },
-}
-
+local font = wez.font'BlexMono Nerd Font'
+local italic_font_family = 'VictorMono Nerd Font'
 if hostname == 'x230' then
-  font_size = 11
+  font_size = 13
   enable_wayland = true
 elseif hostname == 'pop-os' then
-  font_size = 16
+  font_size = 14
 elseif hostname == 'PC-00625' then
-  font = wez.font'BlexMono Nerd Font' 
   font_size = 14
 end
 
+local font_rules = {
+  {
+		intensity = 'Half',
+    italic = true,
+    font = wez.font { family = italic_font_family, weight = 'DemiBold', style = 'Italic' },
+  },
+	{
+		intensity = 'Normal',
+		italic = true,
+		font = wez.font { family = italic_font_family, weight = 'Regular', style = 'Italic' },
+	},
+  {
+    intensity = 'Bold',
+    italic = true,
+    font = wez.font { family = italic_font_family, weight = 'Bold', style = 'Italic' },
+  },
+}
+
 return {
   -- logs key presses
-  --debug_key_events = true,
+  -- debug_key_events = true,
 
   font = font,
   font_rules = font_rules,
   font_size = font_size,
+  freetype_load_target = 'Light',
+  freetype_render_target = 'HorizontalLcd',
   underline_position = "-2pt",
   warn_about_missing_glyphs = false,
   color_scheme = dark_mode,

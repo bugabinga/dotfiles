@@ -1,5 +1,3 @@
-local check_parameter = require 'std.check_parameter'
-
 local available_modes = {
 	normal_visual_select_operator_pending = '',
 
@@ -32,10 +30,15 @@ local available_modes = {
 }
 
 local bind = function(self, map)
-  local keys = check_parameter(map.keys, 'bind', 'map.keys', 'string')
-  local command = check_parameter(map.command, 'bind', 'map.command', 'function', 'string')
+  vim.validate{
+    map = { map, 'table' },
+    keys = { map.keys, 'string' },
+    command = { map.command, { 'function', 'string' }},
+  }
 
-  map.visible = map.visible == nil or map.visible
+  local keys = map.keys
+  local command = map.command
+
   map.options = map.options or {}
 
   if map.category and map.description then

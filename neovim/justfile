@@ -4,15 +4,9 @@ set shell := ['nu', '--commands']
 default:
 	@just --list
 
-# Format lua and toml files.
-fmt:
-	stylua --verify --num-threads 100 .
-	taplo fmt
-
-# Lint lua and toml files.
-lint:
-	selene --num-threads 100 .
-	taplo lint
+# update nvim plugins
+update:
+	nvim --headless "+Lazy! sync" +qa
 
 # delete all current neovim state, cache and other ephemeral data.
 # does NOT delete the configs

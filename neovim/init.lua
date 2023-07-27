@@ -13,17 +13,12 @@ require'bugabinga.options'
 require'bugabinga.lazy'
 -- configures the vim diagnostic subsystem
 require'bugabinga.diagnostic'
--- FIXME(buga): should this be moved somewhere else?
 require'bugabinga.trim'
 require 'bugabinga.lsp'
 
 -- TODO:
--- [ ] add nu-check to null-ls
--- [ ] use neodev
--- [ ] is it possible to cache LSP init per project?
--- [ ] nugu theme
 -- [ ] use ltex-ls for markdown, code comments and commit messages
+-- [ ] use nvimjdtls
 -- [ ] DAP
-
--- PLUGINS TO TRY
--- https://github.com/ThePrimeagen/refactoring.nvim
+-- [ ] nugu theme
+-- [ ] add nu-check to nvim-lint

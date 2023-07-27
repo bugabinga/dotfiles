@@ -60,7 +60,7 @@ local tostring = function(self)
 	return vim.iter(self)
 	:map(toggler_tostring)
 	:fold('', function(buffer, text)
-	  return buffer .. (buffer == '' and '' or '  ') .. text	
+	  return buffer .. (buffer == '' and '' or '  ' ) .. text	
 	end)
 end
 
