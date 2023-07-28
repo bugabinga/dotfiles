@@ -4,7 +4,7 @@
 return {
   human_readable = require'std.table.human_readable',
   deep_concat = require'std.table.deep_concat',
-	join = require'std.table.join',
+  join = require'std.table.join',
 
 	add_reverse_lookup = vim.tbl_add_reverse_lookup,
 	contains = vim.tbl_contains,

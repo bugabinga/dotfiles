@@ -17,9 +17,9 @@ if hostname == 'x230' then
   font_size = 13
   enable_wayland = true
 elseif hostname == 'pop-os' then
-  font_size = 14
+		font_size = 15
 elseif hostname == 'PC-00625' then
-  font_size = 14
+  font_size = 15
 end
 
 local font_rules = {
