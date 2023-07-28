@@ -1,13 +1,15 @@
+  local icon = require'std.icon'
+
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-  space = '⋅',
-  eol = '↴',
-  tab = '__',
-  trail = '•',
-  extends = '❯',
-  precedes = '❮',
-  nbsp = '_',
+  space = icon.space,
+  eol = icon.eol,
+  tab = icon.tab .. ' ',
+  trail = icon.trail,
+  extends = icon.extends,
+  precedes = icon.precedes,
+  nbsp = icon.nbsp,
 }
 
 -- do not spam the cmdline with every little input

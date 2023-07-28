@@ -30,40 +30,40 @@ return {
 
 				static = {
 					mode_names = {
-						n = "Ν",
-						no = "Ν?",
-						nov = "Ν?",
-						noV = "Ν?",
-						["no\22"] = "Ν?",
-						niI = "Νi",
-						niR = "Νr",
-						niV = "Νv",
-						nt = "Νt",
-						v = "𝗩 ",
-						vs = "𝗩 s",
-						V = "𝗩 _",
-						Vs = "𝗩 s",
-						["\22"] = "^V",
-						["\22s"] = "^V",
-						s = "S",
-						S = "S_",
-						["\19"] = "^S",
-						i = "Ι",
-						ic = "Ιc",
-						ix = "Ιx",
-						R = "𝐑 ",
-						Rc = "𝐑c",
-						Rx = "𝐑x",
-						Rv = "𝐑v",
-						Rvc = "𝐑v",
-						Rvx = "𝐑v",
-						c = "𝐂 ",
-						cv = "𝐄x",
-						r = " ",
-						rm = "M",
-						["r?"] = "?",
-						["!"] = "!",
-						t = " ",
+						n = icon.normal,
+						no = icon.normal .. "?",
+						nov = icon.normal .. "?",
+						noV = icon.normal .. "?",
+						["no\22"] = icon.normal .. "?",
+						niI = icon.normal .. "i",
+						niR = icon.normal .. "r",
+						niV = icon.normal .. "v",
+						nt = icon.normal .. "t",
+						v = icon.visual,
+						vs = icon.visual .. "s",
+						V = icon.visual .. "_",
+						Vs = icon.visual .. "s",
+						["\22"] = "^" .. icon.visual,
+						["\22s"] = "^" .. icon.visual,
+						s = icon.select,
+						S = icon.select .. "_",
+						["\19"] = "^" .. icon.select,
+						i = icon.insert,
+						ic = icon.insert .. "c",
+						ix = icon.insert .. "x",
+						R = icon.replace,
+						Rc = icon.replace .. "c",
+						Rx = icon.replace .. "x",
+						Rv = icon.replace .. "v",
+						Rvc = icon.replace .. "v",
+						Rvx = icon.replace .. "v",
+						c = icon.command,
+						cv = icon.command .. "x",
+						r = icon.pending,
+						rm = icon.pending .. "m",
+						["r?"] = icon.pending .. "?",
+						["!"] = icon.exclaim,
+						t = icon.terminal,
 					},
 					mode_colors = {
 						n = "ui_normal" ,
@@ -83,7 +83,8 @@ return {
 				},
 
 				provider = function(self)
-					return " ".. icon.vim .." %3(" .. self.mode_names[self.mode] .. "%) "
+					local mode_name = self.mode_names[self.mode]
+					return " ".. icon.vim .." %3(" .. mode_name .. "%) "
 				end,
 
 				hl = function(self)
@@ -215,10 +216,10 @@ return {
 
 				provider  = function()
 					local names = {}
-					for i, client in pairs(vim.lsp.get_active_clients{ bufnr = 0 }) do
+					for _, client in pairs(vim.lsp.get_active_clients{ bufnr = 0 }) do
 						table.insert(names, client.name)
 					end
-					return icon.lsp .. " " .. table.concat(names, " ") 
+					return icon.lsp .. " " .. table.concat(names, " ")
 				end,
 			}
 
@@ -356,7 +357,7 @@ return {
 			local work_dir = {
 				init = function(self)
 					self.icon = (vim.fn.haslocaldir(0) == 1 and icon['local'] or "") .. " " .. icon.global .. " "
-					self.cwd = vim.fs.normalize(vim.uv.cwd()):gsub(vim.fs.normalize(vim.uv.os_homedir()),"~") 
+					self.cwd = vim.fs.normalize(vim.uv.cwd()):gsub(vim.fs.normalize(vim.uv.os_homedir()),"~")
 				end,
 
 				flexible = 1,
@@ -403,7 +404,7 @@ return {
 			}
 
 			local togglers = {
-					provider = function(self)
+					provider = function()
 						local togglers = require'bugabinga.options.togglers'
 						return tostring(togglers)
 					end,
