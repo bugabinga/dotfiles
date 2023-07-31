@@ -7,7 +7,8 @@
 
 local map = require'std.keymap'
 local auto = require'std.auto'
-local deep_concat = require'std.table.deep_concat'
+local ui = require'bugabinga.ui'
+local table = require'std.table'
 
 local lsp_client_configs = require'bugabinga.lsp.clients'
 
@@ -156,44 +157,34 @@ local lsp_info = function(command)
   local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
   local active_clients = vim.lsp.get_active_clients(all_or_current)
 
-  -- basic info is:
-  -- * id
-  -- * name
-  -- * cmd
-  --  * pid, cpu, mem
-  -- * root_dir/workspaces
-  -- * filetypes
-  -- * single file support
-  -- * workspaces support
-  -- * buffers (if 'all')
-  --
-  -- TODO extended infos (needs GUI)
-  -- * client caps
-  -- * server caps
-  -- * settings
-  -- * ...
-
   local infos = vim.iter(active_clients)
     :map(function(client)
       local name = client.name
       local config = vim.iter(lsp_client_configs):find(function(config) return config.name == name end)
       assert(config, ( 'How did we not find a config for %s ?!?!' ):format(name))
-    local basic = {
+
+      local full_cmd = table.deep_copy(client.config.cmd)
+      full_cmd[1] = vim.fn.exepath(full_cmd[1])
+      local basic = {
         id = client.id,
         name = name,
-        --TODO: find cmd in (neovim) PATH
-        cmd = { client.config.cmd, client.config.cmd_cwd, 'TODO:pid', 'TODO:cpu', 'TODO:mem'},
+        cmd = table.concat(full_cmd, ' '),
         workspace_folders = vim.iter(client.workspace_folders):map(function(w) return vim.fs.normalize(w.name) end):totable(),
-        filetypes = config.filetypes,
+        filetypes = table.concat(config.filetypes, ', '),
         single_file_support = config.single_file_support,
         workspaces = config.workspaces,
-    }
-    return basic
-  end)
-  :totable()
+      }
+      return basic
+    end)
+    :totable()
 
-  --TODO replace with GUI
-  vim.print(deep_concat(infos))
+  ui.show_tree(infos)
+end
+
+local lsp_info_extended = function(command)
+  local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
+  local active_clients = vim.lsp.get_active_clients(all_or_current)
+  ui.show_tree(active_clients)
 end
 
 vim.api.nvim_create_user_command ('LspInfo',
@@ -204,4 +195,11 @@ vim.api.nvim_create_user_command ('LspInfo',
     desc = 'Shows basic information about running LSP clients.',
   })
 
+vim.api.nvim_create_user_command ('LspInfoExtended',
+  lsp_info_extended,
+  {
+    nargs = '?',
+    complete = function() return {"all"} end,
+    desc = 'Shows detailed information about running LSP clients.',
+  })
 return setmetatable(_ ,{ })

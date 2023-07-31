@@ -29,7 +29,7 @@ return {
         ["<C-h>"] = "actions.toggle_hidden",
 			},
 			float = {
-				border = 'shadow',
+				border = vim.g.border_style,
 				padding = 2,
 				win_options = { winblend = 10 },
 			},

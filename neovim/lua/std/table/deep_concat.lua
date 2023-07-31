@@ -1,23 +1,29 @@
-return function(some_table, prefix, suffix, key_value_delimiter, row_delimiter, fill, newline)
+return function( some_table, options)
+  options = options or {}
+
   vim.validate{
     some_table = { some_table, 'table'},
-    prefix = {prefix, 'string', true},
-    suffix = {suffix, 'string', true},
-    fill = {fill, 'string', true},
-    key_value_delimiter = {key_value_delimiter, 'string', true},
-    row_delimiter = {row_delimiter, 'string', true},
-    newline = {newline, 'string', true},
+    [ 'options.prefix' ] = {options.prefix, 'string', true},
+    [ 'options.suffix' ] = {options.suffix, 'string', true},
+    [ 'options.fill' ] = {options.fill, 'string', true},
+    [ 'options.key_value_delimiter' ] = {options.key_value_delimiter, 'string', true},
+    [ 'options.row_delimiter' ] = {options.row_delimiter, 'string', true},
+    [ 'options.newline' ] = {options.newline, 'string', true},
+    [ 'options.render_key' ] = {options.render_key, 'function', true},
+    [ 'options.render_value' ] = {options.render_value, 'function', true},
   }
-  prefix = prefix or '⦃'
-  suffix = suffix or '⦄'
-  key_value_delimiter = key_value_delimiter or ' ≔ '
-  row_delimiter = row_delimiter or ','
-  fill = fill or '  '
-  newline = newline or '\n'
+
+  local prefix = options.prefix or '⦃'
+  local suffix = options.suffix or '⦄'
+  local key_value_delimiter = options.key_value_delimiter or ' ≔ '
+  local row_delimiter = options.row_delimiter or ','
+  local fill = options.fill or '  '
+  local newline = options.newline or '\n'
+  local render_key = options.render_key or function(key) return type(key) == 'number' and ('['..key..']') or key end
+  local render_value = options.render_value or function(value) return tostring(value):gsub('\n','') end
   local string_builder = {}
   local append = function(thing) table.insert(string_builder, thing) end
-  local render_key = function(key) return type(key) == 'number' and ('['..key..']') or key end
-  local render_value = function(value) return tostring(value):gsub('\n','') end
+
   local function deep_concat_table (tbl, level)
     level = level or 0
     if newline then append(fill:rep(level)) end

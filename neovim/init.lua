@@ -14,7 +14,7 @@ require'bugabinga.lazy'
 -- configures the vim diagnostic subsystem
 require'bugabinga.diagnostic'
 require'bugabinga.trim'
-require 'bugabinga.lsp'
+require'bugabinga.lsp'
 
 -- TODO:
 -- [ ] use ltex-ls for markdown, code comments and commit messages
