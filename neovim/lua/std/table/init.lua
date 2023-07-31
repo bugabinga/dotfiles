@@ -1,9 +1,7 @@
 --- Facade over various table functions in lua, neovim and some of my own.
---- @see #_G.table
---- @see #vim.tbl_*
 return {
-  human_readable = require'std.table.human_readable',
   deep_concat = require'std.table.deep_concat',
+  deep_copy = require'std.table.deep_copy',
   join = require'std.table.join',
 
 	add_reverse_lookup = vim.tbl_add_reverse_lookup,
@@ -22,8 +20,6 @@ return {
   values = vim.tbl_values,
 
   concat = table.concat,
-  foreach = table.foreach,
-  foreachi = table.foreachi,
   insert = table.insert,
   maxn = table.maxn,
   remove = table.remove,

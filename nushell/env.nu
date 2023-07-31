@@ -9,7 +9,7 @@ let-env NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
 let-env TERM = if ($env | get -i TERM_PROGRAM) == WezTerm { "wezterm" } else { "xterm-256color" }
 
 # theme for ls and other programs, that use LS_COLORS
-let-env LS_COLORS = ( try { vivid generate nord } catch { "" } )
+# let-env LS_COLORS = ( try { vivid generate nord } catch { "" } )
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)

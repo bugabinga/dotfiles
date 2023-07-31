@@ -2,6 +2,7 @@ local map = require'std.keymap'
 
 return {
 	'AckslD/nvim-neoclip.lua',
+	event = 'TextYankPost',
 	keys = {'y', '<C-v><C-v>' },
 	dependencies = {
 		'nvim-telescope/telescope.nvim',

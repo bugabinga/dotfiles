@@ -34,7 +34,7 @@ lazy.setup('bugabinga.plugins', {
   },
   ui = {
   	size = { width = 0.69 , heigth = 0.69 },
-    border = 'shadow',
+    border = vim.g.border_style,
     icons = {
       lazy = icon.lazy,
       task = icon.terminal,

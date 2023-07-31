@@ -1,4 +1,4 @@
-  local icon = require'std.icon'
+local icon = require'std.icon'
 
 -- show trailing whitespace
 vim.opt.list = true
@@ -62,6 +62,8 @@ vim.opt.pumheight = 10
 -- transparent popups and floating windows
 vim.opt.pumblend = 5
 vim.opt.winblend = 5
+
+vim.g.border_style = 'shadow'
 
 -- hide the mode indicator in status
 vim.opt.showmode = false

@@ -28,13 +28,13 @@ return {
           size = { width = 'auto', height = 'auto'},
         },
 				popupmenu = {
-          border = { style = "shadow" },
+          border = { style = vim.g.border_style},
         },
 				popup = {
-          border = { style = "shadow" },
+          border = { style = vim.g.border_style},
         },
 				hover = {
-          border = { style = "shadow" },
+          border = { style = vim.g.border_style},
           position = { row = -2, col = 2 },
         },
 				-- does not seem to play well with other popups?
@@ -42,13 +42,13 @@ return {
           relative = "cursor",
           position = { row = 0, col = 0 },
           size = { min_width = 42, width = 'auto', height = 'auto'},
-          border = { style = "shadow" },
+          border = { style = vim.g.border_style},
         },
         cmdline_popupmenu = {
           relative = "cursor",
           position = { row = 1, col = 0 },
           size = { min_width = 42, width = "auto", height = 'auto' },
-          border = { style = "shadow", padding = { 0, 1 } },
+          border = { style =vim.g.border_style, padding = { 0, 1 } },
           win_options = { winhighlight = { Normal = "Normal", FloatBorder = "NoiceCmdlinePopupBorder" } },
         },
       },
@@ -143,7 +143,7 @@ return {
       local shadow_fade = function(...)
         local opts = fade[1](...)
         if opts then
-          opts.border = 'shadow'
+          opts.border = vim.g.border_style
           opts.row = opts.row - 1
         end
         return opts

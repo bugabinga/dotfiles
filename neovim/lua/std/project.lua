@@ -180,7 +180,7 @@ local find_lua_project_root = function()
 end
 
 local find_lua_nvim_project_root = function()
-  return find_root(nil, join(lua_markers, nvim_lua_markers))
+  return find_root(nil, nvim_lua_markers)
 end
 
 return {

@@ -32,7 +32,7 @@ return  {
 		open_mapping = '<F7>',
 		direction = "float",
 		float_opts = {
-			border = "shadow",
+			border = vim.g.border_style,
 			winblend = 10,
 		},
 		size = function(term)
