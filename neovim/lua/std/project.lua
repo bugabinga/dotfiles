@@ -3,10 +3,37 @@ local dirname = vim.fs.dirname
 local normalize = vim.fs.normalize
 local exists = vim.loop.fs_stat
 local validate = vim.validate
+local table = require'std.table'
 
---TODO: can this be memoized for perf?
--- is the root of a buffer constant over time?
--- maybe not truly constant, but constant in relation to the lifetime of a neovim session?
+local cache = {}
+local hasher = vim.fn.sha256
+local markers_to_string = function(markers)
+  return table.deep_concat(markers, {
+    prefix = '',
+    suffix = '',
+    row_delimiter = '',
+    key_value_delimiter = '',
+    fill = '',
+    newline = '',
+  })
+end
+local create_hash = function(path, markers)
+  local path_hash = hasher(path)
+  local markers_hash = hasher(markers_to_string(markers))
+  local hash = path_hash .. '|' .. markers_hash
+  return hash
+end
+local cache_get = function(path, markers)
+  local hash = create_hash(path, markers)
+  local hit = cache[hash]
+  -- vim.print('CACHE GET', hash, hit)
+  return hit
+end
+local cache_set = function(project_root, path, markers)
+  local hash = create_hash(path, markers)
+  -- vim.print('CACHE SET', hash, project_root)
+  cache[hash] = project_root
+end
 
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
@@ -56,6 +83,12 @@ local function find_root(path, markers, stop)
 
   if not exists(stop) then error( ( 'the stop directory %s does not exist!' ):format(stop) ) end
 
+  local cache_hit = cache_get(path, markers)
+  if cache_hit then
+    -- vim.print("CACHE HIT", cache_hit)
+    return cache_hit
+  end
+
   local directory_scores = {}
   local current_distance_to_buffer = 0
   local loop_count = 0
@@ -65,18 +98,19 @@ local function find_root(path, markers, stop)
   --processes later.
   --the stop itself never gets checked for markers!
   -- stop if we reached the user defined stop instead of the file system root
-  while path ~= stop do
+  local current_path = path
+  while current_path ~= stop do
     if loop_count > MAX_TRAVERSAL_COUNT then error('searching for markers reached the max traversal count!') end
 
     local score = {
-      path = path,
+      path = current_path,
       marker_count = 0,
       distance_to_buffer_file = current_distance_to_buffer,
       markers = {},
     }
 
     for _, marker in ipairs(markers) do
-      local marker_path = path .. '/' .. marker.name
+      local marker_path = current_path .. '/' .. marker.name
       if exists(marker_path) then
         score.marker_count = score.marker_count + marker.weight
         table.insert(score.markers, marker_path)
@@ -87,7 +121,7 @@ local function find_root(path, markers, stop)
       table.insert(directory_scores, score)
     end
 
-    path = dirname(path)
+    current_path = dirname(current_path)
 
     current_distance_to_buffer = current_distance_to_buffer + 1
     loop_count = loop_count + 1
@@ -107,6 +141,9 @@ local function find_root(path, markers, stop)
       max_likelyhood = likelihood
       project_root = score.path
     end
+  end
+  if project_root then
+    cache_set(project_root, path, markers)
   end
   return project_root
 end

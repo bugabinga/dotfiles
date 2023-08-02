@@ -87,7 +87,7 @@ def create_right_prompt [] {
       $command_status_segment
       (ansi reset)
       (ansi dark_gray)
-      $time_segment
+      ( if (sys).host.hostname == "x230" { (akku) } else { $time_segment })
       (ansi reset)
     ] | str join
 }

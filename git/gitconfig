@@ -3,7 +3,7 @@
   email = oliver@bugabinga.net
 
 [core]
-  editor = hx
+  editor = nvim
   quotepath = false
   autocrlf = input
   pager = delta
@@ -11,7 +11,7 @@
 
 [diff]
   colorMoved = default
-  tool = meld
+  tool = difftastic
 
 [difftool]
   prompt = false
@@ -26,13 +26,16 @@
   difftool = true
 
 [merge]
-  tool = meld_merge
+  tool = nvim_merge
 
 [mergetool]
   prompt = true
 
 [mergetool "meld_merge"]
   cmd = "meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
+
+[mergetool "nvim_merge"]
+  cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
 [pull]
   rebase = false

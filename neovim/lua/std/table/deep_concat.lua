@@ -13,8 +13,8 @@ return function( some_table, options)
     [ 'options.render_value' ] = {options.render_value, 'function', true},
   }
 
-  local prefix = options.prefix or '⦃'
-  local suffix = options.suffix or '⦄'
+  local prefix = options.prefix or '⎨'
+  local suffix = options.suffix or '⎬'
   local key_value_delimiter = options.key_value_delimiter or ' ≔ '
   local row_delimiter = options.row_delimiter or ','
   local fill = options.fill or '  '

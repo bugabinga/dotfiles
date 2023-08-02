@@ -48,7 +48,7 @@ return {
           relative = "cursor",
           position = { row = 1, col = 0 },
           size = { min_width = 42, width = "auto", height = 'auto' },
-          border = { style =vim.g.border_style, padding = { 0, 1 } },
+          border = { style = vim.g.border_style, padding = { 0, 1 } },
           win_options = { winhighlight = { Normal = "Normal", FloatBorder = "NoiceCmdlinePopupBorder" } },
         },
       },
@@ -152,7 +152,7 @@ return {
       notify.setup {
         stages = { shadow_fade, unpack(fade, 2) },
         render = 'compact',
-        timeout = 10000,
+        timeout = 2500,
         fps = 60,
         top_down = false,
       }

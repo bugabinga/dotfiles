@@ -9,6 +9,7 @@ local map = require'std.keymap'
 local auto = require'std.auto'
 local ui = require'bugabinga.ui'
 local table = require'std.table'
+local ignored = require'std.ignored'
 
 local lsp_client_configs = require'bugabinga.lsp.clients'
 
@@ -35,7 +36,7 @@ local lsp_start  = function(file_type_event)
 
   local match = file_type_event.match
 
-  local matches_to_ignore = {'noice', 'notify', 'help', 'TelescopePrompt', 'TelescopeResults', 'toggleterm', 'lazy', 'oil'}
+  local matches_to_ignore = ignored.filetypes
   if vim.iter(matches_to_ignore):find(match) then return end
 
   -- vim.print("LSP START", file_type_event)
@@ -44,7 +45,6 @@ local lsp_start  = function(file_type_event)
   local buffer_path = vim.api.nvim_buf_get_name(bufnr)
 
   -- vim.print( "SEARCHING LSP CLIENT FOR:", match, buffer_path)
-
 
   local potential_client_configs = vim.iter(lsp_client_configs)
     :map(function(config)
@@ -86,7 +86,7 @@ local lsp_start  = function(file_type_event)
   )
 
   if not config then
-    vim.print('FOUND NO LSP CLIENT FOR', buffer_path)
+    -- vim.print('FOUND NO LSP CLIENT FOR', buffer_path)
     return
   end
 
@@ -109,8 +109,8 @@ local lsp_start  = function(file_type_event)
     on_error = function(code, ...) vim.print('LSP ERROR', code, ...) end,
     before_init = config.before_init,
     -- on_init = nil, -- should i send workspace/didChangeConfiguration here?
-    on_exit = function(code, signal, client_id) vim.print("LSP CLIENT EXIT", code, signal, client_id) end,
-    on_attach = function(client, bufnr) vim.print("LSP CLIENT ATTACH", client.data.client_id, bufnr) end,
+    -- on_exit = function(code, signal, client_id) vim.print("LSP CLIENT EXIT", code, signal, client_id) end,
+    -- on_attach = function(client, bufnr) vim.print("LSP CLIENT ATTACH", client.data.client_id, bufnr) end,
     trace = 'off',
     flags = { allow_incremental_sync = true, debounce_text_changes = 50, exit_timeout = 200},
     root_dir = config.root_dir(buffer_path),
@@ -124,11 +124,16 @@ local lsp_start  = function(file_type_event)
     -- reuse_client = function(existing_client, config)end,
   })
 
-  vim.print("ATTACHING LSP CLIENT", client_id)
+  -- vim.print("ATTACHING LSP CLIENT", client_id)
 end
 
-local lsp_attach = function(...) vim.print("ATTACH LSP", ...) end
-local lsp_detach = function(...) vim.print("DETACH LSP", ...) end
+--TODO: setup keybinds on attach + omnifunc + tagfunc + folding
+local lsp_attach = function(...)
+  -- vim.print("ATTACH LSP", ...)
+end
+local lsp_detach = function(...)
+  -- vim.print("DETACH LSP", ...)
+end
 
 auto 'lsp' {
   {
