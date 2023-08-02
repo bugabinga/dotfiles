@@ -11,7 +11,7 @@ return {
   user =  ' ',
   data = '',
   thread = '󱇫',
-  ['function'] = '',
+  ['function'] = '󰡱',
   ['table'] = '',
   toggle_on = '',
   toggle_off = '',

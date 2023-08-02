@@ -91,7 +91,7 @@ return {
 
 			autotag = { enable = true },
 
-			-- TODO(oli): configure this
+			-- TODO: configure this
 			refactor = 'all',
 
 			context_commentstring = { enable = true, enable_autocmd = false },
@@ -147,29 +147,6 @@ return {
 				branch = 'main',
 			},
 			maintainers = { '@IndianBoy42' },
-		}
-
-		-- FIXME: this aucmd needs to be restricted to buffers where treesitter is loaded
-		-- Treesitter highlights tend to highlight syntax errors immediately.
-		-- But that i find distracting while typing.
-		-- Disable the error highlight while typing, but keep it in normal mode.
-		auto 'disable_error_highlight_while_typing' {
-			{
-				description = 'Disable the @error highlight while in Insert mode',
-				events = 'InsertEnter',
-				pattern = '*',
-				command = function()
-
-				end,
-			},
-			{
-				description = 'Enable the @error highlight while in Normal mode',
-				events = 'InsertLeave',
-				pattern = '*',
-				command = function()
-
-				end,
-			},
 		}
 	end,
 }
