@@ -5,12 +5,12 @@ local filetypes = {
   'hgcommit',
   'help',
   'noice',
-  'notify'
+  'notify',
   'TelescopePrompt',
   'TelescopeResults',
   'toggleterm',
   'lazy',
-  'oil'
+  'oil',
 }
 
 local buftypes = {

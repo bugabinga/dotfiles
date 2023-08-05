@@ -52,14 +52,7 @@ local nvim_lua_ls =
       workspace = { checkThirdParty = false, }
     },
   },
-  before_init = function(...)
-    local before_init_arguments = { ... }
-    want'neodev'(function(neodev)
-      return neodev.before_init(unpack(before_init_arguments))
-    end, function()
-      return nil
-    end)
-  end,
+  before_init = require"neodev.lsp".before_init,
 }
 
 return {
