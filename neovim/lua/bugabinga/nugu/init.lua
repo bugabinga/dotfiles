@@ -173,9 +173,9 @@ local nugu = lush(function(injects)
     DiagnosticSignHint { DiagnosticHint },
     DiagnosticSignOk { DiagnosticOk },
 
-    LspReferenceText { Search },
-    LspReferenceRead { Search },
-    LspReferenceWrite { IncSearch },
+    LspReferenceText { bg = content_unfocus },
+    LspReferenceRead { LspReferenceText },
+    LspReferenceWrite { LspReferenceText },
 
 		-- hlargs.nvim 
 		Hlargs { fg = ui_important_local, gui = 'bold underdotted' },

@@ -1,9 +1,7 @@
 -- TODO: setup neodev + jsonls for neovim plugins ans config
--- TODO: setup lua_ls for generic lua stuff
 -- TODO: setup nvimjdtls + lemminx for java/maven
 -- TODO: setup marksman + ltex for markdown
 -- TODO: setup mason for "less important" lsps
--- TODO: LspInfo clone
 
 local map = require'std.keymap'
 local auto = require'std.auto'
@@ -31,9 +29,7 @@ local token_update = function(lsp_client)
   --* closures that capture something
 end
 
-
 local lsp_start  = function(file_type_event)
-
   local match = file_type_event.match
 
   local matches_to_ignore = ignored.filetypes
@@ -61,7 +57,7 @@ local lsp_start  = function(file_type_event)
         ['config.before_init'] = { config.before_init, 'function', true},
       }
       -- normalize scalar values to its vector alternative for easier processing later on
-      -- NOTE: this mutates the lsp client configs! careful!
+      -- this mutates the lsp client configs! careful!
       config.command = type(config.command) == 'string' and { config.command } or config.command
       config.filetypes = type(config.filetypes) == 'string' and { config.filetypes } or config.filetypes
       return config
@@ -116,7 +112,6 @@ local lsp_start  = function(file_type_event)
     root_dir = config.root_dir(buffer_path),
   }
 
-  --TODO: augment other arguments from start_client
   local client_id = vim.lsp.start(start_config, {
     bufnr = bufnr,
     -- TODO: reuse if workspaces
@@ -127,12 +122,197 @@ local lsp_start  = function(file_type_event)
   -- vim.print("ATTACHING LSP CLIENT", client_id)
 end
 
+local old_formatexpr
+local old_omnifunc
+local old_tagfunc
+
+local s
+
 --TODO: setup keybinds on attach + omnifunc + tagfunc + folding
-local lsp_attach = function(...)
-  -- vim.print("ATTACH LSP", ...)
+local lsp_attach = function(args)
+  local bufnr = args.buf
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if not client then return end
+
+  -- vim.print(client.server_capabilities)
+
+  if client.server_capabilities.definitionProvider then
+    old_tagfunc = vim.bo[bufnr].tagfunc
+    vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+  end
+
+  if client.server_capabilities.documentFormattingProvider then
+    old_formatexpr = vim.bo[bufnr].formatexpr
+    vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr(#{timeout_ms:50})"
+  end
+
+  if client.server_capabilities.completionProvider then
+    old_omnifunc = vim.bo[bufnr].omnifunc
+    vim.bo[bufnr].omnifunc = "v:vim.lsp.omnifunc"
+  end
+
+  -- TODO: create register/unregister abstraction for lsp features
+  -- TODO: show available code actions as diagnostics (must be filtered)
+  -- TODO: use nicer guis for lsp interactive features
+  map.normal {
+    name = 'Show available code actions on current line.',
+    category = 'lsp',
+    keys = '<c-1>',
+    command = vim.lsp.buf.code_action,
+  }
+
+  map.normal {
+    name = 'Goto to definition of symbol under cursor.',
+    category = 'lsp',
+    keys = '<c-2>',
+    command = vim.lsp.buf.definition,
+  }
+  map.normal {
+    name = 'Goto to definition of symbol under cursor.',
+    category = 'telescope',
+    keys = '<c-2><c-2>',
+    command = '<cmd>Telescope lsp_definitions<cr>',
+  }
+
+  if client.server_capabilities.documentHighlightProvider then
+    auto 'document_highlight' {
+      {
+        description = 'Highlight symbol under cursor on hold',
+        events = 'CursorHold',
+        pattern = '<buffer>',
+        command = vim.lsp.buf.document_highlight,
+      },
+      --TODO: debounce cursormoved events
+      {
+        description = 'Remove highlight from symbol under cursor on move',
+        events = { 'CursorMoved', 'InsertEnter' },
+        pattern = '<buffer>',
+        command = vim.lsp.buf.clear_references,
+      }
+    }
+  end
+
+  --TODO: what can we do with those?
+  --maybe: LspCommand <command> <args>
+  -- map to <c-3>
+  if client.server_capabilities.executeCommandProvider then
+    -- [1] ≔ 󰝗 lua.removeSpace 󰉾,
+    -- [2] ≔ 󰝗 lua.solve 󰉾,
+    -- [3] ≔ 󰝗 lua.jsonToLua 󰉾,
+    -- [4] ≔ 󰝗 lua.setConfig 󰉾,
+    -- [5] ≔ 󰝗 lua.getConfig 󰉾,
+    -- [6] ≔ 󰝗 lua.autoRequire 󰉾,
+
+  end
+
+  map.normal {
+    name = 'Format current buffer',
+    category = 'lsp',
+    keys = '<c-F>',
+    command = vim.lsp.buf.format,
+  }
+
+  map.normal {
+    name = 'Show hover documentation above cursor.',
+    category = 'lsp',
+    keys = '<c-q>',
+    command = vim.lsp.buf.hover,
+  }
+
+  map.normal {
+    name = 'Show implementations of symbol under cursor.',
+    category = 'lsp',
+    keys = '<c-4>',
+    command = vim.lsp.buf.implementation,
+  }
+  map.normal {
+    name = 'Show implementations of symbol under cursor.',
+    category = 'telescope',
+    keys = '<c-4><c-4>',
+    command = '<cmd>Telescope lsp_implementations<cr>',
+  }
+
+  map.normal {
+    name = 'Show incoming calls of symbol under cursor.',
+    category = 'lsp',
+    keys = '<c-5>',
+    command = vim.lsp.buf.incoming_calls,
+  }
+  map.normal {
+    name = 'Show incoming calls of symbol under cursor.',
+    category = 'telescope',
+    keys = '<c-5><c-5>',
+    command = '<cmd>Telescope lsp_incoming_calls<cr>',
+  }
+  map.normal {
+    name = 'Show outgoing calls of symbol under cursor.',
+    category = 'lsp',
+    keys = '<c-s-5>',
+    command = vim.lsp.buf.outgoing_calls,
+  }
+  map.normal {
+    name = 'Show outgoing calls of symbol under cursor.',
+    category = 'telescope',
+    keys = '<c-s-5><c-s-5>',
+    command = '<cmd>Telescope lsp_outgoing_calls<cr>',
+  }
+
+  map.normal {
+    name = 'Show references of symbol under cursor.',
+    category = 'lsp',
+    keys = '<c-6>',
+    command = vim.lsp.buf.references,
+  }
+  map.normal {
+    name = 'Show references of symbol under cursor.',
+    category = 'telescope',
+    keys = '<c-6><c-6>',
+    command = vim.lsp.buf.references,
+  }
+
+  map.normal {
+    name = 'Rename symbol under cursor.',
+    category = 'lsp',
+    keys = '<c-R>',
+    command = vim.lsp.buf.rename,
+  }
+
+  map.normal {
+    name = 'Show signature help under cursor.',
+    category = 'lsp',
+    keys = '<c-7>',
+    command = vim.lsp.buf.signature_help,
+  }
+  s = map.normal {
+    name = 'Show signature help under cursor.',
+    category = 'telescope',
+    keys = '<c-7><c-7>',
+    command = '<cmd>Telescope lsp_signature_help<cr>',
+  }
+
 end
-local lsp_detach = function(...)
+
+local lsp_detach = function(args)
+
   -- vim.print("DETACH LSP", ...)
+
+  local bufnr = args.buf
+  local client = vim.lsp.get_client_by_id(args.data.client_id)
+  if not client then return end
+
+  if client.server_capabilities.definitionProvider then
+    vim.bo[bufnr].tagfunc = old_tagfunc
+  end
+
+  if client.server_capabilities.documentFormattingProvider then
+    vim.bo[bufnr].formatexpr = old_formatexpr
+  end
+
+  if client.server_capabilities.completionProvider then
+    vim.bo[bufnr].omnifunc = old_omnifunc
+  end
+
+  if s then  s() end
 end
 
 auto 'lsp' {
@@ -160,7 +340,7 @@ auto 'lsp' {
 
 local lsp_info = function(command)
   local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
-  local active_clients = vim.lsp.get_active_clients(all_or_current)
+  local active_clients = vim.lsp.get_clients(all_or_current)
 
   local infos = vim.iter(active_clients)
     :map(function(client)
@@ -188,7 +368,7 @@ end
 
 local lsp_info_extended = function(command)
   local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
-  local active_clients = vim.lsp.get_active_clients(all_or_current)
+  local active_clients = vim.lsp.get_clients(all_or_current)
   ui.show_tree(active_clients)
 end
 

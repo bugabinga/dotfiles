@@ -53,6 +53,11 @@ local bind = function(self, map)
 	if vim.tbl_isempty(self.mode) then self.mode[1] = available_modes.normal_visual_select_operator_pending end
   vim.keymap.set(self.mode, keys, command, options)
   self.mode = {}
+
+  return function()
+    local delete_options = options.buffer and { buffer = options.buffer } or {}
+    vim.keymap.del(self.mode, keys, delete_options)
+  end
 end
 
 local add_mode = function(self, key)
