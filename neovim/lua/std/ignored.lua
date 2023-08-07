@@ -19,6 +19,7 @@ local buftypes = {
   'quickfix',
   'help',
   'nofile',
+  'acwrite',
 }
 
 local as_kv = function(list)
