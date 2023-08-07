@@ -1,9 +1,10 @@
-local join = require'std.table'.join
+local ignored = require'std.ignored'
+local table = require'std.table'
+local join = table.join
 local dirname = vim.fs.dirname
 local normalize = vim.fs.normalize
-local exists = vim.loop.fs_stat
+local exists = vim.uv.fs_stat
 local validate = vim.validate
-local table = require'std.table'
 
 local cache = {}
 local hasher = vim.fn.sha256
@@ -26,12 +27,10 @@ end
 local cache_get = function(path, markers)
   local hash = create_hash(path, markers)
   local hit = cache[hash]
-  -- vim.print('CACHE GET', hash, hit)
   return hit
 end
 local cache_set = function(project_root, path, markers)
   local hash = create_hash(path, markers)
-  -- vim.print('CACHE SET', hash, project_root)
   cache[hash] = project_root
 end
 
@@ -100,7 +99,7 @@ local function find_root(path, markers, stop)
   -- stop if we reached the user defined stop instead of the file system root
   local current_path = path
   while current_path ~= stop do
-    if loop_count > MAX_TRAVERSAL_COUNT then error('searching for markers reached the max traversal count!') end
+    if loop_count > MAX_TRAVERSAL_COUNT then error(( 'searching for markers reached the max traversal count for path %s !' ):format(path)) end
 
     local score = {
       path = current_path,
