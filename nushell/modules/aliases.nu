@@ -24,9 +24,6 @@ export alias nf = open-editor-with-file-search
 # TODO: HOST SPECIFIC ALIASES
 # I do not see a way right now the have different aliases per host with nu.
 
-# update windows user environment variables
-alias ue = let-env Path = (do $env.ENV_CONVERSIONS.Path.from_string (powershell -C '[System.Environment]::GetEnvironmentVariable('PATH', [System.EnvironmentVariableTarget]::User)') | append $env.Path | flatten | uniq)
-
 # CUSTOM LITTLE JAVA COMMANDS
 export alias aes = java ($env.DOTFILES + /tools/ + aes.java)
 export alias download = java ($env.DOTFILES + /tools/ + download.java)
