@@ -4,8 +4,6 @@ use os.nu *
 use prompt.nu *
 use aliases.nu *
 use todo.nu
-use git.nu *
-use svn.nu *
 use openssl.nu *
 use pacnew.nu
 use syncthing.nu
@@ -64,7 +62,7 @@ let default_theme = {
 }
 
 # The default config record. This is where much of your global configuration is setup.
-let-env config = {
+$env.config = {
 	show_banner: false
   table: {
     mode: light # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
@@ -290,4 +288,3 @@ let-env config = {
 use zoxide.nu *
 
 overlay use coreutils.nu
-

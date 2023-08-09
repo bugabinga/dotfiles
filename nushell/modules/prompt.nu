@@ -94,13 +94,13 @@ def create_right_prompt [] {
 
 export-env {
   # Use nushell functions to define your right and left prompt
-  let-env PROMPT_COMMAND = { || create_left_prompt }
-  let-env PROMPT_COMMAND_RIGHT = { || create_right_prompt }
+  $env.PROMPT_COMMAND = { || create_left_prompt }
+  $env.PROMPT_COMMAND_RIGHT = { || create_right_prompt }
 
   # The prompt indicators are environmental variables that represent
   # the state of the prompt
-  let-env PROMPT_INDICATOR = $"(ansi green) (char prompt) (ansi reset)"
-  let-env PROMPT_INDICATOR_VI_INSERT = $"(ansi magenta) (char pipe) (ansi reset)"
-  let-env PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta) (char prompt) (ansi reset)"
-  let-env PROMPT_MULTILINE_INDICATOR = $"(ansi magenta) (char prompt)(char prompt) (ansi reset)"
+  $env.PROMPT_INDICATOR = $"(ansi green) (char prompt) (ansi reset)"
+  $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi magenta) (char pipe) (ansi reset)"
+  $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta) (char prompt) (ansi reset)"
+  $env.PROMPT_MULTILINE_INDICATOR = $"(ansi magenta) (char prompt)(char prompt) (ansi reset)"
 }
