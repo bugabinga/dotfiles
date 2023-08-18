@@ -1,6 +1,5 @@
 local project = require'std.project'
 
--- TODO: share lua ls settings in shared table
 local lua_ls =
 {
   name = 'LuaLS',

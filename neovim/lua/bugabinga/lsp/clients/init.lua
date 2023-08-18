@@ -4,4 +4,5 @@ local lua = require'bugabinga.lsp.clients.lua'
 return {
   lua.nvim_lua_ls,
   lua.lua_ls,
+  require'bugabinga.lsp.clients.json',
 }
