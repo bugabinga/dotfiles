@@ -25,7 +25,7 @@ return {
 		local builtin = require 'telescope.builtin'
 		local actions = require 'telescope.actions'
 		local themes = require 'telescope.themes'
-		local ivy = themes.get_ivy { layout_config = { preview_width = 0.69 } }
+		local ivy = themes.get_ivy { hidden = true, layout_config = { preview_width = 0.69 } }
 		local dropdown = themes.get_dropdown { layout_config = { width = 0.69 } }
 		local cursor = themes.get_cursor { layout_config = { preview_width = 0.42, width = 0.69 } }
 

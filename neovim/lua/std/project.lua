@@ -175,6 +175,10 @@ local function find_project_root(markers)
   return find_root(nil, join(default_markers, markers))
 end
 
+local function find_vcs_project_root()
+  return find_project_root{}
+end
+
 local function find_java_project_root()
   local java_markers = {
     { name = '.idea', weight = 2 },
@@ -221,7 +225,7 @@ end
 
 return {
   find_root = find_root,
-  find_project_root = find_project_root,
+  find_vcs_project_root = find_vcs_project_root,
   find_java_project_root = find_java_project_root,
   find_lua_project_root = find_lua_project_root,
   find_lua_nvim_project_root = find_lua_nvim_project_root,

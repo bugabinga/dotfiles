@@ -4,7 +4,7 @@ return {
   name = 'jsonls',
   filetypes = { 'json', 'jsonc' },
   command = { 'vscode-json-language-server', '--stdio' },
-  root_dir = project.find_project_root,
+  root_dir = project.find_vcs_project_root,
   single_file_support = true,
   workspaces = false,
   init_options = {
