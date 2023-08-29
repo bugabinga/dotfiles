@@ -11,6 +11,10 @@ def-env workspace [] {
 }
 export alias w =  workspace
 
+export def-env lk [] {
+	cd (walk --icons)
+}
+
 def open-editor-with-content-search [ initial_query:string = ''] {
 	sk --ansi --interactive --cmd-query $initial_query --delimiter ':' --nth 1 --cmd "rg --color=always --line-number {}" --preview 'bat --color=always {1}' --color light | parse '{file}:{number}:{line}' | each { nvim -c $in.number -c $"?\\V($in.line | str trim )" $in.file }
 }

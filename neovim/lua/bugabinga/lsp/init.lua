@@ -30,6 +30,25 @@ local token_update       = function ( lsp_client )
   --* closures that capture something
 end
 
+local expand_path = function(path)
+  if vim.fn.executable(path) == 1 then
+    return vim.fn.exepath(path)
+  else
+    return path
+  end
+end
+
+local expand_command = function(command)
+	vim.validate{ command = { command, { 'string', 'table' } }}
+
+	if type(command) == 'table' then 
+	  command[1] = expand_path(command[1])
+	  return command
+  end
+
+  return expand_path(command)
+end
+
 local lsp_start          = function ( file_type_event )
   local match = file_type_event.match
 
@@ -61,7 +80,7 @@ local lsp_start          = function ( file_type_event )
       }
       -- normalize scalar values to its vector alternative for easier processing later on
       -- this mutates the lsp client configs! careful!
-      config.command = type( config.command ) == 'string' and { config.command } or config.command
+      config.command = type( config.command ) == 'string' and { expand_command(config.command) } or expand_command(config.command)
       config.filetypes = type( config.filetypes ) == 'string' and { config.filetypes } or config.filetypes
       config.capabilities = config.capabilities or {}
       config.init_options = config.init_options or {}
@@ -88,7 +107,7 @@ local lsp_start          = function ( file_type_event )
   )
 
   if not config then
-    -- vim.print('FOUND NO LSP CLIENT FOR', buffer_path)
+    vim.print('FOUND NO LSP CLIENT FOR', buffer_path)
     return
   end
 
@@ -129,7 +148,7 @@ local lsp_start          = function ( file_type_event )
     -- reuse_client = function(existing_client, config)end,
   } )
 
-  -- vim.print("ATTACHING LSP CLIENT", client_id)
+  vim.print("ATTACHING LSP CLIENT", client_id)
 end
 
 local old_formatexpr
@@ -289,7 +308,8 @@ local lsp_attach         = function ( args )
     keys = '<c-7>',
     command = vim.lsp.buf.signature_help,
   }
-  s = map.normal {
+
+  map.normal {
     name = 'Show signature help under cursor.',
     category = 'telescope',
     keys = '<c-7><c-7>',
@@ -315,8 +335,6 @@ local lsp_detach         = function ( args )
   if client.server_capabilities.completionProvider then
     vim.bo[bufnr].omnifunc = old_omnifunc
   end
-
-  if s then s() end
 end
 
 auto 'lsp' {

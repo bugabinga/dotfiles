@@ -54,7 +54,7 @@ def create_left_prompt [] {
 
     # normalize path
     let pwd = ($env.PWD | path expand)
-    let pwd = ( (icons) | reduce --fold $pwd { |item, accumulator| $accumulator | str replace --string $item.path $item.icon })
+    let pwd = ( (icons) | reduce --fold $pwd { |item, accumulator| $accumulator | str replace $item.path $item.icon })
     let truncate_level = 5
     let truncate_symbol = $"…(char path_sep)"
     let path_segment = if ($pwd | path split | length) >= $truncate_level { ($pwd | path dirname --num-levels 2 --replace $truncate_symbol ) } else { $pwd }
@@ -73,7 +73,7 @@ def create_left_prompt [] {
 
 def create_right_prompt [] {
     let time_segment = ([
-        (date now | date format '%d.%m %R')
+        (date now | format date '%d.%m %R')
     ] | str join)
 
     let command_status_segment = if $env.LAST_EXIT_CODE == 0 { $" (char -u '2713') " } else { $"(ansi red) (char failed) (ansi reset)" }

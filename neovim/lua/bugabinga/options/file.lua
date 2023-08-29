@@ -24,3 +24,4 @@ vim.opt.updatecount = 100
 
 -- enable persistent undo. save undo history across neovim instances
 vim.opt.undofile = true
+
