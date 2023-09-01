@@ -6,6 +6,9 @@ export alias edit = hx
 # TODO ewrite bak command
 export alias backup = bak
 
+# https://gist.github.com/mullnerz/9fff80593d6b442d5c1b
+export alias archive = wget -mpck --html-extension --user-agent="" -e robots=off --wait 1 -P .
+
 def-env workspace [] {
 	fd --type directory --max-depth 1 . $env.WORKSPACE | sk --ansi --preview 'test -f {}README.md&& mdcat {}README.md' --preview-window 'right:66%' | cd $in
 }

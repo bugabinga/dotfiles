@@ -7,9 +7,6 @@ git/gitconfig.linux
 cargo/config.toml
 ~/.cargo/config.toml
 
-nushell/completions
-~/.config/nushell/completions
-
 nushell/config.nu
 ~/.config/nushell/config.nu
 
