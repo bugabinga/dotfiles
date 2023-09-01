@@ -1,4 +1,4 @@
-git/gitconfig
+ggit/gitconfig
 ~/.config/git/config
 
 git/gitconfig.linux
@@ -24,9 +24,6 @@ cargo/config.toml
 
 bat/config
 ~/.config/bat/config
-
-nushell/completions
-~/.config/nushell/completions
 
 nushell/config.nu
 ~/.config/nushell/config.nu
