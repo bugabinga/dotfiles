@@ -18,7 +18,6 @@ require'bugabinga.lsp'
 
 -- TODO:
 -- [ ] use ltex-ls for markdown, code comments and commit messages
--- [ ] use nvimjdtls
 -- [ ] DAP
--- [ ] nugu theme
 -- [ ] add nu-check to nvim-lint
+-- [ ] Semantic Highlighting: https://gist.github.com/swarn/fb37d9eefe1bc616c2a7e476c0bc0316
