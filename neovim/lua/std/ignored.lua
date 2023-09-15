@@ -11,6 +11,7 @@ local filetypes = {
   'toggleterm',
   'lazy',
   'oil',
+  'spectre_panel',
 }
 
 local buftypes = {

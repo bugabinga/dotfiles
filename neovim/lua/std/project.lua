@@ -99,7 +99,10 @@ local function find_root(path, markers, stop)
   -- stop if we reached the user defined stop instead of the file system root
   local current_path = path
   while current_path ~= stop do
-    if loop_count > MAX_TRAVERSAL_COUNT then error(( 'searching for markers reached the max traversal count for path %s !' ):format(path)) end
+    if loop_count > MAX_TRAVERSAL_COUNT then
+      vim.notify(( 'searching for markers reached the max traversal count for path %s !' ):format(path))
+      break
+    end
 
     local score = {
       path = current_path,
@@ -148,11 +151,12 @@ local function find_root(path, markers, stop)
 end
 
 --- Determines the project root directory of the current buffer file. A "project" is not clearly defined for all programming languages, so this function uses a heuristic approach.
+---@param path string? path to start searching from. If `nil`, then path of current buffer is used.
 ---@param markers table<string, number>? list of markers. a marker is a table with `name` and `weight` key. `name` can be a file or directory name, that indicates, that if a file/folder with that name exists in a directory, that directory is likely to be a project root. `weight` is a means to express confidence in that likelihood. Values should be between 1 and 3. Internally, there are some project-agnostic markers defined (e.g. README, LICENSE, .git, ...) that will be merged with `custom_markers`.
 ---
 ---@return string? # The project root of the current buffer, or `nil`, if none could be determined.
 ---
-local function find_project_root(markers)
+local function find_project_root(path, markers)
   -- define some language-independent markers
   local default_markers = {
     { name = '.git', weight = 1 },
@@ -172,14 +176,14 @@ local function find_project_root(markers)
     { name = 'flake.nix', weight = 1 },
   }
 
-  return find_root(nil, join(default_markers, markers))
+  return find_root(path, join(default_markers, markers))
 end
 
-local function find_vcs_project_root()
-  return find_project_root{}
+local function find_vcs_project_root(path)
+  return find_project_root(path, {})
 end
 
-local function find_java_project_root()
+local function find_java_project_root(path)
   local java_markers = {
     { name = '.idea', weight = 2 },
     { name = '.classpath', weight = 2 },
@@ -196,7 +200,7 @@ local function find_java_project_root()
     { name = 'gradlew', weight = 3 },
     { name = 'gradlew.bat', weight = 3 },
   }
-  return find_root(nil, java_markers)
+  return find_root(path, java_markers)
 end
 
 -- TODO: how to get a marker for luarocks stuff?
@@ -215,18 +219,62 @@ local nvim_lua_markers = {
   {name = 'lua', weight = 1},
 }
 
-local find_lua_project_root = function()
-  return find_root(nil, lua_markers)
+local find_lua_project_root = function(path)
+  return find_root(path, lua_markers)
 end
 
-local find_lua_nvim_project_root = function()
-  return find_root(nil, nvim_lua_markers)
+local find_lua_nvim_project_root = function(path)
+  return find_root(path, nvim_lua_markers)
+end
+
+local zig_markers = {
+  { name = 'build.zig', weight = 3 },
+  { name = 'zls.build.json', weight = 3 },
+  { name = 'zig-cache', weight = 1 },
+  { name = 'zig-out', weight = 1 },
+}
+
+local find_zig_project_root = function(path)
+  return find_root(path, zig_markers)
+end
+
+local find_rust_project_root = function(path)
+  local markers = {
+    { name = 'Cargo.toml', weight = 3 },
+  }
+  local cargo_crate_dir = find_root(path, markers)
+  if cargo_crate_dir == nil then return nil end
+
+  local cmd = {
+    'cargo',
+    'metadata',
+    '--no-deps',
+    '--format-version',
+    '1',
+    '--manifest-path',
+    vim.fs.joinpath(cargo_crate_dir, 'Cargo.toml'),
+  }
+
+  local result = vim.system(cmd, { text = true }):wait()
+  local cargo_workspace_root
+
+  if result.code == 0 then
+    local json = vim.json.decode(result.stdout)
+    if json['workspace_root'] then
+      cargo_workspace_root = vim.fs.normalize(json['workspace_root'])
+    end
+  end
+
+  return cargo_workspace_root or cargo_crate_dir
 end
 
 return {
   find_root = find_root,
+  find_project_root = find_project_root,
   find_vcs_project_root = find_vcs_project_root,
   find_java_project_root = find_java_project_root,
   find_lua_project_root = find_lua_project_root,
   find_lua_nvim_project_root = find_lua_nvim_project_root,
+  find_zig_project_root = find_zig_project_root,
+  find_rust_project_root = find_rust_project_root,
 }

@@ -38,7 +38,7 @@ return {
   lazy = '󰄻',
   global = '󱥔',
   ['local'] = '󱥕',
-  space = '∸',
+  space = '⋅',
   eol = '↴',
   tab = '󰌒',
   trail = '•',

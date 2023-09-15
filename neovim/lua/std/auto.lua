@@ -18,6 +18,7 @@ return function(group_name)
       vim.api.nvim_create_autocmd(autocommand.events, {
         desc = autocommand.description,
         group = group,
+        buffer = autocommand.buffer,
         pattern = autocommand.pattern,
         command = command,
         callback = callback,
