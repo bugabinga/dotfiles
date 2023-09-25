@@ -451,6 +451,13 @@ local nugu = lush( function ( injects )
     GitSignsDeleteVirtLnInLine { DiffText },
     GitSignsVirtLnum { fg = LineNr.fg },
 
+    WhichKey { fg = ui_important_global },     -- 	the key
+    WhichKeyGroup { fg = ui_important_local }, -- 	a group
+    WhichKeySeparator { fg = ui_minor },       -- 	the separator between the key and its label
+    WhichKeyDesc { fg = ui_normal },           -- 	the label of the key
+    WhichKeyFloat { NormalFloat },             -- 	Normal in the popup window
+    WhichKeyBorder { FloatBorder },            -- 	Normal in the popup window
+    WhichKeyValue { Comment },                 -- 	used by plugins that provide values
   }
 end )
 

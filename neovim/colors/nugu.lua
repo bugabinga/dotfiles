@@ -3,7 +3,7 @@ if vim.g.colors_name  == nil then
 	local current_hour = tonumber(os.date('%H'))
 
 	-- Set the background based on the time of day
-	if current_hour >= 9 and current_hour < 21 then
+	if current_hour >= 9 and current_hour < 19 then
 		vim.opt.background = 'light'
 	else
 		vim.opt.background = 'dark'

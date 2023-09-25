@@ -68,7 +68,7 @@ local function register_mark( mark, bufnr, line )
   -- Create the sign.
   local sign_name = 'Marks_' .. mark
   if not sign_cache[sign_name] then
-    vim.fn.sign_define( sign_name, { text = mark, texthl = 'DiagnosticSignOk' } )
+    vim.fn.sign_define( sign_name, { text = mark, texthl = 'GitSignsChange' } )
     sign_cache[sign_name] = true
   end
   vim.fn.sign_place( id, sign_group_name, sign_name, bufnr, {

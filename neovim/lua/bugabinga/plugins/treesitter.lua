@@ -143,21 +143,20 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
+            ['af'] = { query = '@function.outer', desc = 'Select outer function' },
+            ['if'] = { query = '@function.inner', desc = 'Select inner function' },
 
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
+            ['ac'] = { query = '@class.outer', desc = 'Select outer class' },
+            ['ic'] = { query = '@class.inner' , desc = 'Select inner class' },
 
-            ['at'] = '@comment.outer',
-            ['it'] = '@comment.inner',
+            ['at'] = { query = '@comment.outer' , desc = 'Select outer comment' },
 
             ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
           },
           selection_modes = {
-            ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'V',  -- linewise
-            ['@class.outer'] = '<c-v>', -- blockwise
+            ['@parameter.outer'] = 'v',
+            ['@function.outer'] = 'v',
+            ['@class.outer'] = '<c-v>',
             ['@scope'] = 'V',
           },
           include_surroundig_whitespace = true,
@@ -166,10 +165,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>sn'] = '@parameter.inner',
+            ['<leader>sn'] = { query = '@parameter.inner' , desc = 'Swap parameter with next' },
           },
           swap_previous = {
-            ['<leader>sp'] = '@parameter.inner',
+            ['<leader>sp'] = { query = '@parameter.inner' , desc = 'Swap parameter with previous' },
           },
         },
 
@@ -178,8 +177,8 @@ return {
           border = vim.g.border_style,
           floating_preview_opts = {},
           peek_definition_code = {
-            ['<c-)>'] = '@function.outer',
-            ['<c-a-)>'] = '@class.outer',
+            ['<leader>lpf'] = { query = '@function.outer', desc = 'Peek definition of outer function.' },
+            ['<leader>lpc'] = { query = '@class.outer', desc = 'Peek definition of outer class.' },
           },
         },
 
@@ -187,18 +186,18 @@ return {
           enable = true,
           set_jumps = true,
           goto_next = {
-            [']f'] = '@function.outer',
-            [']c'] = { query = '@class.outer', desc = 'Next class start' },
-            [']s'] = { query = '@scope', query_group = 'locals', desc = 'Next scope' },
-            [']i'] = '@conditional.outer',
-            [']a'] = '@parameter.outer',
+            [']f'] = { query = '@function.outer' , desc = 'Goto next funtion' },
+            [']c'] = { query = '@class.outer', desc = 'Goto next class' },
+            [']s'] = { query = '@scope', query_group = 'locals', desc = 'Goto next scope' },
+            [']i'] = { query = '@conditional.outer' , desc = 'Goto next conditional' },
+            [']a'] = { query = '@parameter.outer' , desc = 'Goto next parameter' },
           },
           goto_previous = {
-            ['[f'] = '@function.outer',
-            ['[c'] = { query = '@class.outer', desc = 'Previous class start' },
-            ['[s'] = { query = '@scope', query_group = 'locals', desc = 'Previous scope' },
-            ['[i'] = '@conditional.outer',
-            ['[a'] = '@parameter.outer',
+            ['[f'] = { query = '@function.outer' , desc = 'Goto previous function' },
+            ['[c'] = { query = '@class.outer', desc = 'goto previous class' },
+            ['[s'] = { query = '@scope', query_group = 'locals', desc = 'Goto previous scope' },
+            ['[i'] = { query = '@conditional.outer' , desc = 'Goto previous conditional' },
+            ['[a'] = { query = '@parameter.outer' , desc = 'Goto previous parameter' },
           }
         },
       }
@@ -231,3 +230,4 @@ return {
     }
   end,
 }
+
