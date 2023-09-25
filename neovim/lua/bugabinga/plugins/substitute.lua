@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {{
 	"gbprod/substitute.nvim",
@@ -8,21 +8,21 @@ return {{
 		substitute.setup{}
 
 		map.normal {
-			name = 'substitution motion',
+			description = 'substitution motion',
 			category = 'editing',
 			keys = 's',
 			command = substitute.operator,
 		}
 
 		map.normal {
-			name = 'substitution of current line',
+			description = 'substitution of current line',
 			category = 'editing',
 			keys = 'ss',
 			command = substitute.line,
 		}
 
 		map.normal {
-			name = 'substitution until end of line',
+			description = 'substitution until end of line',
 			category = 'editing',
 			keys = 'S',
 			command = substitute.eol,

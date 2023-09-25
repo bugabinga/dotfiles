@@ -1,4 +1,4 @@
-require'bugabinga.health'.add_dependency
+require 'bugabinga.health'.add_dependency
 {
   name_of_executable = 'rg'
 }
@@ -12,9 +12,13 @@ return {
   },
   opts = {
     live_update = true,
-    line_sep_start = '▛▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔',
-    result_padding = '▎',
-    line_sep       = '▙▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁',
-    default = { replace = { cmd = 'oxi' } }
+    default = { replace = { cmd = 'oxi' } },
+    mapping = {
+      ['run_current_replace'] = {
+        map = '<leader>r',
+        cmd = function () require 'spectre.actions'.run_current_replace() end,
+        desc = 'replace current line'
+      },
+    }
   },
 }

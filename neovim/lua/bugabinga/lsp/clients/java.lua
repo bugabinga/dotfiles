@@ -1,5 +1,5 @@
-local table = require'std.table'
-local project = require'std.project'
+local table = require 'std.table'
+local project = require 'std.project'
 
 local create_shared_config_path = function(base_path, syntax_server)
   local os_config
@@ -18,7 +18,7 @@ local find_launcher_jar = function(base_path)
   local launchers = vim.fn.globpath(plugins_dir, 'org.eclipse.equinox.launcher_*.jar', false, true)
 
   if table.is_empty(launchers) then
-    vim.error('Could not find jdtls launcher jar in ' .. plugins_dir )
+    vim.error('Could not find jdtls launcher jar in ' .. plugins_dir)
   end
 
   -- vim.print('found launcher jars', launchers)
@@ -26,14 +26,16 @@ local find_launcher_jar = function(base_path)
 end
 
 local create_data_dir = function()
-  local data_name = vim.fn.sha256(vim.uv.cwd())
-  local cache = vim.fn.stdpath'cache'
+  local cwd = vim.uv.cwd() or ''
+  local data_name = vim.fn.sha256(cwd)
+  local cache = vim.fn.stdpath 'cache'
+  cache = type(cache) == 'table' and cache[1] or cache
 
   return vim.fs.joinpath(cache, 'jdtls_data', data_name)
 end
 
 local create_jdtls_command = function(syntax_server)
-  local mason_packages_base_path = require'mason-core.package':get_install_path()
+  local mason_packages_base_path = require 'mason-core.package':get_install_path()
   local jdtls_package_path = vim.fs.joinpath(mason_packages_base_path, 'jdtls')
   local shared_config_path = create_shared_config_path(jdtls_package_path, syntax_server)
   local launcher_jar = find_launcher_jar(jdtls_package_path)
@@ -47,14 +49,12 @@ local create_jdtls_command = function(syntax_server)
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=true',
-    '-Dlog.level=INFO',
+    '-Dlog.level=ALL',
     "-Dosgi.checkConfiguration=true",
-    "-Dosgi.sharedConfiguration.area=" ..  shared_config_path,
+    "-Dosgi.sharedConfiguration.area=" .. shared_config_path,
     "-Dosgi.sharedConfiguration.area.readOnly=true",
     "-Dosgi.configuration.cascaded=true",
     ss_option,
-    "-Xms1g",
-    '-Xmx4g',
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
@@ -80,10 +80,10 @@ local find_jdks = function()
     jdk17.path = '/usr/lib/jvm/openjdk-17'
     jdk19.path = '/usr/lib/jvm/openjdk-19'
   else
-    vim.notify'missing jdk paths in java settings for lsp'
+    vim.notify 'missing jdk paths in java settings for lsp'
   end
 
-  return {jdk11, jdk17, jdk20 }
+  return { jdk11, jdk17, jdk19 }
 end
 
 local java_settings = {
@@ -94,36 +94,21 @@ local java_settings = {
       staticStarThreshold = 9999,
     },
   },
-  configuration = { runtimes = find_jdks(), };
+  configuration = { runtimes = find_jdks(), },
 }
 
 local jdtls_lsp_start = function(config, opts)
   -- vim.print('jdtls lsp start', config, opts)
-  require'jdtls'.start_or_attach(config,opts)
+  require 'jdtls'.start_or_attach(config, opts)
 end
 
 return {
-  jdtls = {
-    custom_start = jdtls_lsp_start,
-    name = 'jdtls',
-    filetypes = 'java',
-    command = create_jdtls_command(),
-    root_dir = project.find_java_project_root,
-    single_file_support = false,
-    workspaces = true,
-    settings = { java = java_settings },
-    init_options = {
-      bundles = {}
-    },
-  },
-  jdtls_ss = {
-    custom_start = jdtls_lsp_start,
-    name = 'jdtls_ss',
-    filetypes = 'java',
-    command = create_jdtls_command(true),
-    root_dir = project.find_java_project_root,
-    single_file_support = true,
-    workspaces = false,
-    settings = { java = java_settings },
-  },
+  custom_start = jdtls_lsp_start,
+  name = 'jdtls',
+  filetypes = 'java',
+  command = create_jdtls_command(true),
+  root_dir = project.find_java_project_root,
+  single_file_support = true,
+  workspaces = false,
+  settings = { java = java_settings },
 }
