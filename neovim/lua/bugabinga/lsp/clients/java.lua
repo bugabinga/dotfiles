@@ -103,8 +103,8 @@ local jdtls_lsp_start = function(config, opts)
 end
 
 return {
+	name = 'jdtls',
   custom_start = jdtls_lsp_start,
-  name = 'jdtls',
   filetypes = 'java',
   command = create_jdtls_command(true),
   root_dir = project.find_java_project_root,

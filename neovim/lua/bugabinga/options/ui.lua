@@ -60,8 +60,8 @@ vim.opt.cursorline = false
 vim.opt.pumheight = 10
 
 -- transparent popups and floating windows
-vim.opt.pumblend = 5
-vim.opt.winblend = 5
+vim.opt.pumblend = 8
+vim.opt.winblend = 8
 
 vim.g.border_style = 'shadow'
 

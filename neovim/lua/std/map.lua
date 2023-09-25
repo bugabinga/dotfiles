@@ -32,7 +32,7 @@ local available_modes = {
 local bind = function ( self, map )
   vim.validate {
     map = { map, 'table' },
-    ['map.keys'] = { map.keys, 'string' },
+    ['map.keys'] = { map.keys, { 'string', 'table' } },
     ['map.command'] = { map.command, { 'function', 'string' } },
   }
 
@@ -51,12 +51,26 @@ local bind = function ( self, map )
   } )
 
   if vim.tbl_isempty( self.mode ) then self.mode[1] = available_modes.normal_visual_select_operator_pending end
-  vim.keymap.set( self.mode, keys, command, options )
+
+  if type( keys ) == 'table' then
+    for _, key in ipairs( keys ) do
+      vim.keymap.set( self.mode, key, command, options )
+    end
+  else
+    vim.keymap.set( self.mode, keys, command, options )
+  end
+
   self.mode = {}
 
   return function ()
     local delete_options = options.buffer and { buffer = options.buffer } or {}
-    vim.keymap.del( self.mode, keys, delete_options )
+    if type( keys ) == 'table' then
+      for _, key in ipairs( keys ) do
+        vim.keymap.del( self.mode, key, delete_options )
+      end
+    else
+      vim.keymap.del( self.mode, keys, delete_options )
+    end
   end
 end
 

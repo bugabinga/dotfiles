@@ -33,7 +33,7 @@ return {
     direction = 'float',
     float_opts = {
       border = vim.g.border_style,
-      winblend = 10,
+      winblend = vim.o.winblend,
     },
     size = function ( term )
       if term.direction == 'horizontal' then

@@ -22,3 +22,4 @@ require'bugabinga.lsp'
 -- [ ] use ltex-ls for markdown, code comments and commit messages
 -- [ ] DAP
 -- [ ] add nu-check to nvim-lint
+-- [ ] replace hydra with normal mapping + whcihkey

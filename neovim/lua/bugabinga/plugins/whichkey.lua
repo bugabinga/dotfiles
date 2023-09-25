@@ -18,7 +18,7 @@ return {
     },
     window = {
       border = vim.g.border_style,
-      winblend = 42/2,
+      winblend = vim.o.winblend,
     },
     disable = {
       buftypes = ignored.buftypes,
