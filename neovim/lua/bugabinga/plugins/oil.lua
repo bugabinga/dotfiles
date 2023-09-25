@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
 	'stevearc/oil.nvim',
@@ -36,7 +36,7 @@ return {
 		}
 
 		map.normal {
-			name = 'Open parent directory in buffer.',
+			description = 'Open parent directory in buffer.',
 			category = 'files',
 			keys = '-',
 			command = oil.open,

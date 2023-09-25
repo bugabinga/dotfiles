@@ -1,4 +1,4 @@
-local map = require 'std.keymap'
+local map = require 'std.map'
 
 return {
   {
@@ -38,28 +38,28 @@ return {
 
       -- NORMAL MOVE
       map.normal {
-        name = 'Move character left',
+        description = 'Move character left',
         category = 'editing',
         keys = '<A-h>',
         options = options,
 				command = '<Plug>GoNSMLeft',
       }
       map.normal {
-        name = 'Move line down',
+        description = 'Move line down',
         category = 'editing',
         keys = '<A-j>',
         options = options,
 				command = '<Plug>GoNSMDown',
       }
       map.normal {
-        name = 'Move line up',
+        description = 'Move line up',
         category = 'editing',
         keys = '<A-k>',
         options = options,
 				command = '<Plug>GoNSMUp',
       }
       map.normal {
-        name = 'Move character right',
+        description = 'Move character right',
         category = 'editing',
         keys = '<A-l>',
         options = options,
@@ -68,28 +68,28 @@ return {
 
       -- VISUAL MOVE
       map.visual {
-        name = 'Move block left',
+        description = 'Move block left',
         category = 'editing',
 				keys = '<A-h>',
         options = options,
 				command = '<Plug>GoVSMLeft',
       }
       map.visual {
-        name = 'Move block down',
+        description = 'Move block down',
         category = 'editing',
         keys = '<A-j>',
         options = options,
 				command = '<Plug>GoVSMDown',
       }
       map.visual {
-        name = 'Move block up',
+        description = 'Move block up',
         category = 'editing',
         keys = '<A-k>',
         options = options,
 				command = '<Plug>GoVSMUp',
       }
       map.visual {
-        name = 'Move block right',
+        description = 'Move block right',
         category = 'editing',
         keys = '<A-l>',
         options = options,
@@ -98,28 +98,28 @@ return {
 
       -- NORMAL DUPLICATE
       map.normal {
-        name = 'Duplicate character left',
+        description = 'Duplicate character left',
         category = 'editing',
         keys = '<A-H>',
         options = options,
 				command = '<Plug>GoNSDLeft',
       }
       map.normal {
-        name = 'Duplicate line down',
+        description = 'Duplicate line down',
         category = 'editing',
         keys = '<A-J>',
         options = options,
 				command = '<Plug>GoNSDDown',
       }
       map.normal {
-        name = 'Duplicate line up',
+        description = 'Duplicate line up',
         category = 'editing',
         keys = '<A-K>',
         options = options,
 				command = '<Plug>GoNSDUp',
       }
       map.normal {
-        name = 'Duplicate character right',
+        description = 'Duplicate character right',
         category = 'editing',
         keys = '<A-L>',
         options = options,
@@ -128,28 +128,28 @@ return {
 
       -- VISUAL DUPLICATE
       map.visual {
-        name = 'Duplicate block left',
+        description = 'Duplicate block left',
         category = 'editing',
         keys = '<A-H>',
         options = options,
 				command = '<Plug>GoVSDLeft',
       }
       map.visual {
-        name = 'Duplicate block down',
+        description = 'Duplicate block down',
         category = 'editing',
         keys = '<A-J>',
         options = options,
 				command = '<Plug>GoVSDDown',
       }
       map.visual {
-        name = 'Duplicate block up',
+        description = 'Duplicate block up',
         category = 'editing',
         keys = '<A-K>',
         options = options,
 				command = '<Plug>GoVSDUp',
       }
       map.visual {
-        name = 'Duplicate block right',
+        description = 'Duplicate block right',
         category = 'editing',
         keys = '<A-L>',
         options = options,

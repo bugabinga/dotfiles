@@ -1,7 +1,7 @@
 local project = require'std.project'
 
 return {
-  name = 'clangd',
+  description = 'clangd',
   command = 'clangd',
   filetypes = 'c',
   root_dir = project.find_vcs_project_root,

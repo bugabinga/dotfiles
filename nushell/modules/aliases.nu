@@ -1,7 +1,7 @@
 # Semantic aliases
 export alias show = bat
 export def list [] { ls --all --long --du --mime-type | where type == dir | append (ls --all --long --du --mime-type | where type != dir) }
-export alias browse = firefox
+export alias web = firefox
 export alias edit = hx
 # TODO ewrite bak command
 export alias backup = bak

@@ -1,14 +1,6 @@
-local lua = require'bugabinga.lsp.clients.lua'
-local java = require'bugabinga.lsp.clients.java'
-
--- FIXME: it is not possible right now to start multiple LSPs perf buffer
--- NOTE: The order of clients is implicitly priorization.
--- Put "more specific" clients first
 return {
-  lua.nvim_lua_ls,
-  lua.lua_ls,
-  java.jdtls,
-  java.jdtls_ss,
+  require'bugabinga.lsp.clients.java',
+  require'bugabinga.lsp.clients.lua',
   require'bugabinga.lsp.clients.json',
   require'bugabinga.lsp.clients.archlinux',
   require'bugabinga.lsp.clients.asm',

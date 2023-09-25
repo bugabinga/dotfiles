@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
 	{
@@ -90,21 +90,21 @@ return {
       noice.setup(opts)
 
       map.normal {
-        name = 'Open search for notifications...',
+        description = 'Open search for notifications...',
         category = 'search',
         keys = '<C-n><C-n>',
         command = function() noice.cmd'history' end,
       }
 
       map.command_line {
-        name = 'Redirect Cmdline',
+        description = 'Redirect Cmdline',
         category = 'ui',
         keys = '<S-cr>',
         command = function() noice.redirect(vim.fn.getcmdline()) end,
       }
 
       map.normal {
-        name = 'Dismiss current notifications',
+        description = 'Dismiss current notifications',
         category = 'notify',
         keys = '<esc>',
         command = function() noice.cmd 'dismiss' end,
@@ -113,7 +113,7 @@ return {
       local noice_lsp = require'noice.lsp'
 
       map.normal {
-        name = 'Scroll up in documentation popup',
+        description = 'Scroll up in documentation popup',
         category = 'ui',
         keys = '<C-f>',
         command = function()
@@ -123,7 +123,7 @@ return {
       }
 
       map.normal {
-        name = 'Scroll down in documentation popup',
+        description = 'Scroll down in documentation popup',
         category = 'ui',
         keys = '<C-b>',
         command = function()

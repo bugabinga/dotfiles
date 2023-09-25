@@ -1,4 +1,4 @@
-local map = require 'std.keymap'
+local map = require 'std.map'
 local want = require 'std.want'
 
 -- set <SPACE> as leader key
@@ -18,7 +18,7 @@ map {
 
 -- insert newline under or above in normal mode
 map.normal {
-	name = 'Insert newline under cursor',
+	description = 'Insert newline under cursor',
 	category = 'editing',
 	keys = '<C-enter>',
 	command = function()
@@ -31,7 +31,7 @@ map.normal {
 }
 
 map.normal {
-	name = 'Insert newline above cursor',
+	description = 'Insert newline above cursor',
 	category = 'editing',
 	keys = '<C-S-enter>',
 	command = function()
@@ -87,35 +87,35 @@ map {
 
 -- system clipboard copy and paste
 map.normal.visual {
-	name = 'yank into system clipboard',
+	description = 'yank into system clipboard',
 	category = 'editing',
 	keys = '<leader>y',
 	command = '"+y',
 }
 
 map.normal.visual {
-	name = 'yank line into system clipboard',
+	description = 'yank line into system clipboard',
 	category = 'editing',
 	keys = '<leader>yy',
 	command = '"+Y',
 }
 
 map.normal.visual {
-	name = 'paste before from system clipboard',
+	description = 'paste before from system clipboard',
 	category = 'editing',
 	keys = '<leader>p',
 	command = '"+p',
 }
 
 map.normal.visual {
-	name = 'paste after from system clipboard',
+	description = 'paste after from system clipboard',
 	category = 'editing',
 	keys = '<leader>P',
 	command = '"+P',
 }
 
 map.insert {
-	name = 'Cycle through autocomplete popup',
+	description = 'Cycle through autocomplete popup',
 	category = 'editing',
 	keys = '<tab>',
 	options = { expr = true },
@@ -140,14 +140,14 @@ local function open_link_under_cursor()
 end
 
 map.normal {
-	name = 'Open web link under cursor in browser',
+	description = 'Open web link under cursor in browser',
 	category = 'navigation',
 	keys = 'gx',
 	command = open_link_under_cursor,
 }
 
 map.normal {
-	name = 'Dismiss current search highlight',
+	description = 'Dismiss current search highlight',
 	category = 'search',
 	keys = '<esc><esc>',
 	command = function() vim.cmd [[ nohlsearch ]] end,
@@ -168,21 +168,21 @@ map.normal {
 }
 
 map.insert {
-	name = 'Exit normal mode',
+	description = 'Exit normal mode',
 	category = 'vim',
 	keys = 'jj',
 	command = '<C-c>',
 }
 
 map.normal {
-	name = 'Goto matching bracket',
+	description = 'Goto matching bracket',
 	category = 'navigation',
 	keys = 'mm',
 	command = '%',
 }
 
 map.normal {
-	name = 'Redo undone operation',
+	description = 'Redo undone operation',
 	category = 'history',
 	keys = 'U',
 	command = vim.cmd.redo,
@@ -194,35 +194,35 @@ map {
 }
 
 map.normal {
-	name = 'Move next in quickfix list',
+	description = 'Move next in quickfix list',
 	category = 'navigation',
 	keys = '<A-bs>',
 	command = '<cmd>cnext<cr>',
 }
 
 map.normal {
-	name = 'Move back in quickfix list',
+	description = 'Move back in quickfix list',
 	category = 'navigation',
 	keys = '<bs>',
 	command = '<cmd>cprevious<cr>',
 }
 
 map.normal {
-  name = 'Open quickfix list',
+  description = 'Open quickfix list',
   category = 'navigation',
   keys = '<bs><bs>',
   command = '<cmd>copen<cr>',
 }
 
 map.normal {
-  name = 'Open nvim configuration',
+  description = 'Open nvim configuration',
   category = 'config',
   keys = '<F2><F2>',
   command = '<cmd>tabedit ' .. vim.fn.stdpath'config' .. '<cr>',
 }
 
 map.normal {
-  name = 'Execute current line as lua in neovim',
+  description = 'Execute current line as lua in neovim',
   category = 'config',
   keys = '<cr><cr>',
   command = '<cmd>lua <c-r><c-l><cr>'

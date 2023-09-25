@@ -1,4 +1,4 @@
-local map = require 'std.keymap'
+local map = require 'std.map'
 local auto = require 'std.auto'
 
 require 'bugabinga.health'.add_dependency
@@ -50,7 +50,7 @@ return {
     local set_terminal_keymaps = function ()
       local local_to_buffer = { buffer = 0 }
       map.terminal {
-        name = 'Quit insert mode',
+        description = 'Quit insert mode',
         category = 'terminal',
         keys = '<esc>',
         options = local_to_buffer,
@@ -66,14 +66,14 @@ return {
     }
 
     map.normal {
-      name = 'Open vertical Terminal',
+      description = 'Open vertical Terminal',
       category = 'terminal',
       keys = '<F8>',
       command = '<CMD>exe v:count1 . "ToggleTerm size=60 direction=vertical"<CR>'
     }
 
     map.normal {
-      name = 'Open horizontal Terminal',
+      description = 'Open horizontal Terminal',
       category = 'terminal',
       keys = '<F9>',
       command = '<CMD>exe v:count1 . "ToggleTerm size=20 direction=horizontal"<CR>'
@@ -93,7 +93,7 @@ return {
     _G.Gitui = function () gitui:toggle() end
 
     map.normal.terminal.insert {
-      name = 'Toggle gitui terminal in tab',
+      description = 'Toggle gitui terminal in tab',
       category = 'terminal',
       keys = '<F10>',
       command = Gitui,

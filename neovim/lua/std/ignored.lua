@@ -12,6 +12,7 @@ local filetypes = {
   'lazy',
   'oil',
   'spectre_panel',
+  'WhichKey',
 }
 
 local buftypes = {
