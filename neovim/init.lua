@@ -14,11 +14,12 @@ require'bugabinga.lazy'
 -- configures the vim diagnostic subsystem
 require'bugabinga.diagnostic'
 require'bugabinga.trim'
+require'bugabinga.mark'
 require'bugabinga.lsp'
 
 -- TODO:
+-- [ ] highlight return keyword
 -- [ ] use ltex-ls for markdown, code comments and commit messages
--- [ ] use nvimjdtls
 -- [ ] DAP
--- [ ] nugu theme
 -- [ ] add nu-check to nvim-lint
+-- [ ] replace hydra with normal mapping + whcihkey

@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
 	'Wansmer/treesj',
@@ -12,7 +12,7 @@ return {
 		}
 
 		map.normal {
-			name = 'Toggle Tree Join/Split',
+			description = 'Toggle Tree Join/Split',
 			category = 'editing',
 			keys = '<C-j>',
 			command = treesj.toggle,

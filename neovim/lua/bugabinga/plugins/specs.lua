@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 local ignored = require'std.ignored'
 
 return {{
@@ -24,14 +24,14 @@ return {{
 		}
 
 		map.normal {
-			name = 'Find cursor!',
+			description = 'Find cursor!',
 			category = 'fun',
 			keys = '<leader><leader>',
 			command = specs.show_specs,
 		}
 
 		map.normal {
-      name = 'Find cursor, for real!',
+      description = 'Find cursor, for real!',
 			category = 'fun',
 			keys = '<leader><leader><leader>',
 			command = function()

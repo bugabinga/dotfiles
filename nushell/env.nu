@@ -1,4 +1,5 @@
 # GLOBAL VARIABLES
+# GLOBAL VARIABLES
 
 $env.WIN32 = ( $nu.os-info.name =~ "windows" )
 $env.NURC_DIR  = ( $nu.config-path | path expand | path dirname )
@@ -9,7 +10,7 @@ $env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
 $env.TERM = if ($env | get -i TERM_PROGRAM) == WezTerm { "wezterm" } else { "xterm-256color" }
 
 # theme for ls and other programs, that use LS_COLORS
-# $env.LS_COLORS = ( try { vivid generate nord } catch { "" } )
+$env.LS_COLORS = (try { vivid generate ayu | into string } catch {""})
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
@@ -31,3 +32,12 @@ $env.NU_LIB_DIRS = [
     ($nu.config-path | path dirname | path join 'modules'),
     ($nu.config-path | path dirname | path join 'completions')
 ]
+
+alias cb = flatpak run app.getclipboard.Clipboard
+
+$env.CLIPBOARD_EDITOR = nvim
+$env.CLIPBOARD_HISTORY = 100000
+$env.CLIPBOARD_PERSISTDIR = /home/oli/Clipboard
+$env.CLIPBOARD_NOAUDIO = 1
+# $env.CLIPBOARD_NOGUI = 1
+$env.CLIPBOARD_THEME = light

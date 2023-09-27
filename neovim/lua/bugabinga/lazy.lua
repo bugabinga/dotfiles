@@ -25,7 +25,7 @@ lazy.setup('bugabinga.plugins', {
     version = '*',
   },
   install = {
-    missing = true,
+    missing = false,
     colorscheme = { 'nugu', 'quiet' },
   },
   checker = {
@@ -42,7 +42,7 @@ lazy.setup('bugabinga.plugins', {
     },
   },
   custom_keys = false,
-  concurrency = 8,
+  change_detection = { notify = false },
   performance = {
     rtp = {
       disabled_plugins = {
@@ -77,7 +77,7 @@ lazy.setup('bugabinga.plugins', {
   },
 })
 
-local map = require 'std.keymap'
+local map = require 'std.map'
 
 local lazy_cmds = vim.iter {
 	{ 'Show', '' , lazy.show } ,

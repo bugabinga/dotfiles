@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
 	'AckslD/nvim-neoclip.lua',
@@ -17,7 +17,7 @@ return {
 		telescope.load_extension'neoclip'
 
 		map.normal {
-			name = 'Open clipboard history...',
+			description = 'Open clipboard history...',
 			category = 'history',
 			keys = '<C-v><C-v>',
 			command = function() telescope.extensions.neoclip.default(cursor) end,
