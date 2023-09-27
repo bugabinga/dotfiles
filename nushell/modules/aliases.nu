@@ -2,7 +2,7 @@
 export alias show = bat
 export def list [] { ls --all --long --du --mime-type | where type == dir | append (ls --all --long --du --mime-type | where type != dir) }
 export alias web = firefox
-export alias edit = hx
+export alias edit = nvim
 # TODO ewrite bak command
 export alias backup = bak
 
