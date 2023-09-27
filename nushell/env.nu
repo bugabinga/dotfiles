@@ -9,8 +9,6 @@ $env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
 
 $env.TERM = if ($env | get -i TERM_PROGRAM) == WezTerm { "wezterm" } else { "xterm-256color" }
 
-$env.PATH = ($env.PATH | prepend ( if $env.WIN32 { [] } else { [ $"($env.WORKSPACE)/tools", $"($env.HOME)/.cargo/bin" ] } ))
-
 # theme for ls and other programs, that use LS_COLORS
 $env.LS_COLORS = (try { vivid generate ayu | into string } catch {""})
 
@@ -43,4 +41,3 @@ $env.CLIPBOARD_PERSISTDIR = /home/oli/Clipboard
 $env.CLIPBOARD_NOAUDIO = 1
 # $env.CLIPBOARD_NOGUI = 1
 $env.CLIPBOARD_THEME = light
-
