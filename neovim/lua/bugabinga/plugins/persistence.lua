@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
   'folke/persistence.nvim',
@@ -9,14 +9,14 @@ return {
     persistence.setup(opts)
 
     map.normal {
-      name = 'Restore session for current directory',
+      description = 'Restore session for current directory',
       category = 'history',
       keys = '<F4>',
       command = function() persistence.load() end,
     }
 
     map.normal {
-      name = 'Restore last session',
+      description = 'Restore last session',
       category = 'history',
       keys = '<F4><F4>',
       command = function() persistence.load{last= true} end,

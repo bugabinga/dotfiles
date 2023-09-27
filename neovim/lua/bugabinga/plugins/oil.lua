@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
 	'stevearc/oil.nvim',
@@ -31,16 +31,16 @@ return {
 			float = {
 				border = vim.g.border_style,
 				padding = 2,
-				win_options = { winblend = 10 },
+          win_options = { winblend = vim.o.winblend },
 			},
 		}
 
 		map.normal {
-			name = 'Open parent directory in buffer.',
+			description = 'Open parent directory in buffer.',
 			category = 'files',
 			keys = '-',
-			command = oil.open,
-			-- command = oil.open_float,
+			-- command = oil.open,
+			command = oil.open_float,
 		}
 	end,
 }

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local palette = require 'bugabinga.nugu.palette'
 local lush = require 'lush'
 local hsl = lush.hsluv
@@ -169,12 +170,13 @@ local nugu = lush( function ( injects )
     DiagnosticSignHint { DiagnosticHint },
     DiagnosticSignOk { DiagnosticOk },
 
-    LspReferenceText { bg = content_unfocus },
+    LspReferenceText { fg = content_focus, bg = content_unfocus },
     LspReferenceRead { LspReferenceText },
     LspReferenceWrite { LspReferenceText },
+    LspInlayHint { fg = content_minor, bg = ui_unfocus },
 
     -- hlargs.nvim
-    Hlargs { fg = ui_important_local, gui = 'bold underdotted' },
+    Hlargs { fg = ui_important_local },
 
     -- Tree-Sitter syntax groups.
     --
@@ -193,51 +195,65 @@ local nugu = lush( function ( injects )
     --
     -- For more information see https://github.com/rktjmp/lush.nvim/issues/109
 
-    -- sym"@text.literal"      { }, -- Comment
-    -- sym"@text.reference"    { }, -- Identifier
-    -- sym"@text.title"        { }, -- Title
-    -- sym"@text.uri"          { }, -- Underlined
-    -- sym"@text.underline"    { }, -- Underlined
-    -- sym"@text.todo"         { }, -- Todo
-    -- sym"@comment"           { }, -- Comment
-    -- sym"@punctuation"       { }, -- Delimiter
-    -- sym"@constant"          { }, -- Constant
-    -- sym"@constant.builtin"  { }, -- Special
-    -- sym"@constant.macro"    { }, -- Define
-    -- sym"@define"            { }, -- Define
-    -- sym"@macro"             { }, -- Macro
-    -- sym"@string"            { }, -- String
-    -- sym"@string.escape"     { }, -- SpecialChar
-    -- sym"@string.special"    { }, -- SpecialChar
-    -- sym"@character"         { }, -- Character
-    -- sym"@character.special" { }, -- SpecialChar
-    -- sym"@number"            { }, -- Number
-    -- sym"@boolean"           { }, -- Boolean
-    -- sym"@float"             { }, -- Float
-    -- sym"@function"          { }, -- Function
-    -- sym"@function.builtin"  { }, -- Special
-    -- sym"@function.macro"    { }, -- Macro
-    -- sym"@parameter"         { }, -- Identifier
-    -- sym"@method"            { }, -- Function
-    -- sym"@field"             { }, -- Identifier
-    -- sym"@property"          { }, -- Identifier
-    -- sym"@constructor"       { }, -- Special
-    -- sym"@conditional"       { }, -- Conditional
-    -- sym"@repeat"            { }, -- Repeat
-    -- sym"@label"             { }, -- Label
-    -- sym"@operator"          { }, -- Operator
-    -- sym"@keyword"           { }, -- Keyword
-    -- sym"@exception"         { }, -- Exception
-    -- sym"@variable"          { }, -- Identifier
-    -- sym"@type"              { }, -- Type
-    -- sym"@type.definition"   { }, -- Typedef
-    -- sym"@storageclass"      { }, -- StorageClass
-    -- sym"@structure"         { }, -- Structure
-    -- sym"@namespace"         { }, -- Identifier
-    -- sym"@include"           { }, -- Include
-    -- sym"@preproc"           { }, -- PreProc
-    -- sym"@debug"             { }, -- Debug
-    -- sym"@tag"               { }, -- Tag
+    sym '@text.literal' { Comment },
+    sym '@text.reference' { Identifier },
+    sym '@text.title' { Title },
+    sym '@text.underline' { Underlined },
+    sym '@text.todo' { Todo },
+    sym '@comment' { Comment },
+    sym '@punctuation' { Delimiter },
+    sym '@constant' { Constant },
+    sym '@constant.builtin' { Special },
+    sym '@constant.macro' { Define },
+    sym '@define' { Define },
+    sym '@macro' { Macro },
+    sym '@string' { String },
+    sym '@string.escape' { SpecialChar },
+    sym '@string.special' { SpecialChar },
+    sym '@character' { Character },
+    sym '@character.special' { SpecialChar },
+    sym '@number' { Number },
+    sym '@boolean' { Boolean },
+    sym '@float' { Float },
+    sym '@function' { Function },
+    sym '@function.builtin' { Special },
+    sym '@function.macro' { Macro },
+    sym '@parameter' { Identifier },
+    sym '@method' { Function },
+    sym '@field' { Identifier },
+    sym '@property' { Identifier },
+    sym '@constructor' { Special },
+    sym '@conditional' { Conditional },
+    sym '@repeat' { Repeat },
+    sym '@label' { Label },
+    sym '@operator' { Operator },
+    sym '@keyword' { Keyword },
+    sym '@exception' { Exception },
+    sym '@variable' { Identifier },
+    sym '@type' { Type },
+    sym '@type.definition' { Typedef },
+    sym '@storageclass' { StorageClass },
+    sym '@structure' { Structure },
+    sym '@namespace' { Identifier },
+    sym '@include' { Include },
+    sym '@preproc' { PreProc },
+    sym '@debug' { Debug },
+    sym '@tag' { Tag },
+
+    sym '@lsp.type.namespace' { sym '@namespace' },
+    sym '@lsp.type.type' { sym '@type' },
+    sym '@lsp.type.class' { sym '@type' },
+    sym '@lsp.type.enum' { sym '@type' },
+    sym '@lsp.type.interface' { sym '@type' },
+    sym '@lsp.type.struct' { sym '@structure' },
+    sym '@lsp.type.parameter' { sym '@parameter' },
+    sym '@lsp.type.variable' { sym '@variable' },
+    sym '@lsp.type.property' { sym '@property' },
+    sym '@lsp.type.enumMember' { sym '@constant' },
+    sym '@lsp.type.function' { sym '@function' },
+    sym '@lsp.type.method' { sym '@method' },
+    sym '@lsp.type.macro' { sym '@macro' },
+    sym '@lsp.type.decorator' { sym '@function' },
 
     -- lazy.nvim
     LazyButton { NormalFloat, sp = NormalFloat.fg, gui = 'bold' },
@@ -393,9 +409,9 @@ local nugu = lush( function ( injects )
     TelescopeMultiSelection { fg = PmenuSel.fg, bg = ui_important_local },
 
     FlashBackdrop {},
-    FlashMatch { Search },
-    FlashCurrent { IncSearch },
-    FlashLabel { gui = 'reverse' },
+    FlashMatch { bg = content_unfocus },
+    FlashCurrent { fg = content_accent, bg = content_unfocus },
+    FlashLabel { fg = Search.bg, bg = Search.fg },
 
     GitSignsAdd { fg = DiffAdd.fg, bg = ui_backdrop },
     GitSignsChange { fg = DiffChange.fg, bg = ui_backdrop },
@@ -434,6 +450,14 @@ local nugu = lush( function ( injects )
     GitSignsDeleteVirtLn { GitSignsDelete },
     GitSignsDeleteVirtLnInLine { DiffText },
     GitSignsVirtLnum { fg = LineNr.fg },
+
+    WhichKey { fg = ui_important_global },     -- 	the key
+    WhichKeyGroup { fg = ui_important_local }, -- 	a group
+    WhichKeySeparator { fg = ui_minor },       -- 	the separator between the key and its label
+    WhichKeyDesc { fg = ui_normal },           -- 	the label of the key
+    WhichKeyFloat { NormalFloat },             -- 	Normal in the popup window
+    WhichKeyBorder { FloatBorder },            -- 	Normal in the popup window
+    WhichKeyValue { Comment },                 -- 	used by plugins that provide values
   }
 end )
 

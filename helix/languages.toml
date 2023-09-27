@@ -1,8 +1,8 @@
-[[language]]
+[[languages]]
 name = "nasm"
 language-server = { command = "asm-lsp" }
 
-[[language]]
+[[languages]]
 name = "xml"
 auto-format = false
 language-server = { command = "lemminx" }

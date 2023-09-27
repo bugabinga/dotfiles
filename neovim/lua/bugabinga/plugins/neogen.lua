@@ -1,4 +1,4 @@
-local map = require'std.keymap'
+local map = require'std.map'
 
 return {
 	'danymat/neogen',
@@ -10,7 +10,7 @@ return {
 		neogen.setup { }
 
 		map.normal {
-			name = 'Generate doc comment for outer element',
+			description = 'Generate doc comment for outer element',
 			category = 'editing',
 			keys = '<A-enter>',
 			command = neogen.generate,
@@ -24,14 +24,14 @@ return {
 		}
 
 		map.normal {
-			name = 'Generate Doc Comment for File',
+			description = 'Generate Doc Comment for File',
 			category = "editing",
 			keys = '<A-enter>' .. 'F',
 			command = function() neogen.generate { type = 'file' } end,
 		}
 
 		map.normal {
-			name = 'Generate Doc Comment for Class',
+			description = 'Generate Doc Comment for Class',
 			category = "editing",
 			keys = '<A-enter>' .. 'c',
 			command = function() neogen.generate { type = 'class' } end,
