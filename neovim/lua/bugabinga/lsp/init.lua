@@ -49,8 +49,6 @@ local expand_command     = function ( command )
 end
 
 local lsp_start          = function ( file_type_event )
-  -- vim.print("LSP START", file_type_event)
-
   local match = file_type_event.match
 
   local matches_to_ignore = ignored.filetypes
@@ -60,7 +58,7 @@ local lsp_start          = function ( file_type_event )
   local bufnr = file_type_event.buf
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
 
-  -- vim.print( "SEARCHING LSP CLIENT FOR:", match, buffer_path)
+  vim.print( 'searching lsp client for:', match, bufnr, buffer_path )
 
   local potential_client_configs = vim.iter( lsp_client_configs )
     :map( function ( config )
@@ -107,9 +105,7 @@ local lsp_start          = function ( file_type_event )
   for _, config in ipairs( potential_client_configs ) do
     local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_capabilities = want 'cmp_nvim_lsp' ( function ( cmp )
-                                                     return cmp.default_capabilities()
-                                                   end, {} )
+    local cmp_capabilities = want 'cmp_nvim_lsp' ( function ( cmp ) return cmp.default_capabilities() end, {} )
     capabilities = table.extend( 'force', capabilities, cmp_capabilities, config.capabilities )
     -- vim.print( 'lsp capabilities', capabilities, config.capabilities, cmp_capabilities )
 
@@ -130,7 +126,7 @@ local lsp_start          = function ( file_type_event )
       on_error = function ( code, ... ) vim.print( 'LSP ERROR', code, ... ) end,
       before_init = config.before_init,
       -- on_init = nil, -- should i send workspace/didChangeConfiguration here?
-      -- on_exit = function(code, signal, client_id) vim.print("LSP CLIENT EXIT", code, signal, client_id) end,
+      on_exit = function ( code, signal, client_id ) vim.print( 'LSP CLIENT EXIT', code, signal, client_id ) end,
       -- on_attach = function(client, bufnr) vim.print("LSP CLIENT ATTACH", client.data.client_id, bufnr) end,
       trace = 'off',
       flags = { allow_incremental_sync = true, debounce_text_changes = 250, exit_timeout = 200 },
@@ -145,13 +141,26 @@ local lsp_start          = function ( file_type_event )
       bufnr = bufnr,
       -- TODO: reuse if workspaces
       -- local supported = vim.tbl_get(client, 'server_capabilities', 'workspace', 'workspaceFolders', 'supported')
-      -- reuse_client = function ( existing_client, new_config )
-      --   --TODO lsps with single file or worksopaces support do not need smame root dir. instead add_workspace_folder
-      --   local same_name_and_root = existing_client.name == new_config.name and
-      --     existing_client.workspace_folders[1] == new_config.root_dir;
-      --   -- vim.print( 'resuing lsp client?', same_name_and_root )
-      --   return same_name_and_root;
-      -- end,
+      reuse_client = function ( existing_client, new_config )
+        -- vim.print(
+        --   'lsp resuse client',
+        --   existing_client.name,
+        --   existing_client.workspace_folders,
+        --   new_config.name,
+        --   new_config.root_dir
+        -- )
+
+        --TODO lsps with single file or worksopaces support do not need smame root dir. instead add_workspace_folder
+        local same_name = existing_client.name == new_config.name
+
+        local new_root = vim.fs.normalize( new_config.root_dir )
+        local existing_root = vim.fs.normalize( existing_client.workspace_folders[1].name )
+        local same_root = new_root == existing_root
+
+        local reuse = same_name and same_root
+        -- vim.print( 'reusing lsp client?', reuse )
+        return reuse
+      end,
     } )
 
     -- vim.print("ATTACHING LSP CLIENT", client_id)
@@ -211,91 +220,97 @@ local lsp_attach         = function ( args )
     }
   end
 
-  -- if client.server_capabilities.inlayHintProvider then
-  -- TODO: how to prevent the UI from jittering
-  -- vim.lsp.inlay_hint( bufnr, true )
-  -- end
+  if client.server_capabilities.inlayHintProvider then
+    -- TODO: how to prevent the UI from jittering
+    add( map.normal {
+      description = 'Toggle inlay hints',
+      category = 'lsp',
+      buffer = bufnr,
+      keys = '<leader>ti',
+      command = function () vim.lsp.inlay_hint( bufnr, nil ) end,
+    } )
+  end
 
-  add(map.normal {
+  add( map.normal {
     description = 'Format current buffer',
     category = 'lsp',
     buffer = bufnr,
     keys = '<c-s>',
     --TODO: save actions
     command = vim.lsp.buf.format,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show hover documentation above cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = { 'K', '<leader>lk' },
     command = vim.lsp.buf.hover,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show signature help under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>ls',
     command = vim.lsp.buf.signature_help,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show available code actions on current line.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>la',
     command = vim.lsp.buf.code_action,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Goto to definition of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>ld',
     command = vim.lsp.buf.definition,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show implementations of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>li',
     command = vim.lsp.buf.implementation,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show incoming calls of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>lci',
     command = vim.lsp.buf.incoming_calls,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show outgoing calls of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>lco',
     command = vim.lsp.buf.outgoing_calls,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Show references of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = '<leader>lr',
     command = vim.lsp.buf.references,
-  })
+  } )
 
-  add(map.normal {
+  add( map.normal {
     description = 'Rename symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
     keys = { '<f2>', '<leader>ln' },
     command = vim.lsp.buf.rename,
-  })
+  } )
 end
 
 local lsp_detach         = function ( args )
@@ -317,10 +332,9 @@ local lsp_detach         = function ( args )
     vim.bo[bufnr].omnifunc = old_omnifunc
   end
 
-  for _, keybind_delete in ipairs(keybinds) do
+  for _, keybind_delete in ipairs( keybinds ) do
     keybind_delete()
   end
-
 end
 
 auto 'lsp' {
@@ -348,7 +362,7 @@ auto 'lsp' {
 
 local lsp_info = function ( command )
   local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
-  local active_clients = vim.lsp.get_active_clients( all_or_current )
+  local active_clients = vim.lsp.get_clients( all_or_current )
 
   local infos = vim.iter( active_clients )
     :map( function ( client )
@@ -392,5 +406,7 @@ user_command( 'LspInfoExtended', lsp_info_extended, {
   complete = function () return { 'all' } end,
   desc = 'Shows detailed information about running LSP clients.',
 } )
+
+--TODO: lsp restart, lsp exit
 
 return setmetatable( _, {} )

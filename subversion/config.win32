@@ -47,11 +47,10 @@
 ###   This will override the environment variables that Subversion
 ###   examines by default to find this information ($EDITOR, 
 ###   et al).
-editor-cmd = hx
+editor-cmd = nvim
 ### Set diff-cmd to the absolute path of your 'diff' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff implementation.
-# TODO windows versions as bat files
 diff-cmd = C:/Users/okr/AppData/Roaming/Subversion/diff.bat
 ### Diff-extensions are arguments passed to an external diff
 ### program or to Subversion's internal diff implementation.

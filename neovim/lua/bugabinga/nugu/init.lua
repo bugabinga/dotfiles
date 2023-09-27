@@ -228,6 +228,7 @@ local nugu = lush( function ( injects )
     sym '@label' { Label },
     sym '@operator' { Operator },
     sym '@keyword' { Keyword },
+    sym '@keyword.return' { fg = Keyword.fg, bg = Keyword.bg, gui = 'underline bold' },
     sym '@exception' { Exception },
     sym '@variable' { Identifier },
     sym '@type' { Type },
