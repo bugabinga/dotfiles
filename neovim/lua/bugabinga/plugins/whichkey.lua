@@ -1,6 +1,5 @@
 local ignored = require 'std.ignored'
 
---TODO: add which-key highlights in nugu
 return {
   'folke/which-key.nvim',
   event = 'VeryLazy',

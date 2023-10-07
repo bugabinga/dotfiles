@@ -1,6 +1,9 @@
+-- FIXME: remove this, use pcall instead
+
 --- attempts to import modules with the given names.
 ---@param module_names string|table name or list of names, or a function that returns those
 ---@return function function that takes a function that takes in the modules listed by `module_names`
+---@deprecated use pcall instead
 return function ( module_names )
   return function ( block, error_handler )
     local loaded_modules = {}

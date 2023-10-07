@@ -54,13 +54,14 @@ end
 
 add_toggler(icon.spelling, { make_option'spell' } )
 add_toggler(icon.linenumber, { make_option'number',  make_option'relativenumber'})
-add_toggler(icon.linehighlight, {  make_option'cursorline'} ) 
+add_toggler(icon.linehighlight, {  make_option'cursorline'} )
+add_toggler(icon.virtual, {  make_option'virtualedit'} )
 
 local tostring = function(self)
 	return vim.iter(self)
 	:map(toggler_tostring)
 	:fold('', function(buffer, text)
-	  return buffer .. (buffer == '' and '' or '  ' ) .. text	
+	  return buffer .. (buffer == '' and '' or '  ' ) .. text
 	end)
 end
 

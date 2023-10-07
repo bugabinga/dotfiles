@@ -18,7 +18,16 @@ require 'bugabinga.mark'
 require 'bugabinga.lsp'
 
 -- TODO:
--- [] learn marks and refac  mark.lua
+-- [ ] check out gen.nvim
+-- [ ] check out mini.*
+--                    colors
+--                    hipatterns
+--                    sessions
+--                    completion
+--                    bufremove
+--                    bracketed
+--                    align
+-- [ ] learn marks and refac  mark.lua
 -- [ ] use ltex-ls for markdown, code comments and commit messages
 -- [ ] DAP
 -- [ ] add nu-check to nvim-lint

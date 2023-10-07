@@ -132,7 +132,7 @@ local function open_link_under_cursor()
 			command = 'firefox',
 			args = { file_under_cursor },
 			on_exit = function()
-				vim.notify('Openend ' .. file_under_cursor)
+				vim.schedule(function() vim.notify('Openend ' .. file_under_cursor) end)
 			end,
 		}
 		job:start()

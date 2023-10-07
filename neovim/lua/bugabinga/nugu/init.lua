@@ -3,6 +3,24 @@ local palette = require 'bugabinga.nugu.palette'
 local lush = require 'lush'
 local hsl = lush.hsluv
 
+vim.g.terminal_color_0 = palette.ui_backdrop              -- black
+vim.g.terminal_color_1 = palette.content_accent           -- maroon
+vim.g.terminal_color_2 = palette.info                     -- green
+vim.g.terminal_color_3 = palette.ui_focus                 -- olive
+vim.g.terminal_color_4 = palette.content_important_local  -- navy
+vim.g.terminal_color_5 = palette.content_important_global -- purple
+vim.g.terminal_color_6 = palette.ui_focus                 -- teal
+vim.g.terminal_color_7 = palette.content_normal           -- silver
+
+vim.g.terminal_color_8 = palette.ui_minor                 -- grey
+vim.g.terminal_color_9 = palette.error                    -- red
+vim.g.terminal_color_10 = palette.info                    -- lime
+vim.g.terminal_color_11 = palette.content_focus           -- yellow
+vim.g.terminal_color_12 = palette.ui_important_local      -- blue
+vim.g.terminal_color_13 = palette.ui_accent               -- fuchsia
+vim.g.terminal_color_14 = palette.ui_important_global     -- aqua
+vim.g.terminal_color_15 = palette.ui_normal               -- white
+
 local flux = function ( color, number )
   if vim.opt.background:get() == 'dark' then
     return color.li( -number )
@@ -37,7 +55,7 @@ local ui_important_local = hsl( palette.ui_important_local )
 local nugu = lush( function ( injects )
   local sym = injects.sym
   return {
-    Debug { fg = debug.readable(), bg = debug, gui = 'bold' }, --    debugging statements
+    Debug { fg = debug.readable(), bg = debug, gui = 'bold' },
 
     Normal { fg = content_normal, bg = content_backdrop },
     NotifyBackground { bg = ui_backdrop },
@@ -46,104 +64,101 @@ local nugu = lush( function ( injects )
     CursorLineNr { fg = ui_focus, bg = ui_backdrop },
     Search { fg = content_important_global.readable(), bg = content_important_global },
     IncSearch { fg = content_important_local.readable(), bg = content_important_local },
-    NormalFloat { fg = ui_normal, bg = ui_backdrop },                                         -- Normal text in floating windows.
+    NormalFloat { fg = ui_normal, bg = ui_backdrop },
     FloatBorder { fg = ui_accent, bg = NormalFloat.bg },
-    ColorColumn { fg = ui_important_global, bg = content_backdrop },                          -- used for the columns set with 'colorcolumn'
-    Conceal { fg = content_normal, bg = ui_unfocus, gui = 'italic' },                         -- placeholder characters substituted for concealed text (see 'conceallevel')
-    Cursor { bg = ui_accent },                                                                -- character under the cursor
-    lCursor { bg = ui_accent },                                                               -- the character under the cursor when |language-mapping| is used (see 'guicursor')
-    CursorIM { bg = ui_accent },                                                              -- like Cursor, but used when in IME mode |CursorIM|
-    Directory { fg = Normal.fg },                                                             -- directory names (and other special names in listings)
-    DiffAdd { fg = content_focus },                                                           -- diff mode: Added line |diff.txt|
-    DiffDelete { fg = content_focus, gui = 'strikethrough' },                                 -- diff mode: Deleted line |diff.txt|
-    DiffChange { fg = content_important_global },                                             -- diff mode: Changed line |diff.txt|
-    DiffText { fg = content_important_local.readable(), bg = content_important_local },       -- diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer { Normal },                                                                   -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
-    TermCursor { lCursor },                                                                   -- cursor in a focused terminal
-    TermCursorNC { Cursor },                                                                  -- cursor in an unfocused terminal
-    ErrorMsg { fg = error.readable(), bg = error },                                           -- error messages on the command line
-    VertSplit { fg = ui_important_global, bg = content_backdrop },                            -- the column separating vertically split windows
-    Folded { Conceal },                                                                       -- line used for closed folds
-    FoldColumn { Conceal },                                                                   -- 'foldcolumn'
-    SignColumn { bg = ui_backdrop },                                                          -- column where |signs| are displayed
-    ModeMsg { gui = 'bold' },                                                                 -- 'showmode' message (e.g., "-- INSERT -- ")
-    MsgArea { Normal },                                                                       -- Area for messages and cmdline
-    MsgSeparator { fg = ui_accent },                                                          -- Separator for scrolled messages, `msgsep` flag of 'display'
-    MoreMsg { Normal },                                                                       -- |more-prompt|
-    NonText { fg = ui_unfocus },                                                              -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    NormalNC {},                                                                              -- normal text in non-current windows
-    Pmenu { NormalFloat },                                                                    -- Popup menu: normal item.
-    PmenuSel { fg = ui_focus, sp = ui_focus.readable(), bg = ui_unfocus, gui = 'underline' }, -- Popup menu: selected item.
-    PmenuSbar { bg = ui_unfocus },                                                            -- Popup menu: scrollbar.
-    PmenuThumb { bg = ui_minor },                                                             -- Popup menu: Thumb of the scrollbar.
-    Question { fg = ui_important_global, gui = 'bold' },                                      -- |hit-enter| prompt and yes/no questions
-    QuickFixLine { PmenuSel },                                                                -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    SpecialKey { fg = error, bg = content_unfocus, gui = 'bold' },                            -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
-    SpellBad { fg = error, gui = 'undercurl' },                                               -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
-    SpellCap { SpellBad },                                                                    -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    SpellLocal { SpellBad },                                                                  -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    SpellRare { SpellBad },                                                                   -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-    StatusLine { fg = ui_normal, bg = ui_backdrop },                                          -- status line of current window
-    StatusLineNC { fg = ui_normal, bg = ui_unfocus },                                         -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    ColorColumn { fg = ui_important_global, bg = content_backdrop },
+    Conceal { fg = content_normal, bg = ui_unfocus, gui = 'italic' },
+    Cursor { bg = ui_accent },
+    lCursor { bg = ui_accent },
+    CursorIM { bg = ui_accent },
+    Directory { fg = Normal.fg },
+    DiffAdd { fg = content_focus },
+    DiffDelete { fg = content_focus, gui = 'strikethrough' },
+    DiffChange { fg = content_important_global },
+    DiffText { fg = content_important_local.readable(), bg = content_important_local },
+    EndOfBuffer { NormalFloat },
+    TermCursor { lCursor },
+    TermCursorNC { Cursor },
+    ErrorMsg { fg = error.readable(), bg = error },
+    VertSplit { fg = ui_important_global, bg = ui_backdrop },
+    Folded { Conceal },
+    FoldColumn { LineNr },
+    SignColumn { LineNr },
+    ModeMsg { gui = 'bold' },
+    MsgArea { Normal },
+    MsgSeparator { fg = ui_accent },
+    MoreMsg { Normal },
+    NonText { fg = content_unfocus },
+    Whitespace { NonText },
+    NormalNC {},
+    Pmenu { NormalFloat },
+    PmenuSel { fg = ui_focus, sp = ui_focus.readable(), bg = ui_unfocus, gui = 'underline' },
+    PmenuSbar { bg = ui_unfocus },
+    PmenuThumb { bg = ui_minor },
+    Question { fg = ui_important_global, gui = 'bold' },
+    QuickFixLine { PmenuSel },
+    SpecialKey { fg = error, bg = content_unfocus, gui = 'bold' },
+    SpellBad { fg = error, gui = 'undercurl' },
+    SpellCap { SpellBad },
+    SpellLocal { SpellBad },
+    SpellRare { SpellBad },
+    StatusLine { fg = ui_normal, bg = ui_backdrop },
+    StatusLineNC { fg = ui_minor, bg = ui_backdrop },
     Winbar { StatusLine },
     WinbarNC { StatusLineNC },
-    IndentBlanklineContextChar { fg = content_accent, gui = 'nocombine' },
-    IndentBlanklineContextStart { sp = IndentBlanklineContextChar.fg, gui = 'underline' },
-    Title { fg = content_important_global, sp = content_important_global, gui = 'bold underline' }, -- titles for output from ":set all", ":autocmd" etc.
-    TabLine { StatusLine },                                                                         -- tab pages line, not active tab page label
-    TabLineFill { bg = TabLine.bg },                                                                -- tab pages line, where there are no labels
-    TabLineSel { fg = ui_accent.readable(), bg = ui_accent, gui = 'underline bold' },               -- tab pages line, active tab page label
-    Visual { fg = content_focus.readable(), bg = content_focus },                                   -- Visual mode selection
-    VisualNOS { fg = Visual.fg, bg = flux( Visual.bg, -42 ) },                                      -- Visual mode selection when vim is "Not Owning the Selection".
-    WarningMsg { fg = warning, gui = 'bold' },                                                      -- warning messages
-    WhiteSpace { fg = ui_unfocus },                                                                 -- "nbsp", "space", "tab" and "trail" in 'listchars'
-    WildMenu { fg = ui_accent, gui = 'bold' },                                                      -- current match in 'wildmenu' completion
+    Title { fg = content_important_global, sp = content_important_global, gui = 'bold underline' },
+    TabLine { StatusLine },
+    TabLineFill { bg = TabLine.bg },
+    TabLineSel { fg = ui_accent.readable(), bg = ui_accent, gui = 'underline bold' },
+    Visual { fg = content_focus.readable(), bg = content_focus },
+    VisualNOS { fg = Visual.fg, bg = flux( Visual.bg, -42 ) },
+    WarningMsg { fg = warning, gui = 'bold' },
+    WhiteSpace { fg = ui_unfocus },
+    WildMenu { fg = ui_accent, gui = 'bold' },
 
     String { fg = content_important_local, gui = 'italic' },
-    Constant { String },                                                           -- (preferred) any constant
-    Character { String },                                                          --  a character constant: 'c', '\n'
-    Number { String },                                                             --   a number constant: 234, 0xff
-    Boolean { String },                                                            --  a boolean constant: TRUE, false
-    Float { String },                                                              --    a floating point constant: 2.3e10
+    Constant { String },
+    Character { String },
+    Number { String },
+    Boolean { String },
+    Float { String },
 
-    Identifier { Normal },                                                         -- (preferred) any variable name
+    Identifier { Normal },
     MutableVariable { Debug },
-    Function { Normal },                                                           -- function name (also: methods for classes)
+    Function { Normal },
 
-    Statement { fg = content_minor },                                              -- (preferred) any statement
-    Conditional { Statement },                                                     --  if, then, else, endif, switch, etc.
-    Repeat { Statement },                                                          --   for, do, while, etc.
-    Label { Statement },                                                           --    case, default, etc.
-    Operator { Statement },                                                        -- "sizeof", "+", "*", etc.
-    Keyword { Statement },                                                         --  any other keyword
-    Exception { Statement },                                                       --  try, catch, throw
+    Statement { fg = content_minor },
+    Conditional { Statement },
+    Repeat { Statement },
+    Label { Statement },
+    Operator { Statement },
+    Keyword { Statement },
+    Exception { Statement },
 
-    PreProc { fg = content_important_global, bg = content_unfocus, gui = 'bold' }, -- (preferred) generic Preprocessor
-    Include { PreProc },                                                           --  preprocessor #include
-    Define { PreProc },                                                            --   preprocessor #define
-    Macro { PreProc },                                                             --    same as Define
-    PreCondit { PreProc },                                                         --  preprocessor #if, #else, #endif, etc.
+    PreProc { fg = content_important_global, bg = content_unfocus, gui = 'bold' },
+    Include { PreProc },
+    Define { PreProc },
+    Macro { PreProc },
+    PreCondit { PreProc },
 
-    Type { Statement },                                                            -- (preferred) int, long, char, etc.
-    StorageClass { Statement },                                                    -- static, register, volatile, etc.
-    Structure { Statement },                                                       --  struct, union, enum, etc.
-    Typedef { Statement },                                                         --  A typedef
+    Type { Statement },
+    StorageClass { Statement },
+    Structure { Statement },
+    Typedef { Statement },
 
-    Special { fg = content_normal, gui = 'italic bold' },                          -- (preferred) any special symbol
-    SpecialChar { Special },                                                       --  special character in a constant
-    Tag { Special },                                                               --    you can use CTRL-] on this
-    Delimiter { fg = content_minor },                                              --  character that needs attention
-    SpecialComment { Special },                                                    -- special things inside a comment
+    Special { fg = content_normal, gui = 'italic bold' },
+    SpecialChar { Special },
+    Tag { Special },
+    Delimiter { fg = content_minor },
+    SpecialComment { Special },
 
-    Underlined { sp = content_normal, gui = 'underline' },                         -- (preferred) text that stands out, HTML links
+    Underlined { sp = content_normal, gui = 'underline' },
     Bold { gui = 'bold' },
     Italic { gui = 'italic' },
 
-    -- ("Ignore", below, may be invisible...)
-    Ignore { fg = Normal.bg, bg = Normal.bg }, -- (preferred) left blank, hidden  |hl-Ignore|
+    Ignore { fg = Normal.bg, bg = Normal.bg },
 
-    Error { fg = error },                      -- (preferred) any erroneous construct
-
+    Error { fg = error },
     Todo { fg = content_important_global, sp = content_important_global, gui = 'bold underdouble' },
     DiagnosticUnnecessary { fg = ui_focus },
     DiagnosticDeprecated { fg = ui_important_global, sp = ui_important_global, gui = 'strikethrough' },
@@ -170,13 +185,10 @@ local nugu = lush( function ( injects )
     DiagnosticSignHint { DiagnosticHint },
     DiagnosticSignOk { DiagnosticOk },
 
-    LspReferenceText { fg = content_focus, bg = content_unfocus },
+    LspReferenceText { sp = content_unfocus, gui = 'underline' },
     LspReferenceRead { LspReferenceText },
     LspReferenceWrite { LspReferenceText },
-    LspInlayHint { fg = content_minor, bg = ui_unfocus },
-
-    -- hlargs.nvim
-    Hlargs { fg = ui_important_local },
+    LspInlayHint { fg = ui_minor, bg = ui_unfocus },
 
     -- Tree-Sitter syntax groups.
     --
@@ -256,7 +268,6 @@ local nugu = lush( function ( injects )
     sym '@lsp.type.macro' { sym '@macro' },
     sym '@lsp.type.decorator' { sym '@function' },
 
-    -- lazy.nvim
     LazyButton { NormalFloat, sp = NormalFloat.fg, gui = 'bold' },
     LazyButtonActive { fg = ui_important_local.readable(), sp = NormalFloat.fg, bg = ui_important_local, gui = LazyButton
       .gui },
@@ -290,7 +301,6 @@ local nugu = lush( function ( injects )
     LazyUrl { sp = NormalFloat.fg, gui = 'italic underline' },
     LazyValue { gui = 'italic' },
 
-    -- Noice
     NoiceCmdline { fg = ui_focus, bg = ui_backdrop },
     NoiceCmdlineIcon { fg = ui_accent, bg = NoiceCmdline.bg, gui = 'bold' },
     NoiceCmdlineIconCalculator { NoiceCmdlineIcon },
@@ -379,8 +389,6 @@ local nugu = lush( function ( injects )
     NoiceSplit { NormalFloat },
     NoiceSplitBorder { NoiceConfirmBorder, bg = NormalFloat.bg },
     NoiceVirtualText { fg = ui_important_local, bg = ui_backdrop, gui = 'bold' },
-
-    -- Notify
     NotifyERRORBorder { DiagnosticError, bg = NormalFloat.bg },
     NotifyWARNBorder { DiagnosticWarn, bg = NormalFloat.bg },
     NotifyINFOBorder { DiagnosticInfo, bg = NormalFloat.bg },
@@ -452,13 +460,29 @@ local nugu = lush( function ( injects )
     GitSignsDeleteVirtLnInLine { DiffText },
     GitSignsVirtLnum { fg = LineNr.fg },
 
-    WhichKey { fg = ui_important_global },     -- 	the key
-    WhichKeyGroup { fg = ui_important_local }, -- 	a group
-    WhichKeySeparator { fg = ui_minor },       -- 	the separator between the key and its label
-    WhichKeyDesc { fg = ui_normal },           -- 	the label of the key
-    WhichKeyFloat { NormalFloat },             -- 	Normal in the popup window
-    WhichKeyBorder { FloatBorder },            -- 	Normal in the popup window
-    WhichKeyValue { Comment },                 -- 	used by plugins that provide values
+    WhichKey { fg = ui_important_global },
+    WhichKeyGroup { fg = ui_important_local },
+    WhichKeySeparator { fg = ui_minor },
+    WhichKeyDesc { fg = ui_normal },
+    WhichKeyFloat { NormalFloat },
+    WhichKeyBorder { FloatBorder },
+    WhichKeyValue { Comment },
+
+    IblIndent { Whitespace },
+    IblWhitespace { Whitespace },
+    IblScope { fg = ui_focus, bg = content_backdrop },
+
+    Hlargs { fg = ui_important_local },
+
+    MiniStarterCurrent { bg = content_accent },  -- current item.
+    MiniStarterFooter { Keyword },   -- footer units.
+    MiniStarterHeader { Comment },   -- header units.
+    MiniStarterInactive { fg = content_unfocus }, -- inactive item.
+    MiniStarterItem { Normal },     -- item name.
+    MiniStarterItemBullet { Whitespace }, -- units from |MiniStarter.gen_hook.adding_bullet|.
+    MiniStarterItemPrefix { fg = content_focus, gui = '' }, -- unique query for item.
+    MiniStarterSection { fg = content_important_global, gui = 'underline' },  -- section units.
+    MiniStarterQuery { bg = content_accent },    -- current query in active items.
   }
 end )
 

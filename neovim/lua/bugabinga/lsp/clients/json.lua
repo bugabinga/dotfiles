@@ -1,4 +1,5 @@
 local project = require'std.project'
+local want = require'std.want'
 
 return {
   name = 'jsonls',
@@ -12,14 +13,14 @@ return {
   },
   settings = {
     json = {
-      schemas = require'schemastore'.json.schemas{
+      schemas = want'schemastore'(function(schemastore) return schemastore.json.schemas {
         extra = {
           description = 'Settings for lua-language-server',
           name = "LuaLS Settings",
           url = "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
           fileMatch = { ".luarc.json", ".luarc.jsonc" },
         }
-      },
+      } end, {}),
       validate = { enable = true },
     },
   },
