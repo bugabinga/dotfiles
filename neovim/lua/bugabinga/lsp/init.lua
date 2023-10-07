@@ -56,6 +56,9 @@ local lsp_start          = function ( file_type_event )
   if vim.iter( matches_to_ignore ):find( match ) then return end
 
   local bufnr = file_type_event.buf
+  local buftype = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
+  if buftype ~= '' then return end
+
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
 
   vim.print( 'searching lsp client for:', match, bufnr, buffer_path )
@@ -109,6 +112,8 @@ local lsp_start          = function ( file_type_event )
     capabilities = table.extend( 'force', capabilities, cmp_capabilities, config.capabilities )
     -- vim.print( 'lsp capabilities', capabilities, config.capabilities, cmp_capabilities )
 
+    -- vim.print('starting command:', config.command)
+
     local start_config = {
       cmd = config.command,
       cmd_cwd = root_dir,
@@ -153,8 +158,14 @@ local lsp_start          = function ( file_type_event )
         --TODO lsps with single file or worksopaces support do not need smame root dir. instead add_workspace_folder
         local same_name = existing_client.name == new_config.name
 
-        local new_root = vim.fs.normalize( new_config.root_dir )
-        local existing_root = vim.fs.normalize( existing_client.workspace_folders[1].name )
+        local new_root_raw = new_config.root_dir or nil
+        local existing_root_raw = existing_client.workspace_folders and #existing_client.workspace_folders >= 1 and
+        existing_client.workspace_folders[1].name or nil
+
+        if not (new_root_raw and existing_root_raw) then return false end
+
+        local new_root = vim.fs.normalize( new_root_raw )
+        local existing_root = vim.fs.normalize( existing_root_raw )
         local same_root = new_root == existing_root
 
         local reuse = same_name and same_root
@@ -172,8 +183,11 @@ local old_omnifunc
 local old_tagfunc
 
 local keybinds           = {}
-local add                = function ( keybind )
-  table.insert( keybinds, keybind )
+local add                = function ( client_id, keybind )
+  if not table.contains( keybinds, client_id ) then
+    keybinds[client_id] = {}
+  end
+  table.insert( keybinds[client_id], keybind )
 end
 
 local lsp_attach         = function ( args )
@@ -317,7 +331,8 @@ local lsp_detach         = function ( args )
   -- vim.print("DETACH LSP", ...)
 
   local bufnr = args.buf
-  local client = vim.lsp.get_client_by_id( args.data.client_id )
+  local client_id = args.data.client_id
+  local client = vim.lsp.get_client_by_id( client_id )
   if not client then return end
 
   if client.server_capabilities.definitionProvider then
@@ -332,8 +347,10 @@ local lsp_detach         = function ( args )
     vim.bo[bufnr].omnifunc = old_omnifunc
   end
 
-  for _, keybind_delete in ipairs( keybinds ) do
-    keybind_delete()
+  if table.contains( keybinds, client_id ) then
+    for _, keybind_delete in ipairs( keybinds[client_id] ) do
+      keybind_delete()
+    end
   end
 end
 

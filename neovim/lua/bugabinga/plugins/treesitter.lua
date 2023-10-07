@@ -22,25 +22,7 @@ require 'bugabinga.health'.add_dependency
 return {
   'nvim-treesitter/nvim-treesitter',
   branch = 'master',
-  event = 'BufRead',
-  cmd = {
-    'TSBufDisable',
-    'TSBufEnable',
-    'TSBufToggle',
-    'TSDisable',
-    'TSEnable',
-    'TSToggle',
-    'TSInstall',
-    'TSInstallInfo',
-    'TSInstallSync',
-    'TSModuleInfo',
-    'TSUninstall',
-    'TSUpdate',
-    'TSUpdateSync',
-    'TSPlaygroundToggle',
-    'TSHighlightCapturesUnderCursor',
-    'TSNodeUnderCursor',
-  },
+  event = { 'BufReadPre', 'BufNewFile'},
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true }
   end,
@@ -67,7 +49,7 @@ return {
         'bash',
         'c',
         -- https://github.com/nvim-treesitter/nvim-treesitter/issues/5389
-        -- 'comment',
+        'comment',
         'diff',
         'dot',
         'git_config',
@@ -112,8 +94,8 @@ return {
         keymaps = {
           init_selection = '<up>',
           node_incremental = '<right>',
-          node_decremental = '<left>',
-          scope_incremental = false,
+          node_decremental = '<down>',
+          scope_incremental = '<up>',
         },
       },
 
@@ -143,15 +125,34 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ['af'] = { query = '@function.outer', desc = 'Select outer function' },
-            ['if'] = { query = '@function.inner', desc = 'Select inner function' },
+            ['af'] = { query = '@call.outer', desc = 'outer function call' },
+            ['if'] = { query = '@call.inner', desc = 'inner function call' },
 
-            ['ac'] = { query = '@class.outer', desc = 'Select outer class' },
-            ['ic'] = { query = '@class.inner' , desc = 'Select inner class' },
+            ['am'] = { query = '@function.outer', desc = 'outer function definition' },
+            ['im'] = { query = '@function.inner', desc = 'inner function definition' },
 
-            ['at'] = { query = '@comment.outer' , desc = 'Select outer comment' },
+            ['aa'] = { query = '@assignment.outer', desc = 'outer assignment' },
+            ['ia'] = { query = '@assignment.inner', desc = 'inner assignment' },
 
-            ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
+            ['la'] = { query = '@assignment.lhs', desc = 'left hand side of assignment'},
+            ['ra'] = { query = '@assignment.rhs', desc = 'right hand side of assignment'},
+
+            ['ac'] = { query = '@class.outer', desc = 'outer class' },
+            ['ic'] = { query = '@class.inner' , desc = 'inner class' },
+
+            ['ao'] = { query = '@conditional.outer', desc = 'outer conditional' },
+            ['io'] = { query = '@conditional.inner' , desc = 'inner conditional' },
+
+            ['al'] = { query = '@loop.outer', desc = 'outer loop' },
+            ['il'] = { query = '@loop.inner' , desc = 'inner loop' },
+
+            -- this overwrites the built-in 'paragraph' object
+            ['ap'] = { query = '@parameter.outer', desc = 'outer parameter' },
+            ['ip'] = { query = '@parameter.inner' , desc = 'inner parameter' },
+
+            ['at'] = { query = '@comment.outer' , desc = 'outer comment' },
+
+            ['as'] = { query = '@scope', query_group = 'locals', desc = 'language scope' },
           },
           selection_modes = {
             ['@parameter.outer'] = 'v',
@@ -165,10 +166,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>sn'] = { query = '@parameter.inner' , desc = 'Swap parameter with next' },
+            ['<leader>spn'] = { query = '@parameter.inner' , desc = 'Swap parameter with next' },
           },
           swap_previous = {
-            ['<leader>sp'] = { query = '@parameter.inner' , desc = 'Swap parameter with previous' },
+            ['<leader>spp'] = { query = '@parameter.inner' , desc = 'Swap parameter with previous' },
           },
         },
 
@@ -186,18 +187,20 @@ return {
           enable = true,
           set_jumps = true,
           goto_next = {
-            [']f'] = { query = '@function.outer' , desc = 'Goto next funtion' },
+            [']f'] = { query = '@call.outer' , desc = 'Goto next function call' },
+            [']m'] = { query = '@fucntion.outer' , desc = 'Goto next function definition' },
             [']c'] = { query = '@class.outer', desc = 'Goto next class' },
+            [']o'] = { query = '@conditional.outer' , desc = 'Goto next conditional' },
+            [']p'] = { query = '@parameter.outer' , desc = 'Goto next parameter' },
             [']s'] = { query = '@scope', query_group = 'locals', desc = 'Goto next scope' },
-            [']i'] = { query = '@conditional.outer' , desc = 'Goto next conditional' },
-            [']a'] = { query = '@parameter.outer' , desc = 'Goto next parameter' },
           },
           goto_previous = {
-            ['[f'] = { query = '@function.outer' , desc = 'Goto previous function' },
+            ['[f'] = { query = '@call.outer' , desc = 'Goto previous function call' },
+            ['[m'] = { query = '@function.outer' , desc = 'Goto previous function definition' },
             ['[c'] = { query = '@class.outer', desc = 'goto previous class' },
+            ['[o'] = { query = '@conditional.outer' , desc = 'Goto previous conditional' },
+            ['[p'] = { query = '@parameter.outer' , desc = 'Goto previous parameter' },
             ['[s'] = { query = '@scope', query_group = 'locals', desc = 'Goto previous scope' },
-            ['[i'] = { query = '@conditional.outer' , desc = 'Goto previous conditional' },
-            ['[a'] = { query = '@parameter.outer' , desc = 'Goto previous parameter' },
           }
         },
       }
@@ -205,6 +208,9 @@ return {
 
     local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
 
+    -- FIXME: use ; and , to repeat movement, just like built-ins.
+    -- needs to fix f, F and t, T
+    -- does flash still work then?
     map.normal.visual.operator_pending {
       description = 'This repeats the last query with always previous direction and to the start of the range.',
       keys = '<PageUp>',

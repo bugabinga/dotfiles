@@ -21,9 +21,14 @@ return {
     require 'luasnip.loaders.from_vscode'.lazy_load()
 
     cmp.setup {
+      performance = {
+        debounce = 250,
+        throttle = 400,
+        fetching_timeout = 1000,
+      },
       completion = {
         autocomplete = false,
-        completeopt = 'menu,menuone,preview,noselect',
+        -- completeopt = 'menu,menuone,preview,noselect',
       },
       formatting = {
         format = lspkind.cmp_format {
@@ -32,14 +37,16 @@ return {
           ellipsis_char = '…',
         },
       },
+      experimental = { ghost_text = true, },
+      preselect = cmp.PreselectMode.None,
       snippet = { expand = function ( args ) luasnip.lsp_expand( args.body ) end },
       mapping = {
         ['<c-p>'] = cmp.mapping.select_prev_item(),
         ['<c-n>'] = cmp.mapping.select_next_item(),
         ['<c-k>'] = cmp.mapping.select_prev_item(),
         ['<c-j>'] = cmp.mapping.select_next_item(),
-        ['<s-tab>'] = cmp.mapping.select_prev_item(),
-        ['<tab>'] = cmp.mapping.select_next_item(),
+        -- ['<s-tab>'] = cmp.mapping.select_prev_item(),
+        -- ['<tab>'] = cmp.mapping.select_next_item(),
         ['<c-b>'] = cmp.mapping.scroll_docs( -2 ),
         ['<c-f>'] = cmp.mapping.scroll_docs( 2 ),
         ['<c-u>'] = cmp.mapping.scroll_docs( -4 ),

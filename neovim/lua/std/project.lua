@@ -1,4 +1,3 @@
-local ignored = require 'std.ignored'
 local table = require 'std.table'
 local join = table.join
 local dirname = vim.fs.dirname
@@ -8,29 +7,29 @@ local validate = vim.validate
 
 local cache = {}
 local hasher = vim.fn.sha256
-local markers_to_string = function(markers)
-  return table.deep_concat(markers, {
+local markers_to_string = function ( markers )
+  return table.deep_concat( markers, {
     prefix = '',
     suffix = '',
     row_delimiter = '',
     key_value_delimiter = '',
     fill = '',
     newline = '',
-  })
+  } )
 end
-local create_hash = function(path, markers)
-  local path_hash = hasher(path)
-  local markers_hash = hasher(markers_to_string(markers))
+local create_hash = function ( path, markers )
+  local path_hash = hasher( path )
+  local markers_hash = hasher( markers_to_string( markers ) )
   local hash = path_hash .. '|' .. markers_hash
   return hash
 end
-local cache_get = function(path, markers)
-  local hash = create_hash(path, markers)
+local cache_get = function ( path, markers )
+  local hash = create_hash( path, markers )
   local hit = cache[hash]
   return hit
 end
-local cache_set = function(project_root, path, markers)
-  local hash = create_hash(path, markers)
+local cache_set = function ( project_root, path, markers )
+  local hash = create_hash( path, markers )
   cache[hash] = project_root
 end
 
@@ -67,21 +66,23 @@ local MAX_TRAVERSAL_COUNT = 100
 ---@param stop string? The last directory on the path to root, when to stop searching. if `nil`, the users home
 ---directory is used.
 ---@return string? # Directory, that contains the `markers` and lies on the path from `path` to `stop`.
-local function find_root(path, markers, stop)
+local function find_root( path, markers, stop )
   validate {
     path = { path, 'string', true },
     markers = { markers, 'table' },
     stop = { stop, 'string', true },
   }
 
-  path = path or dirname(vim.api.nvim_buf_get_name(0))
-  path = normalize(path)
+  path = path or dirname( vim.api.nvim_buf_get_name( 0 ) )
+  path = normalize( path )
   stop = stop or vim.uv.os_homedir()
-  stop = normalize(stop)
+  stop = normalize( stop )
 
-  if not exists(stop) then error(('the stop directory %s does not exist!'):format(stop)) end
+  if not exists( stop ) then error( ('the stop directory %s does not exist!'):format( stop ) ) end
 
-  local cache_hit = cache_get(path, markers)
+  if #path == 0 then return nil end
+
+  local cache_hit = cache_get( path, markers )
   if cache_hit then
     -- vim.print("CACHE HIT", cache_hit)
     return cache_hit
@@ -99,7 +100,7 @@ local function find_root(path, markers, stop)
   local current_path = path
   while current_path ~= stop do
     if loop_count > MAX_TRAVERSAL_COUNT then
-      vim.notify(('searching for markers reached the max traversal count for path %s !'):format(path))
+      vim.notify( ('searching for markers reached the max traversal count for path %s !'):format( path ) )
       break
     end
 
@@ -110,19 +111,19 @@ local function find_root(path, markers, stop)
       markers = {},
     }
 
-    for _, marker in ipairs(markers) do
+    for _, marker in ipairs( markers ) do
       local marker_path = current_path .. '/' .. marker.name
-      if exists(marker_path) then
+      if exists( marker_path ) then
         score.marker_count = score.marker_count + marker.weight
-        table.insert(score.markers, marker_path)
+        table.insert( score.markers, marker_path )
       end
     end
 
     if score.marker_count > 0 then
-      table.insert(directory_scores, score)
+      table.insert( directory_scores, score )
     end
 
-    current_path = dirname(current_path)
+    current_path = dirname( current_path )
 
     current_distance_to_buffer = current_distance_to_buffer + 1
     loop_count = loop_count + 1
@@ -136,15 +137,15 @@ local function find_root(path, markers, stop)
   -- then it is most likely a nested project structure (multi-module).
   -- in those cases we are looking for the root project folder, instead the nearest
   -- child project root folder.
-  for _, score in ipairs(directory_scores) do
-    local likelihood = score.marker_count + 1/score.distance_to_buffer_file
+  for _, score in ipairs( directory_scores ) do
+    local likelihood = score.marker_count + 1 / score.distance_to_buffer_file
     if likelihood > max_likelyhood then
       max_likelyhood = likelihood
       project_root = score.path
     end
   end
   if project_root then
-    cache_set(project_root, path, markers)
+    cache_set( project_root, path, markers )
   end
   return project_root
 end
@@ -155,7 +156,7 @@ end
 ---
 ---@return string? # The project root of the current buffer, or `nil`, if none could be determined.
 ---
-local function find_project_root(path, markers)
+local function find_project_root( path, markers )
   -- define some language-independent markers
   local default_markers = {
     { name = '.git',          weight = 1 },
@@ -175,14 +176,14 @@ local function find_project_root(path, markers)
     { name = 'flake.nix',     weight = 1 },
   }
 
-  return find_root(path, join(default_markers, markers))
+  return find_root( path, join( default_markers, markers ) )
 end
 
-local function find_vcs_project_root(path)
-  return find_project_root(path, {})
+local function find_vcs_project_root( path )
+  return find_project_root( path, {} )
 end
 
-local function find_java_project_root(path)
+local function find_java_project_root( path )
   local java_markers = {
     { name = '.idea',             weight = 2 },
     { name = '.classpath',        weight = 2 },
@@ -199,7 +200,7 @@ local function find_java_project_root(path)
     { name = 'gradlew',           weight = 3 },
     { name = 'gradlew.bat',       weight = 3 },
   }
-  return find_root(path, java_markers)
+  return find_root( path, java_markers )
 end
 
 -- TODO: how to get a marker for luarocks stuff?
@@ -218,12 +219,12 @@ local nvim_lua_markers = {
   { name = 'lua',        weight = 1 },
 }
 
-local find_lua_project_root = function(path)
-  return find_root(path, lua_markers)
+local find_lua_project_root = function ( path )
+  return find_root( path, lua_markers )
 end
 
-local find_lua_nvim_project_root = function(path)
-  return find_root(path, nvim_lua_markers)
+local find_lua_nvim_project_root = function ( path )
+  return find_root( path, nvim_lua_markers )
 end
 
 local zig_markers = {
@@ -233,15 +234,15 @@ local zig_markers = {
   { name = 'zig-out',        weight = 1 },
 }
 
-local find_zig_project_root = function(path)
-  return find_root(path, zig_markers)
+local find_zig_project_root = function ( path )
+  return find_root( path, zig_markers )
 end
 
-local find_rust_project_root = function(path)
+local find_rust_project_root = function ( path )
   local markers = {
     { name = 'Cargo.toml', weight = 3 },
   }
-  local cargo_crate_dir = find_root(path, markers)
+  local cargo_crate_dir = find_root( path, markers )
   if cargo_crate_dir == nil then return nil end
 
   local cmd = {
@@ -251,24 +252,40 @@ local find_rust_project_root = function(path)
     '--format-version',
     '1',
     '--manifest-path',
-    vim.fs.joinpath(cargo_crate_dir, 'Cargo.toml'),
+    vim.fs.joinpath( cargo_crate_dir, 'Cargo.toml' ),
   }
 
-  local result = vim.system(cmd, { text = true }):wait()
+  local result = vim.system( cmd, { text = true } ):wait()
   local cargo_workspace_root
 
   if result.code == 0 then
-    local json = vim.json.decode(result.stdout)
+    local json = vim.json.decode( result.stdout )
     if json['workspace_root'] then
-      cargo_workspace_root = vim.fs.normalize(json['workspace_root'])
+      cargo_workspace_root = vim.fs.normalize( json['workspace_root'] )
     end
   end
 
   return cargo_workspace_root or cargo_crate_dir
 end
 
+local fallback_rooter = function ( path )
+  return find_vcs_project_root( path ) or find_project_root( path )
+end
+local rooters = {
+  java = find_java_project_root,
+  lua = function ( path ) return find_lua_nvim_project_root( path ) or find_lua_project_root( path ) end,
+  rust = find_rust_project_root,
+  zig = find_zig_project_root,
+}
+
+local find_root_by_filetype = function ( path, filetype )
+  local rooter = rooters[filetype]
+  return rooter and rooter( path ) or fallback_rooter( path )
+end
+
 return {
   find_root = find_root,
+  find_root_by_filetype = find_root_by_filetype,
   find_project_root = find_project_root,
   find_vcs_project_root = find_vcs_project_root,
   find_java_project_root = find_java_project_root,

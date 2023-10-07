@@ -1,4 +1,5 @@
 local map = require'std.map'
+local ignored = require'std.ignored'
 
 return {
 	{
@@ -20,6 +21,7 @@ return {
 					['cmp.entry.get_documentation'] = true,
 				},
 			},
+			smart_move = { excluded_filetypes = ignored.filetypes },
 			presets = {
 				inc_rename = true, -- enables an input dialog for inc-rename.nvim
 			},

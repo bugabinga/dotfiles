@@ -28,6 +28,14 @@ def open-editor-with-file-search [ initial_query:string = ''] {
 }
 export alias nf = open-editor-with-file-search
 
+def fuzzy-kill [ query:string ] {
+  let pid = (^ps -ef | sed 1d | fzf -m --query $query | awk '{print $2}')
+  if not ($pid | is-empty) {
+  	kill ($pid | into int )
+	}
+}
+export alias fkill = fuzzy-kill
+
 # TODO: HOST SPECIFIC ALIASES
 # I do not see a way right now the have different aliases per host with nu.
 
