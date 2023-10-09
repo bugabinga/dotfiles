@@ -5,9 +5,7 @@ return {
   name = 'LuaLS',
   filetypes = 'lua',
   command = 'lua-language-server',
-  root_dir = function ( path )
-    return project.find_lua_nvim_project_root( path ) or project.find_lua_project_root( path )
-  end,
+  root_dir = project.find_lua_project_root ,
   single_file_support = true,
   workspaces = true,
   settings = {

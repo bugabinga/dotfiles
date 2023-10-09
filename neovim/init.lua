@@ -17,18 +17,10 @@ require 'bugabinga.trim'
 require 'bugabinga.mark'
 require 'bugabinga.lsp'
 
--- TODO:
--- [ ] check out gen.nvim
--- [ ] check out mini.*
---                    colors
---                    hipatterns
---                    sessions
---                    completion
---                    bufremove
---                    bracketed
---                    align
+  -- TODO:
+-- [ ] think about mini.colors
+-- [ ] setup spell checking for code (english + german)
 -- [ ] learn marks and refac  mark.lua
 -- [ ] use ltex-ls for markdown, code comments and commit messages
 -- [ ] DAP
 -- [ ] add nu-check to nvim-lint
--- [ ] replace hydra with normal mapping + whcihkey

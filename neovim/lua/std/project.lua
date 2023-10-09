@@ -33,6 +33,8 @@ local cache_set = function ( project_root, path, markers )
   cache[hash] = project_root
 end
 
+local expand = function ( path ) return vim.fn.fnamemodify( path, ':p' ) end
+
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
 
@@ -74,7 +76,7 @@ local function find_root( path, markers, stop )
   }
 
   path = path or dirname( vim.api.nvim_buf_get_name( 0 ) )
-  path = normalize( path )
+  path = dirname( normalize( expand( path ) ) )
   stop = stop or vim.uv.os_homedir()
   stop = normalize( stop )
 
@@ -176,6 +178,7 @@ local function find_project_root( path, markers )
     { name = 'flake.nix',     weight = 1 },
   }
 
+  markers = markers or {}
   return find_root( path, join( default_markers, markers ) )
 end
 
@@ -212,19 +215,12 @@ local lua_markers = {
   { name = 'stylua.toml',  weight = 1 },
   { name = 'selene.toml',  weight = 1 },
   { name = 'selene.yml',   weight = 1 },
-}
-
-local nvim_lua_markers = {
-  { name = 'neovim.yml', weight = 1 },
-  { name = 'lua',        weight = 1 },
+  { name = 'neovim.yml',   weight = 1 },
+  { name = 'lua',          weight = 1 },
 }
 
 local find_lua_project_root = function ( path )
   return find_root( path, lua_markers )
-end
-
-local find_lua_nvim_project_root = function ( path )
-  return find_root( path, nvim_lua_markers )
 end
 
 local zig_markers = {
@@ -273,7 +269,7 @@ local fallback_rooter = function ( path )
 end
 local rooters = {
   java = find_java_project_root,
-  lua = function ( path ) return find_lua_nvim_project_root( path ) or find_lua_project_root( path ) end,
+  lua = find_lua_project_root,
   rust = find_rust_project_root,
   zig = find_zig_project_root,
 }
@@ -290,7 +286,6 @@ return {
   find_vcs_project_root = find_vcs_project_root,
   find_java_project_root = find_java_project_root,
   find_lua_project_root = find_lua_project_root,
-  find_lua_nvim_project_root = find_lua_nvim_project_root,
   find_zig_project_root = find_zig_project_root,
   find_rust_project_root = find_rust_project_root,
 }

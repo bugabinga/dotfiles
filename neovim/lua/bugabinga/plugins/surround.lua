@@ -1,7 +1,7 @@
 return {
 	{
 		'kylechui/nvim-surround',
-		keys = { '<C-g>s', '<C-g>S', 'ms', 'mss', 'mS', 'mSS', 'S', 'gS', 'md', 'mr', 'mR'},
+		lazy = false,
 		opts = {
 			keymaps = {
 				insert = '<C-g>s',
