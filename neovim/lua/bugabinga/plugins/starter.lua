@@ -1,6 +1,5 @@
 return {
-  'echasnovski/mini.nvim',
-  main = 'mini.starter',
+  'echasnovski/mini.starter',
   lazy = false,
   config = function ()
     local starter = require 'mini.starter'
@@ -23,10 +22,10 @@ return {
         :slice( 1, limit )
         :map( function ( session_path )
           -- session files encode their cwd as an escaped path in their file name
-          -- t = tail of name
-          -- r = remove extension
+          -- t  = tail of name
+          -- r  = remove extension
           -- gs = replace all % with /
-          -- ~ = relative to home
+          -- ~  = relative to home
           local name = vim.fn.fnamemodify( session_path, ':t:r:gs_%_/_:~' )
           local action = 'silent! source ' .. vim.fn.fnameescape( session_path )
           local section = 'Sessions'
