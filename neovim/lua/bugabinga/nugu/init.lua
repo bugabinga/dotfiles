@@ -188,7 +188,7 @@ local nugu = lush( function ( injects )
     LspReferenceText { sp = content_unfocus, gui = 'underline' },
     LspReferenceRead { LspReferenceText },
     LspReferenceWrite { LspReferenceText },
-    LspInlayHint { fg = ui_minor, bg = ui_unfocus },
+    LspInlayHint { fg = content_minor, bg = content_backdrop },
 
     -- Tree-Sitter syntax groups.
     --
@@ -447,7 +447,6 @@ local nugu = lush( function ( injects )
     GitSignsDeletePreview { GitSignsDelete },
 
     GitSignsCurrentLineBlame { Debug },
-
     GitSignsAddInline { GitSignsAdd },
     GitSignsDeleteInline { GitSignsDelete },
     GitSignsChangeInline { GitSignsChange },
@@ -474,7 +473,7 @@ local nugu = lush( function ( injects )
 
     Hlargs { fg = ui_important_local },
 
-    MiniStarterCurrent { bg = content_accent },  -- current item.
+    MiniStarterCurrent { fg = ui_accent.readable(), bg = ui_accent },  -- current item.
     MiniStarterFooter { Keyword },   -- footer units.
     MiniStarterHeader { Comment },   -- header units.
     MiniStarterInactive { fg = content_unfocus }, -- inactive item.
@@ -482,7 +481,7 @@ local nugu = lush( function ( injects )
     MiniStarterItemBullet { Whitespace }, -- units from |MiniStarter.gen_hook.adding_bullet|.
     MiniStarterItemPrefix { fg = content_focus, gui = '' }, -- unique query for item.
     MiniStarterSection { fg = content_important_global, gui = 'underline' },  -- section units.
-    MiniStarterQuery { bg = content_accent },    -- current query in active items.
+    MiniStarterQuery { fg = content_accent.readable(), bg = content_accent },    -- current query in active items.
   }
 end )
 

@@ -3,7 +3,6 @@ require 'bugabinga.lsp.lightbulb'
 local defer              = require 'std.defer'
 local map                = require 'std.map'
 local auto               = require 'std.auto'
-local want               = require 'std.want'
 local ui                 = require 'bugabinga.ui'
 local table              = require 'std.table'
 local ignored            = require 'std.ignored'
@@ -56,7 +55,7 @@ local lsp_start          = function ( file_type_event )
   if vim.iter( matches_to_ignore ):find( match ) then return end
 
   local bufnr = file_type_event.buf
-  local buftype = vim.api.nvim_get_option_value('buftype', { buf = bufnr })
+  local buftype = vim.api.nvim_get_option_value( 'buftype', { buf = bufnr } )
   if buftype ~= '' then return end
 
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
@@ -108,7 +107,7 @@ local lsp_start          = function ( file_type_event )
   for _, config in ipairs( potential_client_configs ) do
     local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_capabilities = want 'cmp_nvim_lsp' ( function ( cmp ) return cmp.default_capabilities() end, {} )
+    local cmp_capabilities = require 'cmp_nvim_lsp'.default_capabilities()
     capabilities = table.extend( 'force', capabilities, cmp_capabilities, config.capabilities )
     -- vim.print( 'lsp capabilities', capabilities, config.capabilities, cmp_capabilities )
 
@@ -160,7 +159,7 @@ local lsp_start          = function ( file_type_event )
 
         local new_root_raw = new_config.root_dir or nil
         local existing_root_raw = existing_client.workspace_folders and #existing_client.workspace_folders >= 1 and
-        existing_client.workspace_folders[1].name or nil
+          existing_client.workspace_folders[1].name or nil
 
         if not (new_root_raw and existing_root_raw) then return false end
 
@@ -235,13 +234,14 @@ local lsp_attach         = function ( args )
   end
 
   if client.server_capabilities.inlayHintProvider then
-    -- TODO: how to prevent the UI from jittering
     add( map.normal {
       description = 'Toggle inlay hints',
       category = 'lsp',
       buffer = bufnr,
       keys = '<leader>ti',
-      command = function () vim.lsp.inlay_hint( bufnr, nil ) end,
+      command = function ()
+        vim.lsp.inlay_hint( bufnr, nil )
+      end,
     } )
   end
 
@@ -250,7 +250,6 @@ local lsp_attach         = function ( args )
     category = 'lsp',
     buffer = bufnr,
     keys = '<c-s>',
-    --TODO: save actions
     command = vim.lsp.buf.format,
   } )
 

@@ -1,19 +1,16 @@
 local ignored = require 'std.ignored'
+local icon = require'std.icon'
 
 return {
   'folke/which-key.nvim',
   event = 'VeryLazy',
   init = function ()
     vim.o.timeout = true
-    vim.o.timeoutlen = 300
+    vim.o.timeoutlen = 250
   end,
   opts = {
-    operators = {
-      -- TODO: make surround bind more logical and add here
-      ms = 'Surround',
-    },
     icons = {
-      group = ' '
+      group = icon.group,
     },
     window = {
       border = vim.g.border_style,

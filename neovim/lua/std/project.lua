@@ -206,7 +206,6 @@ local function find_java_project_root( path )
   return find_root( path, java_markers )
 end
 
--- TODO: how to get a marker for luarocks stuff?
 local lua_markers = {
   { name = '.luarc.json',  weight = 1 },
   { name = '.luarc.jsonc', weight = 1 },
