@@ -18,6 +18,7 @@ require 'bugabinga.mark'
 require 'bugabinga.lsp'
 
   -- TODO:
+-- [ ] pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
 -- [ ] think about mini.colors
 -- [ ] setup spell checking for code (english + german)
 -- [ ] learn marks and refac  mark.lua

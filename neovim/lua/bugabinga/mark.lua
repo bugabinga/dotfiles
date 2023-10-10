@@ -115,7 +115,7 @@ local function set_keymaps( bufnr )
   vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>dM', '', {
     desc = 'Delete all buffer marks',
     callback = function ()
-      -- NOTE: This will delete the builtin marks too, but I'll restore
+      -- This will delete the builtin marks too, but I'll restore
       -- them on cursor move so whatever.
       marks[bufnr] = {}
       vim.fn.sign_unplace( sign_group_name, { buffer = bufnr } )

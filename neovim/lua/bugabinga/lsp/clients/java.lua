@@ -1,6 +1,5 @@
 local table = require 'std.table'
 local project = require 'std.project'
-local want = require 'std.want'
 local auto = require 'std.auto'
 local map = require'std.map'
 
@@ -53,12 +52,8 @@ local function get_bundles()
 end
 
 local create_jdtls_command = function ( syntax_server )
-  local mason_packages_base_path = want 'mason-core.package' (
-    function ( mason ) return mason:get_install_path() end,
-    function () return '/home/oli/Programs' end
-  )
-
-  local jdtls_package_path = vim.fs.joinpath( mason_packages_base_path, 'jdtls' )
+  local mason_registry = require 'mason-registry'
+  local jdtls_package_path = mason_registry.get_package('jdtls'):get_install_path()
   local shared_config_path = create_shared_config_path( jdtls_package_path, syntax_server )
   local launcher_jar = find_launcher_jar( jdtls_package_path )
   local data_dir = create_data_dir()
@@ -168,7 +163,6 @@ local get_extended_capabilites = function ()
   return ext
 end
 
--- TODO:
 local on_attach = function ()
   local jdtls = require 'jdtls'
   vim.lsp.codelens.refresh()

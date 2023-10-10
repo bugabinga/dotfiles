@@ -1,5 +1,4 @@
 local project = require 'std.project'
-local want = require'std.want'
 
 return {
   name = 'LuaLS',

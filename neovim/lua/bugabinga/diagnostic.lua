@@ -1,4 +1,3 @@
-local want = require 'std.want'
 local map = require 'std.map'
 local auto = require 'std.auto'
 local icon = require 'std.icon'
@@ -94,10 +93,9 @@ map.normal {
 }
 
 local show_diagnostics_in_buffer = function ()
-  want { 'telescope.builtin', 'telescope.themes' } (
-    function ( builtin, themes )
-      builtin.diagnostics( themes.get_dropdown { bufnr = 0, layout_config = { width = 0.69 } } )
-    end )
+  local builtin = require 'telescope.builtin'
+  local themes = require 'telescope.themes'
+  builtin.diagnostics( themes.get_dropdown { bufnr = 0, layout_config = { width = 0.69 } } )
 end
 
 map.normal {
@@ -108,10 +106,9 @@ map.normal {
 }
 
 local show_diagnostics_in_workspace = function ()
-  want { 'telescope.builtin', 'telescope.themes' } (
-    function ( builtin, themes )
-      builtin.diagnostics( themes.get_dropdown { layout_config = { width = 0.69 } } )
-    end )
+  local builtin = require 'telescope.builtin'
+  local themes = require 'telescope.themes'
+  builtin.diagnostics( themes.get_dropdown { layout_config = { width = 0.69 } } )
 end
 
 map.normal {
@@ -161,3 +158,4 @@ local send_dia = function ()
 end
 
 vim.g.send_dia = send_dia
+

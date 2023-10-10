@@ -134,8 +134,9 @@ return {
             ['aa'] = { query = '@assignment.outer', desc = 'outer assignment' },
             ['ia'] = { query = '@assignment.inner', desc = 'inner assignment' },
 
-            ['la'] = { query = '@assignment.lhs', desc = 'left hand side of assignment'},
-            ['ra'] = { query = '@assignment.rhs', desc = 'right hand side of assignment'},
+            -- l overwrites builtin. i have no good idea for better binding. use ia instead.
+            -- ['la'] = { query = '@assignment.lhs', desc = 'left hand side of assignment'},
+            -- ['ra'] = { query = '@assignment.rhs', desc = 'right hand side of assignment'},
 
             ['ac'] = { query = '@class.outer', desc = 'outer class' },
             ['ic'] = { query = '@class.inner' , desc = 'inner class' },
@@ -204,25 +205,6 @@ return {
           }
         },
       }
-    }
-
-    local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
-
-    -- FIXME: use ; and , to repeat movement, just like built-ins.
-    -- needs to fix f, F and t, T
-    -- does flash still work then?
-    map.normal.visual.operator_pending {
-      description = 'This repeats the last query with always previous direction and to the start of the range.',
-      keys = '<PageUp>',
-      category = 'textobjects',
-      command = function () ts_repeat_move.repeat_last_move { forward = false } end
-    }
-
-    map.normal.visual.operator_pending {
-      description = 'This repeats the last query with always next direction and to the end of the range.',
-      keys = '<PageDown>',
-      category = 'textobjects',
-      command = function () ts_repeat_move.repeat_last_move { forward = true } end
     }
 
     ---@diagnostic disable-next-line: inject-field

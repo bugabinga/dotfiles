@@ -27,7 +27,11 @@ return {
           -- gs = replace all % with /
           -- ~  = relative to home
           local name = vim.fn.fnamemodify( session_path, ':t:r:gs_%_/_:~' )
-          local action = 'silent! source ' .. vim.fn.fnameescape( session_path )
+          local session_restore = 'silent! source ' .. vim.fn.fnameescape( session_path )
+          local action = function()
+            vim.cmd (session_restore)
+            vim.notify('Restored session: ' .. name)
+          end
           local section = 'Sessions'
 
           return { name = name, action = action, section = section }
