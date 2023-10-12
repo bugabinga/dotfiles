@@ -1,3 +1,5 @@
+--- Maps keys to commands or functions.
+
 local available_modes = {
   normal_visual_select_operator_pending = '',
 

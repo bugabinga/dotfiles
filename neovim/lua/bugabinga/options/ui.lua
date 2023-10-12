@@ -107,6 +107,9 @@ vim.opt.showtabline = 2
 vim.opt.termguicolors = true
 vim.opt.lazyredraw = false
 
+-- scroll by screen lines if buffer is wrapped
+vim.opt.smoothscroll = true
+
 -- cursor
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 

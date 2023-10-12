@@ -23,7 +23,8 @@ return {
       },
       smart_move = { excluded_filetypes = ignored.filetypes },
       presets = {
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
+        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+        long_message_to_split = true, -- long messages will be sent to a split
       },
       views = {
         vsplit = {
@@ -39,45 +40,25 @@ return {
           border = { style = vim.g.border_style },
           position = { row = -2, col = 2 },
         },
-        -- does not seem to play well with other popups?
+        -- does not seem to play well with other popups? -- treesitter in particular
         cmdline = {
           relative = 'cursor',
           position = { row = 0, col = 0 },
-          size = { min_width = 42, width = 'auto', height = 'auto' },
+          size = { min_width = 69, width = 'auto', height = 'auto' },
           border = { style = vim.g.border_style },
         },
         cmdline_popupmenu = {
           relative = 'cursor',
           position = { row = 1, col = 0 },
-          size = { min_width = 42, width = 'auto', height = 'auto' },
-          border = { style = vim.g.border_style, padding = { 0, 1 } },
-          win_options = { winhighlight = { Normal = 'Normal', FloatBorder = 'NoiceCmdlinePopupBorder' } },
+          size = { min_width = 69, width = 'auto', height = 'auto' },
+          border = { style = vim.g.border_style },
+          win_options = { winhighlight = { Normal = 'NormalFloat', FloatBorder = 'NoiceCmdlinePopupBorder' } },
         },
       },
       routes = {
         {
-          filter = { event = 'msg_show', kind = 'quickfix' },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'msg_show', find = 'E42' },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'msg_show', kind = '', find = '^".*" %[.*%]', },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'notify', min_height = 15 },
-          view = 'split',
-        },
-        {
           filter = { cmdline = '^:%s*!' },
           view = 'vsplit'
-        },
-        {
-          filter = { cmdline = true, min_height = 2 },
-          view = 'cmdline_output',
         },
         {
           filter = { any = { { cmdline = '^:%s*lua%s+' }, { cmdline = '^:%s*lua%s*=%s*' }, { cmdline = '^:%s*=%s*' }, } },
@@ -137,7 +118,7 @@ return {
     'rcarriga/nvim-notify',
     config = function ()
       local notify = require 'notify'
-      local fade = require 'notify.stages.fade'  'bottom_up'
+      local fade = require 'notify.stages.fade' 'bottom_up'
 
       local shadow_fade = function ( ... )
         local opts = fade[1]( ... )
@@ -148,6 +129,7 @@ return {
         return opts
       end
 
+      ---@diagnostic disable-next-line: missing-fields
       notify.setup {
         stages = { shadow_fade, unpack( fade, 2 ) },
         render = 'compact',
