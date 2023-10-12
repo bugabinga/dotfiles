@@ -246,14 +246,6 @@ local lsp_attach         = function ( args )
   end
 
   add( map.normal {
-    description = 'Format current buffer',
-    category = 'lsp',
-    buffer = bufnr,
-    keys = '<c-s>',
-    command = vim.lsp.buf.format,
-  } )
-
-  add( map.normal {
     description = 'Show hover documentation above cursor.',
     category = 'lsp',
     buffer = bufnr,

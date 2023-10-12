@@ -198,42 +198,18 @@ map.normal {
   command = vim.cmd.redo,
 }
 
-map {
-  keys = '<bs>',
-  command = '<nop>',
-}
-
 map.normal {
-  description = 'Move next in quickfix list',
-  category = 'navigation',
-  keys = '<A-bs>',
-  command = '<cmd>cnext<cr>',
-}
-
-map.normal {
-  description = 'Move back in quickfix list',
-  category = 'navigation',
-  keys = '<bs>',
-  command = '<cmd>cprevious<cr>',
-}
-
-map.normal {
-  description = 'Open quickfix list',
-  category = 'navigation',
-  keys = '<bs><bs>',
-  command = '<cmd>copen<cr>',
-}
-
-map.normal {
-  description = 'Open nvim configuration',
-  category = 'config',
-  keys = '<F2><F2>',
-  command = '<cmd>tabedit ' .. vim.fn.stdpath 'config' .. '<cr>',
-}
-
-map.normal {
-  description = 'Execute current line as lua in neovim',
-  category = 'config',
-  keys = '<cr><cr>',
-  command = '<cmd>lua <c-r><c-l><cr>'
+  description = 'Run save actions',
+  category = 'edit',
+  keys = '<c-s>',
+  command = function ()
+    -- trim
+    vim.cmd [[TrimTrailingWhitespace]]
+    -- format
+    vim.lsp.buf.format { async = true }
+    -- save
+    vim.cmd [[wa]]
+    -- TODO: run makeprg
+    vim.cmd [[silent make]]
+  end,
 }

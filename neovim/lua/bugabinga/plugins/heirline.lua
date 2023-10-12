@@ -554,7 +554,7 @@ return {
       local tabline_file_flags      = {
         {
           condition = function ( self ) return vim.api.nvim_buf_get_option( self.bufnr, 'modified' ) end,
-          provider = icon.modified,
+          provider = icon.modified .. ' ',
         },
         {
           condition = function ( self )
@@ -609,31 +609,8 @@ return {
         tabline_file_flags,
       }
 
-      local tabline_close_button    = {
-        condition = function ( self )
-          return not vim.api.nvim_buf_get_option( self.bufnr, 'modified' )
-        end,
-        { provider = ' ' },
-        {
-          provider = icon.close,
-          hl = { fg = 'gray' },
-          on_click = {
-            callback = function ( _, minwid )
-              vim.schedule( function ()
-                vim.api.nvim_buf_delete( minwid, { force = false } )
-                vim.cmd.redrawtabline()
-              end )
-            end,
-            minwid = function ( self )
-              return self.bufnr
-            end,
-            name = 'heirline_tabline_close_buffer_callback',
-          },
-        },
-      }
-
       local tabline_buffer_block    = utils.surround(
-        { icon.block_open, icon.block_close },
+        { icon.block, icon.block },
         function ( self )
           if self.is_active then
             return utils.get_highlight 'TabLineSel'.bg
@@ -641,13 +618,13 @@ return {
             return utils.get_highlight 'TabLine'.bg
           end
         end,
-        { tabline_file_name_block, tabline_close_button }
+        { tabline_file_name_block }
       )
 
       local buffer_line             = utils.make_buflist(
         tabline_buffer_block,
-        { provider = icon.arrow_left, hl = { fg = 'ui_minor' } },
-        { provider = icon.arrow_right, hl = { fg = 'ui_minor' } }
+        { provider = icon.arrow_left, hl = { fg = 'ui_minor', bg = 'ui_backdrop' } },
+        { provider = icon.arrow_right, hl = { fg = 'ui_minor', bg = 'ui_backdrop' } }
       )
 
       local tabpage                 = {

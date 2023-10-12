@@ -22,7 +22,7 @@ local icon = require'std.icon'
 lazy.setup('bugabinga.plugins', {
   defaults = {
     lazy = true,
-    version = '*',
+    -- version = '*',
   },
   install = {
     missing = false,
