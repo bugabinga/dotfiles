@@ -1,5 +1,3 @@
---- Maps keys to commands or functions.
-
 local available_modes = {
   normal_visual_select_operator_pending = '',
 
@@ -85,7 +83,8 @@ local add_mode = function ( self, key )
   return self
 end
 
-return setmetatable(
+--- @overload fun(map:table): function
+local map = setmetatable(
   {
     mode = {},
   },
@@ -93,3 +92,5 @@ return setmetatable(
     __index = add_mode,
     __call = bind,
   } )
+
+return map

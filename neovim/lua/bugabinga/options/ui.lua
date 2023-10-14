@@ -1,4 +1,4 @@
-local icon = require'std.icon'
+local icon = require 'std.icon'
 local auto = require 'std.auto'
 local ignored = require 'std.ignored'
 
@@ -6,7 +6,7 @@ auto 'highlight_yanked_text' {
   description = 'briefly highlight yanked text',
   events = 'TextYankPost',
   pattern = '*',
-  command = function() vim.highlight.on_yank() end,
+  command = function () vim.highlight.on_yank() end,
 }
 
 auto 'disable_columns_in_special_buffers' {
@@ -20,6 +20,27 @@ auto 'disable_columns_in_special_buffers' {
     vim.opt_local.number = false
   end,
 }
+
+-- TODO: this should probably live in nugu?
+
+-- local hl_to_mode = {
+--   n = { bg = 'black' },
+--   i = { bg = 'blue' },
+--   v = { bg = 'green' },
+-- }
+--
+-- auto 'change_cursor_highlight_based_on_mode' {
+--   description = 'Changes the highlight of the cursor based on the current mode.',
+--   events = 'ModeChanged',
+--   command = function ()
+--     local current_mode = vim.fn.mode()
+--     local hl = hl_to_mode[current_mode]
+--     vim.notify( 'changing Cursor highlight for mode ' .. current_mode .. ' to ' .. vim.inspect( hl ) )
+--     if hl then
+--       vim.api.nvim_set_hl( 0, 'Cursor', hl )
+--     end
+--   end,
+-- }
 
 -- show trailing whitespace
 vim.opt.list = true
@@ -91,9 +112,9 @@ vim.opt.cursorline = false
 -- pop up menu height
 vim.opt.pumheight = 10
 
--- transparent popups and floating windows
-vim.opt.pumblend = 8
-vim.opt.winblend = 8
+-- no transparent popups and floating windows
+vim.opt.pumblend = 0
+vim.opt.winblend = 0
 
 vim.g.border_style = 'shadow'
 

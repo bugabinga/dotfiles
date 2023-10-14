@@ -79,7 +79,7 @@ end
 
 ---@param bufnr integer
 local function set_keymaps( bufnr )
-  vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>m', '', {
+  vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>ma', '', {
     desc = 'Add mark',
     callback = function ()
       local ok, mark = pcall( function ()
@@ -96,7 +96,7 @@ local function set_keymaps( bufnr )
     end,
   } )
 
-  vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>dm', '', {
+  vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>md', '', {
     desc = 'Delete mark',
     callback = function ()
       local ok, mark = pcall( function ()
@@ -112,7 +112,7 @@ local function set_keymaps( bufnr )
     end,
   } )
 
-  vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>dM', '', {
+  vim.api.nvim_buf_set_keymap( bufnr, 'n', '<leader>mD', '', {
     desc = 'Delete all buffer marks',
     callback = function ()
       -- This will delete the builtin marks too, but I'll restore

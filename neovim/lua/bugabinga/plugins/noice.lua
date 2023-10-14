@@ -1,5 +1,4 @@
 local map = require 'std.map'
-local ignored = require 'std.ignored'
 
 return {
   {
@@ -11,9 +10,12 @@ return {
     },
     opts = {
       cmdline = {
-        view = 'cmdline', -- cmdline on bottom
+        view = 'cmdline', -- cmdline on cursor
       },
       lsp = {
+        signature = {
+          auto_open = { trigger = false },
+        },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -21,7 +23,6 @@ return {
           ['cmp.entry.get_documentation'] = true,
         },
       },
-      smart_move = { excluded_filetypes = ignored.filetypes },
       presets = {
         inc_rename = true,            -- enables an input dialog for inc-rename.nvim
         long_message_to_split = true, -- long messages will be sent to a split
@@ -43,22 +44,30 @@ return {
         -- does not seem to play well with other popups? -- treesitter in particular
         cmdline = {
           relative = 'cursor',
-          position = { row = 0, col = 0 },
-          size = { min_width = 69, width = 'auto', height = 'auto' },
+          position = { row = 0, col = -2 }, -- -2 makes the cursor stay in the same place
+          size = { width = 'auto', height = 'auto' },
           border = { style = vim.g.border_style },
         },
         cmdline_popupmenu = {
           relative = 'cursor',
           position = { row = 1, col = 0 },
-          size = { min_width = 69, width = 'auto', height = 'auto' },
+          size = { width = 'auto', height = 'auto' },
           border = { style = vim.g.border_style },
-          win_options = { winhighlight = { Normal = 'NormalFloat', FloatBorder = 'NoiceCmdlinePopupBorder' } },
+          win_options = { winhighlight = { Normal = 'NormalFloat', FloatBorder = 'FloatBorder' } },
         },
       },
       routes = {
         {
           filter = { cmdline = '^:%s*!' },
           view = 'vsplit'
+        },
+        {
+          filter = { event = 'msg_show', kind = 'echomsg' },
+          view = 'mini'
+        },
+        {
+          filter = { event = 'msg_show', kind = '', find = 'written' },
+          view = 'mini'
         },
         {
           filter = { any = { { cmdline = '^:%s*lua%s+' }, { cmdline = '^:%s*lua%s*=%s*' }, { cmdline = '^:%s*=%s*' }, } },
@@ -81,6 +90,7 @@ return {
         description = 'Redirect Cmdline',
         category = 'ui',
         keys = '<S-cr>',
+        ---@diagnostic disable-next-line: param-type-mismatch
         command = function () noice.redirect( vim.fn.getcmdline() ) end,
       }
 

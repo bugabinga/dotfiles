@@ -90,52 +90,15 @@ return {
       direction = 'tab',
     }
 
-    _G.Gitui = function () gitui:toggle() end
+    local toggle_gitui = function () gitui:toggle() end
 
     map.normal.terminal.insert {
       description = 'Toggle gitui terminal in tab',
       category = 'terminal',
       keys = '<F10>',
-      command = Gitui,
+      command = toggle_gitui,
     }
 
-    vim.cmd [[ command! Gitui lua Gitui() ]]
-
-    --[ MDCAT ]
-
-    local mdcat = Terminal:new {
-      hidden = true,
-      direction = 'vertical',
-      cmd = '',
-    }
-
-    _G.Mdcat = function ()
-      local window = vim.api.nvim_get_current_win()
-      local current_file = vim.api.nvim_buf_get_name( 0 )
-      mdcat.cmd = 'watch ' .. current_file .. ' { clear; mdcat ' .. current_file .. ' }'
-      mdcat:toggle()
-      vim.api.nvim_set_current_win( window )
-    end
-
-    vim.cmd [[ command! Mdcat lua Mdcat() ]]
-
-    -- [ GRAPHVIZ ]
-
-    local graphviz = Terminal:new {
-      hidden = true,
-      direction = 'vertical',
-      cmd = '',
-    }
-
-    _G.Graphviz = function ()
-      local window = vim.api.nvim_get_current_win()
-      local current_file = vim.api.nvim_buf_get_name( 0 )
-      graphviz.cmd = 'watch ' ..
-      current_file .. ' { clear; dot -O -Tpng ' .. current_file .. ' ; viu --blocks ' .. current_file .. '.png }'
-      graphviz:toggle()
-      vim.api.nvim_set_current_win( window )
-    end
-
-    vim.cmd [[ command! Graphviz lua Graphviz() ]]
+    vim.api.nvim_create_user_command( 'Gitui', toggle_gitui, { desc = 'Toggle Gitui' } )
   end
 }

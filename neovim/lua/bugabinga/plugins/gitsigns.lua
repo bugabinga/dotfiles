@@ -2,7 +2,6 @@ local map = require 'std.map'
 
 return {
   'lewis6991/gitsigns.nvim',
-  -- branch='main',
   event = 'VeryLazy',
   opts = {
     signs = {
@@ -22,6 +21,7 @@ return {
     ignore_whitespace = true,
   },
   current_line_blame_formatter = '<author>(<author_time:%d.%m.%Y>): <summary>',
+  -- FIXME: on_attach seemingly never gets called
   on_attach = function ( bufnr )
     local gitsigns = require 'gitsigns'
 

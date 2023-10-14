@@ -39,7 +39,7 @@ local content_backdrop = hsl( palette.content_backdrop )
 local content_accent = hsl( palette.content_accent )
 local content_minor = hsl( palette.content_minor )
 local content_focus = hsl( palette.content_focus )
-local content_unfocus = hsl( palette.content_unfocus )
+local content_unfocus = flux(hsl( palette.content_unfocus ), 33) -- FIXME: this change needs to go into nugu
 local content_important_global = hsl( palette.content_important_global )
 local content_important_local = hsl( palette.content_important_local )
 
@@ -59,43 +59,43 @@ local nugu = lush( function ( injects )
 
     Normal { fg = content_normal, bg = content_backdrop },
     NotifyBackground { bg = ui_backdrop },
-    Comment { fg = content_important_global, gui = 'bold italic' },
-    LineNr { fg = ui_minor, bg = ui_backdrop },
+    Comment { fg = content_important_global },
+    LineNr { fg = ui_minor, bg = content_backdrop },
     CursorLineNr { fg = ui_focus, bg = ui_backdrop },
-    Search { fg = content_important_global.readable(), bg = content_important_global },
-    IncSearch { fg = content_important_local.readable(), bg = content_important_local },
+    Search { fg = content_important_global, bg = content_important_global.readable() },
+    IncSearch { fg = content_important_local, bg = content_important_local.readable() },
     NormalFloat { fg = ui_normal, bg = ui_backdrop },
-    FloatBorder { fg = ui_accent, bg = NormalFloat.bg },
-    ColorColumn { fg = ui_important_global, bg = content_backdrop },
-    Conceal { fg = content_normal, bg = ui_unfocus, gui = 'italic' },
-    Cursor { bg = ui_accent },
-    lCursor { bg = ui_accent },
-    CursorIM { bg = ui_accent },
+    FloatBorder { fg = ui_accent, bg = Normal.bg },
+    ColorColumn { fg = ui_important_global, bg = Normal.bg },
+    Conceal { fg = content_focus, bg = Normal.bg },
+    -- Cursor { bg = ui_accent },
+    -- lCursor { Cursor },
+    -- CursorIM { Cursor },
     Directory { fg = Normal.fg },
     DiffAdd { fg = content_focus },
     DiffDelete { fg = content_focus, gui = 'strikethrough' },
     DiffChange { fg = content_important_global },
     DiffText { fg = content_important_local.readable(), bg = content_important_local },
-    EndOfBuffer { NormalFloat },
-    TermCursor { lCursor },
-    TermCursorNC { Cursor },
+    EndOfBuffer { Normal },
+    -- TermCursor { Cursor },
+    -- TermCursorNC { Cursor },
     ErrorMsg { fg = error.readable(), bg = error },
-    VertSplit { fg = ui_important_global, bg = ui_backdrop },
+    VertSplit { fg = ui_important_global, bg = LineNr.bg },
     Folded { Conceal },
     FoldColumn { LineNr },
     SignColumn { LineNr },
     ModeMsg { gui = 'bold' },
     MsgArea { Normal },
-    MsgSeparator { fg = ui_accent },
+    MsgSeparator { Debug },
     MoreMsg { Normal },
     NonText { fg = content_unfocus },
     Whitespace { NonText },
-    NormalNC {},
+    NormalNC { Normal },
     Pmenu { NormalFloat },
-    PmenuSel { fg = ui_focus, sp = ui_focus.readable(), bg = ui_unfocus, gui = 'underline' },
+    PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = Pemnu.bg, gui = 'bold underline' },
     PmenuSbar { bg = ui_unfocus },
     PmenuThumb { bg = ui_minor },
-    Question { fg = ui_important_global, gui = 'bold' },
+    Question { fg = ui_important_local, gui = 'bold' },
     QuickFixLine { PmenuSel },
     SpecialKey { fg = error, bg = content_unfocus, gui = 'bold' },
     SpellBad { fg = error, gui = 'undercurl' },
@@ -104,17 +104,16 @@ local nugu = lush( function ( injects )
     SpellRare { SpellBad },
     StatusLine { fg = ui_normal, bg = ui_backdrop },
     StatusLineNC { fg = ui_minor, bg = ui_backdrop },
-    Winbar { StatusLine },
-    WinbarNC { StatusLineNC },
+    Winbar { fg = ui_normal, bg = LineNr.bg },
+    WinbarNC { fg = ui_minor, bg = LineNr.bg },
     Title { fg = content_important_global, sp = content_important_global, gui = 'bold underline' },
     TabLine { StatusLine },
     TabLineFill { bg = TabLine.bg },
-    TabLineSel { fg = ui_accent.readable(), bg = ui_accent, gui = 'underline bold' },
+    TabLineSel { fg = ui_important_global.readable(), bg = ui_important_global, gui = 'underline bold' },
     Visual { fg = content_focus.readable(), bg = content_focus },
     VisualNOS { fg = Visual.fg, bg = flux( Visual.bg, -42 ) },
     WarningMsg { fg = warning, gui = 'bold' },
-    WhiteSpace { fg = ui_unfocus },
-    WildMenu { fg = ui_accent, gui = 'bold' },
+    WildMenu { Debug },
 
     String { fg = content_important_local, gui = 'italic' },
     Constant { String },
@@ -188,7 +187,7 @@ local nugu = lush( function ( injects )
     LspReferenceText { sp = content_unfocus, gui = 'underline' },
     LspReferenceRead { LspReferenceText },
     LspReferenceWrite { LspReferenceText },
-    LspInlayHint { fg = content_minor, bg = content_backdrop },
+    LspInlayHint { fg = content_minor, bg = Normal.bg },
 
     -- Tree-Sitter syntax groups.
     --
@@ -286,25 +285,25 @@ local nugu = lush( function ( injects )
     LazyProgressDone { fg = Search.bg, bg = Cursor.bg, gui = 'bold' },
     LazyProgressTodo { fg = LazyProgressDone.bg, bg = LazyProgressDone.fg, gui = LazyProgressDone.gui },
     LazyProp { LazyComment },
-    LazyReasonCmd { N.fgormalFloat },
-    LazyReasonEvent { N.fgormalFloat },
-    LazyReasonFt { N.fgormalFloat },
-    LazyReasonImport { N.fgormalFloat },
-    LazyReasonKeys { N.fgormalFloat },
-    LazyReasonPlugin { N.fgormalFloat },
-    LazyReasonRuntime { N.fgormalFloat },
-    LazyReasonSource { N.fgormalFloat },
-    LazyReasonStart { N.fgormalFloat },
+    LazyReasonCmd { NormalFloat },
+    LazyReasonEvent { NormalFloat },
+    LazyReasonFt { NormalFloat },
+    LazyReasonImport { NormalFloat },
+    LazyReasonKeys { NormalFloat },
+    LazyReasonPlugin { NormalFloat },
+    LazyReasonRuntime { NormalFloat },
+    LazyReasonSource { NormalFloat },
+    LazyReasonStart { NormalFloat },
     LazySpecial { fg = ColorColumn.fg },
     LazyTaskError { ErrorMsg },
     LazyTaskOutput { Debug },
     LazyUrl { sp = NormalFloat.fg, gui = 'italic underline' },
     LazyValue { gui = 'italic' },
 
-    NoiceCmdline { fg = ui_focus, bg = ui_backdrop },
-    NoiceCmdlineIcon { fg = ui_accent, bg = NoiceCmdline.bg, gui = 'bold' },
+    NoiceCmdline { NormalFloat },
+    NoiceCmdlineIcon { fg = ui_accent },
     NoiceCmdlineIconCalculator { NoiceCmdlineIcon },
-    NoiceCmdlineIconCmdline { fg = ui_accent, bg = NoiceCmdlineIcon.bg, gui = NoiceCmdlineIcon.gui },
+    NoiceCmdlineIconCmdline { NoiceCmdlineIcon },
     NoiceCmdlineIconFilter { NoiceCmdlineIcon },
     NoiceCmdlineIconHelp { NoiceCmdlineIcon },
     NoiceCmdlineIconIncRename { NoiceCmdlineIcon },
@@ -350,11 +349,11 @@ local nugu = lush( function ( injects )
     NoiceCompletionItemWord { NoiceCompletionItemKindDefault },
 
     NoiceConfirm { NormalFloat },
-    NoiceConfirmBorder { fg = ui_accent, bg = NormalFloat.bg },
+    NoiceConfirmBorder { FloatBorder },
     NoiceFormatConfirm { LazyButton },
     NoiceFormatConfirmDefault { LazyButtonActive },
 
-    NoiceCursor { Cursor },
+    -- NoiceCursor { Cursor },
 
     NoiceFormatDate { NonText },
     NoiceFormatEvent { NonText },
@@ -376,36 +375,36 @@ local nugu = lush( function ( injects )
     NoiceMini { DiagnosticInfo },
 
     NoicePopup { NormalFloat },
-    NoicePopupBorder { fg = ui_accent, bg = NormalFloat.bg },
+    NoicePopupBorder { FloatBorder },
 
     NoicePopupmenu { Pmenu },
-    NoicePopupmenuBorder { fg = ui_accent, bg = NormalFloat.bg },
+    NoicePopupmenuBorder { FloatBorder },
     NoicePopupmenuMatch { Bold },
     NoicePopupmenuSelected { PmenuSel },
 
     NoiceScrollbar { PmenuSbar },
     NoiceScrollbarThumb { PmenuThumb },
 
-    NoiceSplit { NormalFloat },
-    NoiceSplitBorder { NoiceConfirmBorder, bg = NormalFloat.bg },
-    NoiceVirtualText { fg = ui_important_local, bg = ui_backdrop, gui = 'bold' },
-    NotifyERRORBorder { DiagnosticError, bg = NormalFloat.bg },
-    NotifyWARNBorder { DiagnosticWarn, bg = NormalFloat.bg },
-    NotifyINFOBorder { DiagnosticInfo, bg = NormalFloat.bg },
-    NotifyDEBUGBorder { fg = Debug.bg, bg = NormalFloat.bg },
-    NotifyTRACEBorder { DiagnosticHint, bg = NormalFloat.bg },
+    NoiceSplit { Normal },
+    NoiceSplitBorder { FloatBorder },
+    NoiceVirtualText { fg = ui_important_global, bg = ui_unfocus },
+    NotifyERRORBorder { fg = DiagnosticError.fg, bg = FloatBorder.bg },
+    NotifyWARNBorder { fg = DiagnosticWarn.fg, bg = FloatBorder.bg },
+    NotifyINFOBorder { fg = DiagnosticInfo.fg, bg = FloatBorder.bg },
+    NotifyDEBUGBorder { fg = Debug.bg, bg = FloatBorder.bg },
+    NotifyTRACEBorder { fg = DiagnosticHint.fg, bg = FloatBorder.bg },
 
-    NotifyERRORIcon { NotifyERRORBorder },
-    NotifyWARNIcon { NotifyWARNBorder },
-    NotifyINFOIcon { NotifyINFOBorder },
-    NotifyDEBUGIcon { NotifyDEBUGBorder },
-    NotifyTRACEIcon { NotifyTRACEBorder },
+    NotifyERRORIcon { fg = DiagnosticError.fg },
+    NotifyWARNIcon { fg = DiagnosticWarn.fg },
+    NotifyINFOIcon { fg = DiagnosticInfo.fg },
+    NotifyDEBUGIcon { fg = Debug.bg },
+    NotifyTRACEIcon { fg = DiagnosticHint.fg },
 
-    NotifyERRORTitle { NotifyERRORBorder },
-    NotifyWARNTitle { NotifyWARNBorder },
-    NotifyINFOTitle { NotifyINFOBorder },
-    NotifyDEBUGTitle { NotifyDEBUGBorder },
-    NotifyTRACETitle { NotifyTRACEBorder },
+    NotifyERRORTitle { fg = DiagnosticError.fg },
+    NotifyWARNTitle { fg = DiagnosticWarn.fg },
+    NotifyINFOTitle { fg = DiagnosticInfo.fg },
+    NotifyDEBUGTitle { fg = Debug.bg },
+    NotifyTRACETitle { fg = DiagnosticHint.fg },
 
     NotifyERRORBody { NormalFloat },
     NotifyWARNBody { NormalFloat },
@@ -415,16 +414,16 @@ local nugu = lush( function ( injects )
 
     TelescopeSelectionCaret { PmenuSel },
     TelescopeSelection { PmenuSel },
-    TelescopeMultiSelection { fg = PmenuSel.fg, bg = ui_important_local },
+    TelescopeMultiSelection { fg = ui_important_local.readable(), bg = ui_important_local },
 
     FlashBackdrop {},
-    FlashMatch { bg = content_unfocus },
-    FlashCurrent { fg = content_accent, bg = content_unfocus },
-    FlashLabel { fg = Search.bg, bg = Search.fg },
+    FlashMatch { fg = Search.bg },
+    FlashCurrent { fg = IncSearch.bg },
+    FlashLabel { Search },
 
-    GitSignsAdd { fg = DiffAdd.fg, bg = ui_backdrop },
-    GitSignsChange { fg = DiffChange.fg, bg = ui_backdrop },
-    GitSignsDelete { fg = DiffDelete.fg, bg = ui_backdrop },
+    GitSignsAdd { fg = DiffAdd.fg, bg = LineNr.bg },
+    GitSignsChange { fg = DiffChange.fg, bg = LineNr.bg },
+    GitSignsDelete { fg = DiffDelete.fg, bg = LineNr.bg },
 
     GitSignsChangedelete { GitSignsChange },
     GitSignsTopdelete { GitSignsDelete },
@@ -469,19 +468,18 @@ local nugu = lush( function ( injects )
 
     IblIndent { Whitespace },
     IblWhitespace { Whitespace },
-    IblScope { fg = ui_focus, bg = content_backdrop },
+    IblScope { fg = ui_focus, bg = Normal.bg },
 
-    Hlargs { fg = ui_important_local },
-
-    MiniStarterCurrent { fg = ui_accent.readable(), bg = ui_accent },  -- current item.
-    MiniStarterFooter { Keyword },   -- footer units.
-    MiniStarterHeader { Comment },   -- header units.
-    MiniStarterInactive { fg = content_unfocus }, -- inactive item.
-    MiniStarterItem { Normal },     -- item name.
-    MiniStarterItemBullet { Whitespace }, -- units from |MiniStarter.gen_hook.adding_bullet|.
-    MiniStarterItemPrefix { fg = content_focus, gui = '' }, -- unique query for item.
+    Hlargs { fg = content_important_local },
+    MiniStarterCurrent { fg = ui_accent.readable(), bg = ui_accent },         -- current item.
+    MiniStarterFooter { Keyword },                                            -- footer units.
+    MiniStarterHeader { Comment },                                            -- header units.
+    MiniStarterInactive { fg = content_unfocus },                             -- inactive item.
+    MiniStarterItem { Normal },                                               -- item name.
+    MiniStarterItemBullet { Whitespace },                                     -- units from |MiniStarter.gen_hook.adding_bullet|.
+    MiniStarterItemPrefix { fg = content_focus, gui = '' },                   -- unique query for item.
     MiniStarterSection { fg = content_important_global, gui = 'underline' },  -- section units.
-    MiniStarterQuery { fg = content_accent.readable(), bg = content_accent },    -- current query in active items.
+    MiniStarterQuery { fg = content_accent.readable(), bg = content_accent }, -- current query in active items.
   }
 end )
 

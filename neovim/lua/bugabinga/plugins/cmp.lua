@@ -22,9 +22,9 @@ return {
 
     cmp.setup {
       performance = {
-        debounce = 250,
-        throttle = 400,
-        fetching_timeout = 1000,
+        debounce = 150,
+        throttle = 300,
+        fetching_timeout = 400,
       },
       completion = {
         autocomplete = false,

@@ -13,16 +13,9 @@ require 'bugabinga.options'
 require 'bugabinga.lazy'
 -- configures the vim diagnostic subsystem
 require 'bugabinga.diagnostic'
+-- Defines `TrimTrailingWhitespace` command
 require 'bugabinga.trim'
+-- visualize marks in signcolumn
 require 'bugabinga.mark'
+-- setup lsp clients
 require 'bugabinga.lsp'
-
-  -- TODO:
--- [ ] pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
--- [ ] think about mini.colors
--- [ ] setup spell checking for code (english + german)
--- [ ] use gen.ai to generate docs
--- [ ] learn marks and refac  mark.lua
--- [ ] use ltex-ls for markdown, code comments and commit messages
--- [ ] DAP
--- [ ] add nu-check to nvim-lint
