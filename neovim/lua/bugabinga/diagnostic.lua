@@ -73,7 +73,7 @@ sign { name = 'DiagnosticSignInfo', text = icon.info }
 map.normal {
   description = 'Toggle diagnostics',
   category = 'diagnostic',
-  keys = '<F6><F6>',
+  keys = '<leader>td',
   command = function ()
     if diagnostic.is_disabled( 0 ) then
       diagnostic.enable( 0 )
@@ -114,22 +114,8 @@ end
 map.normal {
   description = 'Show all diagnostics in workspace',
   category = 'diagnostic',
-  keys = '<leader><F6>',
+  keys = '<F6><F6>',
   command = show_diagnostics_in_workspace,
-}
-
-map.normal {
-  description = 'Go to previous diagnostic',
-  category = 'diagnostic',
-  keys = '<C-.>',
-  command = diagnostic.goto_prev,
-}
-
-map.normal {
-  description = 'Go to next diagnostic',
-  category = 'diagnostic',
-  keys = '<C-,>',
-  command = diagnostic.goto_next,
 }
 
 -- a little debug helper to show all kinds of diagnostics

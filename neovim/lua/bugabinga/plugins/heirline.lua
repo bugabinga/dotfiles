@@ -1,3 +1,4 @@
+---@diagnostic disable: param-type-mismatch
 local icon = require 'std.icon'
 local auto = require 'std.auto'
 local ignored = require 'std.ignored'
@@ -20,7 +21,7 @@ return {
       local nugu = require 'bugabinga.nugu.palette'
       heirline.load_colors( nugu )
 
-      auto 'ReloadHeirlineColors' {
+      auto 'reload_heirline_colors' {
         description = 'Reload dark/light nugu colors for Heirline',
         events = 'ColorScheme',
         command = function () utils.on_colorscheme( nugu ) end,
@@ -219,7 +220,7 @@ return {
 
         provider  = function ()
           local names = {}
-          for _, client in pairs( vim.lsp.get_active_clients { bufnr = 0 } ) do
+          for _, client in pairs( vim.lsp.get_clients { bufnr = 0 } ) do
             table.insert( names, client.name )
           end
           return icon.lsp .. ' ' .. table.concat( names, ' ' )
@@ -293,8 +294,9 @@ return {
       end
 
       local svn_get_relative_url    = function ()
+        -- FIXME: replace with vim.system
         local job = require 'plenary.job'
-        local relative_url = '[ERR]'
+        local relative_url = { '[ERR]' }
 
         job:new {
           command = 'svn',
@@ -396,9 +398,9 @@ return {
 
       local terminal_name           = {
         provider = function ()
-          local tname, _ = vim.api.nvim_buf_get_name( 0 ):gsub( '.*:', '' )
-          tname = vim.fs.basename( tname )
-          return icon.terminal .. ' ' .. tname
+          local name, _ = vim.api.nvim_buf_get_name( 0 ):gsub( '.*:', '' )
+          local basename = vim.fs.basename( name )
+          return icon.terminal .. ' ' .. (basename or 'noname')
         end,
         hl = 'Bold',
       }
@@ -439,7 +441,6 @@ return {
           callback = function () require 'lazy'.update() end,
           name = 'update_plugins',
         },
-        hl = 'LazyProgressTodo',
       }
 
       local align                   = { provider = '%=' }
@@ -535,34 +536,35 @@ return {
         end,
         hl = function ( self )
           if self.is_active then
-            return { fg = 'content_accent' }
-          else
+            return { fg = utils.get_highlight 'TablineSel'.fg }
+          elseif not vim.api.nvim_buf_is_loaded( self.bufnr ) then
             return { fg = 'ui_minor' }
+          else
+            return { fg = utils.get_highlight 'Tabline'.fg }
           end
         end,
       }
 
       local tabline_file_name       = {
         provider = function ( self )
-          local file_name = self.file_name
-          file_name = file_name == '' and NEW_FILE or vim.fs.normalize( vim.fn.fnamemodify( file_name, ':t' ) )
-          return file_name
+          local name = self.file_name
+          return name == '' and NEW_FILE or vim.fs.normalize( vim.fn.fnamemodify( name, ':t' ) )
         end,
         hl = function ( self ) return { bold = self.is_active or self.is_visible, italic = true } end,
       }
 
       local tabline_file_flags      = {
         {
-          condition = function ( self ) return vim.api.nvim_buf_get_option( self.bufnr, 'modified' ) end,
+          condition = function ( self ) return vim.api.nvim_get_option_value( 'modified', { buf = self.bufnr } ) end,
           provider = icon.modified .. ' ',
         },
         {
           condition = function ( self )
-            return not vim.api.nvim_buf_get_option( self.bufnr, 'modifiable' ) or
-              vim.api.nvim_buf_get_option( self.bufnr, 'readonly' )
+            return not vim.api.nvim_get_option_value( 'modifiable', { buf = self.bufnr } ) or
+              vim.api.nvim_get_option_value( 'readonly', { buf = self.bufnr } )
           end,
           provider = function ( self )
-            if vim.api.nvim_buf_get_option( self.bufnr, 'buftype' ) == 'terminal' then
+            if vim.api.nvim_get_option_value( 'buftype', { buf = self.bufnr } ) == 'terminal' then
               return icon.terminal
             else
               return icon.lock
@@ -581,7 +583,7 @@ return {
           if self.is_active then
             return 'TabLineSel'
           elseif not vim.api.nvim_buf_is_loaded( self.bufnr ) then
-            return { fg = 'ui_unfocus' }
+            return { fg = 'ui_minor' }
           else
             return 'TabLine'
           end

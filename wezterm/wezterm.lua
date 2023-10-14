@@ -57,7 +57,7 @@ return {
   default_prog = { 'nu' },
   default_cursor_style = 'SteadyBlock',
   cursor_blink_rate = 0,
-  cursor_thickness = '1cell',
+  -- cursor_thickness = '1cell',
   window_decorations = window_decorations,
   enable_tab_bar = true,
   -- if this is hidden, we cannot see the right status area

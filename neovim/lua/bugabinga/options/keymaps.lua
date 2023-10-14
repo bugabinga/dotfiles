@@ -1,4 +1,5 @@
 local map = require 'std.map'
+local togglers = require 'bugabinga.options.togglers'
 
 -- set <SPACE> as leader key
 map {
@@ -95,7 +96,7 @@ map.normal.visual {
 map.normal.visual {
   description = 'yank line into system clipboard',
   category = 'editing',
-  keys = '<leader>yy',
+  keys = '<leader>Y',
   command = '"+Y',
 }
 
@@ -204,12 +205,30 @@ map.normal {
   keys = '<c-s>',
   command = function ()
     -- trim
-    vim.cmd [[TrimTrailingWhitespace]]
+    vim.cmd 'TrimTrailingWhitespace'
+
     -- format
-    vim.lsp.buf.format { async = true }
-    -- save
-    vim.cmd [[wa]]
+    vim.lsp.buf.format { async = false }
+
     -- TODO: run makeprg
     vim.cmd [[silent make]]
+
+    -- save
+    vim.cmd [[wa]]
+
+    -- workaround for neovim bug:https://github.com/neovim/neovim/issues/25370
+    vim.api.nvim_feedkeys( 'zz', 'n', true )
   end,
 }
+
+for _, toggler in ipairs( togglers ) do
+  local option_name = toggler.options[1].name
+  local first_char = string.sub( option_name, 1, 1 )
+
+  map.normal {
+    description = 'Toggle ' .. option_name .. ' option',
+    category = 'options',
+    keys = '<leader>to' .. first_char,
+    command = function () toggler:toggle() end,
+  }
+end

@@ -1,3 +1,6 @@
+local auto = require 'std.auto'
+local icon = require 'std.icon'
+
 return {
   'echasnovski/mini.starter',
   lazy = false,
@@ -28,9 +31,9 @@ return {
           -- ~  = relative to home
           local name = vim.fn.fnamemodify( session_path, ':t:r:gs_%_/_:~' )
           local session_restore = 'silent! source ' .. vim.fn.fnameescape( session_path )
-          local action = function()
-            vim.cmd (session_restore)
-            vim.notify('Restored session: ' .. name)
+          local action = function ()
+            vim.cmd( session_restore )
+            vim.notify( 'Restored session: ' .. name )
           end
           local section = 'Sessions'
 
@@ -40,6 +43,24 @@ return {
     end
 
     starter.setup {
+      footer = (function ()
+        local startuptime
+
+        auto 'display_startup_time' {
+          description = 'Display startup time on starter screen',
+          events = 'User',
+          pattern = 'LazyVimStarted',
+          once = true,
+          command = vim.schedule_wrap( function ()
+            startuptime = require 'lazy'.stats().startuptime
+            starter.refresh()
+          end ),
+        }
+
+        return function ()
+          return icon.start .. ' ' .. (startuptime or ' ') .. 'ms'
+        end
+      end)(),
       header = [[
 ███     ▄     ▄▀  ██   ███   ▄█    ▄     ▄▀  ██
 █  █     █  ▄▀    █ █  █  █  ██     █  ▄▀    █ █
@@ -53,13 +74,11 @@ return {
         custom_actions,
         sessions,
         starter.sections.recent_files( is_home and 24 or 8, not is_home, is_home ),
-        --TODO
-        -- change cwd when selecting recent file
       },
       content_hooks = {
         starter.gen_hook.adding_bullet(),
         starter.gen_hook.aligning( 'center', 'center' ),
-        starter.gen_hook.indexing( 'all', { 'Recent files', 'Builtin actions' } ),
+        starter.gen_hook.indexing( 'all', { 'Recent files', 'Recent files (current directory)', 'Builtin actions' } ),
       },
     }
   end,

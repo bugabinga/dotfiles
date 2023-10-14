@@ -66,6 +66,9 @@ return {
         },
       },
       extensions = {
+        find_files = {
+          ivy
+        },
         ['ui-select'] = { cursor },
         zoxide = {
           ivy,
