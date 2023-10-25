@@ -37,3 +37,5 @@ ftplugin
 * add nu-check to nvim-lint
 * autocomplete in cmdline does not work no more
 * make telescope highlights more like NormalFloat
+* create facade over vim.api.nvim_create_user_command
+* fix autocomplete in cmdline

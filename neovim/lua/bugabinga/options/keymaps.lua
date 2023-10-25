@@ -87,31 +87,10 @@ map {
 
 -- system clipboard copy and paste
 map.normal.visual {
-  description = 'yank into system clipboard',
+  description = 'system clipboard motion',
   category = 'editing',
-  keys = '<leader>y',
-  command = '"+y',
-}
-
-map.normal.visual {
-  description = 'yank line into system clipboard',
-  category = 'editing',
-  keys = '<leader>Y',
-  command = '"+Y',
-}
-
-map.normal.visual {
-  description = 'paste before from system clipboard',
-  category = 'editing',
-  keys = '<leader>p',
-  command = '"+p',
-}
-
-map.normal.visual {
-  description = 'paste after from system clipboard',
-  category = 'editing',
-  keys = '<leader>P',
-  command = '"+P',
+  keys = '<c-v>',
+  command = '"+',
 }
 
 map.insert {

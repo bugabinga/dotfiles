@@ -60,7 +60,7 @@ local lsp_start          = function ( file_type_event )
 
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
 
-  vim.print( 'searching lsp client for:', match, bufnr, buffer_path )
+  vim.notify( string.format( 'searching lsp client for: match: %s, buffer: %s, path: %s', match, bufnr, buffer_path ) )
 
   local potential_client_configs = vim.iter( lsp_client_configs )
     :map( function ( config )
@@ -103,6 +103,11 @@ local lsp_start          = function ( file_type_event )
     -- vim.notify( 'found no lsp client for', buffer_path )
     return
   end
+
+  -- TODO: LspStart
+  -- TODO: LspStop
+  -- TODO: stop lsp on vim idle/ficus lost?
+  -- FIXME: lsp detach errors
 
   for _, config in ipairs( potential_client_configs ) do
     local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
