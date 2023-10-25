@@ -39,7 +39,7 @@ local content_backdrop = hsl( palette.content_backdrop )
 local content_accent = hsl( palette.content_accent )
 local content_minor = hsl( palette.content_minor )
 local content_focus = hsl( palette.content_focus )
-local content_unfocus = flux(hsl( palette.content_unfocus ), 33) -- FIXME: this change needs to go into nugu
+local content_unfocus = flux( hsl( palette.content_unfocus ), 33 ) -- FIXME: this change needs to go into nugu
 local content_important_global = hsl( palette.content_important_global )
 local content_important_local = hsl( palette.content_important_local )
 
@@ -68,7 +68,7 @@ local nugu = lush( function ( injects )
     FloatBorder { fg = ui_accent, bg = Normal.bg },
     ColorColumn { fg = ui_important_global, bg = Normal.bg },
     Conceal { fg = content_focus, bg = Normal.bg },
-    -- Cursor { bg = ui_accent },
+    Cursor { bg = ui_accent },
     -- lCursor { Cursor },
     -- CursorIM { Cursor },
     Directory { fg = Normal.fg },
@@ -102,14 +102,14 @@ local nugu = lush( function ( injects )
     SpellCap { SpellBad },
     SpellLocal { SpellBad },
     SpellRare { SpellBad },
-    StatusLine { fg = ui_normal, bg = ui_backdrop },
-    StatusLineNC { fg = ui_minor, bg = ui_backdrop },
-    Winbar { fg = ui_normal, bg = LineNr.bg },
+    StatusLine { fg = ui_focus, bg = ui_unfocus },
+    StatusLineNC { fg = ui_normal, bg = ui_unfocus },
+    Winbar { fg = ui_focus, bg = StatusLine.bg },
     WinbarNC { fg = ui_minor, bg = LineNr.bg },
     Title { fg = content_important_global, sp = content_important_global, gui = 'bold underline' },
     TabLine { StatusLine },
-    TabLineFill { bg = TabLine.bg },
-    TabLineSel { fg = ui_important_global.readable(), bg = ui_important_global, gui = 'underline bold' },
+    TabLineFill { fg = TabLine.fg, bg = content_backdrop },
+    TabLineSel { fg = ui_important_global, bg = ui_unfocus },
     Visual { fg = content_focus.readable(), bg = content_focus },
     VisualNOS { fg = Visual.fg, bg = flux( Visual.bg, -42 ) },
     WarningMsg { fg = warning, gui = 'bold' },

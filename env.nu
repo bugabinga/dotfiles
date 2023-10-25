@@ -6,10 +6,9 @@ $env.NURC_DIR  = ( $nu.config-path | path expand | path dirname )
 $env.DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
 $env.WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
 $env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
-
 if ($env | get -i TERM_PROGRAM) == WezTerm {
-  $env.TERM =  "wezterm"
-  $env.TERMCAP = ~./termcap/w/wezterm
+	$env.TERM = "wezterm"
+	$env.TERMCAP = ~/.terminfo/w/wezterm
 }
 
 # theme for ls and other programs, that use LS_COLORS

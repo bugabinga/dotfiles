@@ -536,11 +536,11 @@ return {
         end,
         hl = function ( self )
           if self.is_active then
-            return { fg = utils.get_highlight 'TablineSel'.fg }
+            return { fg = utils.get_highlight 'TabLineSel'.fg }
           elseif not vim.api.nvim_buf_is_loaded( self.bufnr ) then
-            return { fg = 'ui_minor' }
+            return { fg = 'ui_normal' }
           else
-            return { fg = utils.get_highlight 'Tabline'.fg }
+            return { fg = utils.get_highlight 'TabLine'.fg }
           end
         end,
       }
@@ -583,7 +583,7 @@ return {
           if self.is_active then
             return 'TabLineSel'
           elseif not vim.api.nvim_buf_is_loaded( self.bufnr ) then
-            return { fg = 'ui_minor' }
+            return { fg = 'ui_normal' }
           else
             return 'TabLine'
           end
@@ -612,7 +612,10 @@ return {
       }
 
       local tabline_buffer_block    = utils.surround(
-        { icon.block, icon.block },
+        {
+          ' ' .. icon.slant_left,
+          icon.slant_right .. ' ',
+        },
         function ( self )
           if self.is_active then
             return utils.get_highlight 'TabLineSel'.bg
@@ -625,8 +628,8 @@ return {
 
       local buffer_line             = utils.make_buflist(
         tabline_buffer_block,
-        { provider = icon.arrow_left, hl = { fg = 'ui_minor', bg = 'ui_backdrop' } },
-        { provider = icon.arrow_right, hl = { fg = 'ui_minor', bg = 'ui_backdrop' } }
+        { provider = icon.arrow_left .. ' ', hl = 'TabLineFill' },
+        { provider = ' ' .. icon.arrow_right, hl = 'TabLineFill' }
       )
 
       local tabpage                 = {

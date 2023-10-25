@@ -67,4 +67,6 @@ return {
   backspace_key   = '',
   leader_key      = '󱁐',
   start           = '',
+  slant_left      = '▟',
+  slant_right     = '▙',
 }

@@ -39,23 +39,25 @@ return {
     -- use category as prefix?
     wk.register {
       ['<leader>'] = {
-        m = { name = 'mark' }, -- FIXME: this prefix does not show up. why?
-        l = { name = 'lsp' },
+        m = { name = 'mark', _ = 'which_key_ignore' },
+        h = { name = 'hunk', _ = 'which_key_ignore' },
+        l = { name = 'lsp', _ = 'which_key_ignore' },
         s = {
           name = 'swap',
+          _ = 'which_key_ignore',
           {
-            p = { name = 'parameter' },
+            p = { name = 'parameter', _ = 'which_key_ignore' },
           },
         },
-        g = { name = 'generate' },
         t = {
           name = 'toggle',
+          _ = 'which_key_ignore',
           {
-            o = { name = 'options' },
+            o = { name = 'options', _ = 'which_key_ignore' },
           }
         },
-        z = { name = 'lazy' },
-        [' '] = { name = 'fun' },
+        z = { name = 'lazy', _ = 'which_key_ignore' },
+        [' '] = { name = 'fun', _ = 'which_key_ignore' },
       }
     }
   end
