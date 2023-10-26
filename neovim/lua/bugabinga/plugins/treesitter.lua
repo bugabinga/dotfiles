@@ -18,6 +18,9 @@ require 'bugabinga.health'.add_dependency
   {
     name_of_executable = 'tar'
   }
+  {
+    name_of_executable = 'curl'
+  }
 
 return {
   'nvim-treesitter/nvim-treesitter',
@@ -49,14 +52,67 @@ return {
     'windwp/nvim-ts-autotag',
     'nvim-treesitter/playground',
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'RRethy/nvim-treesitter-endwise',
   },
   config = function ()
     local install = require 'nvim-treesitter.install'
     local configs = require 'nvim-treesitter.configs'
     local parsers = require 'nvim-treesitter.parsers'
+    -- nvim-treesitter assumes that windows users use either cmd or powershell.
+    -- my win32 + nushell combination does not work well.
+    -- override some internal functions  of nvim-treesitter for nushell support.
+    local shell = require 'nvim-treesitter.shell_command_selectors'
+    shell.make_directory_change_for_command = function ( dir, command )
+      return string.format( 'cd %s; %s', dir, command )
+    end
+    shell.select_mv_cmd = function ( from, to, cwd )
+      return {
+        cmd = 'mv',
+        opts = {
+          args = { '--force', from, to },
+          cwd = cwd,
+        }
+      }
+    end
+    shell.select_install_rm_cmd = function ( cache_folder, project_name )
+      local project = vim.fs.joinpath( cache_folder, project_name )
+      return {
+        cmd = 'rm',
+        opts = {
+          args = {
+            '--recursive',
+            '--force',
+            '--permanent',
+            project,
+          }
+        },
+        err = 'Could not delete project ' .. project,
+      }
+    end
+    shell.select_rm_file_cmd = function ( file, info_msg )
+      return {
+        cmd  = 'rm',
+        opts = {
+          args = { '--force', '--permanent', file }
+        },
+        info = info_msg,
+        err  = 'Could not delete file ' .. file,
+      }
+    end
+    shell.select_mkdir_cmd = function ( directory, cwd, info_msg )
+      return {
+        cmd = 'mkdir',
+        opts = {
+          args = { directory },
+          cwd = cwd,
+        },
+        info = info_msg,
+        err = 'Could not create directory ' .. directory,
+      }
+    end
 
     install.prefer_git = false
-    install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
+    install.compilers = { 'zig' }
 
     ---@diagnostic disable-next-line: missing-fields
     configs.setup {
@@ -84,6 +140,7 @@ return {
         'vim',
         'vimdoc',
         'query',
+        'xml',
         'zig',
       },
 
@@ -91,7 +148,14 @@ return {
 
       auto_install = true,
 
-      autotag = { enable = true },
+      autotag = {
+        enable = true,
+        filetypes = {
+          'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript', 'css', 'lua', 'xml', 'php', 'markdown'
+        },
+      },
+
+      endwise = { enable = true },
 
       context_commentstring = { enable = true, enable_autocmd = false },
 
@@ -147,9 +211,9 @@ return {
             ['if'] = { query = '@function.inner', desc = 'Select inner function' },
 
             ['ac'] = { query = '@class.outer', desc = 'Select outer class' },
-            ['ic'] = { query = '@class.inner' , desc = 'Select inner class' },
+            ['ic'] = { query = '@class.inner', desc = 'Select inner class' },
 
-            ['at'] = { query = '@comment.outer' , desc = 'Select outer comment' },
+            ['at'] = { query = '@comment.outer', desc = 'Select outer comment' },
 
             ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
           },
@@ -165,10 +229,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>sn'] = { query = '@parameter.inner' , desc = 'Swap parameter with next' },
+            ['<leader>sn'] = { query = '@parameter.inner', desc = 'Swap parameter with next' },
           },
           swap_previous = {
-            ['<leader>sp'] = { query = '@parameter.inner' , desc = 'Swap parameter with previous' },
+            ['<leader>sp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous' },
           },
         },
 
@@ -186,18 +250,18 @@ return {
           enable = true,
           set_jumps = true,
           goto_next = {
-            [']f'] = { query = '@function.outer' , desc = 'Goto next funtion' },
+            [']f'] = { query = '@function.outer', desc = 'Goto next funtion' },
             [']c'] = { query = '@class.outer', desc = 'Goto next class' },
             [']s'] = { query = '@scope', query_group = 'locals', desc = 'Goto next scope' },
-            [']i'] = { query = '@conditional.outer' , desc = 'Goto next conditional' },
-            [']a'] = { query = '@parameter.outer' , desc = 'Goto next parameter' },
+            [']i'] = { query = '@conditional.outer', desc = 'Goto next conditional' },
+            [']a'] = { query = '@parameter.outer', desc = 'Goto next parameter' },
           },
           goto_previous = {
-            ['[f'] = { query = '@function.outer' , desc = 'Goto previous function' },
+            ['[f'] = { query = '@function.outer', desc = 'Goto previous function' },
             ['[c'] = { query = '@class.outer', desc = 'goto previous class' },
             ['[s'] = { query = '@scope', query_group = 'locals', desc = 'Goto previous scope' },
-            ['[i'] = { query = '@conditional.outer' , desc = 'Goto previous conditional' },
-            ['[a'] = { query = '@parameter.outer' , desc = 'Goto previous parameter' },
+            ['[i'] = { query = '@conditional.outer', desc = 'Goto previous conditional' },
+            ['[a'] = { query = '@parameter.outer', desc = 'Goto previous parameter' },
           }
         },
       }
@@ -230,4 +294,3 @@ return {
     }
   end,
 }
-

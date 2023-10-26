@@ -74,16 +74,25 @@ local find_jdks = function()
   local jdk19 = {
     name = "JavaSE-19",
   }
+  local jdk21 = {
+    name = "JavaSE-21",
+  }
 
   if host == 'pop-os' then
     jdk11.path = '/usr/lib/jvm/openjdk-11'
     jdk17.path = '/usr/lib/jvm/openjdk-17'
     jdk19.path = '/usr/lib/jvm/openjdk-19'
+    jdk21.path = '~/.jdks/openjdk-21'
+elseif host == 'PC-00625' then
+    jdk11.path = '~/scoop/apps/openjdk11/current'
+    jdk17.path = '~/scoop/apps/openjdk17/current'
+    jdk19.path = '~/scoop/apps/openjdk19/current'
+    jdk21.path = '~/scoop/apps/openjdk21/current'
   else
     vim.notify 'missing jdk paths in java settings for lsp'
   end
 
-  return { jdk11, jdk17, jdk19 }
+  return { jdk11, jdk17, jdk19, jdk21 }
 end
 
 local java_settings = {

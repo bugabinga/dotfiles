@@ -2,18 +2,3 @@
   name = Oliver Krylow
   email = o.krylow@isp-insoft.de
 
-[credential]
-  helper = manager-core
-
-[credential "helperselector"]
-  selected = manager-core
-
-[core]
-  editor = code --wait
-  fsmonitor=true
-
-[diff]
-    tool = code-difftool
-
-[difftool "code-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
