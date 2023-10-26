@@ -22,7 +22,7 @@ local icon = require'std.icon'
 lazy.setup('bugabinga.plugins', {
   defaults = {
     lazy = true,
-    version = '*',
+    -- version = '*',
   },
   install = {
     missing = false,
@@ -41,7 +41,18 @@ lazy.setup('bugabinga.plugins', {
       ft = icon.file,
     },
   },
-  custom_keys = false,
+  custom_keys = {
+    ["<localleader>l"] = function(plugin)
+      require("lazy.util").float_term("gitui", {
+        cwd = plugin.dir,
+      })
+    end,
+    ["<localleader>t"] = function(plugin)
+      require("lazy.util").float_term(nil, {
+        cwd = plugin.dir,
+      })
+    end,
+  },
   change_detection = { notify = false },
   performance = {
     rtp = {
@@ -80,25 +91,25 @@ lazy.setup('bugabinga.plugins', {
 local map = require 'std.map'
 
 local lazy_cmds = vim.iter {
-	{ 'Show', '' , lazy.show } ,
-	{ 'Install', 'i', lazy.install },
-	{ 'Update', 'u', lazy.update },
-	{ 'Sync', 's', lazy.sync },
-	{ 'Clean', 'x', lazy.clean },
-	{ 'Check', 'c', lazy.check },
-	{ 'Log', 'l', lazy.log },
-	{ 'Restore', 'r', lazy.restore },
-	{ 'Profile', 'p', lazy.profile },
-	{ 'Debug', 'd', lazy.debug },
+  { 'Show', '' , lazy.show } ,
+  { 'Install', 'i', lazy.install },
+  { 'Update', 'u', lazy.update },
+  { 'Sync', 's', lazy.sync },
+  { 'Clean', 'x', lazy.clean },
+  { 'Check', 'c', lazy.check },
+  { 'Log', 'l', lazy.log },
+  { 'Restore', 'r', lazy.restore },
+  { 'Profile', 'p', lazy.profile },
+  { 'Debug', 'd', lazy.debug },
 }
 
 local base_key = '<leader>z'
 
 lazy_cmds:each(function(cmd)
-	map.normal {
-		name = cmd[1] .. ' plugins via Lazy.nvim',
-		category = 'plugins',
-		keys = base_key .. cmd[2],
-		command = cmd[3],
-	}
+  map.normal {
+    name = cmd[1] .. ' plugins',
+    category = 'plugins',
+    keys = base_key .. cmd[2],
+    command = cmd[3],
+  }
 end)

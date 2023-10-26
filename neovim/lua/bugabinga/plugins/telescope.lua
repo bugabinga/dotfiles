@@ -5,10 +5,10 @@ require 'bugabinga.health'.add_dependency
   name = 'ripgrep',
   name_of_executable = 'rg'
 }
-    {
-      name = 'find-fd',
-      name_of_executable = 'fd'
-    }
+  {
+    name = 'find-fd',
+    name_of_executable = 'fd'
+  }
 
 return {
   'nvim-telescope/telescope.nvim',
@@ -22,7 +22,7 @@ return {
     'nvim-telescope/telescope-ui-select.nvim',
     'jvgrootveld/telescope-zoxide',
   },
-  config = function()
+  config = function ()
     local telescope = require 'telescope'
     local builtin = require 'telescope.builtin'
     local actions = require 'telescope.actions'
@@ -43,29 +43,32 @@ return {
           preview_cutoff = 124,
         },
         file_ignore_patterns = {
-          ".git/",
-          ".cache",
-          "%.o",
-          "%.a",
-          "%.out",
-          "%.class",
-          "%.pdf",
-          "%.mkv",
-          "%.mp4",
-          "%.zip",
+          '.git/',
+          '.cache',
+          '%.o',
+          '%.a',
+          '%.out',
+          '%.class',
+          '%.pdf',
+          '%.mkv',
+          '%.mp4',
+          '%.zip',
         },
         mappings = {
           i = {
-            ['<C-j>'] = actions.cycle_history_next,
-            ['<C-k>'] = actions.cycle_history_prev,
-            ['<C-n>'] = actions.move_selection_next,
-            ['<C-p>'] = actions.move_selection_previous,
-            ['<C-s>'] = actions.file_split,
+            ['<c-j>'] = actions.cycle_history_next,
+            ['<c-k>'] = actions.cycle_history_prev,
+            ['<c-n>'] = actions.move_selection_next,
+            ['<c-p>'] = actions.move_selection_previous,
+            ['<c-s>'] = actions.file_split,
           },
           n = { q = actions.close },
         },
       },
       extensions = {
+        find_files = {
+          ivy
+        },
         ['ui-select'] = { cursor },
         zoxide = {
           ivy,
@@ -88,63 +91,70 @@ return {
       description = 'Search help files',
       category = 'help',
       keys = '<F1>',
-      command = function() builtin.help_tags(dropdown) end,
+      command = function () builtin.help_tags( dropdown ) end,
+    }
+
+    map.normal {
+      description = 'Open last search...',
+      category = 'plugins',
+      keys = '<c-p>',
+      command = function () builtin.resume() end,
     }
 
     map.normal {
       description = 'Open search for commands...',
       category = 'plugins',
-      keys = '<C-p>',
-      command = function() builtin.commands() end,
+      keys = '<c-p><c-m>',
+      command = function () builtin.commands() end,
     }
 
     map.normal {
       description = 'Open search for all files...',
       category = 'search',
-      keys = '<C-p><C-p>',
-      command = function() builtin.find_files(ivy) end,
+      keys = '<c-p><c-p>',
+      command = function () builtin.find_files( ivy ) end,
     }
 
     map.normal {
       description = 'Open search for all recent files...',
       category = 'search',
-      keys = '<C-p><C-o>',
-      command = function() builtin.oldfiles(ivy) end,
+      keys = '<c-p><c-o>',
+      command = function () builtin.oldfiles( ivy ) end,
     }
 
     map.normal {
       description = 'Open search for keymaps...',
       category = 'search',
-      keys = '<C-p><C-k>',
-      command = function() builtin.keymaps(dropdown) end,
+      keys = '<c-p><c-k>',
+      command = function () builtin.keymaps( dropdown ) end,
     }
 
     map.normal {
       description = 'Open search for symbols...',
       category = 'search',
-      keys = '<C-p><C-s>',
-      command = function() builtin.symbols(cursor) end,
+      keys = '<c-p><c-s>',
+      command = function () builtin.symbols( cursor ) end,
     }
 
     map.normal {
       description = 'Open search for all file contents...',
       category = 'search',
-      keys = '<C-p><C-g>',
-      command = function() builtin.live_grep(ivy) end,
+      keys = '<c-p><c-g>',
+      command = function () builtin.live_grep( ivy ) end,
     }
 
     map.normal {
       description = 'Open search for current buffer content...',
       category = 'search',
-      keys = '<C-p><C-b>',
-      command = function() builtin.current_buffer_fuzzy_find(ivy) end,
+      keys = '<c-p><c-b>',
+      command = function () builtin.current_buffer_fuzzy_find( ivy ) end,
     }
 
     map.normal {
       description = 'Open search for buffers...',
       category = 'search',
-      keys = '<C-e>',
-      command = function() builtin.buffers(cursor) end,
+      keys = '<c-e>',
+      command = function () builtin.buffers( cursor ) end,
     }
   end,
 }

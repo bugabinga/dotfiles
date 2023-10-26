@@ -6,14 +6,13 @@ $env.NURC_DIR  = ( $nu.config-path | path expand | path dirname )
 $env.DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
 $env.WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
 $env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
-
 if ($env | get -i TERM_PROGRAM) == WezTerm {
-  $env.TERM =  "wezterm"
-  $env.TERMCAP = ~./termcap/w/wezterm
+	$env.TERM = "wezterm"
+	$env.TERMCAP = ~/.terminfo/w/wezterm
 }
 
 # theme for ls and other programs, that use LS_COLORS
-$env.LS_COLORS = (try { vivid generate alabaster_dark | into string } catch {""})
+$env.LS_COLORS = (try { vivid generate ayu | into string } catch {""})
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)

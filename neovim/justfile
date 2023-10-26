@@ -4,6 +4,10 @@ set shell := ['nu', '--commands']
 default:
 	@just --list
 
+# Reproduce some neovim issue
+repro:
+	nvim -u repro.lua
+
 # update nvim plugins
 update:
 	nvim --headless "+Lazy! sync" +qa

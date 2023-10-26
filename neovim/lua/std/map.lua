@@ -83,7 +83,8 @@ local add_mode = function ( self, key )
   return self
 end
 
-return setmetatable(
+--- @overload fun(map:table): function
+local map = setmetatable(
   {
     mode = {},
   },
@@ -91,3 +92,5 @@ return setmetatable(
     __index = add_mode,
     __call = bind,
   } )
+
+return map

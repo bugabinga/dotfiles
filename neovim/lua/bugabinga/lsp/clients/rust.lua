@@ -1,10 +1,10 @@
 local project = require'std.project'
 
 local function is_library(path)
-  local cargo_home = os.getenv 'CARGO_HOME' or util.path.join(vim.env.HOME, '.cargo')
+  local cargo_home = os.getenv 'CARGO_HOME' or vim.fs.joinpath(vim.env.HOME, '.cargo')
   local registry = vim.fs.joinpath(cargo_home, 'registry', 'src')
 
-  local rustup_home = os.getenv 'RUSTUP_HOME' or util.path.join(vim.env.HOME, '.rustup')
+  local rustup_home = os.getenv 'RUSTUP_HOME' or vim.fs.joinpath(vim.env.HOME, '.rustup')
   for _, item in ipairs { toolchains, registry } do
     if path:sub(1, #item) == item then
       local clients = vim.lsp.get_active_clients { name = 'rust_analyzer' }
