@@ -63,13 +63,14 @@
   # try to automatically correct mispelled git commands
   autocorrect = 7
 
-# In order to have host-specific configuration, I include additional settings here.
-# On each host a different file might be symlinked into '.gitconfig.include'.
-[include]
-  path = .gitconfig.include
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+
+# In order to have host-specific configuration, I include additional settings here.
+# On each host a different file might be symlinked into '.gitconfig.include'.
+[include]
+  path = .gitconfig.include

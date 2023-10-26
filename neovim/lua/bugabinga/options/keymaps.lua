@@ -122,6 +122,8 @@ map.insert {
 	command = function() return vim.fn.pumvisible() == 1 and '<C-n>' or '<tab>' end,
 }
 
+local host = vim.uv.os_gethostname()
+local browser = host == 'PC-00625' and 'chrome' or 'firefox'
 local function open_link_under_cursor()
 	---@diagnostic disable-next-line: missing-parameter
 	local file_under_cursor = vim.fn.expand '<cfile>'
@@ -129,7 +131,7 @@ local function open_link_under_cursor()
 	if file_under_cursor and file_under_cursor:match '%a+://.+' then
 		local Job = require 'plenary.job'
 		local job = Job:new {
-			command = 'firefox',
+			command = browser,
 			args = { file_under_cursor },
 			on_exit = function()
 				vim.notify('Openend ' .. file_under_cursor)
@@ -186,44 +188,4 @@ map.normal {
 	category = 'history',
 	keys = 'U',
 	command = vim.cmd.redo,
-}
-
-map {
-  keys = '<bs>',
-  command = '<nop>',
-}
-
-map.normal {
-	description = 'Move next in quickfix list',
-	category = 'navigation',
-	keys = '<A-bs>',
-	command = '<cmd>cnext<cr>',
-}
-
-map.normal {
-	description = 'Move back in quickfix list',
-	category = 'navigation',
-	keys = '<bs>',
-	command = '<cmd>cprevious<cr>',
-}
-
-map.normal {
-  description = 'Open quickfix list',
-  category = 'navigation',
-  keys = '<bs><bs>',
-  command = '<cmd>copen<cr>',
-}
-
-map.normal {
-  description = 'Open nvim configuration',
-  category = 'config',
-  keys = '<F2><F2>',
-  command = '<cmd>tabedit ' .. vim.fn.stdpath'config' .. '<cr>',
-}
-
-map.normal {
-  description = 'Execute current line as lua in neovim',
-  category = 'config',
-  keys = '<cr><cr>',
-  command = '<cmd>lua <c-r><c-l><cr>'
 }

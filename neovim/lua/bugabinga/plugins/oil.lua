@@ -31,7 +31,7 @@ return {
 			float = {
 				border = vim.g.border_style,
 				padding = 2,
-          win_options = { winblend = vim.o.winblend },
+        -- win_options = { winblend = vim.o.winblend },
 			},
 		}
 
