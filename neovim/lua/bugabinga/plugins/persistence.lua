@@ -2,7 +2,7 @@ local map = require'std.map'
 
 return {
   'folke/persistence.nvim',
-  lazy = false,
+  event = "BufReadPre",
   opts = { },
   config = function(_, opts)
     local persistence = require'persistence'

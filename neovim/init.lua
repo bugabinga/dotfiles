@@ -8,18 +8,14 @@
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
 -- set general neovim editor settings
-require'bugabinga.options'
+require 'bugabinga.options'
 -- install plugin manager and declare plugins to use
-require'bugabinga.lazy'
+require 'bugabinga.lazy'
 -- configures the vim diagnostic subsystem
-require'bugabinga.diagnostic'
-require'bugabinga.trim'
-require'bugabinga.mark'
-require'bugabinga.lsp'
-
--- TODO:
--- [ ] highlight return keyword
--- [ ] use ltex-ls for markdown, code comments and commit messages
--- [ ] DAP
--- [ ] add nu-check to nvim-lint
--- [ ] replace hydra with normal mapping + whcihkey
+require 'bugabinga.diagnostic'
+-- Defines `TrimTrailingWhitespace` command
+require 'bugabinga.trim'
+-- visualize marks in signcolumn
+require 'bugabinga.mark'
+-- setup lsp clients
+require 'bugabinga.lsp'

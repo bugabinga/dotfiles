@@ -2,7 +2,7 @@
 export alias show = bat
 export def list [] { ls --all --long --du --mime-type | where type == dir | append (ls --all --long --du --mime-type | where type != dir) }
 export alias web = firefox
-export alias edit = hx
+export alias edit = nvim
 # TODO ewrite bak command
 export alias backup = bak
 
@@ -27,6 +27,14 @@ def open-editor-with-file-search [ initial_query:string = ''] {
 	sk --ansi --interactive --cmd-query $initial_query --delimiter ':' --nth 1 --cmd "fd --type file --color=always {}" --preview 'bat --color=always {1}' --color light | str trim | each { nvim $in }
 }
 export alias nf = open-editor-with-file-search
+
+def fuzzy-kill [ query:string ] {
+  let pid = (^ps -ef | sed 1d | fzf -m --query $query | awk '{print $2}')
+  if not ($pid | is-empty) {
+  	kill ($pid | into int )
+	}
+}
+export alias fkill = fuzzy-kill
 
 # TODO: HOST SPECIFIC ALIASES
 # I do not see a way right now the have different aliases per host with nu.

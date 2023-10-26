@@ -10,9 +10,12 @@ return {
     },
     opts = {
       cmdline = {
-        view = 'cmdline', -- cmdline on bottom
+        view = 'cmdline', -- cmdline on cursor
       },
       lsp = {
+        signature = {
+          auto_open = { trigger = false },
+        },
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -21,8 +24,8 @@ return {
         },
       },
       presets = {
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
-        long_message_to_split = true,
+        inc_rename = true,            -- enables an input dialog for inc-rename.nvim
+        long_message_to_split = true, -- long messages will be sent to a split
       },
       views = {
         vsplit = {
@@ -38,51 +41,33 @@ return {
           border = { style = vim.g.border_style },
           position = { row = -2, col = 2 },
         },
-        -- does not seem to play well with other popups?
+        -- does not seem to play well with other popups? -- treesitter in particular
         cmdline = {
           relative = 'cursor',
-          position = { row = 0, col = 0 },
-          size = { min_width = 42, width = 'auto', height = 'auto' },
-          border = { style = vim.g.border_style, padding = { 1, 2 } },
+          position = { row = 0, col = -2 }, -- -2 makes the cursor stay in the same place
+          size = { width = 'auto', height = 'auto' },
+          border = { style = vim.g.border_style },
         },
         cmdline_popupmenu = {
           relative = 'cursor',
-          position = { row = 2, col = 0 },
-          size = { min_width = 42, width = 'auto', height = 'auto' },
-          border = { style = vim.g.border_style},
-          win_options = { winhighlight = { FloatBorder = 'NoiceCmdlinePopupBorder' } },
+          position = { row = 1, col = 0 },
+          size = { width = 'auto', height = 'auto' },
+          border = { style = vim.g.border_style },
+          win_options = { winhighlight = { Normal = 'NormalFloat', FloatBorder = 'FloatBorder' } },
         },
       },
       routes = {
         {
-          filter = { event = 'msg_show', kind = '', find = 'written', },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'msg_show', kind = 'quickfix' },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'msg_show', find = 'E42' },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'msg_show', kind = '', find = '^".*" %[.*%]', },
-          opts = { skip = true },
-        },
-        {
-          filter = { event = 'notify', min_height = 15 },
-          view = 'split',
-        },
-        {
           filter = { cmdline = '^:%s*!' },
-          --TODO: pipe external commands to terminal?
-          --terminal view does not exist, right?
           view = 'vsplit'
         },
         {
-          filter = { cmdline = true, min_height = 2 },
-          view = 'cmdline_output',
+          filter = { event = 'msg_show', kind = 'echomsg' },
+          view = 'mini'
+        },
+        {
+          filter = { event = 'msg_show', kind = '', find = 'written' },
+          view = 'mini'
         },
         {
           filter = { any = { { cmdline = '^:%s*lua%s+' }, { cmdline = '^:%s*lua%s*=%s*' }, { cmdline = '^:%s*=%s*' }, } },
@@ -105,6 +90,7 @@ return {
         description = 'Redirect Cmdline',
         category = 'ui',
         keys = '<S-cr>',
+        ---@diagnostic disable-next-line: param-type-mismatch
         command = function () noice.redirect( vim.fn.getcmdline() ) end,
       }
 
@@ -153,6 +139,7 @@ return {
         return opts
       end
 
+      ---@diagnostic disable-next-line: missing-fields
       notify.setup {
         stages = { shadow_fade, unpack( fade, 2 ) },
         render = 'compact',

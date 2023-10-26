@@ -1,20 +1,18 @@
 return {
 	{
 		'kylechui/nvim-surround',
-		keys = { '<C-g>s', '<C-g>S', 'ms', 'mss', 'mS', 'mSS', 'S', 'gS', 'md', 'mr', 'mR'},
+		lazy = false,
 		opts = {
 			keymaps = {
-				insert = '<C-g>s',
-				insert_line = '<C-g>S',
 				normal = 'ms',
 				normal_cur = 'mss',
 				normal_line = 'mS',
 				normal_cur_line = 'mSS',
-				visual = 'S',
-				visual_line = 'gS',
+				visual = 'ms',
+				visual_line = 'mS',
 				delete = 'md',
-				change = 'mr',
-				change_line = 'mR',
+				change = 'mc',
+				change_line = 'mC',
 			},
 		},
 		dependencies = {

@@ -1,3 +1,4 @@
+-- TODO: metatable for api like map.modes
 -- Wrapper over `vim.api.nvim_create_autocmd` for automatic grouping and idempotency.
 return function(group_name)
   local group = vim.api.nvim_create_augroup(group_name, { clear = true })
@@ -20,6 +21,7 @@ return function(group_name)
         group = group,
         buffer = autocommand.buffer,
         pattern = autocommand.pattern,
+        once = autocommand.once,
         command = command,
         callback = callback,
       })
