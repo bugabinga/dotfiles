@@ -1,6 +1,6 @@
 [misc]
 # Disable specific steps - same options as the command line flag
-disable = []
+disable = ["restarts"]
 
 assume_yes = true
 
