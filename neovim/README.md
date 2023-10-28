@@ -39,3 +39,4 @@ ftplugin
 * make telescope highlights more like NormalFloat
 * create facade over vim.api.nvim_create_user_command
 * fix autocomplete in cmdline
+* prompts from Mini*-Plugins tend to show up via notify. hard to read. how to change them all?
