@@ -59,6 +59,7 @@ return {
   cursor_blink_rate = 0,
   -- cursor_thickness = '1cell',
   window_decorations = window_decorations,
+  win32_system_backdrop = "Mica",
   enable_tab_bar = true,
   -- if this is hidden, we cannot see the right status area
   hide_tab_bar_if_only_one_tab = false,
