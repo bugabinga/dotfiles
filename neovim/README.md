@@ -39,3 +39,15 @@ ftplugin
 * make telescope highlights more like NormalFloat
 * create facade over vim.api.nvim_create_user_command
 * fix autocomplete in cmdline
+* steal User Commands from: https://github.com/nanotee/nvim-lsp-basics/blob/main/doc/lsp-basics.txt
+* test https://github.com/aznhe21/actions-preview.nvim
+* test https://github.com/amrbashir/nvim-docs-view
+* test https://github.com/piersolenski/wtf.nvim
+* test https://github.com/jghauser/auto-pandoc.nvim
+* check out https://github.com/roobert/surround-ui.nvim
+* https://github.com/LhKipp/nvim-nu
+* test https://github.com/uga-rosa/ccc.nvim
+* test https://github.com/chrisgrieser/nvim-recorder
+* use https://github.com/chrisgrieser/nvim-origami
+* check out https://github.com/shellRaining/hlchunk.nvim
+

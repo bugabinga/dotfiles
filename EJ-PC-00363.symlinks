@@ -42,3 +42,6 @@ helix/config.toml
 
 helix/themes
 ~/AppData/Roaming/helix/themes
+
+alacritty/alacritty.yml
+~/AppData/Roaming/alacritty/alacritty.yml

@@ -10,7 +10,7 @@ export alias backup = bak
 export alias archive = wget -mpck --html-extension --user-agent="" -e robots=off --wait 1 -P .
 
 def-env workspace [] {
-	fd --type directory --max-depth 1 . $env.WORKSPACE | sk --ansi --preview 'test -f {}README.md&& mdcat {}README.md' --preview-window 'right:66%' | cd $in
+	fd --type directory --max-depth 1 . $env.WORKSPACE | fzf --ansi --preview 'mdcat {}README.md' --preview-window 'up:69%,border-bottom' | cd $in
 }
 export alias w =  workspace
 
@@ -19,12 +19,13 @@ export def-env lk [] {
 }
 
 def open-editor-with-content-search [ initial_query:string = ''] {
-	sk --ansi --interactive --cmd-query $initial_query --delimiter ':' --nth 1 --cmd "rg --color=always --line-number {}" --preview 'bat --color=always {1}' --color light | parse '{file}:{number}:{line}' | each { nvim -c $in.number -c $"?\\V($in.line | str trim )" $in.file }
+	rg --color=always --line-number --no-heading --smart-case $initial_query | fzf --ansi --delimiter : --preview 'bat --color=always {1} --highlight-line {2}' --color "hl:-1:underline,hl+:-1:underline:reverse" --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' | parse '{file}:{number}:{line}' | each { nvim -c $in.number -c $"?\\V($in.line | str trim )" $in.file }
+
 }
 export alias nc = open-editor-with-content-search
 
 def open-editor-with-file-search [ initial_query:string = ''] {
-	sk --ansi --interactive --cmd-query $initial_query --delimiter ':' --nth 1 --cmd "fd --type file --color=always {}" --preview 'bat --color=always {1}' --color light | str trim | each { nvim $in }
+	fd --type file --color=always ign | fzf --ansi --preview 'bat --color=always {1}' --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' | str trim | each { nvim $in }
 }
 export alias nf = open-editor-with-file-search
 
