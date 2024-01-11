@@ -1,9 +1,9 @@
-local ignored = require'std.ignored'
+local ignored = require 'std.ignored'
 
 return {
   {
     'ethanholz/nvim-lastplace',
-    lazy = false,
+    event = { 'VimEnter' },
     opts = {
       lastplace_ignore_buftype = ignored.buftypes,
       lastplace_ignore_filetype = ignored.filetypes,

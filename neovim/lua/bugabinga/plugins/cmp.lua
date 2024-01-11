@@ -10,7 +10,7 @@ return {
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-emoji',
-    { 'L3MON4D3/LuaSnip', version = '2.*', build = 'make install_jsregexp' },
+    { 'L3MON4D3/LuaSnip', version = '2.*' },
     'saadparwaiz1/cmp_luasnip',
     'rafamadriz/friendly-snippets',
     'onsails/lspkind.nvim',

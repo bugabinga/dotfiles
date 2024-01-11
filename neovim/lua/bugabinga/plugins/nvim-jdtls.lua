@@ -1,3 +1,3 @@
 return {
-  'bugabinga/nvim-jdtls',
+  'mfussenegger/nvim-jdtls',
 }
