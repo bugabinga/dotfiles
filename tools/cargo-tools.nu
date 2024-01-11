@@ -41,7 +41,7 @@ let cargo_crates = [
   [ "gib" "gib" [] ]
   [ "silicon" "silicon" [] ]
   [ "bottom" "btm" [] ]
-  [ "sic" "sic" [] ]
+  # [ "sic" "sic" [] ] some issue with ssl on win32?
   [ "just" "just" [] ]
   [ "mdsh" "mdsh" [] ]
   [ "git-delta" "delta" [] ]

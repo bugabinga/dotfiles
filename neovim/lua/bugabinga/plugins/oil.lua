@@ -2,7 +2,6 @@ local map = require 'std.map'
 
 return {
   'stevearc/oil.nvim',
-  branch = 'stevearc-trash',
   keys = '-',
   cmd = { 'Oil' },
   dependencies = { 'nvim-tree/nvim-web-devicons' },

@@ -1,6 +1,8 @@
 return {
   'echasnovski/mini.align',
-  lazy = false,
+  keys = {
+    { 'gA', mode = 'x' }
+  },
   config = function ()
     local align = require 'mini.align'
     align.setup()

@@ -2,9 +2,17 @@ return {
   {
     'kylechui/nvim-surround',
     keys = {
-      'ms', 'mss', 'mS', 'mSS', 'md', 'mc', 'mC',
-      { 'ms', mode = 'x' },
-      { 'mS', mode = 'x' },
+      { 'ms',  mode = 'n' },
+      { 'mss', mode = 'n' },
+      { 'mS',  mode = 'n' },
+      { 'mSS', mode = 'n' },
+
+      { 'ms',  mode = 'x' },
+      { 'mS',  mode = 'x' },
+
+      { 'md',  mode = 'n' },
+      { 'mc',  mode = 'n' },
+      { 'mC',  mode = 'n' },
     },
     opts = {
       keymaps = {

@@ -109,7 +109,7 @@ local find_jdks = function ()
     jdk17.path = '/usr/lib/jvm/java-17-openjdk-amd64'
     jdk19.path = '/usr/lib/jvm/java-19-openjdk-amd64'
     jdk21.path = '/home/oli/.jdks/openjdk-21'
-  elseif host == 'PC-00625' then
+  elseif host == 'NB-00718' then
     jdk11.path = '~/scoop/apps/openjdk11/current'
     jdk17.path = '~/scoop/apps/openjdk17/current'
     jdk19.path = '~/scoop/apps/openjdk19/current'
@@ -162,7 +162,7 @@ local java_settings = {
 
 local jdtls_lsp_start = function ( config, opts )
   -- vim.print('jdtls lsp start', config, opts)
-  require 'jdtls'.start_or_attach( config, opts )
+  require 'jdtls'.start_or_attach( config, {}, opts )
 end
 
 local get_extended_capabilites = function ()
