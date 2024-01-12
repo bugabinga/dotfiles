@@ -1,4 +1,6 @@
 local map = require 'std.map'
+local icon = require 'std.icon'
+local table = require 'std.table'
 
 require 'bugabinga.health'.add_dependency
 {
@@ -27,6 +29,7 @@ return {
     local builtin = require 'telescope.builtin'
     local actions = require 'telescope.actions'
     local themes = require 'telescope.themes'
+
     local ivy = themes.get_ivy { hidden = true, layout_config = { preview_width = 0.69 } }
     local dropdown = themes.get_dropdown { layout_config = { width = 0.69 } }
     local cursor = themes.get_cursor { layout_config = { preview_width = 0.42, width = 0.69 } }
@@ -42,8 +45,12 @@ return {
           height = 0.42,
           preview_cutoff = 124,
         },
+        prompt_prefix = icon.telescope .. ' ',
+        selection_caret = icon.arrow_right .. ' ',
+        border = true,
         file_ignore_patterns = {
           '.git/',
+          '.svn/',
           '.cache',
           '%.o',
           '%.a',
@@ -65,15 +72,19 @@ return {
           n = { q = actions.close },
         },
       },
+      pickers = {
+        find_files = ivy,
+        fd = ivy,
+        keymaps = dropdown,
+        diagnostics = dropdown,
+        symbols = cursor,
+        live_grep = ivy,
+        current_buffer_fuzzy_find = cursor,
+        buffers = cursor,
+      },
       extensions = {
-        find_files = {
-          ivy
-        },
         ['ui-select'] = { cursor },
-        zoxide = {
-          ivy,
-          prompt_title = 'Navigate deez nuts!',
-        },
+        zoxide = { prompt_title = 'Navigate deez nuts!' },
       },
     }
 
@@ -112,49 +123,42 @@ return {
       description = 'Open search for all files...',
       category = 'search',
       keys = '<c-p><c-p>',
-      command = function () builtin.find_files( ivy ) end,
-    }
-
-    map.normal {
-      description = 'Open search for all recent files...',
-      category = 'search',
-      keys = '<c-p><c-o>',
-      command = function () builtin.oldfiles( ivy ) end,
+      command = function () builtin.find_files() end,
     }
 
     map.normal {
       description = 'Open search for keymaps...',
       category = 'search',
       keys = '<c-p><c-k>',
-      command = function () builtin.keymaps( dropdown ) end,
+      command = function () builtin.keymaps() end,
     }
 
     map.normal {
       description = 'Open search for symbols...',
       category = 'search',
       keys = '<c-p><c-s>',
-      command = function () builtin.symbols( cursor ) end,
+      command = function () builtin.symbols() end,
     }
 
     map.normal {
       description = 'Open search for all file contents...',
       category = 'search',
       keys = '<c-p><c-g>',
-      command = function () builtin.live_grep( ivy ) end,
+      command = function () builtin.live_grep() end,
     }
 
     map.normal {
       description = 'Open search for current buffer content...',
       category = 'search',
       keys = '<c-p><c-b>',
-      command = function () builtin.current_buffer_fuzzy_find( ivy ) end,
+      command = function () builtin.current_buffer_fuzzy_find() end,
     }
 
     map.normal {
       description = 'Open search for buffers...',
       category = 'search',
       keys = '<c-e>',
-      command = function () builtin.buffers( cursor ) end,
+      command = function () builtin.buffers() end,
     }
   end,
 }

@@ -36,15 +36,29 @@ return {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
       },
+      experimental = {
+        ghost_text = true,
+      },
       formatting = {
         format = lspkind.cmp_format {
           mode = 'symbol',
           maxwidth = 75,
           ellipsis_char = '…',
+          with_text = true,
+          menu = {
+            nvim_lsp_signature_help = '[sig]',
+            nvim_lsp = '[lsp]',
+            nvim_lsp_document_symbol = '[sym]',
+            luasnip = '[snip]',
+            path = '[path]',
+            emoji = '[emo]',
+            buffer = '[buf]',
+          }
         },
       },
       -- experimental = { ghost_text = true, },
       preselect = cmp.PreselectMode.None,
+      -- snippet = { expand = function ( args ) luasnip.lsp_expand( args.body ) end },
       snippet = { expand = function ( args ) luasnip.lsp_expand( args.body ) end },
       mapping = {
         ['<c-p>'] = cmp.mapping.select_prev_item(),

@@ -22,7 +22,7 @@ require 'bugabinga.health'.add_dependency
 return {
   'nvim-treesitter/nvim-treesitter',
   branch = 'master',
-  event = { 'BufReadPre', 'BufNewFile'},
+  event = { 'BufReadPre', 'BufNewFile' },
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true }
   end,
@@ -139,19 +139,19 @@ return {
             -- ['ra'] = { query = '@assignment.rhs', desc = 'right hand side of assignment'},
 
             ['ac'] = { query = '@class.outer', desc = 'outer class' },
-            ['ic'] = { query = '@class.inner' , desc = 'inner class' },
+            ['ic'] = { query = '@class.inner', desc = 'inner class' },
 
             ['ao'] = { query = '@conditional.outer', desc = 'outer conditional' },
-            ['io'] = { query = '@conditional.inner' , desc = 'inner conditional' },
+            ['io'] = { query = '@conditional.inner', desc = 'inner conditional' },
 
             ['al'] = { query = '@loop.outer', desc = 'outer loop' },
-            ['il'] = { query = '@loop.inner' , desc = 'inner loop' },
+            ['il'] = { query = '@loop.inner', desc = 'inner loop' },
 
             -- this overwrites the built-in 'paragraph' object
             ['ap'] = { query = '@parameter.outer', desc = 'outer parameter' },
-            ['ip'] = { query = '@parameter.inner' , desc = 'inner parameter' },
+            ['ip'] = { query = '@parameter.inner', desc = 'inner parameter' },
 
-            ['at'] = { query = '@comment.outer' , desc = 'outer comment' },
+            ['at'] = { query = '@comment.outer', desc = 'outer comment' },
 
             ['as'] = { query = '@scope', query_group = 'locals', desc = 'language scope' },
           },
@@ -167,10 +167,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>spn'] = { query = '@parameter.inner' , desc = 'Swap parameter with next' },
+            ['<leader>spn'] = { query = '@parameter.inner', desc = 'Swap parameter with next' },
           },
           swap_previous = {
-            ['<leader>spp'] = { query = '@parameter.inner' , desc = 'Swap parameter with previous' },
+            ['<leader>spp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous' },
           },
         },
 
@@ -188,20 +188,18 @@ return {
           enable = true,
           set_jumps = true,
           goto_next = {
-            [']f'] = { query = '@call.outer' , desc = 'Goto next function call' },
-            [']m'] = { query = '@fucntion.outer' , desc = 'Goto next function definition' },
+            [']f'] = { query = '@call.outer', desc = 'Goto next function call' },
+            [']m'] = { query = '@fucntion.outer', desc = 'Goto next function definition' },
             [']c'] = { query = '@class.outer', desc = 'Goto next class' },
-            [']o'] = { query = '@conditional.outer' , desc = 'Goto next conditional' },
-            [']p'] = { query = '@parameter.outer' , desc = 'Goto next parameter' },
-            [']s'] = { query = '@scope', query_group = 'locals', desc = 'Goto next scope' },
+            [']o'] = { query = '@conditional.outer', desc = 'Goto next conditional' },
+            [']p'] = { query = '@parameter.outer', desc = 'Goto next parameter' },
           },
           goto_previous = {
-            ['[f'] = { query = '@call.outer' , desc = 'Goto previous function call' },
-            ['[m'] = { query = '@function.outer' , desc = 'Goto previous function definition' },
+            ['[f'] = { query = '@call.outer', desc = 'Goto previous function call' },
+            ['[m'] = { query = '@function.outer', desc = 'Goto previous function definition' },
             ['[c'] = { query = '@class.outer', desc = 'goto previous class' },
-            ['[o'] = { query = '@conditional.outer' , desc = 'Goto previous conditional' },
-            ['[p'] = { query = '@parameter.outer' , desc = 'Goto previous parameter' },
-            ['[s'] = { query = '@scope', query_group = 'locals', desc = 'Goto previous scope' },
+            ['[o'] = { query = '@conditional.outer', desc = 'Goto previous conditional' },
+            ['[p'] = { query = '@parameter.outer', desc = 'Goto previous parameter' },
           }
         },
       }
@@ -218,4 +216,3 @@ return {
     }
   end,
 }
-
