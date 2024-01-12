@@ -42,6 +42,7 @@ return {
         m = { name = 'mark', _ = 'which_key_ignore' },
         h = { name = 'hunk', _ = 'which_key_ignore' },
         l = { name = 'lsp', _ = 'which_key_ignore' },
+        r = { name = 'refactor', _ = 'which_key_ignore' },
         s = {
           name = 'swap',
           _ = 'which_key_ignore',

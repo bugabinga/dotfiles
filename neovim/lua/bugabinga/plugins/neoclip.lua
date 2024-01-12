@@ -3,7 +3,7 @@ local map = require 'std.map'
 return {
   'AckslD/nvim-neoclip.lua',
   event = 'TextYankPost',
-  keys = { 'y', '<C-v><C-v>' },
+  keys = { 'y', '<leader>p' },
   dependencies = {
     'nvim-telescope/telescope.nvim',
   },
@@ -19,7 +19,7 @@ return {
     map.normal {
       description = 'Open clipboard history...',
       category = 'history',
-      keys = '<C-v><C-v>',
+      keys = '<leader>p',
       command = function () telescope.extensions.neoclip.default( cursor ) end,
     }
   end,

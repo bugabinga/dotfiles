@@ -89,7 +89,7 @@ map {
 map.normal.visual {
   description = 'system clipboard motion',
   category = 'editing',
-  keys = '<c-v>',
+  keys = '<c-s-v>',
   command = '"+',
 }
 

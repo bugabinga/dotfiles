@@ -1,0 +1,25 @@
+---
+base: lua51
+name: neovim
+globals:
+  after_each:
+    args:
+      - type: function
+  assert:
+    args:
+      - type: bool
+      - required: false
+        type: string
+  before_each:
+    args:
+      - type: function
+  describe:
+    args:
+      - type: string
+      - type: function
+  it:
+    args:
+      - type: string
+      - type: function
+  vim:
+    any: true

@@ -25,18 +25,27 @@ ftplugin
 
 ----------
 
+# ai poem
+
+I am the bone of my code, bugs are my body and exceptions are my blood.
+I have created over a thousand bugs, unknown to testers, nor known to debuggers.
+Have withstood pain to create many programs, yet those hands will never hold a working program.
+So as I pray, Unlimited Bug Works.
+
+~ Shirou Emiya
+
+---------
+
 # todo
 
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* think about mini.colors
-* setup spell checking for code (english + german)
+* think about mini.colors + nugu + nushell
 * use gen.ai to generate docs
-* learn marks and refac mark.lua
+* learn marks and refactor mark.lua
 * use ltex-ls for markdown, code comments and commit messages
 * setup DAP
 * add nu-check to nvim-lint
-* autocomplete in cmdline does not work no more
-* make telescope highlights more like NormalFloat
 * create facade over vim.api.nvim_create_user_command
-* fix autocomplete in cmdline
-* prompts from Mini*-Plugins tend to show up via notify. hard to read. how to change them all?
+* create skelleton-plugin for default file content based on file type
+* add support for Java mutliline string in autopairs
+* nvim spell for camelcase words

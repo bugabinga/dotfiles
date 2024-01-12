@@ -1,6 +1,6 @@
 return {
   'chrisgrieser/nvim-genghis',
-  cmds = {
+  cmd = {
     'New',
     'NewFromSelection',
     'Duplicate',

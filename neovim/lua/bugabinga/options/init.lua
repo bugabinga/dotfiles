@@ -4,6 +4,7 @@ require 'bugabinga.options.behaviour'
 require 'bugabinga.options.ui'
 require 'bugabinga.options.file'
 require 'bugabinga.options.keymaps'
+require 'bugabinga.options.spelling'
 
 -- disable some runtime providers that i will not use.
 -- keeps checkhealth clean
