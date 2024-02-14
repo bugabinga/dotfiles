@@ -10,7 +10,7 @@ return {
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-emoji',
-    { 'L3MON4D3/LuaSnip', version = '2.*' },
+    { 'L3MON4D3/LuaSnip', version = '2.*', build = 'make install_jsregexp' },
     'saadparwaiz1/cmp_luasnip',
     'rafamadriz/friendly-snippets',
     'onsails/lspkind.nvim',
@@ -58,7 +58,6 @@ return {
       },
       -- experimental = { ghost_text = true, },
       preselect = cmp.PreselectMode.None,
-      -- snippet = { expand = function ( args ) luasnip.lsp_expand( args.body ) end },
       snippet = { expand = function ( args ) luasnip.lsp_expand( args.body ) end },
       mapping = {
         ['<c-p>'] = cmp.mapping.select_prev_item(),

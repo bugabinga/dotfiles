@@ -10,7 +10,6 @@ return {
     local autopairs = require 'nvim-autopairs'
     autopairs.setup {
       disable_filetype = ignored.filetypes,
-      check_ts = true,
     }
     local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
     local cmp = require 'cmp'
