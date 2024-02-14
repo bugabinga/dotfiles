@@ -4,3 +4,12 @@
   smtpencryption = tls
   smtpserverport = 587
   annotate = yes
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+

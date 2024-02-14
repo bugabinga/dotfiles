@@ -8,6 +8,18 @@
   autocrlf = input
   pager = delta
   safecrlf = false
+  symlinks = true
+  fscache = true
+
+[help]
+	format = html
+
+[color]
+	interactive = true
+	ui = auto
+
+[rebase]
+	autosquash = true
 
 [diff]
   colorMoved = default
@@ -62,13 +74,6 @@
 [help]
   # try to automatically correct mispelled git commands
   autocorrect = 7
-
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
 
 # In order to have host-specific configuration, I include additional settings here.
 # On each host a different file might be symlinked into '.gitconfig.include'.
