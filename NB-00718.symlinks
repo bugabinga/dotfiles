@@ -1,7 +1,7 @@
 git/gitconfig
 ~/.gitconfig
 
-git/gitconfig.PC-00625
+git/gitconfig.NB-00718
 ~/.gitconfig.include
 
 topgrade/topgrade.windows.toml
@@ -22,11 +22,20 @@ subversion/config.win32
 subversion/diff.bat
 ~/AppData/Roaming/Subversion/diff.bat
 
+subversion/diff
+~/AppData/Roaming/Subversion/diff
+
 subversion/diff3.bat
 ~/AppData/Roaming/Subversion/diff3.bat
 
+subversion/diff3
+~/AppData/Roaming/Subversion/diff3
+
 subversion/merge.bat
 ~/AppData/Roaming/Subversion/merge.bat
+
+subversion/merge
+~/AppData/Roaming/Subversion/merge
 
 cargo/config.toml
 ~/scoop/persist/rustup/.cargo/config.toml
