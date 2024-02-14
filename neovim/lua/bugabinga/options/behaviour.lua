@@ -26,7 +26,7 @@ vim.opt.smarttab = true
 
 vim.opt.wrap = false
 
--- keep distance to borders while scrolling
+-- do not keep distance to borders while scrolling
 vim.opt.scrolloff = 999
 vim.opt.sidescrolloff = 999
 

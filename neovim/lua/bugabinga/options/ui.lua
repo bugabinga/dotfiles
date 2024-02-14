@@ -112,7 +112,7 @@ vim.opt.cursorline = false
 -- pop up menu height
 vim.opt.pumheight = 10
 
--- transparent popups and floating windows
+-- no transparent popups and floating windows
 vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
@@ -135,7 +135,7 @@ vim.opt.smoothscroll = true
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
-vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h13:#e-subpixelantialias:#h-full'
+vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:#e-subpixelantialias:#h-full'
 -- NOTE: neovide font config is not as powerful as wezterm right now
 -- characters for box drawing do not seem to line up. try different font for now?
 vim.opt.linespace = -3

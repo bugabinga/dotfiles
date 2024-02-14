@@ -59,11 +59,11 @@ return {
       routes = {
         {
           filter = { cmdline = '^:%s*!' },
-          view   = 'vsplit'
+          view = 'vsplit'
         },
         {
           filter = { event = 'msg_show', kind = 'echomsg' },
-          view   = 'mini'
+          view = 'mini'
         },
         {
           filter = { event = 'msg_show', kind = 'echo' },
@@ -71,11 +71,11 @@ return {
         },
         {
           filter = { event = 'msg_show', kind = '', find = 'written' },
-          view   = 'mini'
+          view = 'mini'
         },
         {
           filter = { any = { { cmdline = '^:%s*lua%s+' }, { cmdline = '^:%s*lua%s*=%s*' }, { cmdline = '^:%s*=%s*' }, } },
-          view   = 'cmdline_output',
+          view = 'cmdline_output',
         }
       },
     },

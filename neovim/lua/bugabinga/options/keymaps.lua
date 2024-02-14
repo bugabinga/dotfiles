@@ -101,8 +101,6 @@ map.insert {
   command = function () return vim.fn.pumvisible() == 1 and '<C-n>' or '<tab>' end,
 }
 
-local host = vim.uv.os_gethostname()
-local browser = host == 'PC-00625' and 'chrome' or 'firefox'
 local function open_link_under_cursor()
   ---@diagnostic disable-next-line: missing-parameter
   local file_under_cursor = vim.fn.expand '<cfile>'
@@ -167,17 +165,17 @@ map.insert {
 }
 
 map.normal {
-	description = 'Goto matching bracket',
-	category = 'navigation',
-	keys = 'mm',
-	command = '%',
+  description = 'Goto matching bracket',
+  category = 'navigation',
+  keys = 'mm',
+  command = '%',
 }
 
 map.normal {
-	description = 'Redo undone operation',
-	category = 'history',
-	keys = 'U',
-	command = vim.cmd.redo,
+  description = 'Redo undone operation',
+  category = 'history',
+  keys = 'U',
+  command = vim.cmd.redo,
 }
 
 map.normal {
