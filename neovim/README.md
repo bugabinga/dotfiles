@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # bugabinga neovim config
 
 neovim configuration is scripting.
@@ -26,73 +25,27 @@ ftplugin
 
 ----------
 
-# todo
+# ai poem
 
-* pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* think about mini.colors
-* setup spell checking for code (english + german)
-* use gen.ai to generate docs
-* learn marks and refac mark.lua
-* use ltex-ls for markdown, code comments and commit messages
-* setup DAP
-* add nu-check to nvim-lint
-* autocomplete in cmdline does not work no more
-* make telescope highlights more like NormalFloat
-* create facade over vim.api.nvim_create_user_command
-* fix autocomplete in cmdline
-* steal User Commands from: https://github.com/nanotee/nvim-lsp-basics/blob/main/doc/lsp-basics.txt
-* test https://github.com/aznhe21/actions-preview.nvim
-* test https://github.com/amrbashir/nvim-docs-view
-* test https://github.com/piersolenski/wtf.nvim
-* test https://github.com/jghauser/auto-pandoc.nvim
-* check out https://github.com/roobert/surround-ui.nvim
-* https://github.com/LhKipp/nvim-nu
-* test https://github.com/uga-rosa/ccc.nvim
-* test https://github.com/chrisgrieser/nvim-recorder
-* use https://github.com/chrisgrieser/nvim-origami
-* check out https://github.com/shellRaining/hlchunk.nvim
+I am the bone of my code, bugs are my body and exceptions are my blood.
+I have created over a thousand bugs, unknown to testers, nor known to debuggers.
+Have withstood pain to create many programs, yet those hands will never hold a working program.
+So as I pray, Unlimited Bug Works.
 
-=======
-# bugabinga neovim config
+~ Shirou Emiya
 
-neovim configuration is scripting.
-scripting with lua + neovim api is programming.
-
-## project structure
-
-init.lua
-: main entry point
-\
-lua/std
-: standard lib. can only depend on itself and neovim apis.
-\
-lua/bugabinga
-: config modules. in aggregation, defines all of the config. can depend on itself, std and plugins.
-\
-lua/bugabinga/plugins
-: third party plugins and their config glue integrating it into the config.
-\
-colors/nugu
-: color theme
-\
-ftplugin
-: file type specific config
-
-----------
+---------
 
 # todo
 
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* think about mini.colors
-* setup spell checking for code (english + german)
+* think about mini.colors + nugu + nushell
 * use gen.ai to generate docs
-* learn marks and refac mark.lua
+* learn marks and refactor mark.lua
 * use ltex-ls for markdown, code comments and commit messages
 * setup DAP
 * add nu-check to nvim-lint
-* autocomplete in cmdline does not work no more
-* make telescope highlights more like NormalFloat
 * create facade over vim.api.nvim_create_user_command
-* fix autocomplete in cmdline
-* prompts from Mini*-Plugins tend to show up via notify. hard to read. how to change them all?
->>>>>>> c8829e56f199ffbb1d10d332d9f25728f89ce8aa
+* create skelleton-plugin for default file content based on file type
+* add support for Java mutliline string in autopairs
+* nvim spell for camelcase words

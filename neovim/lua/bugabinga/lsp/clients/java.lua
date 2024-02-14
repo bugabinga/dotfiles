@@ -1,7 +1,7 @@
 local table = require 'std.table'
 local project = require 'std.project'
 local auto = require 'std.auto'
-local map = require'std.map'
+local map = require 'std.map'
 
 local create_shared_config_path = function ( base_path, syntax_server )
   local os_config
@@ -53,7 +53,7 @@ end
 
 local create_jdtls_command = function ( syntax_server )
   local mason_registry = require 'mason-registry'
-  local jdtls_package_path = mason_registry.get_package('jdtls'):get_install_path()
+  local jdtls_package_path = mason_registry.get_package  'jdtls' :get_install_path()
   local shared_config_path = create_shared_config_path( jdtls_package_path, syntax_server )
   local launcher_jar = find_launcher_jar( jdtls_package_path )
   local data_dir = create_data_dir()
@@ -224,21 +224,21 @@ local on_attach = function ()
     description = 'Extract Variable',
     category = 'jdlts',
     keys = '<leader>ljv',
-    command = function() jdtls.extract_variable(true) end,
+    command = function () jdtls.extract_variable( true ) end,
   }
 
   map.visual {
     description = 'Extract Constant',
     category = 'jdlts',
     keys = '<leader>ljc',
-    command = function() jdtls.extract_constant(true) end,
+    command = function () jdtls.extract_constant( true ) end,
   }
 
   map.visual {
     description = 'Extract Method',
     category = 'jdlts',
     keys = '<leader>ljm',
-    command = function() jdtls.extract_method(true) end,
+    command = function () jdtls.extract_method( true ) end,
   }
 
   auto 'refresh_codelens' {
