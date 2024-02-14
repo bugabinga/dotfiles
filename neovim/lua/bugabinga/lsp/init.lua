@@ -208,12 +208,12 @@ local lsp_attach         = function ( args )
 
   if client.server_capabilities.documentFormattingProvider then
     old_formatexpr = vim.bo[bufnr].formatexpr
-    vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.formatexpr(#{timeout_ms:50})'
+    vim.bo[bufnr].formatexpr = 'v:lua.vim.lsp.formatexpr'
   end
 
   if client.server_capabilities.completionProvider then
     old_omnifunc = vim.bo[bufnr].omnifunc
-    vim.bo[bufnr].omnifunc = 'v:vim.lsp.omnifunc'
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
   end
 
   if client.server_capabilities.documentHighlightProvider then

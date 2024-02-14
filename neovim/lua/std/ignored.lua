@@ -1,10 +1,12 @@
 local filetypes = {
+  'NvimTree',
   'Outline',
   'TelescopePrompt',
   'TelescopeResults',
+  'Trouble',
   'WhichKey',
-  'flash_prompt',
   '^git.*',
+  'flash_prompt',
   'help',
   'lazy',
   'noice',
@@ -14,7 +16,6 @@ local filetypes = {
   'starter',
   'svn',
   'toggleterm',
-  'Trouble',
 }
 
 local buftypes = {
@@ -27,17 +28,17 @@ local buftypes = {
   'quickfix',
 }
 
-local as_kv = function(list)
+local as_kv = function ( list )
   local tbl = {}
-  for _, value in ipairs(list) do
-      vim.validate { value = { value, 'string'} }
+  for _, value in ipairs( list ) do
+    vim.validate { value = { value, 'string' } }
     tbl[value] = true
   end
   return tbl
 end
 
-local filetypes_kv = as_kv(filetypes)
-local buftypes_kv = as_kv(buftypes)
+local filetypes_kv = as_kv( filetypes )
+local buftypes_kv = as_kv( buftypes )
 
 return {
   filetypes = filetypes,

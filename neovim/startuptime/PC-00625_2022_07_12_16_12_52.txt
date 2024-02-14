@@ -1,0 +1,93 @@
+Extra options: [init.lua]
+Measured: 100 times
+
+Total Average: 562.496460 msec
+Total Max:     1585.781000 msec
+Total Min:     519.953000 msec
+
+   AVERAGE         MAX        MIN
+----------------------------------
+355.504310  393.805000 349.452000: C:\Users\okr\AppData\Local\nvim\init.lua
+ 47.755390   54.639000  46.358000: loading packages
+ 30.665520 1026.239000   0.025000: clearing screen
+ 30.275560   34.237000  29.354000: loading after plugins
+ 23.631680   26.871000  22.959000: loading rtp plugins
+ 18.165780   20.652000  17.514000: sourcing vimrc file(s)
+ 14.961400   18.276000  14.618000: locale set
+  3.883240   26.743000   3.024000: X:\nvim-win64\share\nvim\runtime\syntax\syntax.vim
+  3.756000    4.246000   3.509000: reading ShaDa
+  2.691210    4.113000   1.621000: opening buffers
+  2.552880    4.246000   1.415000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-treesitter-textobjects\plugin\nvim-treesitter-textobjects.vim
+  2.251260    4.354000   1.395000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\symbols-outline.nvim\plugin\symbols-outline.vim
+  2.119760    3.331000   2.027000: init lua interpreter
+  1.726640    2.923000   1.207000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-treesitter\plugin\nvim-treesitter.lua
+  1.632390    2.462000   1.513000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-gomove\plugin\gomove.lua
+  1.280670    2.975000   0.815000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-ts-autotag\plugin\nvim-ts-autotag.vim
+  1.177240    1.903000   0.707000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\cmp-buffer\after\plugin\cmp_buffer.lua
+  1.020150    1.724000   0.574000: BufEnter autocommands
+  0.906810    2.112000   0.596000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-treesitter-refactor\plugin\nvim-treesitter-refactor.vim
+  0.833230    1.424000   0.659000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-cmp\plugin\cmp.lua
+  0.820050    2.227000   0.482000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\playground\plugin\nvim-treesitter-playground.lua
+  0.809010    1.121000   0.751000: X:\nvim-win64\share\nvim\runtime\plugin\rplugin.vim
+  0.764190    0.920000   0.738000: inits 1
+  0.752970    3.076000   0.653000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\indent-blankline.nvim\plugin\indent_blankline.vim
+  0.743320    1.212000   0.707000: init highlight
+  0.729510    1.498000   0.524000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\Comment.nvim\after\plugin\Comment.lua
+  0.703870    1.462000   0.363000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\telescope.nvim\plugin\telescope.lua
+  0.594040    0.744000   0.567000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\LuaSnip\plugin\luasnip.vim
+  0.536050    1.901000   0.330000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-treesitter-textsubjects\plugin\nvim-treesitter-textsubjects.vim
+  0.504390    1.412000   0.300000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\cmp_luasnip\after\plugin\cmp_luasnip.lua
+  0.496140    1.048000   0.296000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\cmp-path\after\plugin\cmp_path.lua
+  0.447240    1.228000   0.283000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\cmp-nvim-lsp-document-symbol\after\plugin\cmp_nvim_lsp_document_symbol.lua
+  0.429120    2.156000   0.259000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-ts-context-commentstring\plugin\ts_context_commentstring.vim
+  0.349820    0.496000   0.334000: X:\nvim-win64\share\nvim\runtime\plugin\matchparen.vim
+  0.329620    1.157000   0.272000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-lspconfig\plugin\lspconfig.vim
+  0.324080    0.486000   0.258000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\leap.nvim\plugin\init.lua
+  0.314960    0.517000   0.297000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\registers.nvim\plugin\registers.vim
+  0.268890    0.316000   0.253000: parsing arguments
+  0.262490    0.385000   0.249000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-lsp-installer\plugin\nvim-lsp-installer.vim
+  0.256090    0.481000   0.219000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-dap\plugin\dap.lua
+  0.234540    0.667000   0.161000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\cmp-nvim-lua\after\plugin\cmp_nvim_lua.lua
+  0.225040    0.344000   0.201000: X:\nvim-win64\share\nvim\runtime\syntax\synload.vim
+  0.221280    0.321000   0.203000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\trouble.nvim\plugin\trouble.vim
+  0.219480    0.334000   0.175000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\cmp-nvim-lsp\after\plugin\cmp_nvim_lsp.lua
+  0.202700    0.318000   0.181000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-hlslens\plugin\hlslens.vim
+  0.200650    0.336000   0.183000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\plenary.nvim\plugin\plenary.vim
+  0.193350    0.263000   0.175000: X:\nvim-win64\share\nvim\runtime\ftplugin.vim
+  0.191050    0.282000   0.158000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\dressing.nvim\plugin\dressing.lua
+  0.190790    0.304000   0.154000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\hydra.nvim\plugin\hydra.lua
+  0.188280    0.272000   0.166000: X:\nvim-win64\share\nvim\runtime\plugin\shada.vim
+  0.181660    0.247000   0.167000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-colorizer.lua\plugin\colorizer.vim
+  0.171450    0.265000   0.156000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\todo-comments.nvim\plugin\todo.vim
+  0.162920    0.242000   0.132000: X:\nvim-win64\share\nvim\runtime\filetype.lua
+  0.162760    0.209000   0.151000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\FixCursorHold.nvim\plugin\fix_cursorhold_nvim.vim
+  0.159750    0.227000   0.149000: X:\nvim-win64\share\nvim\runtime\plugin\man.vim
+  0.153340    0.224000   0.139000: early init
+  0.149940    0.181000   0.134000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\editorconfig.nvim\plugin\editorconfig.vim
+  0.138090    0.216000   0.128000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\neo-tree.nvim\plugin\neo-tree.vim
+  0.134970    0.183000   0.124000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-jdtls\plugin\nvim_jdtls.vim
+  0.134470    0.206000   0.124000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\nvim-web-devicons\plugin\nvim-web-devicons.vim
+  0.125430    0.174000   0.112000: expanding arguments
+  0.121850    0.171000   0.112000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\lsp-zero.nvim\plugin\lsp-zero.vim
+  0.115350    0.174000   0.103000: X:\nvim-win64\share\nvim\runtime\indent.vim
+  0.114840    0.145000   0.097000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\filetype.nvim\filetype.vim
+  0.110730    0.175000   0.100000: C:\Users\okr\AppData\Local\nvim-data\site\pack\paqs\start\rust-tools.nvim\plugin\rust-tools.vim
+  0.110520    0.152000   0.098000: event init
+  0.099530    0.133000   0.090000: X:\nvim-win64\share\nvim\runtime\plugin\tutor.vim
+  0.096090    0.124000   0.083000: X:\nvim-win64\share\nvim\runtime\plugin\gzip.vim
+  0.088080    0.114000   0.080000: X:\nvim-win64\share\nvim\runtime\plugin\matchit.vim
+  0.085650    0.121000   0.075000: X:\nvim-win64\share\nvim\runtime\plugin\netrwPlugin.vim
+  0.081660    0.097000   0.075000: X:\nvim-win64\share\nvim\runtime\plugin\health.vim
+  0.080480    0.107000   0.073000: X:\nvim-win64\share\nvim\runtime\plugin\zipPlugin.vim
+  0.075930    0.118000   0.063000: inits 2
+  0.075870    0.098000   0.069000: X:\nvim-win64\share\nvim\runtime\plugin\tarPlugin.vim
+  0.075490    0.089000   0.070000: init first window
+  0.073230    0.111000   0.066000: X:\nvim-win64\share\nvim\runtime\plugin\tohtml.vim
+  0.073170    0.090000   0.063000: X:\nvim-win64\share\nvim\runtime\filetype.vim
+  0.069790    0.091000   0.064000: X:\nvim-win64\share\nvim\runtime\plugin\spellfile.vim
+  0.053930    0.084000   0.052000: inits 3
+  0.046200    0.075000   0.042000: init default mappings
+  0.040760    0.057000   0.033000: window checked
+  0.029110    0.044000   0.024000: init default autocommands
+  0.024520    0.038000   0.019000: --- NVIM STARTING ---
+  0.009840    0.015000   0.007000: editing files in windows

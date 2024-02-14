@@ -26,9 +26,9 @@ vim.opt.smarttab = true
 
 vim.opt.wrap = false
 
--- do not keep distance to borders while scrolling
-vim.opt.scrolloff = 0
-vim.opt.sidescrolloff = 0
+-- keep distance to borders while scrolling
+vim.opt.scrolloff = 999
+vim.opt.sidescrolloff = 999
 
 -- try to guess indentation based on context
 vim.opt.smartindent = true

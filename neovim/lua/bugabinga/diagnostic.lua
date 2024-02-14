@@ -2,11 +2,11 @@ local map = require 'std.map'
 local auto = require 'std.auto'
 local icon = require 'std.icon'
 
-local icon = { icon.error, icon.warn, icon.info, icon.hint }
-icon.error = icon[1]
-icon.warn = icon[2]
-icon.info = icon[3]
-icon.hint = icon[4]
+local diagnostic_icons = { icon.error, icon.warn, icon.info, icon.hint }
+diagnostic_icons.error = diagnostic_icons[1]
+diagnostic_icons.warn = diagnostic_icons[2]
+diagnostic_icons.info = diagnostic_icons[3]
+diagnostic_icons.hint = diagnostic_icons[4]
 
 local display_name = {
   'Error',
@@ -29,7 +29,7 @@ local diagnostic_format = function ( context )
 end
 
 local prefix_format = function ( context, index, total )
-  return string.format( '%s/%s %s %s ', index, total, context.source, icon[context.severity] ),
+  return string.format( '%s/%s %s %s ', index, total, context.source, diagnostic_icons[context.severity] ),
     'DiagnosticVirtualText' .. display_name[context.severity]
 end
 
@@ -65,10 +65,10 @@ local sign = function ( options )
   } )
 end
 
-sign { name = 'DiagnosticSignError', text = icon.error }
-sign { name = 'DiagnosticSignWarn', text = icon.warn }
-sign { name = 'DiagnosticSignHint', text = icon.hint }
-sign { name = 'DiagnosticSignInfo', text = icon.info }
+sign { name = 'DiagnosticSignError', text = diagnostic_icons.error }
+sign { name = 'DiagnosticSignWarn', text = diagnostic_icons.warn }
+sign { name = 'DiagnosticSignHint', text = diagnostic_icons.hint }
+sign { name = 'DiagnosticSignInfo', text = diagnostic_icons.info }
 
 map.normal {
   description = 'Toggle diagnostics',
@@ -94,8 +94,7 @@ map.normal {
 
 local show_diagnostics_in_buffer = function ()
   local builtin = require 'telescope.builtin'
-  local themes = require 'telescope.themes'
-  builtin.diagnostics( themes.get_dropdown { bufnr = 0, layout_config = { width = 0.69 } } )
+  builtin.diagnostics { bufnr = 0 }
 end
 
 map.normal {
@@ -107,8 +106,7 @@ map.normal {
 
 local show_diagnostics_in_workspace = function ()
   local builtin = require 'telescope.builtin'
-  local themes = require 'telescope.themes'
-  builtin.diagnostics( themes.get_dropdown { layout_config = { width = 0.69 } } )
+  builtin.diagnostics()
 end
 
 map.normal {
@@ -144,4 +142,3 @@ local send_dia = function ()
 end
 
 vim.g.send_dia = send_dia
-

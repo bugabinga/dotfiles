@@ -136,9 +136,9 @@ return {
       }
 
       map.normal {
-        description = 'Toggle deleted',
+        description = 'Toggle removed lines',
         category = 'git',
-        keys = '<leader>td',
+        keys = '<leader>tr',
         buffer = bufnr,
         command = gitsigns.toggle_deleted,
       }

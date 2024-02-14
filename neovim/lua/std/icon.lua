@@ -69,4 +69,5 @@ return {
   start           = '',
   slant_left      = '▟',
   slant_right     = '▙',
+  telescope       = '🔭',
 }
