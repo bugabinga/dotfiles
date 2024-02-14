@@ -79,3 +79,5 @@
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
   path = .gitconfig.include
+[push]
+	autoSetupRemote = true
