@@ -46,7 +46,7 @@ auto 'disable_columns_in_special_buffers' {
 vim.opt.list = true
 vim.opt.listchars = {
   space = icon.space,
-  eol = icon.eol,
+  -- eol = icon.eol,
   tab = icon.tab .. ' ',
   trail = icon.trail,
   extends = icon.extends,

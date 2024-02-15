@@ -18,7 +18,7 @@ if hostname == 'x230' then
 	enable_wayland = true
 elseif hostname == 'pop-os' then
 	font_size = 15
-elseif hostname == 'PC-00625' then
+elseif hostname == 'NB-00718' then
 	font_size = 15
 end
 

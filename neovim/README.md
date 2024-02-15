@@ -39,7 +39,6 @@ So as I pray, Unlimited Bug Works.
 # todo
 
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* think about mini.colors + nugu + nushell
 * use gen.ai to generate docs
 * learn marks and refactor mark.lua
 * use ltex-ls for markdown, code comments and commit messages

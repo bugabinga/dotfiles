@@ -27,7 +27,6 @@ return {
     require 'nvim-treesitter.install'.update { with_sync = true }
   end,
   dependencies = {
-    'JoosepAlviste/nvim-ts-context-commentstring',
     'windwp/nvim-ts-autotag',
     'nvim-treesitter/playground',
     'nvim-treesitter/nvim-treesitter-textobjects',
@@ -74,8 +73,6 @@ return {
       auto_install = true,
 
       autotag = { enable = true },
-
-      context_commentstring = { enable = true, enable_autocmd = false },
 
       highlight = {
         enable = true,
