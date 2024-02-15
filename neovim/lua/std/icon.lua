@@ -45,7 +45,7 @@ return {
   quot_right      = '󰉾',
   replace         = '',
   select          = '󰒉',
-  space           = '⋅',
+  space           = '·',
   spelling        = '󰓆',
   subversion      = '󰳗',
   tab             = '󰌒',

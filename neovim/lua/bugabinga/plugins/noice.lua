@@ -41,19 +41,19 @@ return {
           border = { style = vim.g.border_style },
           position = { row = -2, col = 2 },
         },
-        -- does not seem to play well with other popups? -- treesitter in particular
         cmdline = {
           relative = 'cursor',
-          position = { row = 0, col = -2 }, -- -2 makes the cursor stay in the same place
-          size = { width = 'auto', height = 'auto' },
-          border = { style = vim.g.border_style },
+          position = { row = 0, col = 2 },
+          size = { width = '42', height = 'auto' },
+          border = { style = 'solid' },
+          zindex = 9999,
         },
         cmdline_popupmenu = {
           relative = 'cursor',
           position = { row = 1, col = 0 },
-          size = { width = 'auto', height = 'auto' },
+          size = { width = '42', height = 'auto' },
           border = { style = vim.g.border_style },
-          win_options = { winhighlight = { Normal = 'NormalFloat', FloatBorder = 'FloatBorder' } },
+          zindex = 9999,
         },
       },
       routes = {

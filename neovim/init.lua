@@ -7,15 +7,29 @@
 -- ███   █▄ ▄█  ███     █ ███    ▐ █  █ █  ███     █
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
+
+local ok
+
 -- set general neovim editor settings
-require 'bugabinga.options'
+ok = pcall( require, 'bugabinga.options' )
+if not ok then print  'error while loading options'  end
+
 -- install plugin manager and declare plugins to use
-require 'bugabinga.lazy'
+ok = pcall( require, 'bugabinga.lazy' )
+if not ok then print  'error while loading lazy'  end
+
 -- configures the vim diagnostic subsystem
-require 'bugabinga.diagnostic'
+ok = pcall( require, 'bugabinga.diagnostic' )
+if not ok then print  'error while loading diagnostic'  end
+
 -- Defines `TrimTrailingWhitespace` command
-require 'bugabinga.trim'
+ok = pcall( require, 'bugabinga.trim' )
+if not ok then print  'error while loading trim'  end
+
 -- visualize marks in signcolumn
-require 'bugabinga.mark'
+ok = pcall( require, 'bugabinga.mark' )
+if not ok then print  'error while loading mark'  end
+
 -- setup lsp clients
-require 'bugabinga.lsp'
+ok = pcall( require, 'bugabinga.lsp' )
+if not ok then print  'error while loading lsp'  end

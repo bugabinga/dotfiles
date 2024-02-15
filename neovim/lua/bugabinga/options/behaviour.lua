@@ -6,12 +6,12 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 250
 
 -- wrap line movements, when start/end is reached
--- vim.opt.whichwrap:append'<'
--- vim.opt.whichwrap:append'>'
--- vim.opt.whichwrap:append'['
--- vim.opt.whichwrap:append']'
--- vim.opt.whichwrap:append'h'
--- vim.opt.whichwrap:append'l'
+vim.opt.whichwrap:append'<'
+vim.opt.whichwrap:append'>'
+vim.opt.whichwrap:append'['
+vim.opt.whichwrap:append']'
+vim.opt.whichwrap:append'h'
+vim.opt.whichwrap:append'l'
 
 -- Tabs and Spaces, i like 'em 2 spaces wide
 -- only insert spaces for tabs if language configuration explicitly declares so
@@ -99,11 +99,11 @@ auto 'load_project_if_available' {
     if table.contains( ignored.filetypes, filetype ) then return end
     local buftype = vim.api.nvim_buf_get_option( buffer, 'buftype' )
     if table.contains( ignored.buftypes, buftype ) then return end
-    local root = project.find_root_by_filetype( file, filetype )
-    local cwd = vim.uv.cwd()
+    local root = vim.fs.normalize(project.find_root_by_filetype( file, filetype ))
+    local cwd = vim.fs.normalize(vim.uv.cwd())
     if root and cwd ~= root then
       vim.uv.chdir( root )
-      vim.notify( 'Changed root directory to ' .. root )
+      vim.notify( 'Changed root directory to ' .. root .. ' from ' .. cwd )
       -- vim.print( buffer, file, vim.inspect( filetype ), vim.inspect( buftype ) )
     end
   end,

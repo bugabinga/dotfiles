@@ -39,7 +39,7 @@ local content_backdrop = hsl( palette.content_backdrop )
 local content_accent = hsl( palette.content_accent )
 local content_minor = hsl( palette.content_minor )
 local content_focus = hsl( palette.content_focus )
-local content_unfocus = flux( hsl( palette.content_unfocus ), 33 ) -- FIXME: this change needs to go into nugu
+local content_unfocus = flux( hsl( palette.content_unfocus ), 21 ) -- FIXME: this change needs to go into nugu
 local content_important_global = hsl( palette.content_important_global )
 local content_important_local = hsl( palette.content_important_local )
 
@@ -65,7 +65,7 @@ local nugu = lush( function ( injects )
     Search { fg = content_important_global, bg = content_important_global.readable() },
     IncSearch { fg = content_important_local, bg = content_important_local.readable() },
     NormalFloat { fg = ui_normal, bg = ui_backdrop },
-    FloatBorder { fg = ui_accent, bg = Normal.bg },
+    FloatBorder { fg = NormalFloat.bg, bg = NormalFloat.bg },
     ColorColumn { fg = ui_important_global, bg = Normal.bg },
     Conceal { fg = content_focus, bg = Normal.bg },
     Cursor { bg = ui_accent },
@@ -312,17 +312,17 @@ local nugu = lush( function ( injects )
     NoiceCmdlineIconSearch { NoiceCmdlineIcon },
 
     NoiceCmdlinePopup { NormalFloat },
-    NoiceCmdlinePopupBorder { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderCalculator { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderCmdline { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderFilter { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderHelp { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderIncRename { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderInput { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderLua { NoiceCmdlinePopup },
-    NoiceCmdlinePopupBorderSearch { NoiceCmdlinePopup },
+    NoiceCmdlinePopupBorder { FloatBorder },
+    NoiceCmdlinePopupBorderCalculator { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderCmdline { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderFilter { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderHelp { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderIncRename { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderInput { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderLua { NoiceCmdlinePopupBorder },
+    NoiceCmdlinePopupBorderSearch { NoiceCmdlinePopupBorder },
     NoiceCmdlinePopupTitle { NoiceCmdlinePopup },
-    NoiceCmdlinePrompt { fg = ui_important_global, bg = ui_backdrop, gui = 'bold' },
+    NoiceCmdlinePrompt { NoiceCmdlinePopup },
     NoiceCompletionItemKindDefault { fg = ui_normal },
     NoiceCompletionItemKindClass { NoiceCompletionItemKindDefault },
     NoiceCompletionItemKindColor { NoiceCompletionItemKindDefault },
@@ -353,7 +353,7 @@ local nugu = lush( function ( injects )
     NoiceFormatConfirm { LazyButton },
     NoiceFormatConfirmDefault { LazyButtonActive },
 
-    -- NoiceCursor { Cursor },
+    NoiceCursor { Cursor },
 
     NoiceFormatDate { NonText },
     NoiceFormatEvent { NonText },
@@ -445,7 +445,7 @@ local nugu = lush( function ( injects )
     GitSignsAddPreview { GitSignsAdd },
     GitSignsDeletePreview { GitSignsDelete },
 
-    GitSignsCurrentLineBlame { Debug },
+    GitSignsCurrentLineBlame { NonText },
     GitSignsAddInline { GitSignsAdd },
     GitSignsDeleteInline { GitSignsDelete },
     GitSignsChangeInline { GitSignsChange },
