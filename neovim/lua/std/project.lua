@@ -1,3 +1,4 @@
+local debug = require 'std.debug'
 local table = require 'std.table'
 local join = table.join
 local dirname = vim.fs.dirname
@@ -102,7 +103,7 @@ local function find_root( path, markers, stop )
   local current_path = path
   while current_path ~= stop do
     if loop_count > MAX_TRAVERSAL_COUNT then
-      vim.notify( ('searching for markers reached the max traversal count for path %s !'):format( path ) )
+      debug.print( ('searching for markers reached the max traversal count for path %s !'):format( path ) )
       break
     end
 

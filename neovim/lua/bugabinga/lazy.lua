@@ -25,7 +25,7 @@ lazy.setup('bugabinga.plugins', {
     -- version = '*',
   },
   install = {
-    missing = false,
+    missing = true,
     colorscheme = { 'nugu', 'quiet' },
   },
   checker = {
