@@ -11,7 +11,7 @@ def get-item-status-count [
 # Aggregates the output of `svn status` and `svn info` into a table.
 # This command operates in the current directory.
 # Analog to gstat for svn.
-export def-env svnstat [
+export def --env svnstat [
     ...path: string # optional paths to get svn status from. If empty, the current directory is assumed.
 ] {
     # the svn info and status commands can handle multiple input paths.

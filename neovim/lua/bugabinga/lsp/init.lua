@@ -52,12 +52,12 @@ local lsp_start          = function ( file_type_event )
   local match = file_type_event.match
 
   local matches_to_ignore = ignored.filetypes
-  debug.print( 'filetypes to ignore', matches_to_ignore )
-  if vim.iter( matches_to_ignore ):find( match ) then return end
+  debug.print( 'filetypes to ignore', ignored.filetypes)
+  if vim.iter( ignored.filetypes):find( match ) then return end
 
   local bufnr = file_type_event.buf
   local buftype = vim.api.nvim_get_option_value( 'buftype', { buf = bufnr } )
-  if buftype ~= '' then return end
+  if vim.iter(ignored.buftypes):find(buftype) then return end
 
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
 
