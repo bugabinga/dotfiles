@@ -1,3 +1,7 @@
+require 'bugabinga.health'.add_dependency
+{
+  name_of_executable = 'ollama',
+}
 return {
   'David-Kunz/gen.nvim',
   cmd = 'Gen',
