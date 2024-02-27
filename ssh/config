@@ -11,12 +11,6 @@ Host github.com
     User git
     IdentityFile ~/.ssh/github.key
 
-Host codeberg.org
-	HostName codeberg.org
-	User git
-	IdentityFile ~/.ssh/codeberg.key
-
-
 # catch-all pattern
 Host *
     User root

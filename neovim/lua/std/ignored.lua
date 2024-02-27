@@ -19,6 +19,7 @@ local filetypes = {
 }
 
 local buftypes = {
+  '',
   'acwrite',
   'help',
   'neotree',

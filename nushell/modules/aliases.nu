@@ -9,12 +9,12 @@ export alias backup = bak
 # https://gist.github.com/mullnerz/9fff80593d6b442d5c1b
 export alias archive = wget -mpck --html-extension --user-agent="" -e robots=off --wait 1 -P .
 
-def-env workspace [] {
+def --env workspace [] {
 	fd --type directory --max-depth 1 . $env.WORKSPACE | fzf --ansi --preview 'mdcat {}README.md' --preview-window 'up:69%,border-bottom' | cd $in
 }
 export alias w =  workspace
 
-export def-env lk [] {
+export def --env lk [] {
 	cd (walk --icons)
 }
 

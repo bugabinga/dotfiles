@@ -1,5 +1,6 @@
 require 'bugabinga.lsp.lightbulb'
 
+local debug              = require 'std.debug'
 local defer              = require 'std.defer'
 local map                = require 'std.map'
 local auto               = require 'std.auto'
@@ -37,7 +38,7 @@ end
 local expand_command     = function ( command )
   vim.validate { command = { command, { 'string', 'table' } } }
 
-  -- vim.print( 'expanding command', command )
+  debug.print( 'expanding command', command )
 
   if type( command ) == 'table' then
     command[1] = expand_path( command[1] )
@@ -51,16 +52,16 @@ local lsp_start          = function ( file_type_event )
   local match = file_type_event.match
 
   local matches_to_ignore = ignored.filetypes
-  -- vim.print('filetypes to ignore', matches_to_ignore)
-  if vim.iter( matches_to_ignore ):find( match ) then return end
+  debug.print( 'filetypes to ignore', ignored.filetypes)
+  if vim.iter( ignored.filetypes):find( match ) then return end
 
   local bufnr = file_type_event.buf
   local buftype = vim.api.nvim_get_option_value( 'buftype', { buf = bufnr } )
-  if buftype ~= '' then return end
+  if vim.iter(ignored.buftypes):find(buftype) then return end
 
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
 
-  vim.notify( string.format( 'searching lsp client for: match: %s, buffer: %s, path: %s', match, bufnr, buffer_path ) )
+  debug.print( string.format( 'searching lsp client for: match: %s, buffer: %s, path: %s', match, bufnr, buffer_path ) )
 
   local potential_client_configs = vim.iter( lsp_client_configs )
     :map( function ( config )
@@ -97,10 +98,12 @@ local lsp_start          = function ( file_type_event )
     end )
     :totable()
 
-  -- vim.print("POTENTIAL CLIENTS", vim.iter(potential_client_configs):map(function(config) return { name = config.name, command = config.command } end):totable())
+  debug.print( 'POTENTIAL CLIENTS',
+    vim.iter( potential_client_configs ):map( function ( config ) return { name = config.name, command = config.command } end )
+    :totable() )
 
   if table.is_empty( potential_client_configs ) then
-    -- vim.notify( 'found no lsp client for', buffer_path )
+    debug.print( 'found no lsp client for', buffer_path )
     return
   end
 
@@ -114,9 +117,9 @@ local lsp_start          = function ( file_type_event )
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     local cmp_capabilities = require 'cmp_nvim_lsp'.default_capabilities()
     capabilities = table.extend( 'force', capabilities, cmp_capabilities, config.capabilities )
-    -- vim.print( 'lsp capabilities', capabilities, config.capabilities, cmp_capabilities )
+    debug.print( 'lsp capabilities',  capabilities,   config.capabilities, cmp_capabilities )
 
-    -- vim.print('starting command:', config.command)
+    debug.print( 'starting command:', config.command )
 
     local start_config = {
       cmd = config.command,
@@ -136,7 +139,7 @@ local lsp_start          = function ( file_type_event )
       before_init = config.before_init,
       -- on_init = nil, -- should i send workspace/didChangeConfiguration here?
       on_exit = function ( code, signal, client_id ) vim.print( 'LSP CLIENT EXIT', code, signal, client_id ) end,
-      -- on_attach = function(client, bufnr) vim.print("LSP CLIENT ATTACH", client.data.client_id, bufnr) end,
+      on_attach = function ( client, bufnr ) debug.print( 'LSP CLIENT ATTACH', client, bufnr ) end,
       trace = 'off',
       flags = { allow_incremental_sync = true, debounce_text_changes = 250, exit_timeout = 200 },
       root_dir = root_dir,
@@ -144,20 +147,20 @@ local lsp_start          = function ( file_type_event )
 
     local lsp_starter = config.custom_start or vim.lsp.start
 
-    -- vim.print( 'starting lsp', start_config.name, root_dir )
+    debug.print( 'starting lsp', start_config.name, root_dir )
 
     lsp_starter( start_config, {
       bufnr = bufnr,
       -- TODO: reuse if workspaces
       -- local supported = vim.tbl_get(client, 'server_capabilities', 'workspace', 'workspaceFolders', 'supported')
       reuse_client = function ( existing_client, new_config )
-        -- vim.print(
-        --   'lsp resuse client',
-        --   existing_client.name,
-        --   existing_client.workspace_folders,
-        --   new_config.name,
-        --   new_config.root_dir
-        -- )
+        debug.print(
+          'lsp resuse client',
+          existing_client.name,
+          existing_client.workspace_folders,
+          new_config.name,
+          new_config.root_dir
+        )
 
         --TODO lsps with single file or worksopaces support do not need smame root dir. instead add_workspace_folder
         local same_name = existing_client.name == new_config.name
@@ -173,12 +176,12 @@ local lsp_start          = function ( file_type_event )
         local same_root = new_root == existing_root
 
         local reuse = same_name and same_root
-        -- vim.print( 'reusing lsp client?', reuse )
+        debug.print( 'reusing lsp client?', reuse )
         return reuse
       end,
     } )
 
-    -- vim.print("ATTACHING LSP CLIENT", client_id)
+    debug.print( 'ATTACHING LSP CLIENT', client_id )
   end
 end
 
@@ -199,7 +202,7 @@ local lsp_attach         = function ( args )
   local client = vim.lsp.get_client_by_id( args.data.client_id )
   if not client then return end
 
-  -- vim.print(client.server_capabilities)
+  debug.print( client.server_capabilities )
 
   if client.server_capabilities.definitionProvider then
     old_tagfunc = vim.bo[bufnr].tagfunc
@@ -324,7 +327,7 @@ local lsp_attach         = function ( args )
 end
 
 local lsp_detach         = function ( args )
-  -- vim.print("DETACH LSP", ...)
+  debug.print( 'DETACH LSP', args )
 
   local bufnr = args.buf
   local client_id = args.data.client_id

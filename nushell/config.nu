@@ -5,6 +5,7 @@ use prompt.nu *
 use aliases.nu *
 use todo.nu
 use openssl.nu *
+use git.nu *
 use pacnew.nu
 use syncthing.nu
 
