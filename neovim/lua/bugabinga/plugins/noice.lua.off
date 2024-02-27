@@ -9,9 +9,9 @@ return {
       'rcarriga/nvim-notify',
     },
     opts = {
-      cmdline = {
-        view = 'cmdline', -- cmdline on cursor
-      },
+      -- cmdline = {
+      --   view = 'cmdline', -- cmdline on cursor
+      -- },
       lsp = {
         signature = {
           auto_open = { trigger = false },
