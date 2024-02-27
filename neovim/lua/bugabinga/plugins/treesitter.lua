@@ -5,19 +5,19 @@ require 'bugabinga.health'.add_dependency
   name = 'CMake',
   name_of_executable = 'cmake'
 }
-  {
-    name_of_executable = 'make'
-  }
-  {
-    name_of_executable = 'zig'
-  }
-  {
-    name = 'TreeSitter CLI',
-    name_of_executable = 'tree-sitter'
-  }
-  {
-    name_of_executable = 'tar'
-  }
+{
+  name_of_executable = 'make'
+}
+{
+  name_of_executable = 'zig'
+}
+{
+  name = 'TreeSitter CLI',
+  name_of_executable = 'tree-sitter'
+}
+{
+  name_of_executable = 'tar'
+}
 
 return {
   'nvim-treesitter/nvim-treesitter',
