@@ -19,6 +19,7 @@ let cargo_crates = [
   [ "eva" "eva" [] ]
   [ "mdcat" "mdcat" [] ]
   [ "cargo-update" "cargo-install-update" [] ]
+  [ "cargo-cache" "cargo-cache" [] ]
   [ "hexyl" "hexyl" [] ]
   [ "hyperfine" "hyperfine" [] ]
   [ "so" "so" (so-features) ]
@@ -73,7 +74,7 @@ def main [] {
   $cargo_crates | each { | crate |
     if ( which $crate.bin | is-empty ) {
       echo $'cargo install ($crate.name) ($crate.features)'
-      cargo install $crate.name $crate.features
+      cargo install $crate.name ...$crate.features
     } else {
       echo $"($crate.name) already installed"
     }
