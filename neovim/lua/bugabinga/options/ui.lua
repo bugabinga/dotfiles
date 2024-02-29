@@ -54,6 +54,9 @@ vim.opt.listchars = {
   nbsp = icon.nbsp,
 }
 
+-- force english messages
+vim.cmd [[ language mes en_US ]]
+
 -- do not spam the cmdline with every little input
 vim.opt.showcmd = false
 vim.opt.wildmode = 'list:longest'
