@@ -30,6 +30,7 @@ return {
     'windwp/nvim-ts-autotag',
     'nvim-treesitter/playground',
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'nushell/tree-sitter-nu',
   },
   config = function ()
     local install = require 'nvim-treesitter.install'
@@ -58,6 +59,7 @@ return {
         'jsonc',
         'markdown',
         'markdown_inline',
+        'nu',
         'lua',
         'luap',
         'luadoc',

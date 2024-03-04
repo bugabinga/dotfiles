@@ -24,11 +24,11 @@ def icons [] {
 # The title to be set is derived from the current working directory.
 # Special types of directories, e.g. HOME, get custom icons.
 def set-window-title [] {
-    # normalize path
-    let pwd = ( $env.PWD | path expand )
-    let icon = if (icons | any { |icon| $icon.path == $pwd } ) { ( icons | where path == $pwd | get icon.0 ) } else { $"(char nf_folder1)" }
     # Some terminals freeze, if they do not support this OSC
     if ($env | get -i TERM_PROGRAM) == WezTerm {
+			# normalize path
+			let pwd = ( $env.PWD | path expand )
+			let icon = if (icons | any { |icon| $icon.path == $pwd } ) { ( icons | where path == $pwd | get icon.0 ) } else { $"(char nf_folder1)" }
       echo ([ (ansi title) $icon " " ( $pwd | path basename ) (ansi reset) ] | str join)
     }
 }
