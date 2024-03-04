@@ -44,6 +44,3 @@ export alias fkill = fuzzy-kill
 export alias aes = java ($env.DOTFILES + /tools/ + aes.java)
 export alias download = java ($env.DOTFILES + /tools/ + download.java)
 export alias download_jar = java ($env.DOTFILES + /tools/ + download_jar.java)
-
-# systemd
-export alias userctl = systemctl --user

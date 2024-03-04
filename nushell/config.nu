@@ -5,8 +5,6 @@ use prompt.nu *
 use aliases.nu *
 use todo.nu
 use openssl.nu *
-use git.nu *
-use pacnew.nu
 use syncthing.nu
 
 # for more information on themes see
@@ -79,7 +77,7 @@ $env.config = {
   use_grid_icons: true
   footer_mode: "auto" # always, never, number_of_rows, auto
   completions: {
-    
+
     quick: true # set this to false to prevent auto-selecting completions when only one remains
     partial: true # set this to false to prevent partial filling of the prompt
   }
@@ -284,5 +282,3 @@ $env.config = {
 
 # must be done, after defining config, since zoxide mutates it
 use zoxide.nu *
-
-overlay use coreutils.nu
