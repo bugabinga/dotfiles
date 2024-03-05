@@ -1,18 +1,18 @@
 # SSH client configuration
 # defines bookmarks/templates for hosts and options to quickly connect to known hosts
 
-
 Host box
 	HostName 46.101.206.216
-    IdentityFile ~/.ssh/box.bugabinga.net.key
+	IdentityFile ~/.ssh/box.bugabinga.net.key
 
 Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/github.key
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/github.key
 
 # catch-all pattern
 Host *
-    User root
-    Compression yes
-    AddKeysToAgent yes
+	User root
+	Compression yes
+	IdentitiesOnly yes
+	AddKeysToAgent yes
