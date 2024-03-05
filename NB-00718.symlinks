@@ -4,6 +4,9 @@ git/gitconfig
 git/gitconfig.NB-00718
 ~/.gitconfig.include
 
+ssh/config
+~/.ssh/config
+
 topgrade/topgrade.windows.toml
 ~/AppData/Roaming/topgrade.toml
 
