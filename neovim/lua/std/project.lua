@@ -9,14 +9,7 @@ local validate = vim.validate
 local cache = {}
 local hasher = vim.fn.sha256
 local markers_to_string = function ( markers )
-  return table.deep_concat( markers, {
-    prefix = '',
-    suffix = '',
-    row_delimiter = '',
-    key_value_delimiter = '',
-    fill = '',
-    newline = '',
-  } )
+  return vim.inspect( markers )
 end
 local create_hash = function ( path, markers )
   local path_hash = hasher( path )
@@ -87,7 +80,7 @@ local function find_root( path, markers, stop )
 
   local cache_hit = cache_get( path, markers )
   if cache_hit then
-    -- vim.print("CACHE HIT", cache_hit)
+    debug.print( 'CACHE HIT', cache_hit )
     return cache_hit
   end
 
@@ -279,7 +272,32 @@ local find_root_by_filetype = function ( path, filetype )
   return rooter and rooter( path ) or fallback_rooter( path )
 end
 
+--- @return table parsed configuration as could be found in the `.project` file in the root directory. Empty otherwise.
+local parse_project_configuration = function ()
+end
+
+local override_neovim_options = function ( options )
+end
+
+local setup = function ()
+  local local_project_config = parse_project_configuration()
+  if vim.tbl_isempty( local_project_config ) then return end
+
+  if local_project_config.neovim then
+    override_neovim_options( local_project_config.neovim )
+  end
+
+  local ok, lazy_core_loader = pcall( require, 'lazy.core.loader' )
+  if not ok then return end
+
+  local old_config        = lazy_core_loader.config
+  lazy_core_loader.config = function ( plugin )
+
+  end
+end
+
 return {
+  setup = setup,
   find_root = find_root,
   find_root_by_filetype = find_root_by_filetype,
   find_project_root = find_project_root,

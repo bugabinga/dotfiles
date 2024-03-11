@@ -9,8 +9,7 @@
 --                    ▀                          ▀
 
 -- setup debug mode
--- local debug = require 'std.debug'
--- debug.toggle()
+-- require 'std.debug'.toggle()
 
 local ok, loaded
 
@@ -37,4 +36,3 @@ if not ok then vim.print( 'error while loading mark', loaded ) end
 -- setup lsp clients
 ok, loaded = pcall( require, 'bugabinga.lsp' )
 if not ok then vim.print( 'error while loading lsp', loaded ) end
-

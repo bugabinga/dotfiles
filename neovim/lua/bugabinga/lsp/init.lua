@@ -38,8 +38,6 @@ end
 local expand_command     = function ( command )
   vim.validate { command = { command, { 'string', 'table' } } }
 
-  debug.print( 'expanding command', command )
-
   if type( command ) == 'table' then
     command[1] = expand_path( command[1] )
     return command
@@ -49,15 +47,17 @@ local expand_command     = function ( command )
 end
 
 local lsp_start          = function ( file_type_event )
+  debug.print 'trying to start lsp'
   local match = file_type_event.match
 
   local matches_to_ignore = ignored.filetypes
-  debug.print( 'filetypes to ignore', ignored.filetypes)
-  if vim.iter( ignored.filetypes):find( match ) then return end
+  debug.print( 'filetypes to ignore', ignored.filetypes, 'current filetype', match )
+  if vim.iter( ignored.filetypes ):find( match ) then return end
 
   local bufnr = file_type_event.buf
   local buftype = vim.api.nvim_get_option_value( 'buftype', { buf = bufnr } )
-  if vim.iter(ignored.buftypes):find(buftype) then return end
+  debug.print( 'buftypes to ignore', ignored.buftypes, 'current buftype', buftype )
+  if vim.iter( ignored.buftypes ):find( buftype ) then return end
 
   local buffer_path = vim.api.nvim_buf_get_name( bufnr )
 
@@ -99,8 +99,14 @@ local lsp_start          = function ( file_type_event )
     :totable()
 
   debug.print( 'POTENTIAL CLIENTS',
-    vim.iter( potential_client_configs ):map( function ( config ) return { name = config.name, command = config.command } end )
-    :totable() )
+               vim.iter( potential_client_configs ):map( function ( config )
+                 return {
+                   name = config.name,
+                   command =
+                     config.command
+                 }
+               end )
+               :totable() )
 
   if table.is_empty( potential_client_configs ) then
     debug.print( 'found no lsp client for', buffer_path )
@@ -115,9 +121,7 @@ local lsp_start          = function ( file_type_event )
   for _, config in ipairs( potential_client_configs ) do
     local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_capabilities = require 'cmp_nvim_lsp'.default_capabilities()
-    capabilities = table.extend( 'force', capabilities, cmp_capabilities, config.capabilities )
-    debug.print( 'lsp capabilities',  capabilities,   config.capabilities, cmp_capabilities )
+    capabilities = table.extend( 'force', capabilities, config.capabilities )
 
     debug.print( 'starting command:', config.command )
 
@@ -423,6 +427,36 @@ user_command( 'LspInfoExtended', lsp_info_extended, {
   desc = 'Shows detailed information about running LSP clients.',
 } )
 
---TODO: lsp restart, lsp exit
+-- TODO: lsp restart, lsp exit
+
+-- TODO: move to std.icons.lua
+local completion_icons = {
+  Class = ' ',
+  Color = ' ',
+  Constant = ' ',
+  Constructor = ' ',
+  Enum = ' ',
+  EnumMember = ' ',
+  Field = '󰄶 ',
+  File = ' ',
+  Folder = ' ',
+  Function = ' ',
+  Interface = '󰜰',
+  Keyword = '󰌆 ',
+  Method = 'ƒ ',
+  Module = '󰏗 ',
+  Property = ' ',
+  Snippet = '󰘍 ',
+  Struct = ' ',
+  Text = ' ',
+  Unit = ' ',
+  Value = '󰎠 ',
+  Variable = ' ',
+}
+
+local completion_kinds = vim.lsp.protocol.CompletionItemKind
+for i, kind in ipairs( completion_kinds ) do
+  completion_kinds[i] = completion_icons[kind] or kind
+end
 
 return setmetatable( _, {} )

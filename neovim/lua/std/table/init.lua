@@ -1,11 +1,10 @@
 --- Facade over various table functions in lua, neovim and some of my own.
 return {
-  deep_concat = require'std.table.deep_concat',
-  deep_copy = require'std.table.deep_copy',
-  join = require'std.table.join',
+  deep_copy = require 'std.table.deep_copy',
+  join = require 'std.table.join',
 
-	add_reverse_lookup = vim.tbl_add_reverse_lookup,
-	contains = vim.tbl_contains,
+  add_reverse_lookup = vim.tbl_add_reverse_lookup,
+  contains = vim.tbl_contains,
   count = vim.tbl_count,
   deep_extend = vim.tbl_deep_extend,
   extend = vim.tbl_extend,
