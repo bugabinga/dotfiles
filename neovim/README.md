@@ -38,13 +38,16 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* kill custom lsp stuff in favor of lspconfig and try neoconf + nvim-java
+* does status bar fail to display if lsp fails to load?
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
 * use gen.ai to generate docs
 * learn marks and refactor mark.lua
 * use ltex-ls for markdown, code comments and commit messages
+* create a floating window that shows plugins, that have commands, as reminder
 * setup DAP
 * add nu-check to nvim-lint
 * create facade over vim.api.nvim_create_user_command
-* create skelleton-plugin for default file content based on file type
-* add support for Java mutliline string in autopairs
-* nvim spell for camelcase words
+* create skeleton-plugin for default file content based on file type
+* add support for Java multi line string in autopairs
+* nvim spell for camel case words

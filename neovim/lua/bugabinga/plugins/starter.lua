@@ -52,8 +52,10 @@ return {
           pattern = 'LazyVimStarted',
           once = true,
           command = vim.schedule_wrap( function ()
-            startuptime = require 'lazy'.stats().startuptime
-            starter.refresh()
+            if vim.bo.filetype == "starter" then
+              startuptime = require 'lazy'.stats().startuptime
+              starter.refresh()
+            end
           end ),
         }
 
