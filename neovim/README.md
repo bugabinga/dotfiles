@@ -38,6 +38,8 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* write plugin to parse lsp settings locally and apply them
+* is there a use case for a plugin that parses local plugin configuration overrides?
 * kill custom lsp stuff in favor of lspconfig and try neoconf + nvim-java
 * does status bar fail to display if lsp fails to load?
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc

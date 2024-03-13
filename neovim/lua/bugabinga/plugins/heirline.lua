@@ -8,6 +8,7 @@ local NEW_FILE = '~new~'
 return {
   {
     'rebelot/heirline.nvim',
+    tag = 'v1.0.3',
     event = 'BufEnter',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
@@ -83,7 +84,7 @@ return {
             r = 'ui_important_global',
             ['!'] = 'ui_important_global',
             t = 'ui_important_global',
-          }
+          },
         },
 
         provider = function ( self )
@@ -93,7 +94,7 @@ return {
 
         hl = function ( self )
           local mode = self.mode:sub( 1, 1 ) -- get only the first mode character
-          return { fg = self.mode_colors[mode], bold = true }
+          return { fg = self.mode_colors[mode], bold = true, }
         end,
 
         update = {
@@ -107,7 +108,7 @@ return {
         init = function ( self )
           local filename = self.filename
           local extension = vim.fn.fnamemodify( filename, ':e' )
-          self.icon = require 'nvim-web-devicons'.get_icon_color( filename, extension, { default = true } )
+          self.icon = require 'nvim-web-devicons'.get_icon_color( filename, extension, { default = true, } )
         end,
         provider = function ( self )
           return self.icon and (self.icon .. ' ')
@@ -158,10 +159,10 @@ return {
         end,
 
         file_icon,
-        { provider = ' ' },
+        { provider = ' ', },
         file_name,
         file_flags,
-        { provider = '%<' } -- this means that the statusline is cut here when there's not enough space
+        { provider = '%<', }, -- this means that the statusline is cut here when there's not enough space
       }
 
       local file_type               = {
@@ -186,14 +187,14 @@ return {
         provider = function ( self )
           local fileformat = vim.bo.fileformat
           return self[fileformat]
-        end
+        end,
       }
 
       local file_size               = {
         provider = function ()
           -- stackoverflow, compute human readable file size
           -- i want to see vim opening a 1EiB file 󰱯
-          local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
+          local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E', }
           local fsize = vim.fn.getfsize( vim.api.nvim_buf_get_name( 0 ) )
           fsize = (fsize < 0 and 0) or fsize
           if fsize < 1024 then
@@ -216,11 +217,11 @@ return {
 
       local lsp_active              = {
         condition = conditions.lsp_attached,
-        update    = { 'LspAttach', 'LspDetach', 'BufEnter' },
+        update    = { 'LspAttach', 'LspDetach', 'BufEnter', },
 
         provider  = function ()
           local names = {}
-          for _, client in pairs( vim.lsp.get_clients { bufnr = 0 } ) do
+          for _, client in pairs( vim.lsp.get_clients { bufnr = 0, } ) do
             table.insert( names, client.name )
           end
           return icon.lsp .. ' ' .. table.concat( names, ' ' )
@@ -247,13 +248,13 @@ return {
         },
 
         init = function ( self )
-          self.errors = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.ERROR } )
-          self.warnings = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.WARN } )
-          self.hints = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.HINT } )
-          self.info = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.INFO } )
+          self.errors = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.ERROR, } )
+          self.warnings = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.WARN, } )
+          self.hints = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.HINT, } )
+          self.info = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.INFO, } )
         end,
 
-        update = { 'DiagnosticChanged', 'BufEnter' },
+        update = { 'DiagnosticChanged', 'BufEnter', },
 
         {
           provider = function ( self )
@@ -296,11 +297,11 @@ return {
       local svn_get_relative_url    = function ()
         -- FIXME: replace with vim.system
         local job = require 'plenary.job'
-        local relative_url = { '[ERR]' }
+        local relative_url = { '[ERR]', }
 
         job:new {
           command = 'svn',
-          args = { 'info', '--show-item', 'relative-url', '--no-newline' },
+          args = { 'info', '--show-item', 'relative-url', '--no-newline', },
           on_exit = function ( current_job, exit_code )
             if exit_code == 0 then relative_url = current_job:result() end
           end,
@@ -382,7 +383,7 @@ return {
         },
         {
           provider = '',
-        }
+        },
       }
 
       local help_file_name          = {
@@ -418,7 +419,7 @@ return {
         end,
         provider = icon.macro .. ' ',
         hl = 'PreProc',
-        utils.surround( { '░▒▓ ', ' ▓▒░' }, nil, {
+        utils.surround( { '░▒▓ ', ' ▓▒░', }, nil, {
           provider = function ()
             return vim.fn.reg_recording()
           end,
@@ -427,7 +428,7 @@ return {
         update = {
           'RecordingEnter',
           'RecordingLeave',
-        }
+        },
       }
 
       local lazy                    = {
@@ -435,7 +436,7 @@ return {
           local ok, lazy_status = pcall( require, 'lazy.status' )
           return ok and lazy_status.has_updates()
         end,
-        update = { 'User', pattern = 'LazyUpdate' },
+        update = { 'User', pattern = 'LazyUpdate', },
         provider = function () return ' ' .. icon.lazy .. ' ' .. require 'lazy.status'.updates() .. ' ' end,
         on_click = {
           callback = function () require 'lazy'.update() end,
@@ -443,8 +444,8 @@ return {
         },
       }
 
-      local align                   = { provider = '%=' }
-      local space                   = { provider = '  ' }
+      local align                   = { provider = '%=', }
+      local space                   = { provider = '  ', }
 
       local default_statusline      = {
         vi_mode, macro_recording, align,
@@ -465,16 +466,16 @@ return {
         file_type,
         space,
         help_file_name,
-        align
+        align,
       }
 
       local terminal_statusline     = {
 
         condition = function ()
-          return conditions.buffer_matches { buftype = { 'terminal' } }
+          return conditions.buffer_matches { buftype = { 'terminal', }, }
         end,
 
-        { condition = conditions.is_active, vi_mode, space },
+        { condition = conditions.is_active, vi_mode, space, },
         file_type,
         space,
         terminal_name,
@@ -519,7 +520,7 @@ return {
 
         {
           condition = function ()
-            return conditions.buffer_matches { buftype = { 'terminal' } }
+            return conditions.buffer_matches { buftype = { 'terminal', }, }
           end,
 
           file_type,
@@ -536,11 +537,11 @@ return {
         end,
         hl = function ( self )
           if self.is_active then
-            return { fg = utils.get_highlight 'TabLineSel'.fg }
+            return { fg = utils.get_highlight 'TabLineSel'.fg, }
           elseif not vim.api.nvim_buf_is_loaded( self.bufnr ) then
-            return { fg = 'ui_normal' }
+            return { fg = 'ui_normal', }
           else
-            return { fg = utils.get_highlight 'TabLine'.fg }
+            return { fg = utils.get_highlight 'TabLine'.fg, }
           end
         end,
       }
@@ -550,21 +551,21 @@ return {
           local name = self.file_name
           return name == '' and NEW_FILE or vim.fs.normalize( vim.fn.fnamemodify( name, ':t' ) )
         end,
-        hl = function ( self ) return { bold = self.is_active or self.is_visible, italic = true } end,
+        hl = function ( self ) return { bold = self.is_active or self.is_visible, italic = true, } end,
       }
 
       local tabline_file_flags      = {
         {
-          condition = function ( self ) return vim.api.nvim_get_option_value( 'modified', { buf = self.bufnr } ) end,
+          condition = function ( self ) return vim.api.nvim_get_option_value( 'modified', { buf = self.bufnr, } ) end,
           provider = icon.modified .. ' ',
         },
         {
           condition = function ( self )
-            return not vim.api.nvim_get_option_value( 'modifiable', { buf = self.bufnr } ) or
-              vim.api.nvim_get_option_value( 'readonly', { buf = self.bufnr } )
+            return not vim.api.nvim_get_option_value( 'modifiable', { buf = self.bufnr, } ) or
+              vim.api.nvim_get_option_value( 'readonly', { buf = self.bufnr, } )
           end,
           provider = function ( self )
-            if vim.api.nvim_get_option_value( 'buftype', { buf = self.bufnr } ) == 'terminal' then
+            if vim.api.nvim_get_option_value( 'buftype', { buf = self.bufnr, } ) == 'terminal' then
               return icon.terminal
             else
               return icon.lock
@@ -583,7 +584,7 @@ return {
           if self.is_active then
             return 'TabLineSel'
           elseif not vim.api.nvim_buf_is_loaded( self.bufnr ) then
-            return { fg = 'ui_normal' }
+            return { fg = 'ui_normal', }
           else
             return 'TabLine'
           end
@@ -593,7 +594,7 @@ return {
           callback = function ( _, minwid, _, button )
             if button == 'm' then --m = middle click
               vim.schedule( function ()
-                vim.api.nvim_buf_delete( minwid, { force = false } )
+                vim.api.nvim_buf_delete( minwid, { force = false, } )
                 vim.cmd.redrawtabline()
               end )
             else
@@ -605,7 +606,7 @@ return {
         },
 
         file_icon,
-        { provider = ' ' },
+        { provider = ' ', },
         tabline_file_name,
         tabline_buffer_number,
         tabline_file_flags,
@@ -623,13 +624,13 @@ return {
             return utils.get_highlight 'TabLine'.bg
           end
         end,
-        { tabline_file_name_block }
+        { tabline_file_name_block, }
       )
 
       local buffer_line             = utils.make_buflist(
         tabline_buffer_block,
-        { provider = icon.arrow_left .. ' ', hl = 'TabLineFill' },
-        { provider = ' ' .. icon.arrow_right, hl = 'TabLineFill' }
+        { provider = icon.arrow_left .. ' ', hl = 'TabLineFill', },
+        { provider = ' ' .. icon.arrow_right, hl = 'TabLineFill', }
       )
 
       local tabpage                 = {
@@ -646,11 +647,11 @@ return {
       }
 
       local tab_pages               = {
-        { provider = '%=' },
+        { provider = '%=', },
         utils.make_tablist( tabpage ),
       }
 
-      local tabline                 = { buffer_line, tab_pages }
+      local tabline                 = { buffer_line, tab_pages, }
 
       -- local statuscolumn = {}
 

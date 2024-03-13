@@ -17,14 +17,14 @@ continuation_indent = 2
 max_line_length = 120
 
 # optional crlf/lf/cr/auto, if it is 'auto', in windows it is crlf other platforms are lf
-# in neovim the value 'auto' is not a valid option, please use 'unset' 
+# in neovim the value 'auto' is not a valid option, please use 'unset'
 end_of_line = lf
 
 #  none/ comma / semicolon / only_kv_colon
 table_separator_style = comma
 
 #optional keep/never/always/smart
-trailing_table_separator = keep
+trailing_table_separator = always
 
 # keep/remove/remove_table_only/remove_string_only
 call_arg_parentheses = remove
@@ -105,8 +105,8 @@ never_indent_comment_on_if_branch = false
 # [line space]
 
 # The following configuration supports four expressions
-# keep  
-# fixed(n)   
+# keep
+# fixed(n)
 # min(n)
 # max(n)
 # for eg. min(2)
