@@ -471,6 +471,7 @@ local nugu = lush( function ( injects )
     IblScope { fg = ui_focus, bg = Normal.bg },
 
     Hlargs { fg = content_important_local },
+
     MiniStarterCurrent { fg = ui_accent.readable(), bg = ui_accent },         -- current item.
     MiniStarterFooter { Keyword },                                            -- footer units.
     MiniStarterHeader { Comment },                                            -- header units.
