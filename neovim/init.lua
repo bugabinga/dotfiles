@@ -9,7 +9,7 @@
 --                    ▀                          ▀
 
 -- setup debug mode
--- require 'std.debug'.toggle()
+require 'std.debug'.toggle()
 
 local ok, loaded
 

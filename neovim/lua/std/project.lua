@@ -32,6 +32,13 @@ local expand = function ( path ) return vim.fn.fnamemodify( path, ':p' ) end
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
 
+--- the weight of a project marker, when the likelyhood is low
+local MAYBE = 1
+--- the weight of a project marker, when the likelyhood is high
+local LIKELY = 2
+--- the weight of a project marker, when the likelyhood is 100%
+local DEFINITLY = 3
+
 --- Determines the path to a root directory, starting from the given path.
 -- Markers have a name and weight.
 -- Each name is checked for existence in all directories up to the root.
@@ -49,9 +56,9 @@ local MAX_TRAVERSAL_COUNT = 100
 -- local project = require'std.project'
 -- local current_buffer = vim.api.nvim_buf_get_name(0)
 -- local markers = {
---	{ name = ".git", weight = 1 },
---	{ name = "README", weight = 2 },
---	{ naem = "Makefile", weight = 3 },
+--	{ name = ".git", weight = MAYEB },
+--	{ name = "README", weight = LIKELY },
+--	{ naem = "Makefile", weight = DEFINITLY },
 -- }
 -- local root = project.find_root(current_buffer, markers, vim.uv.os_homedir())
 -- print(root) -- /home/user/workspace/some_project
@@ -64,9 +71,9 @@ local MAX_TRAVERSAL_COUNT = 100
 ---@return string? # Directory, that contains the `markers` and lies on the path from `path` to `stop`.
 local function find_root( path, markers, stop )
   validate {
-    path = { path, 'string', true },
-    markers = { markers, 'table' },
-    stop = { stop, 'string', true },
+    path = { path, 'string', true, },
+    markers = { markers, 'table', },
+    stop = { stop, 'string', true, },
   }
 
   path = path or dirname( vim.api.nvim_buf_get_name( 0 ) )
@@ -128,13 +135,13 @@ local function find_root( path, markers, stop )
   local project_root = nil
   local max_likelyhood = 0
   -- the project root is most likely the directory with the highest marker count
-  -- and lowest distance to current buffer.
+  -- and highest distance to current buffer.
   -- because if there are markers further away from the buffer than other markers,
   -- then it is most likely a nested project structure (multi-module).
   -- in those cases we are looking for the root project folder, instead the nearest
   -- child project root folder.
   for _, score in ipairs( directory_scores ) do
-    local likelihood = score.marker_count + 1 / score.distance_to_buffer_file
+    local likelihood = score.marker_count + score.distance_to_buffer_file
     if likelihood > max_likelyhood then
       max_likelyhood = likelihood
       project_root = score.path
@@ -155,21 +162,22 @@ end
 local function find_project_root( path, markers )
   -- define some language-independent markers
   local default_markers = {
-    { name = '.git',          weight = 1 },
-    { name = '.gitignore',    weight = 1 },
-    { name = '.svn',          weight = 1 },
-    { name = 'justfile',      weight = 1 },
-    { name = 'Jenkinsfile',   weight = 1 },
-    { name = '.editorconfig', weight = 1 },
-    { name = 'LICENSE',       weight = 1 },
-    { name = 'LICENSE.md',    weight = 1 },
-    { name = 'LICENSE.txt',   weight = 1 },
-    { name = 'COPYING',       weight = 1 },
-    { name = 'README',        weight = 1 },
-    { name = 'README.md',     weight = 1 },
-    { name = 'Makefile',      weight = 1 },
-    { name = 'flake.nix',     weight = 1 },
-    { name = 'flake.nix',     weight = 1 },
+    { name = '.git',           weight = LIKELY, },
+    { name = '.gitignore',     weight = LIKELY, },
+    { name = '.svn',           weight = LIKELY, },
+    { name = 'justfile',       weight = LIKELY, },
+    { name = 'Jenkinsfile',    weight = MAYBE, },
+    { name = '.editorconfig',  weight = MAYBE, },
+    { name = 'LICENSE',        weight = MAYBE, },
+    { name = 'LICENSE.md',     weight = MAYBE, },
+    { name = 'LICENSE.txt',    weight = MAYBE, },
+    { name = 'COPYING',        weight = MAYBE, },
+    { name = 'README',         weight = MAYBE, },
+    { name = 'README.md',      weight = MAYBE, },
+    { name = 'Makefile',       weight = LIKELY, },
+    { name = 'flake.nix',      weight = MAYBE, },
+    { name = 'flake.nix',      weight = MAYBE, },
+    { name = '.project_model', weight = DEFINITLY, },
   }
 
   markers = markers or {}
@@ -182,34 +190,34 @@ end
 
 local function find_java_project_root( path )
   local java_markers = {
-    { name = '.idea',             weight = 2 },
-    { name = '.classpath',        weight = 2 },
-    { name = '.settings',         weight = 2 },
-    { name = '.project',          weight = 2 },
-    { name = 'target',            weight = 2 },
-    { name = 'pom.xml',           weight = 2 },
-    { name = 'mvnw',              weight = 3 },
-    { name = '.mvn',              weight = 3 },
-    { name = 'mvnw.cmd',          weight = 3 },
-    { name = 'build.gradle',      weight = 2 },
-    { name = 'gradle.properties', weight = 3 },
-    { name = 'settings.gradle',   weight = 3 },
-    { name = 'gradlew',           weight = 3 },
-    { name = 'gradlew.bat',       weight = 3 },
+    { name = '.idea',             weight = LIKELY, },
+    { name = '.classpath',        weight = LIKELY, },
+    { name = '.settings',         weight = LIKELY, },
+    { name = '.project',          weight = LIKELY, },
+    { name = 'target',            weight = LIKELY, },
+    { name = 'pom.xml',           weight = LIKELY, },
+    { name = 'mvnw',              weight = DEFINITLY, },
+    { name = '.mvn',              weight = DEFINITLY, },
+    { name = 'mvnw.cmd',          weight = DEFINITLY, },
+    { name = 'build.gradle',      weight = DEFINITLY, },
+    { name = 'gradle.properties', weight = DEFINITLY, },
+    { name = 'settings.gradle',   weight = DEFINITLY, },
+    { name = 'gradlew',           weight = DEFINITLY, },
+    { name = 'gradlew.bat',       weight = DEFINITLY, },
   }
   return find_root( path, java_markers )
 end
 
 local lua_markers = {
-  { name = '.luarc.json',  weight = 1 },
-  { name = '.luarc.jsonc', weight = 1 },
-  { name = '.luacheckrc',  weight = 1 },
-  { name = '.stylua.toml', weight = 1 },
-  { name = 'stylua.toml',  weight = 1 },
-  { name = 'selene.toml',  weight = 1 },
-  { name = 'selene.yml',   weight = 1 },
-  { name = 'neovim.yml',   weight = 1 },
-  { name = 'lua',          weight = 1 },
+  { name = '.luarc.json',  weight = MAYBE, },
+  { name = '.luarc.jsonc', weight = MAYBE, },
+  { name = '.luacheckrc',  weight = MAYBE, },
+  { name = '.stylua.toml', weight = MAYBE, },
+  { name = 'stylua.toml',  weight = MAYBE, },
+  { name = 'selene.toml',  weight = MAYBE, },
+  { name = 'selene.yml',   weight = MAYBE, },
+  { name = 'neovim.yml',   weight = MAYBE, },
+  { name = 'lua',          weight = MAYBE, },
 }
 
 local find_lua_project_root = function ( path )
@@ -217,10 +225,10 @@ local find_lua_project_root = function ( path )
 end
 
 local zig_markers = {
-  { name = 'build.zig',      weight = 3 },
-  { name = 'zls.build.json', weight = 3 },
-  { name = 'zig-cache',      weight = 1 },
-  { name = 'zig-out',        weight = 1 },
+  { name = 'build.zig',      weight = DEFINITLY, },
+  { name = 'zls.build.json', weight = DEFINITLY, },
+  { name = 'zig-cache',      weight = MAYBE, },
+  { name = 'zig-out',        weight = MAYBE, },
 }
 
 local find_zig_project_root = function ( path )
@@ -229,7 +237,7 @@ end
 
 local find_rust_project_root = function ( path )
   local markers = {
-    { name = 'Cargo.toml', weight = 3 },
+    { name = 'Cargo.toml', weight = DEFINITLY, },
   }
   local cargo_crate_dir = find_root( path, markers )
   if cargo_crate_dir == nil then return nil end
@@ -244,7 +252,7 @@ local find_rust_project_root = function ( path )
     vim.fs.joinpath( cargo_crate_dir, 'Cargo.toml' ),
   }
 
-  local result = vim.system( cmd, { text = true } ):wait()
+  local result = vim.system( cmd, { text = true, } ):wait()
   local cargo_workspace_root
 
   if result.code == 0 then
@@ -272,32 +280,11 @@ local find_root_by_filetype = function ( path, filetype )
   return rooter and rooter( path ) or fallback_rooter( path )
 end
 
---- @return table parsed configuration as could be found in the `.project` file in the root directory. Empty otherwise.
+--- @return table parsed configuration as could be found in the `.project_model` file in the root directory. Empty otherwise.
 local parse_project_configuration = function ()
 end
 
-local override_neovim_options = function ( options )
-end
-
-local setup = function ()
-  local local_project_config = parse_project_configuration()
-  if vim.tbl_isempty( local_project_config ) then return end
-
-  if local_project_config.neovim then
-    override_neovim_options( local_project_config.neovim )
-  end
-
-  local ok, lazy_core_loader = pcall( require, 'lazy.core.loader' )
-  if not ok then return end
-
-  local old_config        = lazy_core_loader.config
-  lazy_core_loader.config = function ( plugin )
-
-  end
-end
-
 return {
-  setup = setup,
   find_root = find_root,
   find_root_by_filetype = find_root_by_filetype,
   find_project_root = find_project_root,

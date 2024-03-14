@@ -36,7 +36,7 @@ local expand_path        = function ( path )
 end
 
 local expand_command     = function ( command )
-  vim.validate { command = { command, { 'string', 'table' } } }
+  vim.validate { command = { command, { 'string', 'table', }, }, }
 
   if type( command ) == 'table' then
     command[1] = expand_path( command[1] )
@@ -55,7 +55,7 @@ local lsp_start          = function ( file_type_event )
   if vim.iter( ignored.filetypes ):find( match ) then return end
 
   local bufnr = file_type_event.buf
-  local buftype = vim.api.nvim_get_option_value( 'buftype', { buf = bufnr } )
+  local buftype = vim.api.nvim_get_option_value( 'buftype', { buf = bufnr, } )
   debug.print( 'buftypes to ignore', ignored.buftypes, 'current buftype', buftype )
   if vim.iter( ignored.buftypes ):find( buftype ) then return end
 
@@ -66,26 +66,26 @@ local lsp_start          = function ( file_type_event )
   local potential_client_configs = vim.iter( lsp_client_configs )
     :map( function ( config )
       vim.validate {
-        ['config'] = { config, 'table' },
-        ['config.name'] = { config.name, 'string' },
-        ['config.filetypes'] = { config.filetypes, { 'string', 'table' } },
-        ['config.command'] = { config.command, { 'string', 'table' } },
-        ['config.environment'] = { config.environment, 'table', true },
-        ['config.root_dir'] = { config.root_dir, 'function', 'string' },
-        ['config.single_file_support'] = { config.single_file_support, 'boolean', true },
-        ['config.settings'] = { config.settings, 'table', true },
-        ['config.workspaces'] = { config.workspaces, 'boolean', true },
-        ['config.before_init'] = { config.before_init, 'function', true },
-        ['config.init_options'] = { config.init_options, 'table', true },
-        ['config.capabilities'] = { config.capabilities, 'table', true },
-        ['config.custom_start'] = { config.custom_start, 'function', true },
+        ['config'] = { config, 'table', },
+        ['config.name'] = { config.name, 'string', },
+        ['config.filetypes'] = { config.filetypes, { 'string', 'table', }, },
+        ['config.command'] = { config.command, { 'string', 'table', }, },
+        ['config.environment'] = { config.environment, 'table', true, },
+        ['config.root_dir'] = { config.root_dir, 'function', 'string', },
+        ['config.single_file_support'] = { config.single_file_support, 'boolean', true, },
+        ['config.settings'] = { config.settings, 'table', true, },
+        ['config.workspaces'] = { config.workspaces, 'boolean', true, },
+        ['config.before_init'] = { config.before_init, 'function', true, },
+        ['config.init_options'] = { config.init_options, 'table', true, },
+        ['config.capabilities'] = { config.capabilities, 'table', true, },
+        ['config.custom_start'] = { config.custom_start, 'function', true, },
       }
       -- normalize scalar values to its vector alternative for easier processing later on
       -- this mutates the lsp client configs! careful!
-      config.command = type( config.command ) == 'string' and { expand_command( config.command ) } or
+      config.command = type( config.command ) == 'string' and { expand_command( config.command ), } or
         expand_command( config.command )
       config.environment = config.environment or {}
-      config.filetypes = type( config.filetypes ) == 'string' and { config.filetypes } or config.filetypes
+      config.filetypes = type( config.filetypes ) == 'string' and { config.filetypes, } or config.filetypes
       config.single_file_support = config.single_file_support == nil and false or config.single_file_support
       config.workspaces = config.workspaces == nil and false or config.workspaces
       config.capabilities = config.capabilities or {}
@@ -103,7 +103,7 @@ local lsp_start          = function ( file_type_event )
                  return {
                    name = config.name,
                    command =
-                     config.command
+                     config.command,
                  }
                end )
                :totable() )
@@ -145,7 +145,7 @@ local lsp_start          = function ( file_type_event )
       on_exit = function ( code, signal, client_id ) vim.print( 'LSP CLIENT EXIT', code, signal, client_id ) end,
       on_attach = function ( client, bufnr ) debug.print( 'LSP CLIENT ATTACH', client, bufnr ) end,
       trace = 'off',
-      flags = { allow_incremental_sync = true, debounce_text_changes = 250, exit_timeout = 200 },
+      flags = { allow_incremental_sync = true, debounce_text_changes = 250, exit_timeout = 200, },
       root_dir = root_dir,
     }
 
@@ -185,7 +185,7 @@ local lsp_start          = function ( file_type_event )
       end,
     } )
 
-    debug.print( 'ATTACHING LSP CLIENT', client_id )
+    debug.print( 'ATTACHING LSP CLIENT', config.name )
   end
 end
 
@@ -223,6 +223,23 @@ local lsp_attach         = function ( args )
     vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
   end
 
+  if client.server_capabilities.documentSymbolProvider then
+    local ok, navic = pcall( require, 'nvim-navic' )
+    if ok then
+      vim.notify 'navic ready'
+      navic.attach( client, bufnr )
+    else
+      vim.notify 'nvim-navic not found. could not attach to lsp client.'
+    end
+    local ok, navbuddy = pcall( require, 'nvim-navbuddy' )
+    if ok then
+      vim.notify 'navbuddy ready'
+      navbuddy.attach( client, bufnr )
+    else
+      vim.notify 'nvim-navbuddy not found. could not attach to lsp client.'
+    end
+  end
+
   if client.server_capabilities.documentHighlightProvider then
     -- the timer has application lifetime. no need to close
     local delay = 300
@@ -238,10 +255,10 @@ local lsp_attach         = function ( args )
       },
       {
         description = 'Remove highlight from symbol under cursor on move',
-        events = { 'CursorMoved', 'InsertEnter' },
+        events = { 'CursorMoved', 'InsertEnter', },
         buffer = bufnr,
         command = debounced_clear,
-      }
+      },
     }
   end
 
@@ -261,7 +278,7 @@ local lsp_attach         = function ( args )
     description = 'Show hover documentation above cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = { 'K', '<leader>lk' },
+    keys = { 'K', '<leader>lk', },
     command = vim.lsp.buf.hover,
   } )
 
@@ -325,7 +342,7 @@ local lsp_attach         = function ( args )
     description = 'Rename symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = { '<f2>', '<leader>ln' },
+    keys = { '<f2>', '<leader>ln', },
     command = vim.lsp.buf.rename,
   } )
 end
@@ -377,11 +394,11 @@ auto 'lsp' {
     description = 'Semantic Tokens from the LSP',
     events = 'LspTokenUpdate',
     command = token_update,
-  }
+  },
 }
 
 local lsp_info = function ( command )
-  local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
+  local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0, }
   local active_clients = vim.lsp.get_clients( all_or_current )
 
   local infos = vim.iter( active_clients )
@@ -410,20 +427,20 @@ local lsp_info = function ( command )
 end
 
 local lsp_info_extended = function ( command )
-  local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0 }
+  local all_or_current = command.args and command.args == 'all' and {} or { bufnr = 0, }
   local active_clients = vim.lsp.get_clients( all_or_current )
   ui.show_tree( active_clients )
 end
 
 user_command( 'LspInfo', lsp_info, {
   nargs = '?',
-  complete = function () return { 'all' } end,
+  complete = function () return { 'all', } end,
   desc = 'Shows basic information about running LSP clients.',
 } )
 
 user_command( 'LspInfoExtended', lsp_info_extended, {
   nargs = '?',
-  complete = function () return { 'all' } end,
+  complete = function () return { 'all', } end,
   desc = 'Shows detailed information about running LSP clients.',
 } )
 

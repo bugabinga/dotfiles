@@ -2,8 +2,14 @@ local map = require 'std.map'
 
 return {
   'nvim-tree/nvim-tree.lua',
+  version = 'v1.0',
+  lazy = false,
   cmd = 'NvimTreeOpen',
   keys = '<leader>e',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'antosha417/nvim-lsp-file-operations',
+  },
   init = function ()
     -- disable netrw at the very start of your init.lua
     vim.g.loaded_netrw = 1
@@ -25,6 +31,7 @@ return {
         dotfiles = false,
       },
     }
+    require 'lsp-file-operations'.setup()
 
     map.normal {
       description = 'Toggle Tree File Explorer',
