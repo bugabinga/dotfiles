@@ -3,7 +3,7 @@ local icon = require 'std.icon'
 local auto = require 'std.auto'
 local ignored = require 'std.ignored'
 
-local NEW_FILE = '~new~'
+local NEW_FILE = '~untitled~'
 
 return {
   {
@@ -13,6 +13,7 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'lewis6991/gitsigns.nvim',
+      'SmiteshP/nvim-navic',
     },
     config = function ()
       local heirline = require 'heirline'
@@ -28,7 +29,7 @@ return {
         command = function () utils.on_colorscheme( nugu ) end,
       }
 
-      local vi_mode                 = {
+      local vi_mode              = {
         init = function ( self )
           self.mode = vim.fn.mode( 1 ) -- :h mode()
         end,
@@ -104,7 +105,7 @@ return {
         },
       }
 
-      local file_icon               = {
+      local file_icon            = {
         init = function ( self )
           local filename = self.filename
           local extension = vim.fn.fnamemodify( filename, ':e' )
@@ -116,7 +117,7 @@ return {
         hl = 'DefaultIcon',
       }
 
-      local file_name               = {
+      local file_name            = {
         init = function ( self )
           self.lfilename = vim.fs.normalize( vim.fn.fnamemodify( self.filename, ':.' ) )
           if self.lfilename == '' then self.lfilename = NEW_FILE end
@@ -136,7 +137,7 @@ return {
         },
       }
 
-      local file_flags              = {
+      local file_flags           = {
         {
           condition = function ()
             return vim.bo.modified
@@ -153,7 +154,7 @@ return {
         },
       }
 
-      local file_name_block         = {
+      local file_name_block      = {
         init = function ( self )
           self.filename = vim.fs.normalize( vim.api.nvim_buf_get_name( 0 ) )
         end,
@@ -165,20 +166,20 @@ return {
         { provider = '%<', }, -- this means that the statusline is cut here when there's not enough space
       }
 
-      local file_type               = {
+      local file_type            = {
         provider = function ()
           return icon.file .. ' ' .. string.upper( vim.bo.filetype )
         end,
       }
 
-      local file_encoding           = {
+      local file_encoding        = {
         provider = function ()
           local enc = (vim.bo.fenc ~= '' and vim.bo.fenc) or vim.o.enc -- :h 'enc'
           return enc ~= 'utf-8' and enc:upper()
         end,
       }
 
-      local file_format             = {
+      local file_format          = {
         static = {
           dos = icon.newline .. icon.carriage_return,
           unix = icon.newline,

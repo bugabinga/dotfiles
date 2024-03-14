@@ -92,7 +92,7 @@ local nugu = lush( function ( injects )
     Whitespace { NonText },
     NormalNC { Normal },
     Pmenu { NormalFloat },
-    PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = Pemnu.bg, gui = 'bold underline' },
+    PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = Pmenu.bg, gui = 'bold underline' },
     PmenuSbar { bg = ui_unfocus },
     PmenuThumb { bg = ui_minor },
     Question { fg = ui_important_local, gui = 'bold' },
