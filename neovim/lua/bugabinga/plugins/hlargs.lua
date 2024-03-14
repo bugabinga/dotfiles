@@ -1,6 +1,6 @@
 return {
   'm-demare/hlargs.nvim',
-  event = 'BufRead',
+  event = { 'BufRead', 'BufLeave', 'BufEnter', 'SessionLoadPost', },
   opts = {
     -- highlight = { 'Hlargs', },
     paint_arg_declarations = true,
