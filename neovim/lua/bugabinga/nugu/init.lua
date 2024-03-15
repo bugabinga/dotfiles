@@ -276,7 +276,7 @@ local nugu = lush( function ( injects )
     LazyCommitScope { LazyComment, gui = 'italic' },
     LazyCommitType { LazyCommitScope },
     LazyDimmed { fg = NormalFloat.fg },
-    LazyDir { N.fgormalFloat },
+    LazyDir { fg = NormalFloat.fg },
     LazyH1 { Bold },
     LazyH2 { LazyH1 },
     LazyLocal {},
