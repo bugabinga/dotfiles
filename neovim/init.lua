@@ -9,7 +9,9 @@
 --                    ▀                          ▀
 
 -- setup debug mode
-require 'std.debug'.toggle()
+-- require 'std.debug'.toggle()
+
+vim.cmd.colorscheme 'nugu_fresh'
 
 local ok, loaded
 
