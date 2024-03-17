@@ -92,7 +92,7 @@ local nugu = lush( function ( injects )
     Whitespace { NonText },
     NormalNC { Normal },
     Pmenu { NormalFloat },
-    PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = Pemnu.bg, gui = 'bold underline' },
+    PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = Pmenu.bg, gui = 'bold underline' },
     PmenuSbar { bg = ui_unfocus },
     PmenuThumb { bg = ui_minor },
     Question { fg = ui_important_local, gui = 'bold' },
@@ -276,7 +276,7 @@ local nugu = lush( function ( injects )
     LazyCommitScope { LazyComment, gui = 'italic' },
     LazyCommitType { LazyCommitScope },
     LazyDimmed { fg = NormalFloat.fg },
-    LazyDir { N.fgormalFloat },
+    LazyDir { fg = NormalFloat.fg },
     LazyH1 { Bold },
     LazyH2 { LazyH1 },
     LazyLocal {},
@@ -471,6 +471,7 @@ local nugu = lush( function ( injects )
     IblScope { fg = ui_focus, bg = Normal.bg },
 
     Hlargs { fg = content_important_local },
+
     MiniStarterCurrent { fg = ui_accent.readable(), bg = ui_accent },         -- current item.
     MiniStarterFooter { Keyword },                                            -- footer units.
     MiniStarterHeader { Comment },                                            -- header units.

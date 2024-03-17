@@ -1,3 +1,4 @@
+local debug = require 'std.debug'
 local auto = require 'std.auto'
 
 -- How many milliseconds must pass before neovim decides I was "idle"
@@ -6,12 +7,12 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 250
 
 -- wrap line movements, when start/end is reached
-vim.opt.whichwrap:append'<'
-vim.opt.whichwrap:append'>'
-vim.opt.whichwrap:append'['
-vim.opt.whichwrap:append']'
-vim.opt.whichwrap:append'h'
-vim.opt.whichwrap:append'l'
+vim.opt.whichwrap:append '<'
+vim.opt.whichwrap:append '>'
+vim.opt.whichwrap:append '['
+vim.opt.whichwrap:append ']'
+vim.opt.whichwrap:append 'h'
+vim.opt.whichwrap:append 'l'
 
 -- Tabs and Spaces, i like 'em 2 spaces wide
 -- only insert spaces for tabs if language configuration explicitly declares so
@@ -27,8 +28,8 @@ vim.opt.smarttab = true
 vim.opt.wrap = false
 
 -- do not keep distance to borders while scrolling
-vim.opt.scrolloff = 999
-vim.opt.sidescrolloff = 999
+vim.opt.scrolloff = 0
+vim.opt.sidescrolloff = 0
 
 -- try to guess indentation based on context
 vim.opt.smartindent = true
@@ -99,12 +100,12 @@ auto 'load_project_if_available' {
     if table.contains( ignored.filetypes, filetype ) then return end
     local buftype = vim.api.nvim_buf_get_option( buffer, 'buftype' )
     if table.contains( ignored.buftypes, buftype ) then return end
-    local root = vim.fs.normalize(project.find_root_by_filetype( file, filetype ))
-    local cwd = vim.fs.normalize(vim.uv.cwd())
+    local root = vim.fs.normalize( project.find_root_by_filetype( file, filetype ) )
+    local cwd = vim.fs.normalize( vim.uv.cwd() )
     if root and cwd ~= root then
       vim.uv.chdir( root )
       vim.notify( 'Changed root directory to ' .. root .. ' from ' .. cwd )
-      -- vim.print( buffer, file, vim.inspect( filetype ), vim.inspect( buftype ) )
+      debug.print( buffer, file, vim.inspect( filetype ), vim.inspect( buftype ) )
     end
   end,
 }

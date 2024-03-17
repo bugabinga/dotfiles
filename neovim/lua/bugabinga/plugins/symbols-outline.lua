@@ -1,5 +1,13 @@
 return {
-  'simrat39/symbols-outline.nvim',
-  cmd = 'SymbolsOutline',
-  opts = {},
+  'SmiteshP/nvim-navbuddy',
+  cmd = 'NavBuddy',
+  dependencies = {
+    'SmiteshP/nvim-navic',
+    'MunifTanjim/nui.nvim',
+  },
+  opts = {
+    window = {
+      border = vim.g.border_style,
+    },
+  },
 }

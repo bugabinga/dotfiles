@@ -4,13 +4,13 @@ return {
   name = 'LuaLS',
   filetypes = 'lua',
   command = 'lua-language-server',
-  root_dir = project.find_lua_project_root ,
+  root_dir = project.find_lua_project_root,
   single_file_support = true,
   workspaces = true,
   settings = {
     Lua = {
       addonManager = { enable = false },
-      completion = { callSnippet = 'Both', postfix = '.' },
+      completion = { callSnippet = 'Disable', postfix = '.' },
       diagnostics = { globals = { 'vim' }, workspaceRate = 50 },
       hint = { enable = true, setType = true },
       telemetry = { enable = false },
@@ -18,5 +18,4 @@ return {
       workspace = { checkThirdParty = false, }
     },
   },
-  before_init = require 'neodev.lsp'.before_init,
 }
