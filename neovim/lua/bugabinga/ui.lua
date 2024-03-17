@@ -1,5 +1,3 @@
-local display = require 'std.display'
-
 local NuiPopup = require 'nui.popup'
 local NuiText = require 'nui.text'
 local NuiLine = require 'nui.line'
@@ -30,13 +28,15 @@ return {
   show_tree = function ( tree )
     local popup = get_nui_popup()
     local bufnr = popup.bufnr
-    local text, _ = display( tree )
+    local text = vim.inspect( tree )
 
     local line_number = 1
-    for line in text:gmatch  '[^\r\n]+'  do
+    local namespace = -1
+    for line in text:gmatch '[^\r\n]+' do
       local nui_line = NuiLine()
       nui_line:append( NuiText( line, 'NormalFloat' ) )
-      nui_line:render( bufnr,                        -1, line_number )
+
+      nui_line:render( bufnr,                          namespace, line_number )
       line_number = line_number + 1
     end
 

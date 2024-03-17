@@ -6,21 +6,14 @@ map {
   keys = '<space>',
   command = '<nop>',
 }
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
--- disable default ENTER binding
-map {
-  keys = '<enter>',
-  command = '<nop>',
-}
 
 -- insert newline under or above in normal mode
 map.normal {
   description = 'Insert newline under cursor',
   category = 'editing',
-  keys = '<C-enter>',
+  keys = '<leader>o',
   command = function ()
     local current_buffer = 0
     local current_line = vim.api.nvim_win_get_cursor( current_buffer )[1]
@@ -33,12 +26,13 @@ map.normal {
 map.normal {
   description = 'Insert newline above cursor',
   category = 'editing',
-  keys = '<C-S-enter>',
+  keys = '<leader>O',
   command = function ()
     local current_buffer = 0
     local current_line = vim.api.nvim_win_get_cursor( current_buffer )[1] - 1
     local strict_indexing = false
     local newline = { '' }
+
     vim.api.nvim_buf_set_lines( current_buffer, current_line, current_line, strict_indexing, newline )
   end,
 }
@@ -101,6 +95,10 @@ map.insert {
   command = function () return vim.fn.pumvisible() == 1 and '<C-n>' or '<tab>' end,
 }
 
+--TODO make global
+local win32 = vim.loop.os_uname().sysname:match 'Win'
+local wsl2 = vim.loop.os_uname().release:match 'WSL2'
+
 local function open_link_under_cursor()
   ---@diagnostic disable-next-line: missing-parameter
   local file_under_cursor = vim.fn.expand '<cfile>'
@@ -109,16 +107,19 @@ local function open_link_under_cursor()
   if file_under_cursor and file_under_cursor:match '%a+://.+' then
     vim.system(
     ---@diagnostic disable-next-line: assign-type-mismatch
-      { 'firefox', file_under_cursor },
+      (win32 or wsl2) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor }
+      or { 'firefox', file_under_cursor },
       { text = true },
       function ( completed )
         if completed.code == 0 then
-          vim.notify( 'Openend ' .. file_under_cursor )
+          vim.schedule( function () vim.notify( 'Opened ' .. file_under_cursor ) end )
         else
           error( 'Failed to open ' .. file_under_cursor .. ' because: ' .. completed.stderr )
         end
       end
     )
+  else
+    vim.notify 'Found no url under cursor !'
   end
 end
 
@@ -190,7 +191,7 @@ map.normal {
     vim.lsp.buf.format { async = false }
 
     -- TODO: run makeprg
-    vim.cmd [[silent make]]
+    -- vim.cmd [[silent make]]
 
     -- save
     vim.cmd [[wa]]

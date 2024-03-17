@@ -3,15 +3,16 @@ local ignored = require 'std.ignored'
 return {
   {
     'lukas-reineke/virt-column.nvim',
-    event = { 'BufReadPost', 'BufNew' },
+    tag = 'v2.0.2',
+    event = { 'BufReadPost', 'BufNew', },
     opts = {
       -- FIXME: I have visual redrawing bugs right now.
       enabled = false,
-      char = { '░', '▒', '▓' },
+      char = { '░', '▒', '▓', },
       exclude = {
         filetypes = ignored.filetypes,
         buftypes = ignored.buftypes,
-      }
+      },
     },
   },
 }
