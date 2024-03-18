@@ -51,10 +51,10 @@ local add_toggler = function ( display_name, options )
   table.insert( togglers, make_toggler( display_name, options ) )
 end
 
-add_toggler( icon.spelling,      { make_option 'spell' } )
-add_toggler( icon.linenumber,    { make_option 'number', make_option 'relativenumber' } )
-add_toggler( icon.linehighlight, { make_option 'cursorline' } )
-add_toggler( icon.virtual,       { make_option ('virtualedit', 'all') } )
+add_toggler( icon.spelling,      { make_option 'spell', } )
+add_toggler( icon.linenumber,    { make_option 'number', make_option 'relativenumber', } )
+add_toggler( icon.linehighlight, { make_option 'cursorline', } )
+add_toggler( icon.virtual,       { make_option( 'virtualedit', 'all' ), } )
 
 local tostring = function ( self )
   return vim.iter( self )

@@ -1,5 +1,5 @@
 return {
-	"max397574/better-escape.nvim",
-	event = "InsertEnter",
-	opts = {},
+  'max397574/better-escape.nvim',
+  event = 'InsertEnter',
+  opts = {},
 }

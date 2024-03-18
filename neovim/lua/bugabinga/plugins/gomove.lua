@@ -4,17 +4,17 @@ return {
   {
     'booperlv/nvim-gomove',
     keys = {
-      { '<A-h>', nil, mode = { 'n', 'x' } },
-      { '<A-j>', nil, mode = { 'n', 'x' } },
-      { '<A-k>', nil, mode = { 'n', 'x' } },
-      { '<A-l>', nil, mode = { 'n', 'x' } },
+      { '<A-h>', nil, mode = { 'n', 'x', }, },
+      { '<A-j>', nil, mode = { 'n', 'x', }, },
+      { '<A-k>', nil, mode = { 'n', 'x', }, },
+      { '<A-l>', nil, mode = { 'n', 'x', }, },
 
-      { '<A-H>', nil, mode = { 'n', 'x' } },
-      { '<A-J>', nil, mode = { 'n', 'x' } },
-      { '<A-K>', nil, mode = { 'n', 'x' } },
-      { '<A-L>', nil, mode = { 'n', 'x' } },
+      { '<A-H>', nil, mode = { 'n', 'x', }, },
+      { '<A-J>', nil, mode = { 'n', 'x', }, },
+      { '<A-K>', nil, mode = { 'n', 'x', }, },
+      { '<A-L>', nil, mode = { 'n', 'x', }, },
     },
-    config = function()
+    config = function ()
       local move = require 'gomove'
 
       move.setup {
@@ -30,7 +30,7 @@ return {
 
       -- default mappings in gomove set no options, but use old keymap api.
       -- recreating old defaults here:
-      local options = { remap = true }
+      local options = { remap = true, }
 
       -- i have tried using the lua functions directly for the commands below.
       -- the behaviour was slightly buggy in respects to block selections though.
@@ -42,58 +42,58 @@ return {
         category = 'editing',
         keys = '<A-h>',
         options = options,
-				command = '<Plug>GoNSMLeft',
+        command = '<Plug>GoNSMLeft',
       }
       map.normal {
         description = 'Move line down',
         category = 'editing',
         keys = '<A-j>',
         options = options,
-				command = '<Plug>GoNSMDown',
+        command = '<Plug>GoNSMDown',
       }
       map.normal {
         description = 'Move line up',
         category = 'editing',
         keys = '<A-k>',
         options = options,
-				command = '<Plug>GoNSMUp',
+        command = '<Plug>GoNSMUp',
       }
       map.normal {
         description = 'Move character right',
         category = 'editing',
         keys = '<A-l>',
         options = options,
-				command = '<Plug>GoNSMRight',
+        command = '<Plug>GoNSMRight',
       }
 
       -- VISUAL MOVE
       map.visual {
         description = 'Move block left',
         category = 'editing',
-				keys = '<A-h>',
+        keys = '<A-h>',
         options = options,
-				command = '<Plug>GoVSMLeft',
+        command = '<Plug>GoVSMLeft',
       }
       map.visual {
         description = 'Move block down',
         category = 'editing',
         keys = '<A-j>',
         options = options,
-				command = '<Plug>GoVSMDown',
+        command = '<Plug>GoVSMDown',
       }
       map.visual {
         description = 'Move block up',
         category = 'editing',
         keys = '<A-k>',
         options = options,
-				command = '<Plug>GoVSMUp',
+        command = '<Plug>GoVSMUp',
       }
       map.visual {
         description = 'Move block right',
         category = 'editing',
         keys = '<A-l>',
         options = options,
-				command = '<Plug>GoVSMRight',
+        command = '<Plug>GoVSMRight',
       }
 
       -- NORMAL DUPLICATE
@@ -102,28 +102,28 @@ return {
         category = 'editing',
         keys = '<A-H>',
         options = options,
-				command = '<Plug>GoNSDLeft',
+        command = '<Plug>GoNSDLeft',
       }
       map.normal {
         description = 'Duplicate line down',
         category = 'editing',
         keys = '<A-J>',
         options = options,
-				command = '<Plug>GoNSDDown',
+        command = '<Plug>GoNSDDown',
       }
       map.normal {
         description = 'Duplicate line up',
         category = 'editing',
         keys = '<A-K>',
         options = options,
-				command = '<Plug>GoNSDUp',
+        command = '<Plug>GoNSDUp',
       }
       map.normal {
         description = 'Duplicate character right',
         category = 'editing',
         keys = '<A-L>',
         options = options,
-				command = '<Plug>GoNSDRight',
+        command = '<Plug>GoNSDRight',
       }
 
       -- VISUAL DUPLICATE
@@ -132,29 +132,30 @@ return {
         category = 'editing',
         keys = '<A-H>',
         options = options,
-				command = '<Plug>GoVSDLeft',
+        command = '<Plug>GoVSDLeft',
       }
       map.visual {
         description = 'Duplicate block down',
         category = 'editing',
         keys = '<A-J>',
         options = options,
-				command = '<Plug>GoVSDDown',
+        command = '<Plug>GoVSDDown',
       }
       map.visual {
         description = 'Duplicate block up',
         category = 'editing',
         keys = '<A-K>',
         options = options,
-				command = '<Plug>GoVSDUp',
+        command = '<Plug>GoVSDUp',
       }
       map.visual {
         description = 'Duplicate block right',
         category = 'editing',
         keys = '<A-L>',
         options = options,
-				command = '<Plug>GoVSDRight',
+        command = '<Plug>GoVSDRight',
       }
     end,
   },
 }
+

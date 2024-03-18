@@ -50,7 +50,6 @@ local lsp_start          = function ( file_type_event )
   debug.print 'trying to start lsp'
   local match = file_type_event.match
 
-  local matches_to_ignore = ignored.filetypes
   debug.print( 'filetypes to ignore', ignored.filetypes, 'current filetype', match )
   if vim.iter( ignored.filetypes ):find( match ) then return end
 
@@ -130,6 +129,7 @@ local lsp_start          = function ( file_type_event )
       cmd_cwd = root_dir,
       -- cmd_env = config.environment,
       detached = false, -- do i want this?
+      root_dir = root_dir,
       -- workspace_folders = { config.root_dir(buffer_path) }, -- TODO: i think workspaces can only ever be declared per project. i cannot think of a generic way to calculate those, like with root_dir. maybe a toml/ini file in root_dir sets these?
       capabilities = capabilities,
       -- handlers = vim.lsp.handlers,
@@ -142,11 +142,10 @@ local lsp_start          = function ( file_type_event )
       on_error = function ( code, ... ) vim.print( 'LSP ERROR', code, ... ) end,
       before_init = config.before_init,
       -- on_init = nil, -- should i send workspace/didChangeConfiguration here?
-      on_exit = function ( code, signal, client_id ) vim.print( 'LSP CLIENT EXIT', code, signal, client_id ) end,
-      on_attach = function ( client, bufnr ) debug.print( 'LSP CLIENT ATTACH', client, bufnr ) end,
-      trace = 'off',
+      on_exit = function ( code, signal, client_id ) debug.print( 'LSP CLIENT EXIT', code, signal, client_id ) end,
+      on_attach = function ( client, attach_bufnr ) debug.print( 'LSP CLIENT ATTACH', client, attach_bufnr ) end,
+      trace = debug.get() and 'on' or 'off',
       flags = { allow_incremental_sync = true, debounce_text_changes = 250, exit_timeout = 200, },
-      root_dir = root_dir,
     }
 
     local lsp_starter = config.custom_start or vim.lsp.start
@@ -224,16 +223,14 @@ local lsp_attach         = function ( args )
   end
 
   if client.server_capabilities.documentSymbolProvider then
-    local ok, navic = pcall( require, 'nvim-navic' )
-    if ok then
-      vim.notify 'navic ready'
+    local navic_ok, navic = pcall( require, 'nvim-navic' )
+    if navic_ok then
       navic.attach( client, bufnr )
     else
       vim.notify 'nvim-navic not found. could not attach to lsp client.'
     end
-    local ok, navbuddy = pcall( require, 'nvim-navbuddy' )
-    if ok then
-      vim.notify 'navbuddy ready'
+    local navbuddy_ok, navbuddy = pcall( require, 'nvim-navbuddy' )
+    if navbuddy_ok then
       navbuddy.attach( client, bufnr )
     else
       vim.notify 'nvim-navbuddy not found. could not attach to lsp client.'
