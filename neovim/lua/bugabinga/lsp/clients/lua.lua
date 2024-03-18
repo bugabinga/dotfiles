@@ -7,15 +7,16 @@ return {
   root_dir = project.find_lua_project_root,
   single_file_support = true,
   workspaces = true,
+  before_init = require 'neodev.lsp'.before_init,
   settings = {
     Lua = {
-      addonManager = { enable = false },
-      completion = { callSnippet = 'Disable', postfix = '.' },
-      diagnostics = { globals = { 'vim' }, workspaceRate = 50 },
-      hint = { enable = true, setType = true },
-      telemetry = { enable = false },
-      window = { progressBar = false, statusBar = false },
-      workspace = { checkThirdParty = false, }
+      addonManager = { enable = false, },
+      completion = { callSnippet = 'Disable', postfix = '.', },
+      diagnostics = { globals = { 'vim', }, workspaceRate = 50, },
+      hint = { enable = true, setType = true, },
+      telemetry = { enable = false, },
+      window = { progressBar = true, statusBar = true, },
+      workspace = { checkThirdParty = false, },
     },
   },
 }
