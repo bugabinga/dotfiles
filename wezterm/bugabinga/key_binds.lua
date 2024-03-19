@@ -33,6 +33,9 @@ local key_tables = {
 		{ key = 'k',      action = wez.action.ActivatePaneDirection 'Up' },
 		{ key = 'l',      action = wez.action.ActivatePaneDirection 'Right' },
 
+		{ key = 'v', action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
+		{ key = 's', action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
+
 		{ key = 'r',      action = wez.action.ActivateKeyTable { name = resize_pane_mode, one_shot = false } },
 
 		{ key = 'q',      action = wez.action.CloseCurrentPane { confirm = true } },
@@ -118,16 +121,6 @@ local keys = {
 		key = 'v',
 		mods = 'CTRL|SHIFT',
 		action = wez.action.PasteFrom 'Clipboard',
-	},
-	{
-		key = 'v',
-		mods = 'LEADER',
-		action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
-	},
-	{
-		key = 's',
-		mods = 'LEADER',
-		action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' },
 	},
 	{
 		key = 't',
