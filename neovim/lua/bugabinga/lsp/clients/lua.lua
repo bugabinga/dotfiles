@@ -11,7 +11,7 @@ return {
   settings = {
     Lua = {
       addonManager = { enable = false, },
-      completion = { callSnippet = 'Disable', postfix = '.', },
+      completion = { callSnippet = 'Replace', },
       diagnostics = { globals = { 'vim', }, workspaceRate = 50, },
       hint = { enable = true, setType = true, },
       telemetry = { enable = false, },

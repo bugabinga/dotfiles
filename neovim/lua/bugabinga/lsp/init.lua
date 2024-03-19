@@ -193,16 +193,21 @@ local old_omnifunc
 local old_tagfunc
 
 local keybinds           = {}
-local add                = function ( client_id, keybind )
+local add                = function ( client_id, keybind_remover )
+  vim.validate {
+    client_id = { client_id, 'number', },
+    keybind_remover = { keybind_remover, 'function', },
+  }
   if not table.contains( keybinds, client_id ) then
     keybinds[client_id] = {}
   end
-  table.insert( keybinds[client_id], keybind )
+  table.insert( keybinds[client_id], keybind_remover )
 end
 
 local lsp_attach         = function ( args )
   local bufnr = args.buf
-  local client = vim.lsp.get_client_by_id( args.data.client_id )
+  local client_id = args.data.client_id
+  local client = vim.lsp.get_client_by_id( client_id )
   if not client then return end
 
   debug.print( client.server_capabilities )
@@ -237,6 +242,11 @@ local lsp_attach         = function ( args )
     end
   end
 
+  local lsp_signature_ok, lsp_signature = pcall( require, 'lsp_signature' )
+  if lsp_signature_ok then
+    lsp_signature.on_attach( {}, bufnr )
+  end
+
   if client.server_capabilities.documentHighlightProvider then
     -- the timer has application lifetime. no need to close
     local delay = 300
@@ -260,18 +270,18 @@ local lsp_attach         = function ( args )
   end
 
   if client.server_capabilities.inlayHintProvider then
-    add( map.normal {
+    add( client_id, map.normal {
       description = 'Toggle inlay hints',
       category = 'lsp',
       buffer = bufnr,
       keys = '<leader>ti',
       command = function ()
-        vim.lsp.inlay_hint( bufnr, nil )
+        vim.lsp.inlay_hint.enable( bufnr, nil )
       end,
     } )
   end
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show hover documentation above cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -279,7 +289,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.hover,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show signature help under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -287,7 +297,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.signature_help,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show available code actions on current line.',
     category = 'lsp',
     buffer = bufnr,
@@ -295,7 +305,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.code_action,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Goto to definition of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -303,7 +313,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.definition,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show implementations of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -311,7 +321,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.implementation,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show incoming calls of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -319,7 +329,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.incoming_calls,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show outgoing calls of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -327,7 +337,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.outgoing_calls,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show references of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -335,7 +345,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.references,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Rename symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
