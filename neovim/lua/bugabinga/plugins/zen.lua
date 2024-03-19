@@ -3,6 +3,7 @@ return {
   cmd = 'ZenMode',
   dependencies = { { 'folke/twilight.nvim', opts = { dimming = { inactive = true } } } },
   opts = {
+    --FIXME: this does not work, because on win32 there is no base64 binary
     plugins = { wezterm = { enabled = true, font = "+4" } },
     window = {
       width = 0.69,
