@@ -2,8 +2,9 @@ local map = require 'std.map'
 
 return {
   'nvim-tree/nvim-tree.lua',
-  version = 'v1.0',
-  lazy = false,
+  version = '1.*',
+  -- docs do not recommend to lazy load, but it does load slowly on win32!
+  -- lazy = false,
   cmd = 'NvimTreeOpen',
   keys = '<leader>e',
   dependencies = {
@@ -20,7 +21,9 @@ return {
   end,
   config = function ()
     require 'nvim-tree'.setup {
-      sort_by = 'case_sensitive',
+      sort = {
+        sorter = 'case_sensitive',
+      },
       view = {
         width = 69,
       },
