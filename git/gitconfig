@@ -50,6 +50,9 @@
 [mergetool "nvim_merge"]
   cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
+[push]
+  autoSetupRemote = true
+
 [pull]
   rebase = false
 
@@ -80,5 +83,3 @@
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
   path = .gitconfig.include
-[push]
-	autoSetupRemote = true

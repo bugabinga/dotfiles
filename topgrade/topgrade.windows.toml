@@ -1,6 +1,6 @@
 [misc]
 # Disable specific steps - same options as the command line flag
-disable = ["wsl", "vim"]
+disable = ["system"]
 
 assume_yes = true
 
@@ -41,8 +41,9 @@ enable_winget = true
 "01 - Scoop Export" = "scoop export --config > 'X:/scoop_installed_apps.json' *> $null"
 
 [commands]
-"00 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
-"01 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
-"02 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
-"03 - MeMate" = "nu X:/update_memate.nu"
-"04 - TLDR" = "tldr --update"
+"00 - Register Nu Plugins" = "nu -c 'register ~\\scoop\\apps\\nu\\current\\nu_plugin_gstat.exe'"
+"10 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
+"20 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
+"30 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
+"31 - MeMate" = "nu X:/update_memate.nu"
+"40 - TLDR" = "tldr --update"
