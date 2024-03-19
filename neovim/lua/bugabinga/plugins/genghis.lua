@@ -6,9 +6,11 @@ return {
     'Duplicate',
     'Rename',
     'Move',
+    'MoveToFolderInCwd',
     'Trash',
     'CopyFilename',
     'CopyFilepath',
+    'CopyFilepathWithTilde',
     'CopyRelativePath',
     'CopyDirectoryPath',
     'CopyRelativeDirectoryPath',
@@ -20,15 +22,15 @@ return {
   config = function ()
     local genghis = require 'genghis' -- no setup needed
     local keymap = vim.keymap.set
-    keymap( 'n', '<leader>yp', genghis.copyFilepath )
-    keymap( 'n', '<leader>yn', genghis.copyFilename )
-    keymap( 'n', '<leader>cx', genghis.chmodx )
-    keymap( 'n', '<leader>rf', genghis.renameFile )
-    keymap( 'n', '<leader>mf', genghis.moveAndRenameFile )
-    keymap( 'n', '<leader>mc', genghis.moveToFolderInCwd )
-    keymap( 'n', '<leader>nf', genghis.createNewFile )
-    keymap( 'n', '<leader>yf', genghis.duplicateFile )
-    keymap( 'n', '<leader>df', genghis.trashFile )
-    keymap( 'x', '<leader>x',  genghis.moveSelectionToNewFile )
+    keymap( 'n', '<leader>fp', genghis.copyFilepath )
+    keymap( 'n', '<leader>fN', genghis.copyFilename )
+    keymap( 'n', '<leader>fc', genghis.chmodx )
+    keymap( 'n', '<leader>fr', genghis.renameFile )
+    keymap( 'n', '<leader>fm', genghis.moveAndRenameFile )
+    keymap( 'n', '<leader>fi', genghis.moveToFolderInCwd )
+    keymap( 'n', '<leader>fn', genghis.createNewFile )
+    keymap( 'n', '<leader>fy', genghis.duplicateFile )
+    keymap( 'n', '<leader>fd', genghis.trashFile )
+    keymap( 'x', '<leader>fx', genghis.moveSelectionToNewFile )
   end,
 }

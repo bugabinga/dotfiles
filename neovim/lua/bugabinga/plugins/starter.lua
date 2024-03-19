@@ -9,35 +9,33 @@ return {
     local is_home = vim.uv.cwd() == vim.uv.os_homedir()
 
     local custom_actions = {
-      { name = 'Find files', action = 'Telescope find_files', section = 'Builtin actions' },
-      { name = 'Oil',        action = 'Oil',                  section = 'Builtin actions' },
+      { name = 'Find files', action = 'Telescope find_files', section = 'Builtin actions', },
+      { name = 'Oil',        action = 'Oil',                  section = 'Builtin actions', },
     }
 
     local sessions = function ( limit )
       limit = limit or 8
       local persistence = require 'persistence'
-      local persistence_config = require 'persistence.config'
       local sessions = persistence.list()
       table.sort( sessions, function ( a, b )
         return vim.loop.fs_stat( a ).mtime.sec > vim.loop.fs_stat( b ).mtime.sec
       end )
       return vim.iter( sessions )
         :slice( 1, limit )
+        :filter( function ( session_path )
+          return vim.fn.filereadable( session_path ) ~= 0
+        end )
         :map( function ( session_path )
           -- session files encode their cwd as an escaped path in their file name
-          -- t  = tail of name
-          -- r  = remove extension
-          -- gs = replace all % with /
-          -- ~  = relative to home
-          local name = vim.fn.fnamemodify( session_path, ':t:r:gs_%_/_:~' )
-          local session_restore = 'silent! source ' .. vim.fn.fnameescape( session_path )
+          local name = vim.fs.basename( session_path:gsub( '%%%%', '/:' ):gsub( '%%', '/' ):gsub( '%.vim', '' ) )
           local action = function ()
+            local session_restore = 'silent! source ' .. vim.fn.fnameescape( session_path )
             vim.cmd( session_restore )
             vim.notify( 'Restored session: ' .. name )
           end
           local section = 'Sessions'
 
-          return { name = name, action = action, section = section }
+          return { name = name, action = action, section = section, }
         end )
         :totable()
     end
@@ -52,7 +50,7 @@ return {
           pattern = 'LazyVimStarted',
           once = true,
           command = vim.schedule_wrap( function ()
-            if vim.bo.filetype == "starter" then
+            if vim.bo.filetype == 'starter' then
               startuptime = require 'lazy'.stats().startuptime
               starter.refresh()
             end
@@ -80,7 +78,7 @@ return {
       content_hooks = {
         starter.gen_hook.adding_bullet(),
         starter.gen_hook.aligning( 'center', 'center' ),
-        starter.gen_hook.indexing( 'all', { 'Recent files', 'Recent files (current directory)', 'Builtin actions' } ),
+        starter.gen_hook.indexing( 'all', { 'Recent files', 'Recent files (current directory)', 'Builtin actions', } ),
       },
     }
   end,

@@ -3,7 +3,7 @@ local debug = require 'std.debug'
 return {
   'j-hui/fidget.nvim',
   version = '1.4.0',
-  lazy = false,
+  event = 'LspAttach',
   opts = {
     progress = {
       suppress_on_insert = false, -- Suppress new messages while in insert mode
