@@ -1,18 +1,20 @@
 # GLOBAL VARIABLES
-# GLOBAL VARIABLES
 
 $env.WIN32 = ( $nu.os-info.name =~ "windows" )
 $env.NURC_DIR  = ( $nu.config-path | path expand | path dirname )
 $env.DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
 $env.WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
 $env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
+
 if ($env | get -i TERM_PROGRAM) == WezTerm {
-	$env.TERM = "wezterm"
-	$env.TERMCAP = ~/.terminfo/w/wezterm
+  $env.TERM =  "wezterm"
+  if not $env.WIN32 {
+		$env.TERMCAP = ~./termcap/w/wezterm
+	}
 }
 
 # theme for ls and other programs, that use LS_COLORS
-$env.LS_COLORS = (try { vivid generate ayu | into string } catch {""})
+$env.LS_COLORS = (try { vivid generate alabaster_dark | into string } catch {""})
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
@@ -35,11 +37,12 @@ $env.NU_LIB_DIRS = [
     ($nu.config-path | path dirname | path join 'completions')
 ]
 
-alias cb = flatpak run app.getclipboard.Clipboard
-
-$env.CLIPBOARD_EDITOR = nvim
-$env.CLIPBOARD_HISTORY = 100000
-$env.CLIPBOARD_PERSISTDIR = /home/oli/Clipboard
-$env.CLIPBOARD_NOAUDIO = 1
-# $env.CLIPBOARD_NOGUI = 1
-$env.CLIPBOARD_THEME = light
+if $env.WIN32 {
+  # TODO: insert scoop cargo path here
+  # $env.CARGO_HOME = ( '~/.cargo' | path expand )
+	$env.Path = ( $env.Path | prepend '' )
+} else {
+	$env.CARGO_HOME = ( '~/.cargo' | path expand )
+	$env.PATH = ( $env.PATH | prepend ( $env.CARGO_HOME | path join 'bin') )
+	$env.PATH = ( $env.PATH | prepend ( '~/.local/bin'| path expand ) )
+}

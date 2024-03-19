@@ -1,6 +1,6 @@
 if vim.g.colors_name == nil then
   -- Get the current hour
-  local current_hour = tonumber( os.date  '%H'  )
+  local current_hour = tonumber( os.date '%H' )
 
   -- Set the background based on the time of day
   if current_hour >= 9 and current_hour < 17 then
@@ -10,6 +10,9 @@ if vim.g.colors_name == nil then
     -- print"setting background to dark"
     vim.opt.background = 'dark'
   end
+else
+  -- Reset all highlights if another colorscheme was previously set
+  vim.cmd [[ highlight clear ]]
 end
 
 vim.g.colors_name = 'nugu'
@@ -18,6 +21,4 @@ vim.g.colors_name = 'nugu'
 package.loaded['bugabinga.nugu'] = nil
 package.loaded['bugabinga.nugu.palette'] = nil
 
-local lush = require 'lush'
-local nugu = require 'bugabinga.nugu'
-lush( nugu )
+require 'bugabinga.nugu' ()

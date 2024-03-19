@@ -96,6 +96,8 @@ vim.cmd.syntax 'off'
 vim.opt.shortmess:append 'c'
 -- hide vim intro screen
 vim.opt.shortmess:append 'I'
+-- truncate messages at end
+vim.opt.shortmess:append 't'
 
 -- show cmd window to prevent jitter ui
 vim.opt.cmdheight = 1

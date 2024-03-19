@@ -1,486 +1,541 @@
----@diagnostic disable: undefined-global
 local palette = require 'bugabinga.nugu.palette'
-local lush = require 'lush'
-local hsl = lush.hsluv
+local preview = require 'bugabinga.nugu.preview'
 
-vim.g.terminal_color_0 = palette.ui_backdrop              -- black
-vim.g.terminal_color_1 = palette.content_accent           -- maroon
-vim.g.terminal_color_2 = palette.info                     -- green
-vim.g.terminal_color_3 = palette.ui_focus                 -- olive
-vim.g.terminal_color_4 = palette.content_important_local  -- navy
-vim.g.terminal_color_5 = palette.content_important_global -- purple
-vim.g.terminal_color_6 = palette.ui_focus                 -- teal
-vim.g.terminal_color_7 = palette.content_normal           -- silver
+local debug = (palette.debug)
+local error = (palette.error)
+local info = (palette.info)
+local warning = (palette.warning)
 
-vim.g.terminal_color_8 = palette.ui_minor                 -- grey
-vim.g.terminal_color_9 = palette.error                    -- red
-vim.g.terminal_color_10 = palette.info                    -- lime
-vim.g.terminal_color_11 = palette.content_focus           -- yellow
-vim.g.terminal_color_12 = palette.ui_important_local      -- blue
-vim.g.terminal_color_13 = palette.ui_accent               -- fuchsia
-vim.g.terminal_color_14 = palette.ui_important_global     -- aqua
-vim.g.terminal_color_15 = palette.ui_normal               -- white
+local content_normal = palette.content_normal
+local content_backdrop = palette.content_backdrop
+local content_accent = palette.content_accent
+local content_minor = palette.content_minor
+local content_focus = palette.content_focus
+local content_unfocus = palette.content_unfocus
+local content_important_global = palette.content_important_global
+local content_important_local = palette.content_important_local
 
-local flux = function ( color, number )
-  if vim.opt.background:get() == 'dark' then
-    return color.li( -number )
-  else
-    return color.li( number )
+local ui_normal = palette.ui_normal
+local ui_backdrop = palette.ui_backdrop
+local ui_accent = palette.ui_accent
+local ui_minor = palette.ui_minor
+local ui_focus = palette.ui_focus
+local ui_unfocus = palette.ui_unfocus
+local ui_important_global = palette.ui_important_global
+local ui_important_local = palette.ui_important_local
+
+vim.g.terminal_color_0 = ui_backdrop              -- black
+vim.g.terminal_color_1 = content_accent           -- maroon
+vim.g.terminal_color_2 = info                     -- green
+vim.g.terminal_color_3 = ui_focus                 -- olive
+vim.g.terminal_color_4 = content_important_local  -- navy
+vim.g.terminal_color_5 = content_important_global -- purple
+vim.g.terminal_color_6 = ui_focus                 -- teal
+vim.g.terminal_color_7 = content_normal           -- silver
+
+vim.g.terminal_color_8 = ui_minor                 -- grey
+vim.g.terminal_color_9 = error                    -- red
+vim.g.terminal_color_10 = info                    -- lime
+vim.g.terminal_color_11 = content_focus           -- yellow
+vim.g.terminal_color_12 = ui_important_local      -- blue
+vim.g.terminal_color_13 = ui_accent               -- fuchsia
+vim.g.terminal_color_14 = ui_important_global     -- aqua
+vim.g.terminal_color_15 = ui_normal               -- white
+
+local set_group_properties = function ( self, properties )
+  vim.validate {
+    properties = { properties, 'table', },
+    -- • fg (or foreground): color name or "#RRGGBB", see note.
+    ['properties.fg'] = { properties.fg, 'string', true, },
+    -- • bg (or background): color name or "#RRGGBB", see note.
+    ['properties.bg'] = { properties.bg, 'string', true, },
+    -- • sp (or special): color name or "#RRGGBB"
+    ['properties.sp'] = { properties.sp, 'string', true, },
+    -- • blend: integer between 0 and 100
+    ['properties.blend'] = { properties.blend, 'number', true, },
+    -- • bold: boolean
+    ['properties.bold'] = { properties.bold, 'boolean', true, },
+    -- • standout: boolean
+    ['properties.standout'] = { properties.standout, 'boolean', true, },
+    -- • underline: boolean
+    ['properties.underline'] = { properties.underline, 'boolean', true, },
+    -- • undercurl: boolean
+    ['properties.undercurl'] = { properties.undercurl, 'boolean', true, },
+    -- • underdotted: boolean
+    ['properties.underdotted'] = { properties.underdotted, 'boolean', true, },
+    -- • underdashed: boolean
+    ['properties.underdashed'] = { properties.underdashed, 'boolean', true, },
+    -- • strikethrough: boolean
+    ['properties.strikethrough'] = { properties.strikethrough, 'boolean', true, },
+    -- • italic: boolean
+    ['properties.italic'] = { properties.italic, 'boolean', true, },
+    -- • reverse: boolean
+    ['properties.reverse'] = { properties.reverse, 'boolean', true, },
+    -- • nocombine: boolean
+    ['properties.nocombine'] = { properties.nocombine, 'boolean', true, },
+    -- • default: Don't override existing definition |:hi-default|
+    ['properties.default'] = { properties.default, 'boolean', true, },
+    -- • ctermfg: Sets foreground of cterm color |ctermfg|
+    ['properties.ctermfg'] = { properties.ctermfg, 'string', true, },
+    -- • ctermbg: Sets background of cterm color |ctermbg|
+    ['properties.ctermbg'] = { properties.ctermbg, 'string', true, },
+    -- • cterm: cterm attribute map, like |highlight-args|. If not set, cterm attributes will match those from the attribute map documented above.
+    ['properties.cterm'] = { properties.cterm, 'table', true, },
+    -- • force: if true force update the highlight group when it exists.
+    ['properties.force'] = { properties.force, 'boolean', true, },
+  }
+  -- vim.print( 'SET GROUP PROPERTIES', self, properties )
+  for key, value in pairs( properties ) do
+    self[key] = value
   end
 end
 
-local debug = hsl( palette.debug )
-local error = hsl( palette.error )
-local info = hsl( palette.info )
-local warning = hsl( palette.warning )
+local new_group = function ()
+  return setmetatable( {}, {
+    __call = set_group_properties,
+  } )
+end
 
-local content_normal = hsl( palette.content_normal )
-local content_backdrop = hsl( palette.content_backdrop )
-local content_accent = hsl( palette.content_accent )
-local content_minor = hsl( palette.content_minor )
-local content_focus = hsl( palette.content_focus )
-local content_unfocus = flux( hsl( palette.content_unfocus ), 21 ) -- FIXME: this change needs to go into nugu
-local content_important_global = hsl( palette.content_important_global )
-local content_important_local = hsl( palette.content_important_local )
+local add_group = function ( self, key )
+  if not self.groups[key] then
+    self.groups[key] = new_group()
+  end
+  return self.groups[key]
+end
 
-local ui_normal = hsl( palette.ui_normal )
-local ui_backdrop = hsl( palette.ui_backdrop )
-local ui_accent = hsl( palette.ui_accent )
-local ui_minor = hsl( palette.ui_minor )
-local ui_focus = hsl( palette.ui_focus )
-local ui_unfocus = hsl( palette.ui_unfocus )
-local ui_important_global = hsl( palette.ui_important_global )
-local ui_important_local = hsl( palette.ui_important_local )
+local link_group = function ( self, key, value )
+  -- vim.print( 'linking group', self, key, value )
+  local group = add_group( self, key )
+  for name, link_group in pairs( self.groups ) do
+    if link_group == value then
+      -- vim.print( 'found group to link ' .. name .. ' to ' .. key )
+      group.link = name
+      return group
+    end
+  end
+end
 
-local nugu = lush( function ( injects )
-  local sym = injects.sym
-  return {
-    Debug { fg = debug.readable(), bg = debug, gui = 'bold' },
+local _ = setmetatable( { groups = {}, }, {
+  __index = add_group,
+  __newindex = link_group,
+} )
 
-    Normal { fg = content_normal, bg = content_backdrop },
-    NotifyBackground { bg = ui_backdrop },
-    Comment { fg = content_important_global },
-    LineNr { fg = ui_minor, bg = content_backdrop },
-    CursorLineNr { fg = ui_focus, bg = ui_backdrop },
-    Search { fg = content_important_global, bg = content_important_global.readable() },
-    IncSearch { fg = content_important_local, bg = content_important_local.readable() },
-    NormalFloat { fg = ui_normal, bg = ui_backdrop },
-    FloatBorder { fg = NormalFloat.bg, bg = NormalFloat.bg },
-    ColorColumn { fg = ui_important_global, bg = Normal.bg },
-    Conceal { fg = content_focus, bg = Normal.bg },
-    Cursor { bg = ui_accent },
-    -- lCursor { Cursor },
-    -- CursorIM { Cursor },
-    Directory { fg = Normal.fg },
-    DiffAdd { fg = content_focus },
-    DiffDelete { fg = content_focus, gui = 'strikethrough' },
-    DiffChange { fg = content_important_global },
-    DiffText { fg = content_important_local.readable(), bg = content_important_local },
-    EndOfBuffer { Normal },
-    -- TermCursor { Cursor },
-    -- TermCursorNC { Cursor },
-    ErrorMsg { fg = error.readable(), bg = error },
-    VertSplit { fg = ui_important_global, bg = LineNr.bg },
-    Folded { Conceal },
-    FoldColumn { LineNr },
-    SignColumn { LineNr },
-    ModeMsg { gui = 'bold' },
-    MsgArea { Normal },
-    MsgSeparator { Debug },
-    MoreMsg { Normal },
-    NonText { fg = content_unfocus },
-    Whitespace { NonText },
-    NormalNC { Normal },
-    Pmenu { NormalFloat },
-    PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = Pemnu.bg, gui = 'bold underline' },
-    PmenuSbar { bg = ui_unfocus },
-    PmenuThumb { bg = ui_minor },
-    Question { fg = ui_important_local, gui = 'bold' },
-    QuickFixLine { PmenuSel },
-    SpecialKey { fg = error, bg = content_unfocus, gui = 'bold' },
-    SpellBad { fg = error, gui = 'undercurl' },
-    SpellCap { SpellBad },
-    SpellLocal { SpellBad },
-    SpellRare { SpellBad },
-    StatusLine { fg = ui_focus, bg = ui_unfocus },
-    StatusLineNC { fg = ui_normal, bg = ui_unfocus },
-    Winbar { fg = ui_focus, bg = StatusLine.bg },
-    WinbarNC { fg = ui_minor, bg = LineNr.bg },
-    Title { fg = content_important_global, sp = content_important_global, gui = 'bold underline' },
-    TabLine { StatusLine },
-    TabLineFill { fg = TabLine.fg, bg = content_backdrop },
-    TabLineSel { fg = ui_important_global, bg = ui_unfocus },
-    Visual { fg = content_focus.readable(), bg = content_focus },
-    VisualNOS { fg = Visual.fg, bg = flux( Visual.bg, -42 ) },
-    WarningMsg { fg = warning, gui = 'bold' },
-    WildMenu { Debug },
+_.Debug { fg = ui_normal, bg = debug, bold = true, }
+_.Normal { fg = content_normal, bg = content_backdrop, }
+_.NotifyBackground { bg = ui_backdrop, }
+_.Comment { fg = content_important_global, }
+_.LineNr { fg = ui_minor, bg = content_backdrop, }
+_.CursorLineNr { fg = ui_focus, bg = ui_backdrop, }
+_.Search { bg = content_unfocus, }
+_.IncSearch { fg = content_focus, }
+_.CurSearch { fg = content_normal, bg = content_important_global, }
+_.NormalFloat { fg = ui_normal, bg = ui_backdrop, }
+_.FloatBorder { fg = _.NormalFloat.bg, bg = _.NormalFloat.bg, }
+_.ColorColumn { fg = ui_important_global, bg = _.Normal.bg, }
+_.Conceal { fg = content_focus, bg = _.Normal.bg, }
+_.Cursor { bg = ui_accent, }
+-- _.lCursor = _.Cursor
+-- _.CursorIM = _.Cursor
+_.Directory { fg = _.Normal.fg, }
+_.DiffAdd { fg = content_focus, }
+_.DiffDelete { fg = content_focus, strikethrough = true, }
+_.DiffChange { fg = content_important_global, }
+_.DiffText { fg = content_normal, bg = content_important_local, }
+_.EndOfBuffer = _.Normal
+-- _.TermCursor = _.Cursor
+-- _.TermCursorNC = _.Cursor
+_.ErrorMsg { fg = error, }
+_.VertSplit { fg = ui_important_global, bg = _.LineNr.bg, }
+_.Folded = _.Conceal
+_.FoldColumn = _.LineNr
+_.SignColumn = _.LineNr
+_.ModeMsg { bold = true, }
+_.MsgArea = _.Normal
+_.MsgSeparator = _.Debug
+_.MoreMsg = _.Normal
+_.NonText { fg = content_unfocus, }
+_.Whitespace = _.NonText
+_.NormalNC = _.Normal
+_.Pmenu = _.NormalFloat
+_.PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = _.Pmenu.bg, bold = true, underline = true, }
+_.PmenuSbar { bg = ui_unfocus, }
+_.PmenuThumb { bg = ui_minor, }
+_.Question { fg = ui_important_local, bold = true, }
+_.QuickFixLine = _.PmenuSel
+_.SpecialKey { fg = error, bg = content_unfocus, bold = true, }
+_.SpellBad { fg = error, undercurl = true, }
+_.SpellCap = _.SpellBad
+_.SpellLocal = _.SpellBad
+_.SpellRare = _.SpellBad
+_.StatusLine { fg = ui_focus, bg = ui_unfocus, }
+_.StatusLineNC { fg = ui_normal, bg = ui_unfocus, }
+_.Winbar { fg = ui_focus, bg = _.StatusLine.bg, }
+_.WinbarNC { fg = ui_minor, bg = _.LineNr.bg, }
+_.Title { fg = content_important_global, sp = content_important_global, bold = true, underline = true, }
+_.TabLine = _.StatusLine
+_.TabLineFill { fg = _.TabLine.fg, bg = content_backdrop, }
+_.TabLineSel { fg = ui_important_global, bg = ui_unfocus, }
+_.Visual { bg = content_unfocus, }
+_.VisualNOS { bg = ui_unfocus, }
+_.WarningMsg { fg = warning, bold = true, }
+_.WildMenu = _.Debug
 
-    String { fg = content_important_local, gui = 'italic' },
-    Constant { String },
-    Character { String },
-    Number { String },
-    Boolean { String },
-    Float { String },
+_.String { fg = content_important_local, italic = true, }
+_.Constant = _.String
+_.Character = _.String
+_.Number = _.String
+_.Boolean = _.String
+_.Float = _.String
 
-    Identifier { Normal },
-    MutableVariable { Debug },
-    Function { Normal },
+_.Identifier = _.Normal
+_.MutableVariable = _.Debug
+_.Function = _.Normal
 
-    Statement { fg = content_minor },
-    Conditional { Statement },
-    Repeat { Statement },
-    Label { Statement },
-    Operator { Statement },
-    Keyword { Statement },
-    Exception { Statement },
+_.Statement { fg = content_minor, }
+_.Conditional = _.Statement
+_.Repeat = _.Statement
+_.Label = _.Statement
+_.Operator = _.Statement
+_.Keyword = _.Statement
+_.Exception = _.Statement
 
-    PreProc { fg = content_important_global, bg = content_unfocus, gui = 'bold' },
-    Include { PreProc },
-    Define { PreProc },
-    Macro { PreProc },
-    PreCondit { PreProc },
+_.PreProc { fg = content_important_global, bg = content_unfocus, bold = true, }
+_.Include = _.PreProc
+_.Define = _.PreProc
+_.Macro = _.PreProc
+_.PreCondit = _.PreProc
 
-    Type { Statement },
-    StorageClass { Statement },
-    Structure { Statement },
-    Typedef { Statement },
+_.Type = _.Statement
+_.StorageClass = _.Statement
+_.Structure = _.Statement
+_.Typedef = _.Statement
 
-    Special { fg = content_normal, gui = 'italic bold' },
-    SpecialChar { Special },
-    Tag { Special },
-    Delimiter { fg = content_minor },
-    SpecialComment { Special },
+_.Special { fg = content_normal, italic = true, bold = true, }
+_.SpecialChar = _.Special
+_.Tag = _.Special
+_.Delimiter { fg = content_minor, }
+_.SpecialComment = _.Special
 
-    Underlined { sp = content_normal, gui = 'underline' },
-    Bold { gui = 'bold' },
-    Italic { gui = 'italic' },
+_.Underlined { sp = content_normal, underline = true, }
+_.Bold { bold = true, }
+_.Italic { italic = true, }
 
-    Ignore { fg = Normal.bg, bg = Normal.bg },
+_.Ignore { fg = _.Normal.bg, bg = _.Normal.bg, }
 
-    Error { fg = error },
-    Todo { fg = content_important_global, sp = content_important_global, gui = 'bold underdouble' },
-    DiagnosticUnnecessary { fg = ui_focus },
-    DiagnosticDeprecated { fg = ui_important_global, sp = ui_important_global, gui = 'strikethrough' },
-    DiagnosticError { fg = error },
-    DiagnosticWarn { fg = warning },
-    DiagnosticInfo { fg = info },
-    DiagnosticHint { fg = ui_important_local },
-    DiagnosticOk { fg = ui_minor },
+_.Error { fg = error, }
+_.Todo { fg = content_important_global, sp = content_important_global, bold = true, underdouble = true, }
+_.DiagnosticUnnecessary { fg = ui_focus, }
+_.DiagnosticDeprecated { fg = ui_important_global, sp = ui_important_global, strikethrough = true, }
+_.DiagnosticError { fg = error, }
+_.DiagnosticWarn { fg = warning, }
+_.DiagnosticInfo { fg = info, }
+_.DiagnosticHint { fg = ui_important_local, }
+_.DiagnosticOk { fg = ui_minor, }
 
-    DiagnosticVirtualTextError { DiagnosticError },
-    DiagnosticVirtualTextWarn { DiagnosticWarn },
-    DiagnosticVirtualTextInfo { DiagnosticInfo },
-    DiagnosticVirtualTextHint { DiagnosticHint },
-    DiagnosticVirtualOkHint { DiagnosticOk },
-    DiagnosticUnderlineError { fg = DiagnosticError.fg, sp = DiagnosticError.fg, gui = 'underdouble' },
-    DiagnosticUnderlineWarn { fg = DiagnosticWarn.fg, sp = DiagnosticWarn.fg, gui = 'underline' },
-    DiagnosticUnderlineInfo { fg = DiagnosticInfo.fg, sp = DiagnosticInfo.fg, gui = 'underdashed' },
-    DiagnosticUnderlineHint { fg = DiagnosticHint.fg, sp = DiagnosticHint.fg, gui = 'italic underdotted' },
-    DiagnosticUnderlineOk { fg = DiagnosticOk.fg, gui = 'italic' },
+_.DiagnosticVirtualTextError = _.DiagnosticError
+_.DiagnosticVirtualTextWarn = _.DiagnosticWarn
+_.DiagnosticVirtualTextInfo = _.DiagnosticInfo
+_.DiagnosticVirtualTextHint = _.DiagnosticHint
+_.DiagnosticVirtualOkHint = _.DiagnosticOk
+_.DiagnosticUnderlineError { fg = _.DiagnosticError.fg, sp = _.DiagnosticError.fg, underdouble = true, }
+_.DiagnosticUnderlineWarn { fg = _.DiagnosticWarn.fg, sp = _.DiagnosticWarn.fg, underline = true, }
+_.DiagnosticUnderlineInfo { fg = _.DiagnosticInfo.fg, sp = _.DiagnosticInfo.fg, underdashed = true, }
+_.DiagnosticUnderlineHint { fg = _.DiagnosticHint.fg, sp = _.DiagnosticHint.fg, italic = true, underdotted = true, }
+_.DiagnosticUnderlineOk { fg = _.DiagnosticOk.fg, italic = true, }
+_.DiagnosticSignError = _.DiagnosticError
+_.DiagnosticSignWarn = _.DiagnosticWarn
+_.DiagnosticSignInfo = _.DiagnosticInfo
+_.DiagnosticSignHint = _.DiagnosticHint
+_.DiagnosticSignOk = _.DiagnosticOk
 
-    DiagnosticSignError { DiagnosticError },
-    DiagnosticSignWarn { DiagnosticWarn },
-    DiagnosticSignInfo { DiagnosticInfo },
-    DiagnosticSignHint { DiagnosticHint },
-    DiagnosticSignOk { DiagnosticOk },
+_.LspReferenceText { sp = content_unfocus, underline = true, }
+_.LspReferenceRead = _.LspReferenceText
+_.LspReferenceWrite = _.LspReferenceText
+_.LspInlayHint { fg = content_minor, bg = _.Normal.bg, }
 
-    LspReferenceText { sp = content_unfocus, gui = 'underline' },
-    LspReferenceRead { LspReferenceText },
-    LspReferenceWrite { LspReferenceText },
-    LspInlayHint { fg = content_minor, bg = Normal.bg },
+_['@text.literal'] = _.Comment
+_['@text.reference'] = _.Identifier
+_['@text.title'] = _.Title
+_['@text.underline'] = _.Underlined
+_['@text.todo'] = _.Todo
+_['@comment'] = _.Comment
+_['@punctuation'] = _.Delimiter
+_['@constant'] = _.Constant
+_['@constant.builtin'] = _.Special
+_['@constant.macro'] = _.Define
+_['@define'] = _.Define
+_['@macro'] = _.Macro
+_['@string'] = _.String
+_['@string.escape'] = _.SpecialChar
+_['@string.special'] = _.SpecialChar
+_['@character'] = _.Character
+_['@character.special'] = _.SpecialChar
+_['@number'] = _.Number
+_['@boolean'] = _.Boolean
+_['@float'] = _.Float
+_['@function'] = _.Function
+_['@function.builtin'] = _.Special
+_['@function.macro'] = _.Macro
+_['@parameter'] = _.Identifier
+_['@method'] = _.Function
+_['@field'] = _.Identifier
+_['@property'] = _.Identifier
+_['@constructor'] = _.Special
+_['@conditional'] = _.Conditional
+_['@repeat'] = _.Repeat
+_['@label'] = _.Label
+_['@operator'] = _.Operator
+_['@keyword'] = _.Keyword
+_['@keyword.return'] { fg = _.Keyword.fg, bg = _.Keyword.bg, underline = true, bold = true, }
+_['@exception'] = _.Exception
+_['@variable'] = _.Identifier
+_['@type'] = _.Type
+_['@type.definition'] = _.Typedef
+_['@storageclass'] = _.StorageClass
+_['@structure'] = _.Structure
+_['@namespace'] = _.Identifier
+_['@include'] = _.Include
+_['@preproc'] = _.PreProc
+_['@debug'] = _.Debug
+_['@tag'] = _.Tag
 
-    -- Tree-Sitter syntax groups.
-    --
-    -- See :h treesitter-highlight-groups, some groups may not be listed,
-    -- submit a PR fix to lush-template!
-    --
-    -- Tree-Sitter groups are defined with an "@" symbol, which must be
-    -- specially handled to be valid lua code, we do this via the special
-    -- sym function. The following are all valid ways to call the sym function,
-    -- for more details see https://www.lua.org/pil/5.html
-    --
-    -- sym("@text.literal")
-    -- sym('@text.literal')
-    -- sym"@text.literal"
-    -- sym'@text.literal'
-    --
-    -- For more information see https://github.com/rktjmp/lush.nvim/issues/109
+_['@lsp.type.namespace'] = _['@namespace']
+_['@lsp.type.type'] = _['@type']
+_['@lsp.type.class'] = _['@type']
+_['@lsp.type.enum'] = _['@type']
+_['@lsp.type.interface'] = _['@type']
+_['@lsp.type.struct'] = _['@structure']
+_['@lsp.type.parameter'] = _['@parameter']
+_['@lsp.type.variable'] = _['@variable']
+_['@lsp.type.property'] = _['@property']
+_['@lsp.type.enumMember'] = _['@constant']
+_['@lsp.type.function'] = _['@function']
+_['@lsp.type.method'] = _['@method']
+_['@lsp.type.macro'] = _['@macro']
+_['@lsp.type.decorator'] = _['@function']
 
-    sym '@text.literal' { Comment },
-    sym '@text.reference' { Identifier },
-    sym '@text.title' { Title },
-    sym '@text.underline' { Underlined },
-    sym '@text.todo' { Todo },
-    sym '@comment' { Comment },
-    sym '@punctuation' { Delimiter },
-    sym '@constant' { Constant },
-    sym '@constant.builtin' { Special },
-    sym '@constant.macro' { Define },
-    sym '@define' { Define },
-    sym '@macro' { Macro },
-    sym '@string' { String },
-    sym '@string.escape' { SpecialChar },
-    sym '@string.special' { SpecialChar },
-    sym '@character' { Character },
-    sym '@character.special' { SpecialChar },
-    sym '@number' { Number },
-    sym '@boolean' { Boolean },
-    sym '@float' { Float },
-    sym '@function' { Function },
-    sym '@function.builtin' { Special },
-    sym '@function.macro' { Macro },
-    sym '@parameter' { Identifier },
-    sym '@method' { Function },
-    sym '@field' { Identifier },
-    sym '@property' { Identifier },
-    sym '@constructor' { Special },
-    sym '@conditional' { Conditional },
-    sym '@repeat' { Repeat },
-    sym '@label' { Label },
-    sym '@operator' { Operator },
-    sym '@keyword' { Keyword },
-    sym '@keyword.return' { fg = Keyword.fg, bg = Keyword.bg, gui = 'underline bold' },
-    sym '@exception' { Exception },
-    sym '@variable' { Identifier },
-    sym '@type' { Type },
-    sym '@type.definition' { Typedef },
-    sym '@storageclass' { StorageClass },
-    sym '@structure' { Structure },
-    sym '@namespace' { Identifier },
-    sym '@include' { Include },
-    sym '@preproc' { PreProc },
-    sym '@debug' { Debug },
-    sym '@tag' { Tag },
+_.LazyButton = _.NormalFloat
+_.LazyButton { sp = _.NormalFloat.fg, bold = true, }
+_.LazyButtonActive { fg = ui_focus, sp = _.NormalFloat.fg, bg = ui_important_local, bold = true, }
+_.LazyComment = _.Keyword
+_.LazyCommit = _.LazyComment
+_.LazyCommitIssue = _.LazyComment
+_.LazyCommitScope = _.LazyComment
+_.LazyCommitScope { italic = true, }
+_.LazyCommitType = _.LazyCommitScope
+_.LazyDimmed { fg = _.NormalFloat.fg, }
+_.LazyDir { fg = _.NormalFloat.fg, }
+_.LazyH1 = _.Bold
+_.LazyH2 = _.LazyH1
+_.LazyLocal {}
+_.LazyNoCond = _.WarningMsg
+_.LazyNormal = _.NormalFloat
+_.LazyProgressDone { fg = _.Search.bg, bg = _.Cursor.bg, bold = true, }
+_.LazyProgressTodo { fg = _.LazyProgressDone.bg, bg = _.LazyProgressDone.fg, bold = true, }
+_.LazyProp = _.LazyComment
+_.LazyReasonCmd = _.NormalFloat
+_.LazyReasonEvent = _.NormalFloat
+_.LazyReasonFt = _.NormalFloat
+_.LazyReasonImport = _.NormalFloat
+_.LazyReasonKeys = _.NormalFloat
+_.LazyReasonPlugin = _.NormalFloat
+_.LazyReasonRuntime = _.NormalFloat
+_.LazyReasonSource = _.NormalFloat
+_.LazyReasonStart = _.NormalFloat
+_.LazySpecial { fg = _.ColorColumn.fg, }
+_.LazyTaskError = _.ErrorMsg
+_.LazyTaskOutput = _.Debug
+_.LazyUrl { sp = _.NormalFloat.fg, italic = true, underline = true, }
+_.LazyValue { italic = true, }
 
-    sym '@lsp.type.namespace' { sym '@namespace' },
-    sym '@lsp.type.type' { sym '@type' },
-    sym '@lsp.type.class' { sym '@type' },
-    sym '@lsp.type.enum' { sym '@type' },
-    sym '@lsp.type.interface' { sym '@type' },
-    sym '@lsp.type.struct' { sym '@structure' },
-    sym '@lsp.type.parameter' { sym '@parameter' },
-    sym '@lsp.type.variable' { sym '@variable' },
-    sym '@lsp.type.property' { sym '@property' },
-    sym '@lsp.type.enumMember' { sym '@constant' },
-    sym '@lsp.type.function' { sym '@function' },
-    sym '@lsp.type.method' { sym '@method' },
-    sym '@lsp.type.macro' { sym '@macro' },
-    sym '@lsp.type.decorator' { sym '@function' },
+-- _.NoiceCmdline = _.NormalFloat
+-- _.NoiceCmdlineIcon { fg = ui_accent, }
+-- _.NoiceCmdlineIconCalculator = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconCmdline = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconFilter = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconHelp = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconIncRename = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconInput = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconLua = _.NoiceCmdlineIcon
+-- _.NoiceCmdlineIconSearch = _.NoiceCmdlineIcon
+--
+-- _.NoiceCmdlinePopup = _.NormalFloat
+-- _.NoiceCmdlinePopupBorder = _.FloatBorder
+-- _.NoiceCmdlinePopupBorderCalculator = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderCmdline = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderFilter = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderHelp = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderIncRename = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderInput = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderLua = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupBorderSearch = _.NoiceCmdlinePopupBorder
+-- _.NoiceCmdlinePopupTitle = _.NoiceCmdlinePopup
+-- _.NoiceCmdlinePrompt = _.NoiceCmdlinePopup
+-- _.NoiceCompletionItemKindDefault { fg = ui_normal, }
+-- _.NoiceCompletionItemKindClass = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindColor = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindConstant = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindConstructor = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindEnum = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindEnumMember = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindField = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindFile = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindFolder = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindFunction = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindInterface = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindKeyword = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindMethod = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindModule = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindProperty = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindSnippet = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindStruct = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindText = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindUnit = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindValue = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemKindVariable = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemMenu = _.NoiceCompletionItemKindDefault
+-- _.NoiceCompletionItemWord = _.NoiceCompletionItemKindDefault
+--
+-- _.NoiceConfirm = _.NormalFloat
+-- _.NoiceConfirmBorder = _.FloatBorder
+-- _.NoiceFormatConfirm = _.LazyButton
+-- _.NoiceFormatConfirmDefault = _.LazyButtonActive
+--
+-- _.NoiceCursor = _.Cursor
+--
+-- _.NoiceFormatDate = _.NonText
+-- _.NoiceFormatEvent = _.NonText
+-- _.NoiceFormatKind = _.NonText
+-- _.NoiceFormatLevelDebug { fg = _.Debug.bg, }
+-- _.NoiceFormatLevelError = _.DiagnosticError
+-- _.NoiceFormatLevelInfo = _.DiagnosticInfo
+-- _.NoiceFormatLevelOff { fg = content_minor, }
+-- _.NoiceFormatLevelTrace = _.DiagnosticHint
+-- _.NoiceFormatLevelWarn = _.DiagnosticWarn
+-- _.NoiceFormatProgressDone = _.LazyProgressDone
+-- _.NoiceFormatProgressTodo = _.LazyProgressTodo
+-- _.NoiceFormatTitle = _.Title
+--
+-- _.NoiceLspProgressClient = _.Debug
+-- _.NoiceLspProgressSpinner = _.Debug
+-- _.NoiceLspProgressTitle = _.Debug
+--
+-- _.NoiceMini = _.DiagnosticInfo
+--
+-- _.NoicePopup = _.NormalFloat
+-- _.NoicePopupBorder = _.FloatBorder
+--
+-- _.NoicePopupmenu = _.Pmenu
+-- _.NoicePopupmenuBorder = _.FloatBorder
+-- _.NoicePopupmenuMatch = _.Bold
+-- _.NoicePopupmenuSelected = _.PmenuSel
+--
+-- _.NoiceScrollbar = _.PmenuSbar
+-- _.NoiceScrollbarThumb = _.PmenuThumb
+--
+-- _.NoiceSplit = _.Normal
+-- _.NoiceSplitBorder = _.FloatBorder
+-- _.NoiceVirtualText { fg = ui_important_global, bg = ui_unfocus, }
+-- _.NotifyERRORBorder { fg = _.DiagnosticError.fg, bg = _.FloatBorder.bg, }
+-- _.NotifyWARNBorder { fg = _.DiagnosticWarn.fg, bg = _.FloatBorder.bg, }
+-- _.NotifyINFOBorder { fg = _.DiagnosticInfo.fg, bg = _.FloatBorder.bg, }
+-- _.NotifyDEBUGBorder { fg = _.Debug.bg, bg = _.FloatBorder.bg, }
+-- _.NotifyTRACEBorder { fg = _.DiagnosticHint.fg, bg = _.FloatBorder.bg, }
+--
+-- _.NotifyERRORIcon { fg = _.DiagnosticError.fg, }
+-- _.NotifyWARNIcon { fg = _.DiagnosticWarn.fg, }
+-- _.NotifyINFOIcon { fg = _.DiagnosticInfo.fg, }
+-- _.NotifyDEBUGIcon { fg = _.Debug.bg, }
+-- _.NotifyTRACEIcon { fg = _.DiagnosticHint.fg, }
+--
+-- _.NotifyERRORTitle { fg = _.DiagnosticError.fg, }
+-- _.NotifyWARNTitle { fg = _.DiagnosticWarn.fg, }
+-- _.NotifyINFOTitle { fg = _.DiagnosticInfo.fg, }
+-- _.NotifyDEBUGTitle { fg = _.Debug.bg, }
+-- _.NotifyTRACETitle { fg = _.DiagnosticHint.fg, }
+--
+-- _.NotifyERRORBody = _.NormalFloat
+-- _.NotifyWARNBody = _.NormalFloat
+-- _.NotifyINFOBody = _.NormalFloat
+-- _.NotifyDEBUGBody = _.NormalFloat
+-- _.NotifyTRACEBody = _.NormalFloat
 
-    LazyButton { NormalFloat, sp = NormalFloat.fg, gui = 'bold' },
-    LazyButtonActive { fg = ui_important_local.readable(), sp = NormalFloat.fg, bg = ui_important_local, gui = LazyButton
-      .gui },
-    LazyComment { Keyword },
-    LazyCommit { LazyComment },
-    LazyCommitIssue { LazyComment },
-    LazyCommitScope { LazyComment, gui = 'italic' },
-    LazyCommitType { LazyCommitScope },
-    LazyDimmed { fg = NormalFloat.fg },
-    LazyDir { N.fgormalFloat },
-    LazyH1 { Bold },
-    LazyH2 { LazyH1 },
-    LazyLocal {},
-    LazyNoCond { WarningMsg },
-    LazyNormal { NormalFloat },
-    LazyProgressDone { fg = Search.bg, bg = Cursor.bg, gui = 'bold' },
-    LazyProgressTodo { fg = LazyProgressDone.bg, bg = LazyProgressDone.fg, gui = LazyProgressDone.gui },
-    LazyProp { LazyComment },
-    LazyReasonCmd { NormalFloat },
-    LazyReasonEvent { NormalFloat },
-    LazyReasonFt { NormalFloat },
-    LazyReasonImport { NormalFloat },
-    LazyReasonKeys { NormalFloat },
-    LazyReasonPlugin { NormalFloat },
-    LazyReasonRuntime { NormalFloat },
-    LazyReasonSource { NormalFloat },
-    LazyReasonStart { NormalFloat },
-    LazySpecial { fg = ColorColumn.fg },
-    LazyTaskError { ErrorMsg },
-    LazyTaskOutput { Debug },
-    LazyUrl { sp = NormalFloat.fg, gui = 'italic underline' },
-    LazyValue { gui = 'italic' },
+_.TelescopeSelectionCaret = _.PmenuSel
+_.TelescopeSelection = _.PmenuSel
+_.TelescopeMultiSelection { fg = content_normal, bg = ui_important_local, }
 
-    NoiceCmdline { NormalFloat },
-    NoiceCmdlineIcon { fg = ui_accent },
-    NoiceCmdlineIconCalculator { NoiceCmdlineIcon },
-    NoiceCmdlineIconCmdline { NoiceCmdlineIcon },
-    NoiceCmdlineIconFilter { NoiceCmdlineIcon },
-    NoiceCmdlineIconHelp { NoiceCmdlineIcon },
-    NoiceCmdlineIconIncRename { NoiceCmdlineIcon },
-    NoiceCmdlineIconInput { NoiceCmdlineIcon },
-    NoiceCmdlineIconLua { NoiceCmdlineIcon },
-    NoiceCmdlineIconSearch { NoiceCmdlineIcon },
+_.FlashBackdrop {}
+_.FlashMatch = _.IncSearch
+_.FlashCurrent = _.CurSearch
+_.FlashLabel { fg = ui_accent, bg = ui_backdrop, }
 
-    NoiceCmdlinePopup { NormalFloat },
-    NoiceCmdlinePopupBorder { FloatBorder },
-    NoiceCmdlinePopupBorderCalculator { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderCmdline { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderFilter { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderHelp { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderIncRename { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderInput { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderLua { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupBorderSearch { NoiceCmdlinePopupBorder },
-    NoiceCmdlinePopupTitle { NoiceCmdlinePopup },
-    NoiceCmdlinePrompt { NoiceCmdlinePopup },
-    NoiceCompletionItemKindDefault { fg = ui_normal },
-    NoiceCompletionItemKindClass { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindColor { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindConstant { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindConstructor { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindEnum { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindEnumMember { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindField { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindFile { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindFolder { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindFunction { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindInterface { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindKeyword { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindMethod { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindModule { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindProperty { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindSnippet { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindStruct { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindText { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindUnit { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindValue { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemKindVariable { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemMenu { NoiceCompletionItemKindDefault },
-    NoiceCompletionItemWord { NoiceCompletionItemKindDefault },
+_.GitSignsAdd { fg = _.DiffAdd.fg, bg = _.LineNr.bg, }
+_.GitSignsChange { fg = _.DiffChange.fg, bg = _.LineNr.bg, }
+_.GitSignsDelete { fg = _.DiffDelete.fg, bg = _.LineNr.bg, }
 
-    NoiceConfirm { NormalFloat },
-    NoiceConfirmBorder { FloatBorder },
-    NoiceFormatConfirm { LazyButton },
-    NoiceFormatConfirmDefault { LazyButtonActive },
+_.GitSignsChangedelete = _.GitSignsChange
+_.GitSignsTopdelete = _.GitSignsDelete
+_.GitSignsUntracked = _.GitSignsAdd
 
-    NoiceCursor { Cursor },
+_.GitSignsAddNr = _.GitSignsAdd
+_.GitSignsChangeNr = _.GitSignsChange
+_.GitSignsDeleteNr = _.GitSignsDelete
 
-    NoiceFormatDate { NonText },
-    NoiceFormatEvent { NonText },
-    NoiceFormatKind { NonText },
-    NoiceFormatLevelDebug { fg = Debug.bg },
-    NoiceFormatLevelError { DiagnosticError },
-    NoiceFormatLevelInfo { DiagnosticInfo },
-    NoiceFormatLevelOff { fg = content_minor },
-    NoiceFormatLevelTrace { DiagnosticHint },
-    NoiceFormatLevelWarn { DiagnosticWarn },
-    NoiceFormatProgressDone { LazyProgressDone },
-    NoiceFormatProgressTodo { LazyProgressTodo },
-    NoiceFormatTitle { Title },
+_.GitSignsChangedeleteNr = _.GitSignsChange
+_.GitSignsTopdeleteNr = _.GitSignsDelete
+_.GitSignsUntrackedNr = _.GitSignsAdd
 
-    NoiceLspProgressClient { Debug },
-    NoiceLspProgressSpinner { Debug },
-    NoiceLspProgressTitle { Debug },
+_.GitSignsAddLn = _.GitSignsAdd
+_.GitSignsChangeLn = _.GitSignsChange
+_.GitSignsChangedeleteLn = _.GitSignsChange
+_.GitSignsUntrackedLn = _.GitSignsAdd
 
-    NoiceMini { DiagnosticInfo },
+_.GitSignsAddPreview = _.GitSignsAdd
+_.GitSignsDeletePreview = _.GitSignsDelete
 
-    NoicePopup { NormalFloat },
-    NoicePopupBorder { FloatBorder },
+_.GitSignsCurrentLineBlame = _.NonText
+_.GitSignsAddInline = _.GitSignsAdd
+_.GitSignsDeleteInline = _.GitSignsDelete
+_.GitSignsChangeInline = _.GitSignsChange
 
-    NoicePopupmenu { Pmenu },
-    NoicePopupmenuBorder { FloatBorder },
-    NoicePopupmenuMatch { Bold },
-    NoicePopupmenuSelected { PmenuSel },
+_.GitSignsAddLnInline = _.DiffText
+_.GitSignsDeleteLnInline = _.DiffText
+_.GitSignsChangeLnInline = _.DiffText
 
-    NoiceScrollbar { PmenuSbar },
-    NoiceScrollbarThumb { PmenuThumb },
+_.GitSignsDeleteVirtLn = _.GitSignsDelete
+_.GitSignsDeleteVirtLnInLine = _.DiffText
+_.GitSignsVirtLnum { fg = _.LineNr.fg, }
 
-    NoiceSplit { Normal },
-    NoiceSplitBorder { FloatBorder },
-    NoiceVirtualText { fg = ui_important_global, bg = ui_unfocus },
-    NotifyERRORBorder { fg = DiagnosticError.fg, bg = FloatBorder.bg },
-    NotifyWARNBorder { fg = DiagnosticWarn.fg, bg = FloatBorder.bg },
-    NotifyINFOBorder { fg = DiagnosticInfo.fg, bg = FloatBorder.bg },
-    NotifyDEBUGBorder { fg = Debug.bg, bg = FloatBorder.bg },
-    NotifyTRACEBorder { fg = DiagnosticHint.fg, bg = FloatBorder.bg },
+_.WhichKey { fg = ui_important_global, }
+_.WhichKeyGroup { fg = ui_important_local, }
+_.WhichKeySeparator { fg = ui_minor, }
+_.WhichKeyDesc { fg = ui_normal, }
+_.WhichKeyFloat = _.NormalFloat
+_.WhichKeyBorder = _.FloatBorder
+_.WhichKeyValue = _.Comment
 
-    NotifyERRORIcon { fg = DiagnosticError.fg },
-    NotifyWARNIcon { fg = DiagnosticWarn.fg },
-    NotifyINFOIcon { fg = DiagnosticInfo.fg },
-    NotifyDEBUGIcon { fg = Debug.bg },
-    NotifyTRACEIcon { fg = DiagnosticHint.fg },
+_.IblIndent = _.Whitespace
+_.IblWhitespace = _.Whitespace
+_.IblScope { fg = ui_focus, bg = _.Normal.bg, }
 
-    NotifyERRORTitle { fg = DiagnosticError.fg },
-    NotifyWARNTitle { fg = DiagnosticWarn.fg },
-    NotifyINFOTitle { fg = DiagnosticInfo.fg },
-    NotifyDEBUGTitle { fg = Debug.bg },
-    NotifyTRACETitle { fg = DiagnosticHint.fg },
+_.Hlargs { fg = content_important_local, }
 
-    NotifyERRORBody { NormalFloat },
-    NotifyWARNBody { NormalFloat },
-    NotifyINFOBody { NormalFloat },
-    NotifyDEBUGBody { NormalFloat },
-    NotifyTRACEBody { NormalFloat },
+_.MiniStarterCurrent { fg = ui_normal, bg = ui_accent, }
+_.MiniStarterFooter = _.Keyword
+_.MiniStarterHeader = _.Comment
+_.MiniStarterInactive { fg = content_unfocus, }
+_.MiniStarterItem = _.Normal
+_.MiniStarterItemBullet = _.Whitespace
+_.MiniStarterItemPrefix { fg = content_focus, }
+_.MiniStarterSection { fg = content_important_global, underline = true, }
+_.MiniStarterQuery { fg = content_normal, bg = content_accent, }
 
-    TelescopeSelectionCaret { PmenuSel },
-    TelescopeSelection { PmenuSel },
-    TelescopeMultiSelection { fg = ui_important_local.readable(), bg = ui_important_local },
+--TODO: Oil highlights
 
-    FlashBackdrop {},
-    FlashMatch { fg = Search.bg },
-    FlashCurrent { fg = IncSearch.bg },
-    FlashLabel { Search },
-
-    GitSignsAdd { fg = DiffAdd.fg, bg = LineNr.bg },
-    GitSignsChange { fg = DiffChange.fg, bg = LineNr.bg },
-    GitSignsDelete { fg = DiffDelete.fg, bg = LineNr.bg },
-
-    GitSignsChangedelete { GitSignsChange },
-    GitSignsTopdelete { GitSignsDelete },
-    GitSignsUntracked { GitSignsAdd },
-
-    GitSignsAddNr { GitSignsAdd },
-    GitSignsChangeNr { GitSignsChange },
-    GitSignsDeleteNr { GitSignsDelete },
-
-    GitSignsChangedeleteNr { GitSignsChange },
-    GitSignsTopdeleteNr { GitSignsDelete },
-    GitSignsUntrackedNr { GitSignsAdd },
-
-    GitSignsAddLn { GitSignsAdd },
-    GitSignsChangeLn { GitSignsChange },
-    GitSignsChangedeleteLn { GitSignsChange },
-    GitSignsUntrackedLn { GitSignsAdd },
-
-    GitSignsAddPreview { GitSignsAdd },
-    GitSignsDeletePreview { GitSignsDelete },
-
-    GitSignsCurrentLineBlame { NonText },
-    GitSignsAddInline { GitSignsAdd },
-    GitSignsDeleteInline { GitSignsDelete },
-    GitSignsChangeInline { GitSignsChange },
-
-    GitSignsAddLnInline { DiffText },
-    GitSignsDeleteLnInline { DiffText },
-    GitSignsChangeLnInline { DiffText },
-
-    GitSignsDeleteVirtLn { GitSignsDelete },
-    GitSignsDeleteVirtLnInLine { DiffText },
-    GitSignsVirtLnum { fg = LineNr.fg },
-
-    WhichKey { fg = ui_important_global },
-    WhichKeyGroup { fg = ui_important_local },
-    WhichKeySeparator { fg = ui_minor },
-    WhichKeyDesc { fg = ui_normal },
-    WhichKeyFloat { NormalFloat },
-    WhichKeyBorder { FloatBorder },
-    WhichKeyValue { Comment },
-
-    IblIndent { Whitespace },
-    IblWhitespace { Whitespace },
-    IblScope { fg = ui_focus, bg = Normal.bg },
-
-    Hlargs { fg = content_important_local },
-    MiniStarterCurrent { fg = ui_accent.readable(), bg = ui_accent },         -- current item.
-    MiniStarterFooter { Keyword },                                            -- footer units.
-    MiniStarterHeader { Comment },                                            -- header units.
-    MiniStarterInactive { fg = content_unfocus },                             -- inactive item.
-    MiniStarterItem { Normal },                                               -- item name.
-    MiniStarterItemBullet { Whitespace },                                     -- units from |MiniStarter.gen_hook.adding_bullet|.
-    MiniStarterItemPrefix { fg = content_focus, gui = '' },                   -- unique query for item.
-    MiniStarterSection { fg = content_important_global, gui = 'underline' },  -- section units.
-    MiniStarterQuery { fg = content_accent.readable(), bg = content_accent }, -- current query in active items.
-  }
-end )
-
-return nugu
+return function ()
+  preview.setup()
+  local namespace = 0
+  for name, group in pairs( _.groups ) do
+    vim.api.nvim_set_hl( namespace, name, group )
+  end
+end

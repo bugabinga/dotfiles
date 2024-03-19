@@ -1,7 +1,7 @@
 local table = require 'std.table'
 local project = require 'std.project'
 local auto = require 'std.auto'
-local map = require'std.map'
+local map = require 'std.map'
 
 local create_shared_config_path = function ( base_path, syntax_server )
   local os_config
@@ -53,7 +53,7 @@ end
 
 local create_jdtls_command = function ( syntax_server )
   local mason_registry = require 'mason-registry'
-  local jdtls_package_path = mason_registry.get_package('jdtls'):get_install_path()
+  local jdtls_package_path = mason_registry.get_package 'jdtls':get_install_path()
   local shared_config_path = create_shared_config_path( jdtls_package_path, syntax_server )
   local launcher_jar = find_launcher_jar( jdtls_package_path )
   local data_dir = create_data_dir()
@@ -94,28 +94,23 @@ local find_jdks = function ()
   local jdk17 = {
     name = 'JavaSE-17',
   }
-  local jdk19 = {
-    name = 'JavaSE-19',
-  }
   local jdk21 = {
     name = 'JavaSE-21',
   }
 
-  if host == 'pop-os' then
-    jdk11.path = '/usr/lib/jvm/java-11-openjdk-amd64'
-    jdk17.path = '/usr/lib/jvm/java-17-openjdk-amd64'
-    jdk19.path = '/usr/lib/jvm/java-19-openjdk-amd64'
-    jdk21.path = '/home/oli/.jdks/openjdk-21'
+  if host == 'velma' then
+    jdk11.path = '/usr/lib64/jvm/java-11-openjdk-11'
+    jdk17.path = '/usr/lib64/jvm/java-17-openjdk-17'
+    jdk21.path = '/usr/lib64/jvm/java-21-openjdk-21'
   elseif host == 'NB-00718' then
     jdk11.path = 'C:/Users/okr/scoop/apps/openjdk11'
     jdk17.path = 'C:/Users/okr/scoop/apps/openjdk17'
-    jdk19.path = 'C:/Users/okr/scoop/apps/openjdk19'
     jdk21.path = 'C:/Users/okr/scoop/apps/openjdk21'
   else
     vim.notify 'missing jdk paths in java settings for lsp'
   end
 
-  return { jdk11, jdk17, jdk19, jdk21 }
+  return { jdk11, jdk17, jdk21 }
 end
 
 local java_settings = {
@@ -221,21 +216,21 @@ local on_attach = function ()
     description = 'Extract Variable',
     category = 'jdlts',
     keys = '<leader>ljv',
-    command = function() jdtls.extract_variable(true) end,
+    command = function () jdtls.extract_variable( true ) end,
   }
 
   map.visual {
     description = 'Extract Constant',
     category = 'jdlts',
     keys = '<leader>ljc',
-    command = function() jdtls.extract_constant(true) end,
+    command = function () jdtls.extract_constant( true ) end,
   }
 
   map.visual {
     description = 'Extract Method',
     category = 'jdlts',
     keys = '<leader>ljm',
-    command = function() jdtls.extract_method(true) end,
+    command = function () jdtls.extract_method( true ) end,
   }
 
   auto 'refresh_codelens' {

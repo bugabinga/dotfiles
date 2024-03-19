@@ -5,16 +5,16 @@ local table = require 'std.table'
 require 'bugabinga.health'.add_dependency
 {
   name = 'ripgrep',
-  name_of_executable = 'rg'
+  name_of_executable = 'rg',
 }
   {
     name = 'find-fd',
-    name_of_executable = 'fd'
+    name_of_executable = 'fd',
   }
 
 return {
   'nvim-telescope/telescope.nvim',
-  branch = '0.1.x',
+  tag = '0.1.6',
   cmd = 'Telescope',
   event = 'VeryLazy',
   dependencies = {
@@ -30,17 +30,17 @@ return {
     local actions = require 'telescope.actions'
     local themes = require 'telescope.themes'
 
-    local ivy = themes.get_ivy { hidden = true, layout_config = { preview_width = 0.69 } }
-    local dropdown = themes.get_dropdown { layout_config = { width = 0.69 } }
-    local cursor = themes.get_cursor { layout_config = { preview_width = 0.42, width = 0.69 } }
+    local ivy = themes.get_ivy { hidden = true, layout_config = { preview_width = 0.69, }, }
+    local dropdown = themes.get_dropdown { layout_config = { width = 0.69, }, }
+    local cursor = themes.get_cursor { layout_config = { preview_width = 0.42, width = 0.69, }, }
 
     telescope.setup {
       defaults = {
-        path_display = { 'truncate' },
+        path_display = { 'truncate', },
         sorting_strategy = 'ascending',
         layout_config = {
-          horizontal = { prompt_position = 'bottom', preview_width = 0.69 },
-          vertical = { mirror = false },
+          horizontal = { prompt_position = 'bottom', preview_width = 0.69, },
+          vertical = { mirror = false, },
           width = 0.69,
           height = 0.42,
           preview_cutoff = 124,
@@ -69,7 +69,7 @@ return {
             ['<c-p>'] = actions.move_selection_previous,
             ['<c-s>'] = actions.file_split,
           },
-          n = { q = actions.close },
+          n = { q = actions.close, },
         },
       },
       pickers = {
@@ -83,8 +83,8 @@ return {
         buffers = cursor,
       },
       extensions = {
-        ['ui-select'] = { cursor },
-        zoxide = { prompt_title = 'Navigate deez nuts!' },
+        ['ui-select'] = { cursor, },
+        zoxide = { prompt_title = 'Navigate deez nuts!', },
       },
     }
 

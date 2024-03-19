@@ -1,9 +1,10 @@
-local icon = require'std.icon'
+local icon = require 'std.icon'
 
 return {
   'lukas-reineke/indent-blankline.nvim',
+  tag = 'v3.5.3',
   main = 'ibl',
-  event = { 'BufReadPost', 'BufNew' },
+  event = { 'BufReadPost', 'BufNew', },
   config = function ()
     local ibl = require 'ibl'
 

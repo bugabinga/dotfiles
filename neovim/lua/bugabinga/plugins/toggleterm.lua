@@ -9,11 +9,12 @@ require 'bugabinga.health'.add_dependency
     name_of_executable = 'mdcat',
   }
   {
-    name_of_executable = 'dot'
+    name_of_executable = 'dot',
   }
 
 return {
   'akinsho/toggleterm.nvim',
+  tag = 'v2.10.0',
   keys = {
     '<F7>',
     '<F8>',
@@ -48,7 +49,7 @@ return {
     toggleterm.setup( opts )
 
     local set_terminal_keymaps = function ()
-      local local_to_buffer = { buffer = 0 }
+      local local_to_buffer = { buffer = 0, }
       map.terminal {
         description = 'Quit insert mode',
         category = 'terminal',
@@ -69,14 +70,14 @@ return {
       description = 'Open vertical Terminal',
       category = 'terminal',
       keys = '<F8>',
-      command = '<CMD>exe v:count1 . "ToggleTerm size=60 direction=vertical"<CR>'
+      command = '<CMD>exe v:count1 . "ToggleTerm size=60 direction=vertical"<CR>',
     }
 
     map.normal {
       description = 'Open horizontal Terminal',
       category = 'terminal',
       keys = '<F9>',
-      command = '<CMD>exe v:count1 . "ToggleTerm size=20 direction=horizontal"<CR>'
+      command = '<CMD>exe v:count1 . "ToggleTerm size=20 direction=horizontal"<CR>',
     }
 
     local Terminal = require 'toggleterm.terminal'.Terminal
@@ -99,6 +100,6 @@ return {
       command = toggle_gitui,
     }
 
-    vim.api.nvim_create_user_command( 'Gitui', toggle_gitui, { desc = 'Toggle Gitui' } )
-  end
+    vim.api.nvim_create_user_command( 'Gitui', toggle_gitui, { desc = 'Toggle Gitui', } )
+  end,
 }

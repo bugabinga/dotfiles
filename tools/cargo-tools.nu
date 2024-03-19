@@ -6,7 +6,6 @@
 # is not installed yet
 let cargo_crates = [
   [ name bin features];
-  [ "wiki-tui" "wiki-tui" [] ]
   [ "sccache" "sccache" [] ]
   [ "inferno" "inferno-flamegraph" [] ]
   [ "nu" "nu" [ "--features" "extra" ] ]
@@ -22,7 +21,6 @@ let cargo_crates = [
   [ "cargo-cache" "cargo-cache" [] ]
   [ "hexyl" "hexyl" [] ]
   [ "hyperfine" "hyperfine" [] ]
-  [ "so" "so" (so-features) ]
   [ "tealdeer" "tldr" [] ]
   [ "tokei" "tokei" [] ]
   [ "bat" "bat" [] ]
@@ -38,8 +36,6 @@ let cargo_crates = [
   [ "lychee" "lychee" [] ]
   [ "viu" "viu" [] ]
   [ "vivid" "vivid" [] ]
-  [ "licensor" "licensor" [] ]
-  [ "gib" "gib" [] ]
   [ "silicon" "silicon" [] ]
   [ "bottom" "btm" [] ]
   # [ "sic" "sic" [] ] some issue with ssl on win32?
@@ -50,27 +46,20 @@ let cargo_crates = [
   [ "stylua" "stylua" [ "--features" "lua52" ] ]
   [ "taplo-cli" "taplo" [] ]
   [ "lms" "lms" [] ]
-  [ "coreutils" "coreutils" (coreutils-features) ]
 ]
-
-def coreutils-features [] {
-  if $nu.os-info.family == 'windows' {
-    [ "--features" "windows" ]
-  } else {
-    [ "--features" "unix" ]
-  }
-}
-
-def so-features [] {
-  if $nu.os-info.family == 'windows' {
-    [ "--no-default-features" "--features" "windows" ]
-  } else {
-    []
-  }
-}
 
 # install all my favorite crate, only if they are not already in PATH.
 def main [] {
+	# FIXME: nushell in NixOS cannot detect hostname?
+	if (sys).host.name == "NixOS" {
+	#if (sys).host.name == "x230" {
+		if (which akku | is-empty) {
+			echo $'cargo install akku'
+			cargo install --git https://github.com/bugabinga/akku
+		} else {
+			echo $"akku already installed"
+		}
+	}
   $cargo_crates | each { | crate |
     if ( which $crate.bin | is-empty ) {
       echo $'cargo install ($crate.name) ($crate.features)'
