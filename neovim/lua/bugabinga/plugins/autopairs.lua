@@ -3,19 +3,7 @@ local ignored = require 'std.ignored'
 return {
   'windwp/nvim-autopairs',
   event = 'InsertEnter',
-  dependencies = {
-    'hrsh7th/nvim-cmp'
+  opts = {
+    disable_filetype = ignored.filetypes,
   },
-  config = function ()
-    local autopairs = require 'nvim-autopairs'
-    autopairs.setup {
-      disable_filetype = ignored.filetypes,
-    }
-    local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-    local cmp = require 'cmp'
-    cmp.event:on(
-      'confirm_done',
-      cmp_autopairs.on_confirm_done()
-    )
-  end
 }

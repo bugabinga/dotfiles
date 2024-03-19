@@ -3,28 +3,29 @@ local map = require 'std.map'
 require 'bugabinga.health'.add_dependency
 {
   name = 'CMake',
-  name_of_executable = 'cmake'
+  name_of_executable = 'cmake',
 }
-{
-  name_of_executable = 'make'
-}
-{
-  name_of_executable = 'zig'
-}
-{
-  name = 'TreeSitter CLI',
-  name_of_executable = 'tree-sitter'
-}
-{
-  name_of_executable = 'tar'
-}
+  {
+    name_of_executable = 'make',
+  }
+  {
+    name_of_executable = 'zig',
+  }
+  {
+    name = 'TreeSitter CLI',
+    name_of_executable = 'tree-sitter',
+  }
+  {
+    name_of_executable = 'tar',
+  }
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = 'master',
-  event = { 'BufReadPre', 'BufNewFile' },
+  tag = 'v0.9.2',
+  -- branch = 'master',
+  event = { 'BufReadPre', 'BufNewFile', },
   build = function ()
-    require 'nvim-treesitter.install'.update { with_sync = true }
+    require 'nvim-treesitter.install'.update { with_sync = true, }
   end,
   dependencies = {
     'windwp/nvim-ts-autotag',
@@ -38,7 +39,7 @@ return {
     local parsers = require 'nvim-treesitter.parsers'
 
     install.prefer_git = false
-    install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC' }
+    install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC', }
 
     ---@diagnostic disable-next-line: missing-fields
     configs.setup {
@@ -70,11 +71,11 @@ return {
         'zig',
       },
 
-      ignore_install = { 'oil' },
+      ignore_install = { 'oil', },
 
       auto_install = true,
 
-      autotag = { enable = true },
+      autotag = { enable = true, },
 
       highlight = {
         enable = true,
@@ -98,7 +99,7 @@ return {
         },
       },
 
-      indent = { enable = true },
+      indent = { enable = true, },
 
       playground = {
         enable = true,
@@ -124,35 +125,35 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ['af'] = { query = '@call.outer', desc = 'outer function call' },
-            ['if'] = { query = '@call.inner', desc = 'inner function call' },
+            ['af'] = { query = '@call.outer', desc = 'outer function call', },
+            ['if'] = { query = '@call.inner', desc = 'inner function call', },
 
-            ['am'] = { query = '@function.outer', desc = 'outer function definition' },
-            ['im'] = { query = '@function.inner', desc = 'inner function definition' },
+            ['am'] = { query = '@function.outer', desc = 'outer function definition', },
+            ['im'] = { query = '@function.inner', desc = 'inner function definition', },
 
-            ['aa'] = { query = '@assignment.outer', desc = 'outer assignment' },
-            ['ia'] = { query = '@assignment.inner', desc = 'inner assignment' },
+            ['aa'] = { query = '@assignment.outer', desc = 'outer assignment', },
+            ['ia'] = { query = '@assignment.inner', desc = 'inner assignment', },
 
             -- l overwrites builtin. i have no good idea for better binding. use ia instead.
             -- ['la'] = { query = '@assignment.lhs', desc = 'left hand side of assignment'},
             -- ['ra'] = { query = '@assignment.rhs', desc = 'right hand side of assignment'},
 
-            ['ac'] = { query = '@class.outer', desc = 'outer class' },
-            ['ic'] = { query = '@class.inner', desc = 'inner class' },
+            ['ac'] = { query = '@class.outer', desc = 'outer class', },
+            ['ic'] = { query = '@class.inner', desc = 'inner class', },
 
-            ['ao'] = { query = '@conditional.outer', desc = 'outer conditional' },
-            ['io'] = { query = '@conditional.inner', desc = 'inner conditional' },
+            ['ao'] = { query = '@conditional.outer', desc = 'outer conditional', },
+            ['io'] = { query = '@conditional.inner', desc = 'inner conditional', },
 
-            ['al'] = { query = '@loop.outer', desc = 'outer loop' },
-            ['il'] = { query = '@loop.inner', desc = 'inner loop' },
+            ['al'] = { query = '@loop.outer', desc = 'outer loop', },
+            ['il'] = { query = '@loop.inner', desc = 'inner loop', },
 
             -- this overwrites the built-in 'paragraph' object
-            ['ap'] = { query = '@parameter.outer', desc = 'outer parameter' },
-            ['ip'] = { query = '@parameter.inner', desc = 'inner parameter' },
+            ['ap'] = { query = '@parameter.outer', desc = 'outer parameter', },
+            ['ip'] = { query = '@parameter.inner', desc = 'inner parameter', },
 
-            ['at'] = { query = '@comment.outer', desc = 'outer comment' },
+            ['at'] = { query = '@comment.outer', desc = 'outer comment', },
 
-            ['as'] = { query = '@scope', query_group = 'locals', desc = 'language scope' },
+            ['as'] = { query = '@scope', query_group = 'locals', desc = 'language scope', },
           },
           selection_modes = {
             ['@parameter.outer'] = 'v',
@@ -166,10 +167,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>spn'] = { query = '@parameter.inner', desc = 'Swap parameter with next' },
+            ['<leader>spn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
           },
           swap_previous = {
-            ['<leader>spp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous' },
+            ['<leader>spp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
           },
         },
 
@@ -178,8 +179,8 @@ return {
           border = vim.g.border_style,
           floating_preview_opts = {},
           peek_definition_code = {
-            ['<leader>lpf'] = { query = '@function.outer', desc = 'Peek definition of outer function.' },
-            ['<leader>lpc'] = { query = '@class.outer', desc = 'Peek definition of outer class.' },
+            ['<leader>lpf'] = { query = '@function.outer', desc = 'Peek definition of outer function.', },
+            ['<leader>lpc'] = { query = '@class.outer', desc = 'Peek definition of outer class.', },
           },
         },
 
@@ -187,31 +188,31 @@ return {
           enable = true,
           set_jumps = true,
           goto_next = {
-            [']f'] = { query = '@call.outer', desc = 'Goto next function call' },
-            [']m'] = { query = '@fucntion.outer', desc = 'Goto next function definition' },
-            [']c'] = { query = '@class.outer', desc = 'Goto next class' },
-            [']o'] = { query = '@conditional.outer', desc = 'Goto next conditional' },
-            [']p'] = { query = '@parameter.outer', desc = 'Goto next parameter' },
+            [']f'] = { query = '@call.outer', desc = 'Goto next function call', },
+            [']m'] = { query = '@fucntion.outer', desc = 'Goto next function definition', },
+            [']c'] = { query = '@class.outer', desc = 'Goto next class', },
+            [']o'] = { query = '@conditional.outer', desc = 'Goto next conditional', },
+            [']p'] = { query = '@parameter.outer', desc = 'Goto next parameter', },
           },
           goto_previous = {
-            ['[f'] = { query = '@call.outer', desc = 'Goto previous function call' },
-            ['[m'] = { query = '@function.outer', desc = 'Goto previous function definition' },
-            ['[c'] = { query = '@class.outer', desc = 'goto previous class' },
-            ['[o'] = { query = '@conditional.outer', desc = 'Goto previous conditional' },
-            ['[p'] = { query = '@parameter.outer', desc = 'Goto previous parameter' },
-          }
+            ['[f'] = { query = '@call.outer', desc = 'Goto previous function call', },
+            ['[m'] = { query = '@function.outer', desc = 'Goto previous function definition', },
+            ['[c'] = { query = '@class.outer', desc = 'goto previous class', },
+            ['[o'] = { query = '@conditional.outer', desc = 'Goto previous conditional', },
+            ['[p'] = { query = '@parameter.outer', desc = 'Goto previous parameter', },
+          },
         },
-      }
+      },
     }
 
     ---@diagnostic disable-next-line: inject-field
     parsers.get_parser_configs().just = {
       install_info = {
         url = 'https://github.com/IndianBoy42/tree-sitter-just', -- local path or git repo
-        files = { 'src/parser.c', 'src/scanner.cc' },
+        files = { 'src/parser.c', 'src/scanner.cc', },
         branch = 'main',
       },
-      maintainers = { '@IndianBoy42' },
+      maintainers = { '@IndianBoy42', },
     }
   end,
 }

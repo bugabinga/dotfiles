@@ -1,7 +1,7 @@
-local project = require'std.project'
+local project = require 'std.project'
 
 return {
-	name = 'clangd',
+  name = 'clangd',
   command = 'clangd',
   filetypes = 'c',
   root_dir = project.find_vcs_project_root,
@@ -13,6 +13,6 @@ return {
         editsNearCursor = true,
       },
     },
-    offsetEncoding = { 'utf-8', 'utf-16' },
+    offsetEncoding = { 'utf-8', 'utf-16', },
   },
 }

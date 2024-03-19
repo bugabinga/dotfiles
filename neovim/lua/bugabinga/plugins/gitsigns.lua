@@ -2,15 +2,16 @@ local map = require 'std.map'
 
 return {
   'lewis6991/gitsigns.nvim',
+  tag = 'v0.7',
   event = 'VeryLazy',
   opts = {
     signs = {
-      add          = { text = '│' },
-      change       = { text = '│' },
-      delete       = { text = '_' },
-      topdelete    = { text = '‾' },
-      changedelete = { text = '~' },
-      untracked    = { text = '┆' },
+      add          = { text = '│', },
+      change       = { text = '│', },
+      delete       = { text = '_', },
+      topdelete    = { text = '‾', },
+      changedelete = { text = '~', },
+      untracked    = { text = '┆', },
     },
     preview_config = {
       border = vim.g.border_style,
@@ -52,7 +53,7 @@ return {
         category = 'git',
         keys = '<leader>hs',
         buffer = bufnr,
-        command = function () gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end,
+        command = function () gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v', } end,
       }
 
       map.normal {
@@ -68,7 +69,7 @@ return {
         category = 'git',
         keys = '<leader>hr',
         buffer = bufnr,
-        command = function () gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' } end,
+        command = function () gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v', } end,
       }
 
       map.normal {
@@ -108,7 +109,7 @@ return {
         category = 'git',
         keys = '<leader>hb',
         buffer = bufnr,
-        command = function () gitsigns.blame_line { full = true } end,
+        command = function () gitsigns.blame_line { full = true, } end,
       }
 
       map.normal {
@@ -148,8 +149,8 @@ return {
         category = 'git',
         keys = 'ih',
         buffer = bufnr,
-        command = ':<C-U>Gitsigns select_hunk<CR>'
+        command = ':<C-U>Gitsigns select_hunk<CR>',
       }
     end,
-  }
+  },
 }

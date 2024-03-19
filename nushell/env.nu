@@ -6,6 +6,15 @@ $env.DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
 $env.WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
 $env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
 
+if not (which nvim | is-empty) {
+	$env.EDITOR = 'nvim'
+	$env.GIT_EDITOR = 'nvim'
+}
+
+if not (which neovide | is-empty) {
+	$env.VISUAL = 'neovide'
+}
+
 if ($env | get -i TERM_PROGRAM) == WezTerm {
   $env.TERM =  "wezterm"
   if not $env.WIN32 {

@@ -3,6 +3,7 @@ local icon = require 'std.icon'
 
 return {
   'folke/which-key.nvim',
+  tag = 'v1.6.0',
   event = 'VeryLazy',
   init = function ()
     vim.o.timeout = true
@@ -24,10 +25,10 @@ return {
       border = vim.g.border_style,
       winblend = vim.o.winblend,
     },
-    layout = { align = 'center' },
+    layout = { align = 'center', },
     disable = {
       buftypes = ignored.buftypes,
-    }
+    },
   },
   config = function ( _, opts )
     local wk = require 'which-key'
@@ -39,27 +40,27 @@ return {
     -- use category as prefix?
     wk.register {
       ['<leader>'] = {
-        m = { name = 'mark', _ = 'which_key_ignore' },
-        h = { name = 'hunk', _ = 'which_key_ignore' },
-        l = { name = 'lsp', _ = 'which_key_ignore' },
-        r = { name = 'refactor', _ = 'which_key_ignore' },
+        m = { name = 'mark', _ = 'which_key_ignore', },
+        h = { name = 'hunk', _ = 'which_key_ignore', },
+        l = { name = 'lsp', _ = 'which_key_ignore', },
+        r = { name = 'refactor', _ = 'which_key_ignore', },
         s = {
           name = 'swap',
           _ = 'which_key_ignore',
           {
-            p = { name = 'parameter', _ = 'which_key_ignore' },
+            p = { name = 'parameter', _ = 'which_key_ignore', },
           },
         },
         t = {
           name = 'toggle',
           _ = 'which_key_ignore',
           {
-            o = { name = 'options', _ = 'which_key_ignore' },
-          }
+            o = { name = 'options', _ = 'which_key_ignore', },
+          },
         },
-        z = { name = 'lazy', _ = 'which_key_ignore' },
-        [' '] = { name = 'fun', _ = 'which_key_ignore' },
-      }
+        z = { name = 'lazy', _ = 'which_key_ignore', },
+        [' '] = { name = 'fun', _ = 'which_key_ignore', },
+      },
     }
-  end
+  end,
 }

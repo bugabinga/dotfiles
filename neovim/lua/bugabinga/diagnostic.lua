@@ -70,6 +70,7 @@ sign { name = 'DiagnosticSignWarn', text = diagnostic_icons.warn }
 sign { name = 'DiagnosticSignHint', text = diagnostic_icons.hint }
 sign { name = 'DiagnosticSignInfo', text = diagnostic_icons.info }
 
+-- TODO: move to togglers
 map.normal {
   description = 'Toggle diagnostics',
   category = 'diagnostic',
