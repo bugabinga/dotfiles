@@ -1,5 +1,6 @@
 return {
   'folke/neodev.nvim',
+  lazy = false,
   opts = {
     lspconfig = false,
     override = function ( root_dir, library )

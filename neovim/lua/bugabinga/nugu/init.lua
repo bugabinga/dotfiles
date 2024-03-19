@@ -204,6 +204,7 @@ _.Include = _.PreProc
 _.Define = _.PreProc
 _.Macro = _.PreProc
 _.PreCondit = _.PreProc
+_.Parameter { fg = content_focus, }
 
 _.Type = _.Statement
 _.StorageClass = _.Statement
@@ -276,7 +277,7 @@ _['@float'] = _.Float
 _['@function'] = _.Function
 _['@function.builtin'] = _.Special
 _['@function.macro'] = _.Macro
-_['@parameter'] = _.Identifier
+_['@parameter'] = _.Parameter
 _['@method'] = _.Function
 _['@field'] = _.Identifier
 _['@property'] = _.Identifier
@@ -293,7 +294,7 @@ _['@type'] = _.Type
 _['@type.definition'] = _.Typedef
 _['@storageclass'] = _.StorageClass
 _['@structure'] = _.Structure
-_['@namespace'] = _.Identifier
+_['@namespace'] = _.PreProc
 _['@include'] = _.Include
 _['@preproc'] = _.PreProc
 _['@debug'] = _.Debug
@@ -518,7 +519,6 @@ _.IblIndent = _.Whitespace
 _.IblWhitespace = _.Whitespace
 _.IblScope { fg = ui_focus, bg = _.Normal.bg, }
 
-_.Hlargs { fg = content_important_local, }
 
 _.MiniStarterCurrent { fg = ui_normal, bg = ui_accent, }
 _.MiniStarterFooter = _.Keyword
