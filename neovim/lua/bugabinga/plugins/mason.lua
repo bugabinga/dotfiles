@@ -1,7 +1,7 @@
 return {
   'williamboman/mason.nvim',
-  tag = 'v1.10.0',
-  cmd = { 'Mason', 'MasonUpdate', 'MasonInstall', 'MasonUninstall', 'MasonUninstallAll', 'MasonLog', },
+  version = '1.*',
+  lazy = false,
   opts = {
     ui = {
       border = vim.g.border_style,
@@ -13,7 +13,6 @@ return {
     {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       lazy = false,
-      cmd = { 'MasonToolsInstall', 'MasonToolsInstallSync', 'MasonToolsUpdate', 'MasonToolsUpdateSync', 'MasonToolsClean', },
       opts = {
         ensure_installed = {
           'lua-language-server',

@@ -1,11 +1,16 @@
 local map = require 'std.map'
 
+map.normal {
+  description = 'Toggle Tree File Explorer',
+  category = 'explorer',
+  keys = '<leader>e',
+  command = function () require 'nvim-tree.api'.tree.toggle() end,
+}
+
 return {
   'nvim-tree/nvim-tree.lua',
-  version = 'v1.0',
-  lazy = false,
+  version = '1.*',
   cmd = 'NvimTreeOpen',
-  keys = '<leader>e',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'antosha417/nvim-lsp-file-operations',
@@ -18,26 +23,20 @@ return {
     -- set termguicolors to enable highlight groups
     vim.opt.termguicolors = true
   end,
-  config = function ()
-    require 'nvim-tree'.setup {
-      sort_by = 'case_sensitive',
-      view = {
-        width = 69,
-      },
-      renderer = {
-        group_empty = true,
-      },
-      filters = {
-        dotfiles = false,
-      },
-    }
+  opts = {
+    sort_by = 'case_sensitive',
+    view = {
+      width = 69,
+    },
+    renderer = {
+      group_empty = true,
+    },
+    filters = {
+      dotfiles = false,
+    },
+  },
+  config = function ( _, opts )
+    require 'nvim-tree'.setup( opts )
     require 'lsp-file-operations'.setup()
-
-    map.normal {
-      description = 'Toggle Tree File Explorer',
-      category = 'explorer',
-      keys = '<leader>e',
-      command = '<cmd>NvimTreeToggle<cr>',
-    }
   end,
 }

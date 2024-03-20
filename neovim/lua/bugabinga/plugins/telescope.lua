@@ -1,7 +1,3 @@
-local map = require 'std.map'
-local icon = require 'std.icon'
-local table = require 'std.table'
-
 require 'bugabinga.health'.add_dependency
 {
   name = 'ripgrep',
@@ -12,9 +8,76 @@ require 'bugabinga.health'.add_dependency
     name_of_executable = 'fd',
   }
 
+local map = require 'std.map'
+local icon = require 'std.icon'
+local table = require 'std.table'
+
+map.normal {
+  description = 'Switch to recently used folders',
+  category = 'navigation',
+  keys = '<c-p><c-z>',
+  command = function () require 'telescope'.extensions.zoxide.list() end,
+}
+
+map.normal.visual.terminal {
+  description = 'Search help files',
+  category = 'help',
+  keys = '<F1>',
+  command = function () require 'telescope.builtin'.help_tags() end,
+}
+
+map.normal {
+  description = 'Open last search...',
+  category = 'plugins',
+  keys = '<c-p>',
+  command = function () require 'telescope.builtin'.resume() end,
+}
+
+map.normal {
+  description = 'Open search for all files...',
+  category = 'search',
+  keys = '<c-p><c-p>',
+  command = function () require 'telescope.builtin'.find_files() end,
+}
+
+map.normal {
+  description = 'Open search for keymaps...',
+  category = 'search',
+  keys = '<c-p><c-k>',
+  command = function () require 'telescope.builtin'.keymaps() end,
+}
+
+map.normal {
+  description = 'Open search for symbols...',
+  category = 'search',
+  keys = '<c-p><c-s>',
+  command = function () require 'telescope.builtin'.symbols() end,
+}
+
+map.normal {
+  description = 'Open search for all file contents...',
+  category = 'search',
+  keys = '<c-p><c-g>',
+  command = function () require 'telescope.builtin'.live_grep() end,
+}
+
+map.normal {
+  description = 'Open search for current buffer content...',
+  category = 'search',
+  keys = '<c-p><c-/>',
+  command = function () require 'telescope.builtin'.current_buffer_fuzzy_find() end,
+}
+
+map.normal {
+  description = 'Open search for buffers...',
+  category = 'search',
+  keys = '<c-e>',
+  command = function () require 'telescope.builtin'.buffers() end,
+}
+
 return {
   'nvim-telescope/telescope.nvim',
-  tag = '0.1.6',
+  version = '0.*',
   cmd = 'Telescope',
   event = 'VeryLazy',
   dependencies = {
@@ -26,7 +89,6 @@ return {
   },
   config = function ()
     local telescope = require 'telescope'
-    local builtin = require 'telescope.builtin'
     local actions = require 'telescope.actions'
     local themes = require 'telescope.themes'
 
@@ -47,7 +109,7 @@ return {
         },
         prompt_prefix = icon.telescope .. ' ',
         selection_caret = icon.arrow_right .. ' ',
-        border = true,
+        border = vim.g.border_style,
         file_ignore_patterns = {
           '.git/',
           '.svn/',
@@ -60,6 +122,7 @@ return {
           '%.mkv',
           '%.mp4',
           '%.zip',
+          '%.spl',
         },
         mappings = {
           i = {
@@ -81,6 +144,7 @@ return {
         live_grep = ivy,
         current_buffer_fuzzy_find = cursor,
         buffers = cursor,
+        help_tags = dropdown,
       },
       extensions = {
         ['ui-select'] = { cursor, },
@@ -90,75 +154,5 @@ return {
 
     telescope.load_extension 'ui-select'
     telescope.load_extension 'zoxide'
-
-    map.normal {
-      description = 'Switch to recently used folders',
-      category = 'navigation',
-      keys = '<c-z>',
-      command = telescope.extensions.zoxide.list,
-    }
-
-    map.normal.visual.terminal {
-      description = 'Search help files',
-      category = 'help',
-      keys = '<F1>',
-      command = function () builtin.help_tags( dropdown ) end,
-    }
-
-    map.normal {
-      description = 'Open last search...',
-      category = 'plugins',
-      keys = '<c-p>',
-      command = function () builtin.resume() end,
-    }
-
-    map.normal {
-      description = 'Open search for commands...',
-      category = 'plugins',
-      keys = '<c-p><c-m>',
-      command = function () builtin.commands() end,
-    }
-
-    map.normal {
-      description = 'Open search for all files...',
-      category = 'search',
-      keys = '<c-p><c-p>',
-      command = function () builtin.find_files() end,
-    }
-
-    map.normal {
-      description = 'Open search for keymaps...',
-      category = 'search',
-      keys = '<c-p><c-k>',
-      command = function () builtin.keymaps() end,
-    }
-
-    map.normal {
-      description = 'Open search for symbols...',
-      category = 'search',
-      keys = '<c-p><c-s>',
-      command = function () builtin.symbols() end,
-    }
-
-    map.normal {
-      description = 'Open search for all file contents...',
-      category = 'search',
-      keys = '<c-p><c-g>',
-      command = function () builtin.live_grep() end,
-    }
-
-    map.normal {
-      description = 'Open search for current buffer content...',
-      category = 'search',
-      keys = '<c-p><c-b>',
-      command = function () builtin.current_buffer_fuzzy_find() end,
-    }
-
-    map.normal {
-      description = 'Open search for buffers...',
-      category = 'search',
-      keys = '<c-e>',
-      command = function () builtin.buffers() end,
-    }
   end,
 }

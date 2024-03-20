@@ -1,5 +1,3 @@
-local map = require 'std.map'
-
 require 'bugabinga.health'.add_dependency
 {
   name = 'CMake',
@@ -21,8 +19,8 @@ require 'bugabinga.health'.add_dependency
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  tag = 'v0.9.2',
-  -- branch = 'master',
+  -- version = '0.*',
+  branch = 'master',
   event = { 'BufReadPre', 'BufNewFile', },
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true, }
@@ -43,9 +41,7 @@ return {
 
     ---@diagnostic disable-next-line: missing-fields
     configs.setup {
-
       sync_install = false,
-
       ensure_installed = {
         'bash',
         'c',

@@ -1,3 +1,1 @@
-return {
-  'bugabinga/nvim-jdtls',
-}
+return { 'bugabinga/nvim-jdtls', }

@@ -107,7 +107,7 @@ local base_key = '<leader>z'
 
 lazy_cmds:each( function ( cmd )
   map.normal {
-    name = cmd[1] .. ' plugins',
+    description = cmd[1],
     category = 'plugins',
     keys = base_key .. cmd[2],
     command = cmd[3],

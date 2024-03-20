@@ -2,7 +2,7 @@ local map = require 'std.map'
 
 return {
   'lewis6991/gitsigns.nvim',
-  tag = 'v0.7',
+  version = '0.*',
   event = 'VeryLazy',
   opts = {
     signs = {
