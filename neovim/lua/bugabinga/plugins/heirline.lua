@@ -8,8 +8,8 @@ local NEW_FILE = '~untitled~'
 return {
   {
     'rebelot/heirline.nvim',
-    tag = 'v1.0.3',
-    event = 'BufEnter',
+    version = '1.*',
+    event = 'VeryLazy',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'lewis6991/gitsigns.nvim',

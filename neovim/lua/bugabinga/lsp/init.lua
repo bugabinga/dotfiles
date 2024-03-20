@@ -293,7 +293,7 @@ local lsp_attach         = function ( args )
     description = 'Show signature help under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = '<leader>ls',
+    keys = { 'H', '<leader>ls', },
     command = vim.lsp.buf.signature_help,
   } )
 
@@ -341,7 +341,7 @@ local lsp_attach         = function ( args )
     description = 'Show references of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = '<leader>lr',
+    keys = '<leader>ln',
     command = vim.lsp.buf.references,
   } )
 
@@ -349,7 +349,7 @@ local lsp_attach         = function ( args )
     description = 'Rename symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = { '<f2>', '<leader>ln', },
+    keys = { '<f2>', '<leader>lr', },
     command = vim.lsp.buf.rename,
   } )
 end

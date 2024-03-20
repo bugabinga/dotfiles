@@ -9,8 +9,8 @@ return {
     local is_home = vim.uv.cwd() == vim.uv.os_homedir()
 
     local custom_actions = {
-      { name = 'Find files', action = 'Telescope find_files', section = 'Builtin actions' },
-      { name = 'Oil',        action = 'Oil',                  section = 'Builtin actions' },
+      { name = 'Find files',    action = 'Telescope find_files', section = 'Builtin actions', },
+      { name = 'Explore files', action = 'Oil',                  section = 'Builtin actions', },
     }
 
     local sessions = function ( limit )
@@ -37,7 +37,7 @@ return {
           end
           local section = 'Sessions'
 
-          return { name = name, action = action, section = section }
+          return { name = name, action = action, section = section, }
         end )
         :totable()
     end
@@ -52,7 +52,7 @@ return {
           pattern = 'LazyVimStarted',
           once = true,
           command = vim.schedule_wrap( function ()
-            if vim.bo.filetype == "starter" then
+            if vim.bo.filetype == 'starter' then
               startuptime = require 'lazy'.stats().startuptime
               starter.refresh()
             end
@@ -80,7 +80,7 @@ return {
       content_hooks = {
         starter.gen_hook.adding_bullet(),
         starter.gen_hook.aligning( 'center', 'center' ),
-        starter.gen_hook.indexing( 'all', { 'Recent files', 'Recent files (current directory)', 'Builtin actions' } ),
+        starter.gen_hook.indexing( 'all', { 'Recent files', 'Recent files (current directory)', 'Builtin actions', } ),
       },
     }
   end,

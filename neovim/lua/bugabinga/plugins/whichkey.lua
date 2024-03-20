@@ -3,7 +3,7 @@ local icon = require 'std.icon'
 
 return {
   'folke/which-key.nvim',
-  tag = 'v1.6.0',
+  version = '1.*',
   event = 'VeryLazy',
   init = function ()
     vim.o.timeout = true
@@ -40,25 +40,27 @@ return {
     -- use category as prefix?
     wk.register {
       ['<leader>'] = {
-        m = { name = 'mark', _ = 'which_key_ignore', },
-        h = { name = 'hunk', _ = 'which_key_ignore', },
-        l = { name = 'lsp', _ = 'which_key_ignore', },
-        r = { name = 'refactor', _ = 'which_key_ignore', },
-        s = {
-          name = 'swap',
-          _ = 'which_key_ignore',
+        m = { name = '|m|ark', _ = 'which_key_ignore', },
+        h = { name = '|h|unk', _ = 'which_key_ignore', },
+        r = { name = '|r|efactor', _ = 'which_key_ignore', },
+        f = { name = '|f|iles', _ = 'which_key_ignore', },
+        g = { name = '|g|enerate', _ = 'which_key_ignore', },
+        v = { name = '|v|ersion control', _ = 'which_key_ignore', },
+        l = { name = '|l|sp', _ = 'which_key_ignore',
+          p = { name = '|p|eek', _ = 'which_key_ignore', },
+          c = { name = '|c|alls', _ = 'which_key_ignore', },
+        },
+        s = { name = '|s|wap', _ = 'which_key_ignore',
           {
-            p = { name = 'parameter', _ = 'which_key_ignore', },
+            p = { name = '|p|arameter', _ = 'which_key_ignore', },
           },
         },
-        t = {
-          name = 'toggle',
-          _ = 'which_key_ignore',
+        t = { name = '|t|oggle', _ = 'which_key_ignore',
           {
-            o = { name = 'options', _ = 'which_key_ignore', },
+            o = { name = '|o|ptions', _ = 'which_key_ignore', },
           },
         },
-        z = { name = 'lazy', _ = 'which_key_ignore', },
+        z = { name = 'la|z|y', _ = 'which_key_ignore', },
         [' '] = { name = 'fun', _ = 'which_key_ignore', },
       },
     }

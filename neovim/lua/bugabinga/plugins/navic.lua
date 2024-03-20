@@ -1,6 +1,1 @@
-return {
-  'SmiteshP/nvim-navic',
-  opts = {
-
-  }
-}
+return { 'SmiteshP/nvim-navic', opts = {}, }

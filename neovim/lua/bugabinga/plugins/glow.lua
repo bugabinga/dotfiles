@@ -3,6 +3,16 @@ require 'bugabinga.health'.add_dependency
   name = 'Glow',
   name_of_executable = 'glow',
 }
+
+local map = require 'std.map'
+
+map.normal {
+  description = 'Generate markdown preview',
+  keys = '<leader>gm',
+  category = 'preview',
+  command = '<cmd>Glow<cr>',
+}
+
 return {
   'ellisonleao/glow.nvim',
   cmd = 'Glow',

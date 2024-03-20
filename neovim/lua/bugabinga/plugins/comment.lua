@@ -1,6 +1,6 @@
 return { {
   'numToStr/Comment.nvim',
-  tag = 'v0.8.0',
+  version = '0.*',
   keys = {
     { 'gc', mode = { 'n', 'v', }, desc = 'Comment toggle linewise', },
     { 'gb', mode = { 'n', 'v', }, desc = 'Comment toggle blockwise', },

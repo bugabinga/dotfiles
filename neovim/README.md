@@ -39,6 +39,7 @@ So as I pray, Unlimited Bug Works.
 # todo
 
 * replace nugu with nugu_fresh
+* use `vim.secure.read` for project local settings
 * write plugin to parse lsp settings locally and apply them
 * is there a use case for a plugin that parses local plugin configuration overrides?
 * kill custom lsp stuff in favor of lspconfig and try neoconf + nvim-java
