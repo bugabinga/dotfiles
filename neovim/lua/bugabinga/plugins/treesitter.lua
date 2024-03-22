@@ -21,7 +21,8 @@ return {
   'nvim-treesitter/nvim-treesitter',
   -- version = '0.*',
   branch = 'master',
-  event = { 'BufReadPre', 'BufNewFile', },
+  -- restoring session throws errors, if this is lazy
+  lazy = false,
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true, }
   end,
@@ -38,6 +39,16 @@ return {
 
     install.prefer_git = false
     install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC', }
+
+
+    local should_disable = function ( _, bufnr )
+      local max_filesize = 5 * 1024 * 1024 --MiB
+      local ok, stats = pcall( vim.loop.fs_stat, vim.api.nvim_buf_get_name( bufnr or 0 ) )
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+      return false
+    end
 
     ---@diagnostic disable-next-line: missing-fields
     configs.setup {
@@ -67,26 +78,21 @@ return {
         'zig',
       },
 
-      ignore_install = { 'oil', },
+      ignore_install = { 'oil', disable = should_disable, },
 
       auto_install = true,
 
-      autotag = { enable = true, },
+      autotag = { enable = true, disable = should_disable, },
 
       highlight = {
         enable = true,
-        disable = function ( _, buf )
-          local max_filesize = 1000 * 1024 -- 1000 KiB
-          local ok, stats = pcall( vim.loop.fs_stat, vim.api.nvim_buf_get_name( buf ) )
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
+        disable = should_disable,
         additional_vim_regex_highlighting = false,
       },
 
       incremental_selection = {
         enable = true,
+        disable = should_disable,
         keymaps = {
           init_selection = '<up>',
           node_incremental = '<right>',
@@ -99,6 +105,7 @@ return {
 
       playground = {
         enable = true,
+        disable = should_disable,
         disable = {},
         updatetime = 25,
         persist_queries = false,
@@ -119,6 +126,7 @@ return {
       textobjects = {
         select = {
           enable = true,
+          disable = should_disable,
           lookahead = true,
           keymaps = {
             ['af'] = { query = '@call.outer', desc = 'outer function call', },
@@ -162,16 +170,18 @@ return {
 
         swap = {
           enable = true,
+          disable = should_disable,
           swap_next = {
-            ['<leader>spn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
+            ['<leader>rwn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
           },
           swap_previous = {
-            ['<leader>spp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
+            ['<leader>rwp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
           },
         },
 
         lsp_interop = {
           enable = true,
+          disable = should_disable,
           border = vim.g.border_style,
           floating_preview_opts = {},
           peek_definition_code = {
@@ -182,6 +192,7 @@ return {
 
         move = {
           enable = true,
+          disable = should_disable,
           set_jumps = true,
           goto_next = {
             [']f'] = { query = '@call.outer', desc = 'Goto next function call', },
@@ -205,7 +216,7 @@ return {
     parsers.get_parser_configs().just = {
       install_info = {
         url = 'https://github.com/IndianBoy42/tree-sitter-just', -- local path or git repo
-        files = { 'src/parser.c', 'src/scanner.cc', },
+        files = { 'src/parser.c', 'src/scanner.c', },
         branch = 'main',
       },
       maintainers = { '@IndianBoy42', },

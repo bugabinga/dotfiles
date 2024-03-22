@@ -25,3 +25,11 @@ vim.opt.updatecount = 100
 -- enable persistent undo. save undo history across neovim instances
 vim.opt.undofile = true
 
+vim.filetype.add {
+  extension = {
+    norg = 'norg',
+  },
+  pattern = {
+    ['.*/%.vscode/.*%.json'] = 'json5', -- These json files frequently have comments
+  },
+}

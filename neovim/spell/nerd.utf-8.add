@@ -24,3 +24,7 @@ neoconf
 lsp
 autopairs
 cterm/!
+resession
+configs
+BufNewFile
+LuaLS

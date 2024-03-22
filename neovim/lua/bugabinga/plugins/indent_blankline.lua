@@ -4,7 +4,7 @@ return {
   'lukas-reineke/indent-blankline.nvim',
   version = '3.*',
   main = 'ibl',
-  event = { 'BufReadPost', 'BufNew', },
+  event = vim.g.FILE_LOADED_EVENTS,
   opts = {
     debounce = 250,
     indent = {
