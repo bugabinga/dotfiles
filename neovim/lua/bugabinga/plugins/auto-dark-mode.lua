@@ -1,7 +1,8 @@
 return {
   'f-person/auto-dark-mode.nvim',
   dev = true,
-  event = 'VeryLazy',
+  -- event = 'VeryLazy',
+  lazy = false,
   opts = {
     -- interval of 0 freezes neovim on quit
     -- update_interval = 0,

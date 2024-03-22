@@ -5,3 +5,17 @@ for _, path in pairs( vim.api.nvim_list_runtime_paths() ) do
   vim.opt_local.path:append( path .. '/lua' )
 end
 vim.opt_local.suffixesadd:prepend '.lua'
+
+local map = require 'std.map'
+
+map.normal {
+  description = 'Wrap word under cursor with require call',
+  keys = '<leader>rq',
+  category = 'refactor',
+  -- sourround word with '
+  -- insert `require`
+  -- move 3 words
+  command = "ebi'<esc>ea'<esc>bbirequire <esc>www",
+  buffer = true,
+  remap = true,
+}

@@ -237,6 +237,13 @@ local lsp_attach         = function ( args )
     local navbuddy_ok, navbuddy = pcall( require, 'nvim-navbuddy' )
     if navbuddy_ok then
       navbuddy.attach( client, bufnr )
+      map.normal {
+        description = 'Open overview of symbols in current buffer',
+        category = 'lsp',
+        keys = '<leader>lo',
+        command = function () navbuddy.open( bufnr ) end,
+        buffer = bufnr,
+      }
     else
       vim.notify 'nvim-navbuddy not found. could not attach to lsp client.'
     end

@@ -58,7 +58,7 @@ vim.opt.shellxquote = ''
 require 'bugabinga.health'.add_dependency
 {
   name = 'Nushell',
-  name_of_executable = 'nu'
+  name_of_executable = 'nu',
 }
 
 -- highlight all search matches
@@ -80,7 +80,7 @@ vim.opt.grepformat = '%f:%l:%c:%m'
 require 'bugabinga.health'.add_dependency
 {
   name = 'Ripgrep',
-  name_of_executable = 'rg'
+  name_of_executable = 'rg',
 }
 
 -- ask me to force failed commands
@@ -88,7 +88,7 @@ vim.opt.confirm = true
 
 auto 'load_project_if_available' {
   description = 'Loads the project root dir as cwd, if it can be determined from a file path.',
-  events = { 'FileType' },
+  events = { 'FileType', },
   pattern = '*',
   command = function ( event )
     local project = require 'std.project'
@@ -100,7 +100,9 @@ auto 'load_project_if_available' {
     if table.contains( ignored.filetypes, filetype ) then return end
     local buftype = vim.api.nvim_buf_get_option( buffer, 'buftype' )
     if table.contains( ignored.buftypes, buftype ) then return end
-    local root = vim.fs.normalize( project.find_root_by_filetype( file, filetype ) )
+    local project = project.find_root_by_filetype( file, filetype )
+    if not project then return end
+    local root = vim.fs.normalize(project)
     local cwd = vim.fs.normalize( vim.uv.cwd() )
     if root and cwd ~= root then
       vim.uv.chdir( root )

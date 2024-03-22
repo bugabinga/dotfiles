@@ -84,7 +84,6 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-symbols.nvim',
-    'nvim-telescope/telescope-ui-select.nvim',
     'jvgrootveld/telescope-zoxide',
   },
   config = function ()
@@ -98,8 +97,6 @@ return {
 
     telescope.setup {
       defaults = {
-        path_display = { 'truncate', },
-        sorting_strategy = 'ascending',
         layout_config = {
           horizontal = { prompt_position = 'bottom', preview_width = 0.69, },
           vertical = { mirror = false, },
@@ -109,7 +106,6 @@ return {
         },
         prompt_prefix = icon.telescope .. ' ',
         selection_caret = icon.arrow_right .. ' ',
-        border = vim.g.border_style,
         file_ignore_patterns = {
           '.git/',
           '.svn/',
@@ -135,24 +131,23 @@ return {
           n = { q = actions.close, },
         },
       },
-      pickers = {
-        find_files = ivy,
-        fd = ivy,
-        keymaps = dropdown,
-        diagnostics = dropdown,
-        symbols = cursor,
-        live_grep = ivy,
-        current_buffer_fuzzy_find = cursor,
-        buffers = cursor,
-        help_tags = dropdown,
-      },
+      -- FIXME: some thems have an issue, where filtered results do not get selected and are thuis not in view
+      -- pickers = {
+      --   find_files = ivy,
+      --   fd = ivy,
+      --   keymaps = dropdown,
+      --   diagnostics = dropdown,
+      --   symbols = cursor,
+      --   live_grep = ivy,
+      --   current_buffer_fuzzy_find = cursor,
+      --   buffers = cursor,
+      --   help_tags = dropdown,
+      -- },
       extensions = {
-        ['ui-select'] = { cursor, },
         zoxide = { prompt_title = 'Navigate deez nuts!', },
       },
     }
 
-    telescope.load_extension 'ui-select'
     telescope.load_extension 'zoxide'
   end,
 }

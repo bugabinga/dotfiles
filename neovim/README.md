@@ -34,24 +34,26 @@ So as I pray, Unlimited Bug Works.
 
 ~ Shirou Emiya
 
----------
+.
 
 # todo
 
-* replace nugu with nugu_fresh
-* use `vim.secure.read` for project local settings
+* Bug: LuaLS is getting crazy diagnosing non-stop...
+* TAB highlights are borked
+* think about formatting. prefer lsp or not?
+* once a terminal was open, i cannot quit with :wqa anymore...
+* adapt config to respect `vim.g.nerdfont` (std.constants?)
+* learn from <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua> and maybe adapt `std.localrc`
+* make lsp config extensible, so that plugin configs can hook into it (e.g. on_attach)
+* scavenge stevearc dotfiles for nvim goodies
 * write plugin to parse lsp settings locally and apply them
-* is there a use case for a plugin that parses local plugin configuration overrides?
-* kill custom lsp stuff in favor of lspconfig and try neoconf + nvim-java
-* does status bar fail to display if lsp fails to load?
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* use gen.ai to generate docs
 * learn marks and refactor mark.lua
-* use ltex-ls for markdown, code comments and commit messages
-* create a floating window that shows plugins, that have commands, as reminder
-* setup DAP
-* add nu-check to nvim-lint
 * create facade over vim.api.nvim_create_user_command
-* create skeleton-plugin for default file content based on file type
-* add support for Java multi line string in autopairs
+* use ltex-ls for markdown, code comments and commit messages
+* setup DAP
 * nvim spell for camel case words
+* add nu-check to nvim-lint
+* create skeleton-plugin for default file content based on file type (BufNewFile?)
+* add support for Java multi line string in autopairs
+* split parts of config into plugins

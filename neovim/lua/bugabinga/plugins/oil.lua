@@ -1,4 +1,5 @@
 local map = require 'std.map'
+local icon = require 'std.icon'
 
 map.normal {
   description = 'Open parent directory in buffer.',
@@ -10,36 +11,54 @@ map.normal {
 
 return {
   'stevearc/oil.nvim',
+  lazy = false,
   cmd = { 'Oil', },
   dependencies = { 'nvim-tree/nvim-web-devicons', },
-  config = function ()
-    local oil = require 'oil'
-    oil.setup {
-      skip_confirm_for_simple_edits = true,
-      delete_to_trash = true,
-      -- TODO: does oil support trash on win32?
-      -- trash_command = 'rm --trash', --nu command
+  opts = {
+    -- default_file_explorer = true,
+    -- Set to true to watch the filesystem for changes and reload oil
+    -- experimental_watch_for_changes = true,
+    skip_confirm_for_simple_edits = true,
+    prompt_save_on_select_new_entry = false,
+    delete_to_trash = true,
 
-      colums = {
-        'icon',
-        'permissions',
-        'size',
-        'mtime',
+    columns = { 'icon', },
+    buf_options = {
+      cursorline = true,
+    },
+    keymaps = {
+      ['q'] = 'actions.close',
+      ['<C-v>'] = 'actions.select_vsplit',
+      ['<C-s>'] = 'actions.select_split',
+      ['`'] = 'actions.tcd',
+      ['~'] = '<cmd>edit $HOME<CR>',
+      ['<F7>'] = 'actions.open_terminal',
+      ['gd'] = {
+        desc = 'Toggle detail view',
+        callback = function ()
+          local oil = require 'oil'
+          local config = require 'oil.config'
+          if #config.columns == 1 then
+            oil.set_columns { 'icon', 'permissions', 'size', { 'mtime', format = '%d/%m/%y %T', }, }
+          else
+            oil.set_columns { 'icon', }
+          end
+        end,
       },
-      keymaps = {
-        ['q'] = 'actions.close',
-        ['<esc>'] = 'actions.close',
-        ['g?'] = 'actions.show_help',
-        ['<C-v>'] = 'actions.select_vsplit',
-        ['<C-s>'] = 'actions.select_split',
-        ['<C-h>'] = 'actions.toggle_hidden',
-      },
-      float = {
-        max_width = 69,
-        min_width = 69,
-        border = vim.g.border_style,
-        padding = 2,
-      },
-    }
-  end,
+    },
+    float = {
+      max_width = 69,
+      min_width = 69,
+      border = vim.g.border_style,
+      padding = 2,
+    },
+    -- Configuration for the floating keymaps help window
+    keymaps_help = {
+      border = vim.g.border_style,
+    },
+    view_options = {
+      is_always_hidden = function ( name, bufnr ) return name == '..' end,
+      show_hidden = true,
+    },
+  },
 }

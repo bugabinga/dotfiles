@@ -1,7 +1,7 @@
 return {
   {
     'JosefLitos/colorizer.nvim',
-    event = { 'BufReadPost', 'BufNew', },
+    event = vim.g.FILE_LOADED_EVENTS,
     opts = {
       filetypes = { '*', },
       user_default_options = {

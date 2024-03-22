@@ -11,7 +11,7 @@ auto 'highlight_yanked_text' {
 
 auto 'disable_columns_in_special_buffers' {
   description = 'Hide columns in buffers, that do not show source code.',
-  events = { 'FileType' },
+  events = { 'FileType', },
   pattern = ignored.filetypes,
   command = function ()
     vim.opt_local.colorcolumn = {}
@@ -21,33 +21,12 @@ auto 'disable_columns_in_special_buffers' {
   end,
 }
 
--- TODO: this should probably live in nugu?
-
--- local hl_to_mode = {
---   n = { bg = 'black' },
---   i = { bg = 'blue' },
---   v = { bg = 'green' },
--- }
---
--- auto 'change_cursor_highlight_based_on_mode' {
---   description = 'Changes the highlight of the cursor based on the current mode.',
---   events = 'ModeChanged',
---   command = function ()
---     local current_mode = vim.fn.mode()
---     local hl = hl_to_mode[current_mode]
---     vim.notify( 'changing Cursor highlight for mode ' .. current_mode .. ' to ' .. vim.inspect( hl ) )
---     if hl then
---       vim.api.nvim_set_hl( 0, 'Cursor', hl )
---     end
---   end,
--- }
-
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-  space = icon.space,
+  -- space = icon.space,
   -- eol = icon.eol,
-  tab = icon.tab .. ' ',
+  -- tab = icon.tab .. ' ',
   trail = icon.trail,
   extends = icon.extends,
   precedes = icon.precedes,
@@ -62,9 +41,8 @@ vim.opt.showcmd = false
 vim.opt.wildmode = 'list:longest'
 
 -- virtually break lines on border
-vim.opt.wrap = true
 
--- always display the signcolumn to avoid jitter
+-- always display tme signcolumn to avoid jitter
 vim.opt.signcolumn = 'yes:1'
 
 -- what is a ruler? me?
@@ -109,7 +87,7 @@ vim.opt.conceallevel = 0
 vim.opt.foldenable = false
 
 -- show visual indicators for lines too long
-vim.opt.colorcolumn = { '80', '120', '140' }
+vim.opt.colorcolumn = { '80', '120', '140', }
 
 -- highlight the current line
 vim.opt.cursorline = false
@@ -129,15 +107,22 @@ vim.opt.showmode = false
 -- always show tabs, to avoid jitter ui
 vim.opt.showtabline = 2
 
--- Use true colors
-vim.opt.termguicolors = true
-vim.opt.lazyredraw = false
+local is_tty = os.getenv 'XDG_SESSION_TYPE' == 'tty' and os.getenv 'SSH_TTY' == ''
+if is_tty then
+  vim.opt.termguicolors = false
+  vim.g.nerdfont = false
+  vim.opt.lazyredraw = true
+else
+  vim.opt.termguicolors = true
+  vim.g.nerdfont = true
+  vim.opt.lazyredraw = false
+end
 
 -- scroll by screen lines if buffer is wrapped
 vim.opt.smoothscroll = true
 
 -- cursor
-vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
+-- vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
 vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:#e-subpixelantialias:#h-full'

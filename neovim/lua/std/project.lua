@@ -50,16 +50,15 @@ local DEFINITLY = 7
 -- Assuming you want to determine the root of your current buffer, that is part
 -- of some project.
 -- Buffer: `/home/user/workspace/some\_project/a/b/c/d/the\_buffer.c`
--- Project root: `/home/user/workspace/some\_project`
---							 -> contains `.git`, `README` and `Makefile`
+-- Project root: `/home/user/workspace/some\_project` -> contains `.git`, `README` and `Makefile`
 --
 -- ```lua
 -- local project = require'std.project'
 -- local current_buffer = vim.api.nvim_buf_get_name(0)
 -- local markers = {
---	{ name = ".git", weight = MAYBE },
---	{ name = "README", weight = LIKELY },
---	{ naem = "Makefile", weight = DEFINITLY },
+--  { name = ".git", weight = MAYBE },
+--  { name = "README", weight = LIKELY },
+--  { naem = "Makefile", weight = DEFINITLY },
 -- }
 -- local root = project.find_root(current_buffer, markers, vim.uv.os_homedir())
 -- print(root) -- /home/user/workspace/some_project
@@ -165,22 +164,23 @@ end
 local function find_project_root( path, markers )
   -- define some language-independent markers
   local default_markers = {
+    { name = '.project_model.lua', weight = DEFINITLY, },
+    { name = '.lazy.specs.lua',    weight = DEFINITLY, },
+    { name = '.editorconfig',      weight = LIKELY, },
     { name = '.git',               weight = LIKELY, },
     { name = '.gitignore',         weight = LIKELY, },
     { name = '.svn',               weight = LIKELY, },
     { name = 'justfile',           weight = LIKELY, },
+    { name = 'Makefile',           weight = LIKELY, },
     { name = 'Jenkinsfile',        weight = MAYBE, },
-    { name = '.editorconfig',      weight = MAYBE, },
     { name = 'LICENSE',            weight = MAYBE, },
     { name = 'LICENSE.md',         weight = MAYBE, },
     { name = 'LICENSE.txt',        weight = MAYBE, },
     { name = 'COPYING',            weight = MAYBE, },
     { name = 'README',             weight = MAYBE, },
     { name = 'README.md',          weight = MAYBE, },
-    { name = 'Makefile',           weight = LIKELY, },
     { name = 'flake.nix',          weight = MAYBE, },
     { name = 'flake.nix',          weight = MAYBE, },
-    { name = '.project_model.lua', weight = DEFINITLY, },
   }
 
   markers = markers or {}
