@@ -25,7 +25,7 @@ return {
   opts = {
     formatters_by_ft = {
       -- https://github.com/razziel89/mdslw/issues/14
-      -- markdown = { 'mdslw', },
+      markdown = { 'mdslw', },
       -- lua = { "stylua" },
       toml = { 'taplo', },
       sh = { 'shfmt', },
@@ -40,7 +40,7 @@ return {
     formatters = {
       mdslw = {
         -- remove `:` from the default set of end markers
-        prepend_args = { '--end-markers', '?!.', },
+        -- prepend_args = { '--end-markers', '?!.', },
       },
     },
     log_level = debug.get() and vim.log.levels.TRACE or vim.log.levels.INFO,

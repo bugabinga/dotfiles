@@ -11,7 +11,7 @@ return {
     Lua = {
       addonManager = { enable = false, },
       completion = { callSnippet = 'Replace', },
-      diagnostics = { globals = { 'vim', }, workspaceRate = 50, },
+      diagnostics = { globals = { 'vim', 'prequire', }, workspaceRate = 50, },
       hint = { enable = true, setType = true, },
       telemetry = { enable = false, },
       window = { progressBar = true, statusBar = true, },

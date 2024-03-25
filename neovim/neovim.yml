@@ -25,3 +25,7 @@ globals:
     any: true
   bit:
     any: true
+  prequire:
+    args:
+      - type: string
+      - type: function

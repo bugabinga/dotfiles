@@ -8,7 +8,6 @@ auto 'highlight_yanked_text' {
 	pattern = '*',
 	command = function () vim.highlight.on_yank() end,
 }
-
 auto 'disable_columns_in_special_buffers' {
 	description = 'Hide columns in buffers, that do not show source code.',
 	events = { 'FileType', },
@@ -24,8 +23,8 @@ auto 'disable_columns_in_special_buffers' {
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-	-- space = icon.space,
-	-- eol = icon.eol,
+	space = icon.space,
+	eol = icon.eol,
 	tab = icon.tab .. icon.middle_ellipsis,
 	trail = icon.trail,
 	extends = icon.extends,
@@ -33,7 +32,7 @@ vim.opt.listchars = {
 	nbsp = icon.nbsp,
 }
 
--- force english messages
+-- force English messages
 vim.cmd [[ language mes en_US.utf8 ]]
 
 -- do not spam the cmdline with every little input
@@ -42,7 +41,7 @@ vim.opt.wildmode = 'list:longest'
 
 -- virtually break lines on border
 
--- always display tme signcolumn to avoid jitter
+-- always display the signcolumn to avoid jitter
 vim.opt.signcolumn = 'yes:1'
 
 -- what is a ruler? me?
@@ -77,10 +76,10 @@ vim.opt.shortmess:append 'I'
 -- truncate messages at end
 vim.opt.shortmess:append 't'
 
--- show cmd window to prevent jitter ui
+-- show cmd window to prevent jitter UI
 vim.opt.cmdheight = 1
 
--- do not conceal special characters by default. filestypes can enable this on demand.
+-- do not conceal special characters by default. ftplugin can enable this on demand.
 vim.opt.conceallevel = 0
 
 -- I do not care for folding
@@ -104,7 +103,7 @@ vim.g.border_style = 'shadow'
 -- hide the mode indicator in status
 vim.opt.showmode = false
 
--- always show tabs, to avoid jitter ui
+-- always show tabs, to avoid jitter UI
 vim.opt.showtabline = 2
 
 local is_tty = os.getenv 'XDG_SESSION_TYPE' == 'tty' and os.getenv 'SSH_TTY' == ''
@@ -122,7 +121,7 @@ end
 vim.opt.smoothscroll = true
 
 -- cursor
--- vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
+vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
 vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:#e-subpixelantialias:#h-full'

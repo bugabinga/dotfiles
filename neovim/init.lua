@@ -13,6 +13,9 @@
 
 vim.cmd.colorscheme 'nugu'
 
+---create special global, that serves as a more graceful alternative to `require`
+prequire = require 'std.prequire'
+
 local ok, loaded
 
 -- set general neovim editor settings
@@ -24,7 +27,7 @@ end
 -- extends default editorconfig options
 ok, loaded = pcall( require, 'bugabinga.editorconfig' )
 if not ok then
-  vim.print( 'error while loading editorconfg extensions', loaded )
+  vim.print( 'error while loading editorconfig extensions', loaded )
 end
 
 -- install plugin manager and declare plugins to use
@@ -48,7 +51,7 @@ end
 -- visualize marks in signcolumn
 ok, loaded = pcall( require, 'bugabinga.mark' )
 if not ok then
-  vim.print( 'error while loading mark', loaded )
+vim.print( 'error while loading mark', loaded )
 end
 
 -- setup lsp clients
