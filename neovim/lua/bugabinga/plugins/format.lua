@@ -1,53 +1,51 @@
---FIXME: own this
+local debug = require 'std.debug'
+local map = require 'std.map'
+
+local format = function ()
+  require 'conform'.format( { async = false, lsp_fallback = true, }, function ( err )
+    if err and debug.get() then
+      vim.print( 'Format failed', err )
+    end
+  end )
+end
+
+map.N {
+  description = 'Format buffer',
+  category = 'format',
+  keys = '=',
+  command = format,
+}
+
+--TODO: make user command Format
+vim.api.nvim_create_user_command( 'Format', format, {} )
+
 return {
   'stevearc/conform.nvim',
-  event = { 'BufWritePre', },
   cmd = { 'ConformInfo', },
-  keys = {
-    {
-      '=',
-      function ()
-        require 'conform'.format( { async = true, lsp_fallback = true, }, function ( err )
-          if not err then
-            if vim.startswith( vim.api.nvim_get_mode().mode:lower(), 'v' ) then
-              vim.api.nvim_feedkeys( vim.api.nvim_replace_termcodes( '<Esc>', true, false, true ), 'n', true )
-            end
-          end
-        end )
-      end,
-      mode = '',
-      desc = 'Format buffer',
-    },
-  },
   opts = {
     formatters_by_ft = {
-      markdown = { 'injected', },
-      norg = { 'injected', },
-      lua = { 'stylua', },
-      go = { 'goimports', 'gofmt', },
+      -- https://github.com/razziel89/mdslw/issues/14
+      -- markdown = { 'mdslw', },
+      -- lua = { "stylua" },
+      toml = { 'taplo', },
       sh = { 'shfmt', },
+      just = { 'just', },
       zig = { 'zigfmt', },
+      -- Use the "*" filetype to run formatters on all filetypes.
+      ['*'] = { 'injected', 'typos', },
+      -- Use the "_" filetype to run formatters on filetypes that don't
+      -- have other formatters configured.
       ['_'] = { 'trim_whitespace', 'trim_newlines', },
     },
     formatters = {
-      injected = {
-        options = {
-          lang_to_formatters = {
-            html = {},
-          },
-        },
-      },
-      shfmt = {
-        prepend_args = { '-i', '2', },
+      mdslw = {
+        -- remove `:` from the default set of end markers
+        prepend_args = { '--end-markers', '?!.', },
       },
     },
-    log_level = vim.log.levels.TRACE,
-    format_after_save = function ( bufnr )
-      if vim.b[bufnr].disable_autoformat then
-        return
-      end
-      return { timeout_ms = 5000, lsp_fallback = true, }
-    end,
+    log_level = debug.get() and vim.log.levels.TRACE or vim.log.levels.INFO,
   },
-  init = function () vim.o.formatexpr = "v:lua.require'conform'.formatexpr()" end,
+  init = function ()
+    vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+  end,
 }

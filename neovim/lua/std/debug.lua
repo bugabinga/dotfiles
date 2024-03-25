@@ -18,6 +18,7 @@ local function toggle_debug_mode()
   vim.notify( 'Toggled debug mode to ' .. tostring( is_debug_mode() ) )
 end
 
+--TODO: use facade
 vim.api.nvim_create_user_command( 'Debug', toggle_debug_mode, {} )
 
 return {

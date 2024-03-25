@@ -34,25 +34,22 @@ So as I pray, Unlimited Bug Works.
 
 ~ Shirou Emiya
 
-.
-
 # todo
 
 * Bug: LuaLS is getting crazy diagnosing non-stop...
-* TAB highlights are borked
-* think about formatting. prefer lsp or not?
-* once a terminal was open, i cannot quit with :wqa anymore...
+* integrate language tool?
+* ]s [s to jump to spelling mistakes
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
-* learn from <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua> and maybe adapt `std.localrc`
 * make lsp config extensible, so that plugin configs can hook into it (e.g. on_attach)
-* scavenge stevearc dotfiles for nvim goodies
 * write plugin to parse lsp settings locally and apply them
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* learn marks and refactor mark.lua
+* once a terminal was open, i cannot quit with :wqa anymore...
 * create facade over vim.api.nvim_create_user_command
 * use ltex-ls for markdown, code comments and commit messages
+* learn from <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua> and maybe adapt `std.localrc`
 * setup DAP
 * nvim spell for camel case words
+* learn marks and refactor mark.lua
 * add nu-check to nvim-lint
 * create skeleton-plugin for default file content based on file type (BufNewFile?)
 * add support for Java multi line string in autopairs

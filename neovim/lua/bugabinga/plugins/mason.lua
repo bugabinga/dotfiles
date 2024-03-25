@@ -1,6 +1,6 @@
 return {
-  'williamboman/mason.nvim',
-  version = '1.*',
+  "williamboman/mason.nvim",
+  version = "1.*",
   lazy = false,
   opts = {
     ui = {
@@ -11,19 +11,20 @@ return {
   },
   dependencies = {
     {
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
       lazy = false,
       opts = {
         ensure_installed = {
-          'lua-language-server',
-          'shellcheck',
-          'editorconfig-checker',
-          'shfmt',
-          'jdtls',
-          'java-test',
-          'java-debug-adapter',
-          'lemminx',
-          'marksman',
+          "lua-language-server",
+          "shellcheck",
+          "editorconfig-checker",
+          "shfmt",
+          "jdtls",
+          "java-test",
+          "java-debug-adapter",
+          "lemminx",
+          "marksman",
+          "typos",
         },
       },
     },

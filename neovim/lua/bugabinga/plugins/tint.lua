@@ -1,1 +1,5 @@
-return { 'levouh/tint.nvim', opts = {}, }
+return {
+	'levouh/tint.nvim',
+	event = { 'WinNew', 'SessionLoadPost', },
+	opts = {},
+}

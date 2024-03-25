@@ -28,3 +28,9 @@ resession
 configs
 BufNewFile
 LuaLS
+editorconfig
+exrc
+localrc
+signcolumn
+togglers
+ripgrep
