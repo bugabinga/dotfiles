@@ -49,6 +49,7 @@ return {
   spelling        = '󰓆',
   subversion      = '󰳗',
   tab             = '󰌒',
+  middle_ellipsis = '⋯',
   terminal        = '',
   thread          = '󱇫',
   toggle_off      = '',

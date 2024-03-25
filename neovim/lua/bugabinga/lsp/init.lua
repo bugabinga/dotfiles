@@ -1,5 +1,3 @@
-require 'bugabinga.lsp.lightbulb'
-
 local debug              = require 'std.debug'
 local defer              = require 'std.defer'
 local map                = require 'std.map'
@@ -9,9 +7,13 @@ local table              = require 'std.table'
 local ignored            = require 'std.ignored'
 local user_command       = vim.api.nvim_create_user_command
 local lsp_client_configs = require 'bugabinga.lsp.clients'
+local localrc            = require 'std.localrc'
+
 local _                  = {}
 
-local token_update       = function ( lsp_client )
+require 'bugabinga.lsp.lightbulb'
+
+local token_update   = function ( lsp_client )
   local token = lsp_client.data.token
   local buffer = lsp_client.buffer
   local client_id = lsp_client.data.client_id
@@ -27,7 +29,7 @@ local token_update       = function ( lsp_client )
   --* closures that capture something
 end
 
-local expand_path        = function ( path )
+local expand_path    = function ( path )
   if vim.fn.executable( path ) == 1 then
     return vim.fn.exepath( path )
   else
@@ -35,7 +37,7 @@ local expand_path        = function ( path )
   end
 end
 
-local expand_command     = function ( command )
+local expand_command = function ( command )
   vim.validate { command = { command, { 'string', 'table', }, }, }
 
   if type( command ) == 'table' then
@@ -46,7 +48,7 @@ local expand_command     = function ( command )
   return expand_path( command )
 end
 
-local lsp_start          = function ( file_type_event )
+local lsp_start      = function ( file_type_event )
   debug.print 'trying to start lsp'
   local match = file_type_event.match
 
@@ -114,8 +116,8 @@ local lsp_start          = function ( file_type_event )
 
   -- TODO: LspStart
   -- TODO: LspStop
-  -- TODO: stop lsp on vim idle/ficus lost?
-  -- FIXME: lsp detach errors
+
+  local project_local_lsp_settings = localrc( '.lsp.settings.lua', 'table' ) or {}
 
   for _, config in ipairs( potential_client_configs ) do
     local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
@@ -192,8 +194,8 @@ local old_formatexpr
 local old_omnifunc
 local old_tagfunc
 
-local keybinds           = {}
-local add                = function ( client_id, keybind_remover )
+local keybinds       = {}
+local add            = function ( client_id, keybind_remover )
   vim.validate {
     client_id = { client_id, 'number', },
     keybind_remover = { keybind_remover, 'function', },
@@ -204,7 +206,7 @@ local add                = function ( client_id, keybind_remover )
   table.insert( keybinds[client_id], keybind_remover )
 end
 
-local lsp_attach         = function ( args )
+local lsp_attach     = function ( args )
   local bufnr = args.buf
   local client_id = args.data.client_id
   local client = vim.lsp.get_client_by_id( client_id )
@@ -361,7 +363,7 @@ local lsp_attach         = function ( args )
   } )
 end
 
-local lsp_detach         = function ( args )
+local lsp_detach     = function ( args )
   debug.print( 'DETACH LSP', args )
 
   local bufnr = args.buf

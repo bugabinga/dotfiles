@@ -30,14 +30,15 @@ return {
     toggleterm.setup( opts )
 
     local set_terminal_keymaps = function ()
-      local local_to_buffer = { buffer = 0, }
       map.terminal {
         description = 'Quit insert mode',
         category = 'terminal',
         keys = '<esc>',
-        options = local_to_buffer,
+        buffer = true,
         command = [[ <C-\><C-n> ]],
       }
+
+      vim.opt_local.spell = false
     end
 
     auto 'normalize_terminal_windows' {

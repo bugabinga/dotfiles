@@ -1,10 +1,11 @@
 return {
   {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = {
       ensure_installed = {
-        'gitleaks',
-        'mdslw',
+        "gitleaks",
+        "mdslw",
+        "vint",
       },
     },
   },

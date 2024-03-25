@@ -54,7 +54,7 @@ return {
       manage_folds = {
         ['_'] = true,
       },
-      -- nerd_font = vim.g.nerd_font,
+      nerd_font = vim.g.nerdfont,
 
       -- backends = { "treesitter", "markdown" },
       -- backends = { "lsp", "treesitter" },

@@ -1,6 +1,12 @@
-# see https://github.com/CppCXY/EmmyLuaCodeStyle
-[*.lua]
+root = true
 
+[*]
+spell = true
+
+[*.lua]
+diagnostic = true
+
+# see https://github.com/CppCXY/EmmyLuaCodeStyle
 # optional space/tab
 indent_style = space
 # if indent_style is space, this is valid

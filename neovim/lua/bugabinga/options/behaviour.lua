@@ -33,7 +33,7 @@ vim.opt.sidescrolloff = 0
 
 -- try to guess indentation based on context
 vim.opt.smartindent = true
--- Keep indentation of new lines in line with previuos lines
+-- Keep indentation of new lines in line with previous lines
 vim.opt.autoindent = true
 vim.opt.copyindent = true
 
@@ -100,9 +100,9 @@ auto 'load_project_if_available' {
     if table.contains( ignored.filetypes, filetype ) then return end
     local buftype = vim.api.nvim_buf_get_option( buffer, 'buftype' )
     if table.contains( ignored.buftypes, buftype ) then return end
-    local project = project.find_root_by_filetype( file, filetype )
-    if not project then return end
-    local root = vim.fs.normalize(project)
+    local project_root = project.find_root_by_filetype( file, filetype )
+    if not project_root then return end
+    local root = vim.fs.normalize( project_root )
     local cwd = vim.fs.normalize( vim.uv.cwd() )
     if root and cwd ~= root then
       vim.uv.chdir( root )

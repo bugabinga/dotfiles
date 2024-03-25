@@ -33,12 +33,12 @@ local expand = function ( path ) return vim.fn.fnamemodify( path, ':p' ) end
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
 
---- the weight of a project marker, when the likelyhood is low
+--- the weight of a project marker, when the likelihood is low
 local MAYBE = 1
---- the weight of a project marker, when the likelyhood is high
+--- the weight of a project marker, when the likelihood is high
 local LIKELY = 3
---- the weight of a project marker, when the likelyhood is 100%
-local DEFINITLY = 7
+--- the weight of a project marker, when the likelihood is 100%
+local DEFINITELY = 7
 
 --- Determines the path to a root directory, starting from the given path.
 -- Markers have a name and weight.
@@ -53,12 +53,12 @@ local DEFINITLY = 7
 -- Project root: `/home/user/workspace/some\_project` -> contains `.git`, `README` and `Makefile`
 --
 -- ```lua
--- local project = require'std.project'
+-- local project = require 'std.project'
 -- local current_buffer = vim.api.nvim_buf_get_name(0)
 -- local markers = {
 --  { name = ".git", weight = MAYBE },
 --  { name = "README", weight = LIKELY },
---  { naem = "Makefile", weight = DEFINITLY },
+--  { name = "Makefile", weight = DEFINITELY },
 -- }
 -- local root = project.find_root(current_buffer, markers, vim.uv.os_homedir())
 -- print(root) -- /home/user/workspace/some_project
@@ -164,23 +164,24 @@ end
 local function find_project_root( path, markers )
   -- define some language-independent markers
   local default_markers = {
-    { name = '.project_model.lua', weight = DEFINITLY, },
-    { name = '.lazy.specs.lua',    weight = DEFINITLY, },
-    { name = '.editorconfig',      weight = LIKELY, },
-    { name = '.git',               weight = LIKELY, },
-    { name = '.gitignore',         weight = LIKELY, },
-    { name = '.svn',               weight = LIKELY, },
-    { name = 'justfile',           weight = LIKELY, },
-    { name = 'Makefile',           weight = LIKELY, },
-    { name = 'Jenkinsfile',        weight = MAYBE, },
-    { name = 'LICENSE',            weight = MAYBE, },
-    { name = 'LICENSE.md',         weight = MAYBE, },
-    { name = 'LICENSE.txt',        weight = MAYBE, },
-    { name = 'COPYING',            weight = MAYBE, },
-    { name = 'README',             weight = MAYBE, },
-    { name = 'README.md',          weight = MAYBE, },
-    { name = 'flake.nix',          weight = MAYBE, },
-    { name = 'flake.nix',          weight = MAYBE, },
+    { name = '.save.actions.lua', weight = DEFINITELY, },
+    { name = '.lsp.settings.lua', weight = DEFINITELY, },
+    { name = '.lazy.specs.lua',   weight = DEFINITELY, },
+    { name = '.editorconfig',     weight = LIKELY, },
+    { name = '.git',              weight = LIKELY, },
+    { name = '.gitignore',        weight = LIKELY, },
+    { name = '.svn',              weight = LIKELY, },
+    { name = 'justfile',          weight = LIKELY, },
+    { name = 'Makefile',          weight = LIKELY, },
+    { name = 'Jenkinsfile',       weight = MAYBE, },
+    { name = 'LICENSE',           weight = MAYBE, },
+    { name = 'LICENSE.md',        weight = MAYBE, },
+    { name = 'LICENSE.txt',       weight = MAYBE, },
+    { name = 'COPYING',           weight = MAYBE, },
+    { name = 'README',            weight = MAYBE, },
+    { name = 'README.md',         weight = MAYBE, },
+    { name = 'flake.nix',         weight = MAYBE, },
+    { name = 'flake.nix',         weight = MAYBE, },
   }
 
   markers = markers or {}
@@ -199,14 +200,14 @@ local function find_java_project_root( path )
     { name = '.project',          weight = LIKELY, },
     { name = 'target',            weight = LIKELY, },
     { name = 'pom.xml',           weight = LIKELY, },
-    { name = 'mvnw',              weight = DEFINITLY, },
-    { name = '.mvn',              weight = DEFINITLY, },
-    { name = 'mvnw.cmd',          weight = DEFINITLY, },
-    { name = 'build.gradle',      weight = DEFINITLY, },
-    { name = 'gradle.properties', weight = DEFINITLY, },
-    { name = 'settings.gradle',   weight = DEFINITLY, },
-    { name = 'gradlew',           weight = DEFINITLY, },
-    { name = 'gradlew.bat',       weight = DEFINITLY, },
+    { name = 'mvnw',              weight = DEFINITELY, },
+    { name = '.mvn',              weight = DEFINITELY, },
+    { name = 'mvnw.cmd',          weight = DEFINITELY, },
+    { name = 'build.gradle',      weight = DEFINITELY, },
+    { name = 'gradle.properties', weight = DEFINITELY, },
+    { name = 'settings.gradle',   weight = DEFINITELY, },
+    { name = 'gradlew',           weight = DEFINITELY, },
+    { name = 'gradlew.bat',       weight = DEFINITELY, },
   }
   return find_project_root( path, java_markers )
 end
@@ -229,8 +230,8 @@ end
 
 local find_zig_project_root = function ( path )
   local zig_markers = {
-    { name = 'build.zig',      weight = DEFINITLY, },
-    { name = 'zls.build.json', weight = DEFINITLY, },
+    { name = 'build.zig',      weight = DEFINITELY, },
+    { name = 'zls.build.json', weight = DEFINITELY, },
     { name = 'zig-cache',      weight = MAYBE, },
     { name = 'zig-out',        weight = MAYBE, },
   }
@@ -241,7 +242,7 @@ end
 
 local find_rust_project_root = function ( path )
   local markers = {
-    { name = 'Cargo.toml', weight = DEFINITLY, },
+    { name = 'Cargo.toml', weight = DEFINITELY, },
   }
   local cargo_crate_dir = find_project_root( path, markers )
   if cargo_crate_dir == nil then return nil end

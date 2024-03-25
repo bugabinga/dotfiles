@@ -10,7 +10,6 @@ require 'bugabinga.health'.add_dependency
 
 local map = require 'std.map'
 local icon = require 'std.icon'
-local table = require 'std.table'
 
 map.normal {
   description = 'Switch to recently used folders',
@@ -132,17 +131,17 @@ return {
         },
       },
       -- FIXME: some thems have an issue, where filtered results do not get selected and are thuis not in view
-      -- pickers = {
-      --   find_files = ivy,
-      --   fd = ivy,
-      --   keymaps = dropdown,
-      --   diagnostics = dropdown,
-      --   symbols = cursor,
-      --   live_grep = ivy,
-      --   current_buffer_fuzzy_find = cursor,
-      --   buffers = cursor,
-      --   help_tags = dropdown,
-      -- },
+      pickers = {
+        find_files = ivy,
+        fd = ivy,
+        keymaps = dropdown,
+        diagnostics = dropdown,
+        -- symbols = cursor,
+        live_grep = ivy,
+        current_buffer_fuzzy_find = cursor,
+        buffers = cursor,
+        -- help_tags = dropdown,
+      },
       extensions = {
         zoxide = { prompt_title = 'Navigate deez nuts!', },
       },
