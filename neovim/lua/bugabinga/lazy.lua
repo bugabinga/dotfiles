@@ -29,6 +29,10 @@ lazy.setup {
   defaults = {
     lazy = true,
     -- version = '*',
+    -- useful to globally disable plugins
+    -- cond = function ( plugin_spec )
+      -- return plugin_spec.name:find 'oil'
+    -- end,
   },
   install = {
     missing = true,

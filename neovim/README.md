@@ -7,19 +7,14 @@ scripting with lua + neovim api is programming.
 
 init.lua
 : main entry point
-\
 lua/std
 : standard lib. can only depend on itself and neovim apis.
-\
 lua/bugabinga
 : config modules. in aggregation, defines all of the config. can depend on itself, std and plugins.
-\
 lua/bugabinga/plugins
 : third party plugins and their config glue integrating it into the config.
-\
 colors/nugu
 : color theme
-\
 ftplugin
 : file type specific config
 

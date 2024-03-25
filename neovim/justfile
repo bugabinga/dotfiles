@@ -6,7 +6,7 @@ default:
 
 # Reproduce some neovim issue
 repro:
-	nvim -u repro.lua
+	nvim -u repro.lua 
 
 # update nvim plugins
 update:

@@ -1,6 +1,6 @@
-local NuiPopup = require 'nui.popup'
-local NuiText = require 'nui.text'
-local NuiLine = require 'nui.line'
+local NuiPopup = prequire 'nui.popup'
+local NuiText = prequire 'nui.text'
+local NuiLine = prequire 'nui.line'
 
 local get_nui_popup = function ()
   local popup = NuiPopup {

@@ -11,19 +11,19 @@ auto 'automatic_session_management' {
       -- Only load the session if nvim was started with no args
       if vim.fn.argc( -1 ) == 0 then
         -- Save these to a different directory, so our manual sessions don't get polluted
-        require 'resession'.load( vim.fn.getcwd(), { dir = 'autosession', silence_errors = true, } )
+        prequire 'resession'.load( vim.fn.getcwd(), { dir = 'autosession', silence_errors = true, } )
       end
     end,
   },
   {
     events = 'VimLeavePre',
     description = 'Automatically save sessions for the CWD (tab)',
-    command = function () require 'resession'.save_tab( vim.fn.getcwd(), { dir = 'autosession', notify = false, } ) end,
+    command = function () prequire 'resession'.save_tab( vim.fn.getcwd(), { dir = 'autosession', notify = false, } ) end,
   },
   {
     events = 'VimLeavePre',
     description = 'Automatically save last session (all tabs)',
-    command = function () require 'resession'.save( LAST_SESSION ) end,
+    command = function () prequire 'resession'.save( LAST_SESSION ) end,
   },
 }
 
@@ -31,35 +31,35 @@ map.normal {
   description = 'Restore last session',
   category = 'history',
   keys = '<leader>sl',
-  command = function () require 'resession'.load( LAST_SESSION ) end,
+  command = function () prequire 'resession'.load( LAST_SESSION ) end,
 }
 
 map.normal {
   description = 'Restore a session',
   category = 'history',
   keys = '<leader>sL',
-  command = function () require 'resession'.load() end,
+  command = function () prequire 'resession'.load() end,
 }
 
 map.normal {
   description = 'Delete session',
   category = 'history',
   keys = '<leader>sd',
-  command = function () require 'resession'.delete() end,
+  command = function () prequire 'resession'.delete() end,
 }
 
 map.normal {
   description = 'Save session (tab)',
   category = 'history',
   keys = '<leader>ss',
-  command = function () require 'resession'.save_tab() end,
+  command = function () prequire 'resession'.save_tab() end,
 }
 
 map.normal {
   description = 'Save session (all tabs)',
   category = 'history',
   keys = '<leader>sS',
-  command = function () require 'resession'.save() end,
+  command = function () prequire 'resession'.save() end,
 }
 
 return {
