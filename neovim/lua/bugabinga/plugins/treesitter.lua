@@ -19,7 +19,7 @@ require 'bugabinga.health'.add_dependency
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  -- version = '0.*',
+  -- version = '0.9.*',
   branch = 'master',
   -- restoring session throws errors, if this is lazy
   lazy = false,
@@ -27,15 +27,15 @@ return {
     require 'nvim-treesitter.install'.update { with_sync = true, }
   end,
   dependencies = {
-    'windwp/nvim-ts-autotag',
     'nvim-treesitter/playground',
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'windwp/nvim-ts-autotag',
+    'RRethy/nvim-treesitter-endwise',
     'nushell/tree-sitter-nu',
   },
   config = function ()
     local install = require 'nvim-treesitter.install'
     local configs = require 'nvim-treesitter.configs'
-    local parsers = require 'nvim-treesitter.parsers'
 
     install.prefer_git = false
     install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC', }
@@ -64,6 +64,7 @@ return {
         'gitcommit',
         'gitignore',
         'java',
+        'just',
         'jsonc',
         'markdown',
         'markdown_inline',
@@ -78,11 +79,12 @@ return {
         'zig',
       },
 
-      ignore_install = { 'oil', disable = should_disable, },
+      ignore_install = { 'oil', },
 
       auto_install = true,
 
       autotag = { enable = true, disable = should_disable, },
+      ewndwise = { enable = true, disable = should_disable, },
 
       highlight = {
         enable = true,
@@ -95,9 +97,9 @@ return {
         disable = should_disable,
         keymaps = {
           init_selection = '<up>',
-          node_incremental = '<right>',
+          node_incremental = '<up>',
           node_decremental = '<down>',
-          scope_incremental = '<up>',
+          scope_incremental = '<right>',
         },
       },
 
@@ -106,7 +108,6 @@ return {
       playground = {
         enable = true,
         disable = should_disable,
-        disable = {},
         updatetime = 25,
         persist_queries = false,
         keybindings = {
@@ -210,16 +211,6 @@ return {
           },
         },
       },
-    }
-
-    ---@diagnostic disable-next-line: inject-field
-    parsers.get_parser_configs().just = {
-      install_info = {
-        url = 'https://github.com/IndianBoy42/tree-sitter-just', -- local path or git repo
-        files = { 'src/parser.c', 'src/scanner.c', },
-        branch = 'main',
-      },
-      maintainers = { '@IndianBoy42', },
     }
   end,
 }

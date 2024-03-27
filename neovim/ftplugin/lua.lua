@@ -12,7 +12,7 @@ map.normal {
   description = 'Wrap word under cursor with require call',
   keys = '<leader>rq',
   category = 'refactor',
-  -- sourround word with '
+  -- surround word with '
   -- insert `require`
   -- move 3 words
   command = "ebi'<esc>ea'<esc>bbirequire <esc>www",

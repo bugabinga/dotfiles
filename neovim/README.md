@@ -31,14 +31,16 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* Move to treesitter main branch
+* check out `vim.snippet`
+* use `vim.base64` in wezterm plugin
 * Bug: LuaLS is getting crazy diagnosing non-stop...
 * integrate language tool?
 * ]s [s to jump to spelling mistakes
+* try Termdebug with gdb
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
 * make lsp config extensible, so that plugin configs can hook into it (e.g. on_attach)
-* write plugin to parse lsp settings locally and apply them
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* once a terminal was open, i cannot quit with :wqa anymore...
 * create facade over vim.api.nvim_create_user_command
 * use ltex-ls for markdown, code comments and commit messages
 * learn from <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua> and maybe adapt `std.localrc`

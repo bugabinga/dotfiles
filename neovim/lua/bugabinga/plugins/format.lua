@@ -2,7 +2,7 @@ local debug = require 'std.debug'
 local map = require 'std.map'
 
 local format = function ()
-  require 'conform'.format( { async = false, lsp_fallback = true, }, function ( err )
+  prequire 'conform'.format( { async = false, lsp_fallback = true, }, function ( err )
     if err and debug.get() then
       vim.print( 'Format failed', err )
     end
@@ -31,9 +31,9 @@ return {
       sh = { 'shfmt', },
       just = { 'just', },
       zig = { 'zigfmt', },
-      -- Use the "*" filetype to run formatters on all filetypes.
+      -- Use the "*" file type to run formatters on all file types.
       ['*'] = { 'injected', 'typos', },
-      -- Use the "_" filetype to run formatters on filetypes that don't
+      -- Use the "_" file type to run formatters on file types that don't
       -- have other formatters configured.
       ['_'] = { 'trim_whitespace', 'trim_newlines', },
     },
