@@ -51,7 +51,13 @@ end
 -- visualize marks in signcolumn
 ok, loaded = pcall( require, 'bugabinga.mark' )
 if not ok then
-vim.print( 'error while loading mark', loaded )
+  vim.print( 'error while loading mark', loaded )
+end
+
+-- configure builtin terminal
+ok, loaded = pcall( require, 'bugabinga.terminal' )
+if not ok then
+  vim.print( 'error while loading terminal', loaded )
 end
 
 -- setup lsp clients

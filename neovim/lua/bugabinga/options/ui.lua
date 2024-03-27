@@ -23,8 +23,8 @@ auto 'disable_columns_in_special_buffers' {
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-	space = icon.space,
-	eol = icon.eol,
+	-- space = icon.space,
+	-- eol = icon.eol,
 	tab = icon.tab .. icon.middle_ellipsis,
 	trail = icon.trail,
 	extends = icon.extends,
@@ -67,7 +67,7 @@ vim.opt.fillchars = {
 }
 
 -- better have no syntax highlighting than regex based, treesitter will take over later
-vim.cmd.syntax 'off'
+vim.opt.syntax = 'off'
 
 -- hide output of insert completion popup in status
 vim.opt.shortmess:append 'c'
