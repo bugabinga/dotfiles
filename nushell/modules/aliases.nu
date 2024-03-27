@@ -1,7 +1,8 @@
 # Semantic aliases
 export alias show = bat
 export def list [] { ls --all --long --du --mime-type | where type == dir | append (ls --all --long --du --mime-type | where type != dir) }
-export alias web = firefox
+export alias walk = yazi
+export alias browse = firefox
 export alias code = nvim
 export alias edit = nvim --clean
 # TODO ewrite bak command
@@ -10,14 +11,11 @@ export alias backup = bak
 # https://gist.github.com/mullnerz/9fff80593d6b442d5c1b
 export alias archive = wget -mpck --html-extension --user-agent="" -e robots=off --wait 1 -P .
 
+# FIXME: README preview does not work (in WSL2)
 def --env workspace [] {
 	fd --type directory --max-depth 1 . $env.WORKSPACE | fzf --ansi --preview 'mdcat {}README.md' --preview-window 'up:69%,border-bottom' | cd $in
 }
 export alias w =  workspace
-
-export def --env lk [] {
-	cd (walk --icons)
-}
 
 def open-editor-with-content-search [ initial_query:string = ''] {
 	rg --color=always --line-number --no-heading --smart-case $initial_query | fzf --ansi --delimiter : --preview 'bat --color=always {1} --highlight-line {2}' --color "hl:-1:underline,hl+:-1:underline:reverse" --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' | parse '{file}:{number}:{line}' | each { nvim -c $in.number -c $"?\\V($in.line | str trim )" $in.file }
