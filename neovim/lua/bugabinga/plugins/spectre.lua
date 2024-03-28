@@ -59,15 +59,23 @@ return {
     end
 
     local spectre_oxi_dir = vim.fs.joinpath( plugin_spec.dir, 'spectre_oxi' )
-    vim.uv.chdir( spectre_oxi_dir )
 
-    local cargo_build_proc = vim.system( { 'cargo', 'build', '--release', }, { text = true, } ):wait()
+    local cargo_build_proc = vim.system(
+      { 'cargo', 'build', '--release', },
+      { text = true, cwd = spectre_oxi_dir, }
+    ):wait()
     if cargo_build_proc.code ~= 0 then error( cargo_build_proc.stderr ) end
 
-    local cp_proc = vim.system( copy_cmd, { text = true, } ):wait()
+    local cp_proc = vim.system(
+      copy_cmd,
+      { text = true, cwd = spectre_oxi_dir, }
+    ):wait()
     if cp_proc.code ~= 0 then error( cp_proc.stderr ) end
 
-    local rm_proc = vim.system( { 'rm', '-r', '-f', 'target', }, { text = true, } ):wait()
+    local rm_proc = vim.system(
+      { 'rm', '-r', '-f', 'target', },
+      { text = true, cwd = spectre_oxi_dir, }
+    ):wait()
     if rm_proc.code ~= 0 then error( rm_proc.stderr ) end
 
     vim.print 'Building oxi done'

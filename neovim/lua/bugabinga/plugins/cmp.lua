@@ -7,7 +7,6 @@ map.insert {
   command = function () prequire 'cmp'.complete() end,
 }
 
---TODO: use facade
 vim.api.nvim_create_user_command( 'CmpInfo', function ()
                                     prequire 'cmp'.status()
                                   end, {} )

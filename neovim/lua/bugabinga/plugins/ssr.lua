@@ -9,7 +9,6 @@ map.normal.visual {
   command = open_ssr,
 }
 
---FIXME: use custom facade
 vim.api.nvim_create_user_command( 'StructuralSearchAndReplace', open_ssr, { bang = true, } )
 
 return {

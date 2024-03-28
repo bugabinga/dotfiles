@@ -8,6 +8,7 @@ auto 'highlight_yanked_text' {
 	pattern = '*',
 	command = function () vim.highlight.on_yank() end,
 }
+
 auto 'disable_columns_in_special_buffers' {
 	description = 'Hide columns in buffers, that do not show source code.',
 	events = { 'FileType', },
