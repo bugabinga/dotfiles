@@ -1,5 +1,6 @@
 local debug = require 'std.debug'
 local map = require 'std.map'
+local user_command = require 'std.user_command'
 
 local format = function ()
   prequire 'conform'.format( { async = false, lsp_fallback = true, }, function ( err )
@@ -16,8 +17,10 @@ map.N {
   command = format,
 }
 
---TODO: make user command Format
-vim.api.nvim_create_user_command( 'Format', format, {} )
+user_command.Format
+'Format the current buffer' (
+    format
+  )
 
 return {
   'stevearc/conform.nvim',

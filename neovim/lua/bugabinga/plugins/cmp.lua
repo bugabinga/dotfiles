@@ -1,4 +1,5 @@
 local map = require 'std.map'
+local user_command = require 'std.user_command'
 
 map.insert {
   description = 'Trigger cmp autocomplete',
@@ -7,9 +8,10 @@ map.insert {
   command = function () prequire 'cmp'.complete() end,
 }
 
-vim.api.nvim_create_user_command( 'CmpInfo', function ()
-                                    prequire 'cmp'.status()
-                                  end, {} )
+user_command.CmpInfo
+'Display status information about the completion engine cmp' (
+    prequire 'cmp'.status
+  )
 
 return {
   'hrsh7th/nvim-cmp',

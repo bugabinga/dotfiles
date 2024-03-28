@@ -19,3 +19,17 @@ map.normal {
   buffer = true,
   remap = true,
 }
+
+--TODO: add debug.print, require, prequire
+prequire 'nvim-surround'.buffer_setup {
+  surrounds = {
+    ['P'] = {
+      add = { 'vim.print(', ')', },
+      find = 'vim%.print%b()',
+      delete = '^(vim%.print%()().-(%))()$',
+      change = {
+        target = '^(vim%.print%()().-(%))()$',
+      },
+    },
+  },
+}
