@@ -1,20 +1,10 @@
 return {
   'kylechui/nvim-surround',
-  keys = {
-    { 'ms',  mode = 'n', },
-    { 'mss', mode = 'n', },
-    { 'mS',  mode = 'n', },
-    { 'mSS', mode = 'n', },
-
-    { 'ms',  mode = 'x', },
-    { 'mS',  mode = 'x', },
-
-    { 'md',  mode = 'n', },
-    { 'mc',  mode = 'n', },
-    { 'mC',  mode = 'n', },
-  },
+  event = 'VeryLazy',
   opts = {
     keymaps = {
+      insert = '<C-g>ms',
+      insert_line = '<C-g>mS',
       normal = 'ms',
       normal_cur = 'mss',
       normal_line = 'mS',

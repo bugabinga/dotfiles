@@ -4,14 +4,13 @@ return {
   dependencies = {
     'stevearc/vim-vscode-snippets',
   },
-  event = 'InsertEnter *',
   config = function ()
-    local luasnip = require  'luasnip'
+    local luasnip = require 'luasnip'
     local has_vim_snippet, snippet = pcall( require, 'vim.snippet' )
-    require  'luasnip.loaders.from_vscode' .lazy_load()
-    vim.keymap.set( 's',          '<Tab>', '<Plug>luasnip-jump-next' )
-    vim.keymap.set( 's',          '<C-h>', '<Plug>luasnip-jump-prev' )
-    vim.keymap.set( 's',          '<C-l>', '<Plug>luasnip-jump-next' )
+    require 'luasnip.loaders.from_vscode'.lazy_load()
+    vim.keymap.set( 's',           '<Tab>', '<Plug>luasnip-jump-next' )
+    vim.keymap.set( 's',           '<C-h>', '<Plug>luasnip-jump-prev' )
+    vim.keymap.set( 's',           '<C-l>', '<Plug>luasnip-jump-next' )
     vim.keymap.set( { 'i', 's', }, '<C-k>', function () pcall( luasnip.change_choice, -1 ) end )
     vim.keymap.set( { 'i', 's', }, '<C-j>', function () pcall( luasnip.change_choice, 1 ) end )
 
@@ -22,7 +21,7 @@ return {
       pattern = '*',
       group = aug,
       callback = function ()
-        vim.cmd.LuaSnipUnlinkCurrent  { mods = { emsg_silent = true, }, }
+        vim.cmd.LuaSnipUnlinkCurrent { mods = { emsg_silent = true, }, }
         if has_vim_snippet then
           snippet.exit()
         end
@@ -52,9 +51,9 @@ return {
 
     -- Required to support nested placeholders
     -- From https://github.com/L3MON4D3/LuaSnip/wiki/Nice-Configs#imitate-vscodes-behaviour-for-nested-placeholders
-    local util = require  'luasnip.util.util'
+    local util = require 'luasnip.util.util'
 
-    luasnip.config.setup  {
+    luasnip.config.setup {
       store_selection_keys = '<Tab>',
       updateevents = 'TextChanged,TextChangedI',
       parser_nested_assembler = function ( _, snippet )
