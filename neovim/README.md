@@ -39,9 +39,6 @@ So as I pray, Unlimited Bug Works.
 * ]s [s to jump to spelling mistakes
 * try Termdebug with gdb
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
-* make lsp config extensible, so that plugin configs can hook into it (e.g. on_attach)
-* pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
-* create facade over vim.api.nvim_create_user_command
 * use ltex-ls for markdown, code comments and commit messages
 * learn from <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua> and maybe adapt `std.localrc`
 * setup DAP
@@ -49,5 +46,8 @@ So as I pray, Unlimited Bug Works.
 * learn marks and refactor mark.lua
 * add nu-check to nvim-lint
 * create skeleton-plugin for default file content based on file type (BufNewFile?)
-* add support for Java multi line string in autopairs
+* make lsp config extensible, so that plugin configs can hook into it (e.g. on_attach)
 * split parts of config into plugins
+* add support for Java multi line string in autopairs
+* pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
+  outside of vim?

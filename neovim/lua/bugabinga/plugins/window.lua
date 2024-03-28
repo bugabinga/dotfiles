@@ -7,7 +7,6 @@ map.normal {
   command = function () require 'nvim-window'.pick() end,
 }
 
--- TODO: use facade
 vim.api.nvim_create_user_command( 'PickWindow', function () require 'nvim-window'.pick() end, { bang = true, } )
 
 return {

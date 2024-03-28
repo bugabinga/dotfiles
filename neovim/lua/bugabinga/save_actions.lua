@@ -22,7 +22,6 @@ local apply_save_actions = function ( options )
   vim.cmd [[wa]]
 end
 
---TODO: use facade
 vim.api.nvim_create_user_command( 'SaveActions', apply_save_actions, { bang = true, } )
 
 map.normal.visual {

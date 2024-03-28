@@ -5,7 +5,6 @@ local light_up_current_buffer = function ()
   light_up.buffer( 0, group_names )
 end
 
---TODO: use facade
 vim.api.nvim_create_user_command(
   'LightUp',
   light_up_current_buffer,

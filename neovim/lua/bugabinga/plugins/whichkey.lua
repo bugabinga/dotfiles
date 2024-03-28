@@ -40,10 +40,12 @@ return {
     -- use category as prefix?
     wk.register {
       ['<leader>'] = {
+        ['7'] = { name = 'tests', _ = 'which_key_ignore', },
         m = { name = '|m|ark', _ = 'which_key_ignore', },
         h = { name = '|h|unk', _ = 'which_key_ignore', },
         f = { name = '|f|iles', _ = 'which_key_ignore', },
         g = { name = '|g|enerate', _ = 'which_key_ignore', },
+        d = { name = '|d|ebug', _ = 'which_key_ignore', },
         v = { name = '|v|ersion control', _ = 'which_key_ignore', },
         s = { name = '|s|essions', _ = 'which_key_ignore', },
         r = { name = '|r|efactor', _ = 'which_key_ignore', },
