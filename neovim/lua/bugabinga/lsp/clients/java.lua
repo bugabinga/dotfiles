@@ -46,6 +46,10 @@ local function get_bundles()
   --FIXME: refactor this!
   vim.list_extend( bundles,
                    vim.split(
+                   --TODO: jdtls seemingly cannot get bindle info out of this jar
+                   --
+                   -- Contains: Failed to get bundleInfo for bundle from /home/oli/.local/share/nvim/mason/packages/java-test/extension/server/com.microsoft.java.test.runner-jar-with-dependencies.jar
+                   -- "
                      vim.fn.glob( java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar' ), '\n' ) )
   vim.list_extend( bundles, vim.split( vim.fn.glob( java_test_path .. '/extension/server/*.jar' ), '\n' ) )
   return bundles
@@ -110,15 +114,15 @@ local find_jdks = function ()
     vim.notify 'missing jdk paths in java settings for lsp'
   end
 
-  return { jdk11, jdk17, jdk21 }
+  return { jdk11, jdk17, jdk21, }
 end
 
 local java_settings = {
-  signatureHelp = { enabled = true },
+  signatureHelp = { enabled = true, },
   sources = {
-    autobuild = { enabeld = true },
-    signatureHelp = { enabled = true },
-    saveActions = { origanizeImports = true },
+    autobuild = { enabeld = true, },
+    signatureHelp = { enabled = true, },
+    saveActions = { origanizeImports = true, },
     organizeImports = {
       starThreshold = 9999,
       staticStarThreshold = 9999,
@@ -127,20 +131,20 @@ local java_settings = {
       toString = {
         template = '${object.className}{${member.name()}=${member.value()}, ${otherMembers}}',
       },
-      hashCodeEquals = { useJava7Objects = true },
+      hashCodeEquals = { useJava7Objects = true, },
       useBlocks = true,
     },
-    eclipse = { downloadSources = true },
+    eclipse = { downloadSources = true, },
   },
   configuration = {
     updateBuildConfiguration = 'interactive',
     runtimes = find_jdks(),
   },
-  maven = { downloadSources = true },
-  implementationsCodeLens = { enabled = true },
-  referencesCodeLens = { enabled = true },
-  references = { includeDecompiledSources = true },
-  inlayHints = { parameterNames = { enabled = 'all' } },
+  maven = { downloadSources = true, },
+  implementationsCodeLens = { enabled = true, },
+  referencesCodeLens = { enabled = true, },
+  references = { includeDecompiledSources = true, },
+  inlayHints = { parameterNames = { enabled = 'all', }, },
   format = {
     enabled = true,
     -- TODO: set these here with my preferred settings
@@ -166,7 +170,7 @@ end
 local on_attach = function ()
   local jdtls = require 'jdtls'
   vim.lsp.codelens.refresh()
-  jdtls.setup_dap { hotcodereplace = 'auto' }
+  jdtls.setup_dap { hotcodereplace = 'auto', }
   require 'jdtls.dap'.setup_dap_main_class_configs()
   require 'jdtls.setup'.add_commands()
 
@@ -249,10 +253,10 @@ return {
   root_dir = project.find_java_project_root,
   single_file_support = true,
   workspaces = true,
-  settings = { java = java_settings },
+  settings = { java = java_settings, },
   on_attach = on_attach,
   init_options = {
     bundles = get_bundles(),
     extendedClientCapabilities = get_extended_capabilites(),
-  }
+  },
 }

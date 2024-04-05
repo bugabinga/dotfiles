@@ -1,4 +1,4 @@
-local debug              = require 'std.debug'
+local debug              = require 'std.dbg'
 local icon               = require 'std.icon'
 local defer              = require 'std.defer'
 local map                = require 'std.map'
@@ -256,11 +256,6 @@ local lsp_attach     = function ( args )
     else
       vim.notify 'nvim-navbuddy not found. could not attach to lsp client.'
     end
-  end
-
-  local lsp_signature_ok, lsp_signature = pcall( require, 'lsp_signature' )
-  if lsp_signature_ok then
-    lsp_signature.on_attach( {}, bufnr )
   end
 
   if client.server_capabilities.documentHighlightProvider then

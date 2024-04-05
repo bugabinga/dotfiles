@@ -1,4 +1,4 @@
-local debug = require 'std.debug'
+local debug = require 'std.dbg'
 local map = require 'std.map'
 local user_command = require 'std.user_command'
 

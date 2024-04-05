@@ -1,4 +1,4 @@
-local debug = require 'std.debug'
+local debug = require 'std.dbg'
 
 return {
   'j-hui/fidget.nvim',

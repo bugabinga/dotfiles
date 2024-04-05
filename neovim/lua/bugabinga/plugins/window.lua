@@ -5,12 +5,12 @@ map.normal {
   description = 'Open window picker...',
   category = 'navigation',
   keys = '<c-w>a',
-  command = function () require 'nvim-window'.pick() end,
+  command = function () prequire 'nvim-window'.pick() end,
 }
 
 user_command.PickWindow
 'Pick a window with a simple char motion' (
-    prequire 'nvim-window'.pick
+    function () prequire 'nvim-window'.pick() end
   )
 
 return {

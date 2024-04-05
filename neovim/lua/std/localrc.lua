@@ -1,4 +1,4 @@
-local debug = require 'std.debug'
+local debug = require 'std.dbg'
 
 --- loads given lua file path in current working directory into the current neovim lua runtime.
 --- @param file_name string path to lua file, that should be loaded
