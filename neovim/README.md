@@ -31,19 +31,20 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* toggling case conventions
 * Move to treesitter main branch
 * check out `vim.snippet`
 * use `vim.base64` in wezterm plugin
 * Bug: LuaLS is getting crazy diagnosing non-stop...
 * integrate language tool?
 * ]s [s to jump to spelling mistakes
+* learn marks and refactor mark.lua
 * try Termdebug with gdb
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
 * use ltex-ls for markdown, code comments and commit messages
 * learn from <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua> and maybe adapt `std.localrc`
 * setup DAP
 * nvim spell for camel case words
-* learn marks and refactor mark.lua
 * add nu-check to nvim-lint
 * create skeleton-plugin for default file content based on file type (BufNewFile?)
 * make lsp config extensible, so that plugin configs can hook into it (e.g. on_attach)

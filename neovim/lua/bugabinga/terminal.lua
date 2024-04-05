@@ -23,7 +23,7 @@ local terminal_settings = function ()
     command = [[ <C-\><C-n> ]],
   }
 
-  map.terminal {
+  map.terminal.normal {
     description = 'Close current terminal',
     category = 'terminal',
     keys = '<F7>',

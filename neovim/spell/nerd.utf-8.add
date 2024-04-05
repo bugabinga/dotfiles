@@ -54,3 +54,6 @@ eol
 kool
 grepprg
 makeprg
+modulepath
+FFI
+jdtls

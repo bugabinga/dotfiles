@@ -1,4 +1,4 @@
-local debug = require 'std.debug'
+local debug = require 'std.dbg'
 local auto = require 'std.auto'
 
 -- How many milliseconds must pass before neovim decides I was "idle"

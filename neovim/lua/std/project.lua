@@ -1,4 +1,4 @@
-local debug = require 'std.debug'
+local debug = require 'std.dbg'
 local table = require 'std.table'
 local join = table.join
 local dirname = vim.fs.dirname

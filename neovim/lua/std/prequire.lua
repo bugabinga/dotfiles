@@ -1,9 +1,21 @@
+local dbg = require 'std.dbg'
+
+local function printStackTrace()
+  local level = 2
+  while true do
+    local info = debug.getinfo( level, 'nSl' )
+    if not info then break end
+    dbg.print( string.format( "%s:%d in function '%s'", info.short_src, info.currentline, info.name or '' ) )
+    level = level + 1
+  end
+end
+
 ---Require one or more modules gracefully.
 ---Calls `require` in protected mode.
 ---@example
---- local want = require 'std.want'
---- want 'foo'.setup {}
---- want('foo', 'bar', function(foo, bar)
+--- local want = require 'std.prequire'
+--- prequire 'foo'.setup {}
+--- prequire('foo', 'bar', function(foo, bar)
 ---   foo.setup{arg = bar}
 --- end)
 ---@see pcall
@@ -28,9 +40,10 @@ return function ( ... )
       end
       table.insert( mods, mod )
     else
+      printStackTrace()
       vim.notify_once( string.format( 'Missing module: %s', arg ), vim.log.levels.WARN )
       -- Return a proxy item that returns itself, so we can do things like
-      -- grace("module").setup()
+      -- prequire("module").setup()
       local proxy = {}
       setmetatable( proxy, {
         __call = function ()

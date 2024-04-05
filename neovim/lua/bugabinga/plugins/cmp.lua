@@ -1,20 +1,10 @@
 local map = require 'std.map'
 local user_command = require 'std.user_command'
-
-map.insert {
-  description = 'Trigger cmp autocomplete',
-  category = 'completion',
-  keys = '<c-x><c-o>',
-  command = function () prequire 'cmp'.complete() end,
-}
-
-user_command.CmpInfo
-'Display status information about the completion engine cmp' (
-    prequire 'cmp'.status
-  )
+local icon = require 'std.icon'
 
 return {
   'hrsh7th/nvim-cmp',
+  lazy = false,
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
@@ -73,32 +63,32 @@ return {
       formatting.format = lspkind.cmp_format {
         mode = 'symbol',
         symbol_map = {
-          Copilot = ' ',
-          Class = '󰆧 ',
-          Color = '󰏘 ',
-          Constant = '󰏿 ',
-          Constructor = ' ',
-          Enum = ' ',
-          EnumMember = ' ',
-          Event = '',
-          Field = ' ',
-          File = '󰈙 ',
-          Folder = '󰉋 ',
-          Function = '󰊕 ',
-          Interface = ' ',
-          Keyword = '󰌋 ',
-          Method = '󰊕 ',
-          Module = ' ',
-          Operator = '󰆕 ',
-          Property = ' ',
-          Reference = '󰈇 ',
-          Snippet = ' ',
-          Struct = '󰆼 ',
-          Text = '󰉿 ',
-          TypeParameter = '󰉿 ',
-          Unit = '󰑭',
-          Value = '󰎠 ',
-          Variable = '󰀫 ',
+          Copilot = icon.copilot,
+          Class = icon.class,
+          Color = icon.color,
+          Constant = icon.constant,
+          Constructor = icon.constructor,
+          Enum = icon.enum,
+          EnumMember = icon.enum_member,
+          Event = icon.event,
+          Field = icon.field,
+          File = icon.file,
+          Folder = icon.folder,
+          Function = icon['function'],
+          Interface = icon.interface,
+          Keyword = icon.keyword,
+          Method = icon.method,
+          Module = icon.module,
+          Operator = icon.operator,
+          Property = icon.property,
+          Reference = icon.reference,
+          Snippet = icon.snippet,
+          Struct = icon.struct,
+          Text = icon.text,
+          TypeParameter = icon.type_parameter,
+          Unit = icon.unit,
+          Value = icon.value,
+          Variable = icon.variable,
         },
         menu = {
           buffer = '[buf]',

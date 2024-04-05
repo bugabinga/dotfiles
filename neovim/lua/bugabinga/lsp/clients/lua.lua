@@ -12,7 +12,6 @@ return {
     Lua = {
       addonManager = { enable = false, },
       completion = { callSnippet = 'Replace', },
-      diagnostics = { workspaceRate = 50, },
       hint = { enable = true, setType = true, },
       telemetry = { enable = false, },
       window = { progressBar = true, statusBar = true, },
