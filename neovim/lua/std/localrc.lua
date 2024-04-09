@@ -12,10 +12,12 @@ return function ( file_name, validator )
   if not file then
     return nil
   end
-  local value, err = loadstring( file )()
-  if err then
+  local fn, err = loadstring( file )
+  if not fn or err then
     debug.print( 'unable to load ' .. file_name .. '. ' .. err )
+    return nil
   end
+  local value = fn()
   local validator_type = type( validator )
   if validator_type == 'string' or validator_type == table then
     local expected_types = validator_type == table and validator or { validator, }
