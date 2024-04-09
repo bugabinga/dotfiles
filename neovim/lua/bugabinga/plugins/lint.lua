@@ -16,7 +16,7 @@ return {
     linters = {},
   },
   config = function ( _, opts )
-    local lint = require  'lint'
+    local lint = require 'lint'
     lint.linters_by_ft = opts.linters_by_ft
     for k, v in pairs( opts.linters ) do
       lint.linters[k] = v
