@@ -1,29 +1,17 @@
-local map = require 'std.map'
-
 require 'bugabinga.health'.add_dependency
-{
-  name = 'CMake',
-  name_of_executable = 'cmake',
-}
-  {
-    name_of_executable = 'make',
-  }
-  {
-    name_of_executable = 'zig',
-  }
-  {
-    name = 'TreeSitter CLI',
-    name_of_executable = 'tree-sitter',
-  }
-  {
-    name_of_executable = 'tar',
-  }
+{ name = 'CMake', name_of_executable = 'cmake', }
+  { name_of_executable = 'make', }
+  { name_of_executable = 'zig', }
+  { name = 'TreeSitter CLI', name_of_executable = 'tree-sitter', }
+  { name_of_executable = 'tar', }
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  tag = 'v0.9.2',
-  -- branch = 'master',
-  event = { 'BufReadPre', 'BufNewFile', },
+  branch = 'master',
+  -- to get access to newer parsers, TS cannot yet be pinned
+  -- version = '0.9.*',
+  event = 'VeryLazy',
+  -- event = { 'BufReadPre', 'BufNewFile', },
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true, }
   end,
@@ -49,25 +37,39 @@ return {
       ensure_installed = {
         'bash',
         'c',
-        -- https://github.com/nvim-treesitter/nvim-treesitter/issues/5389
         'comment',
         'diff',
         'dot',
+        'dtd',
         'git_config',
+        'gitattributes',
         'gitcommit',
         'gitignore',
+        'ini',
         'java',
         'jsonc',
-        'markdown',
-        'markdown_inline',
-        'nu',
         'lua',
         'luap',
         'luadoc',
+        'markdown',
+        'markdown_inline',
+        'muttrc',
+        'nasm',
+        'nix',
+        'nu',
+        'passwd',
+        'pem',
+        'properties',
+        'proto',
+        'printf',
+        'query',
         'regex',
+        'ssh_config',
+        'toml',
+        'udev',
         'vim',
         'vimdoc',
-        'query',
+        'xml',
         'zig',
       },
 
@@ -75,7 +77,7 @@ return {
 
       auto_install = true,
 
-      autotag = { enable = true, },
+      autotag = { enable = false, },
 
       highlight = {
         enable = true,

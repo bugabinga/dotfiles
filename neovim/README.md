@@ -39,6 +39,8 @@ So as I pray, Unlimited Bug Works.
 # todo
 
 * which-key and lazy loaded keys are not clean yet
+* telescope find filter binary files (spell files)
+* navic highlights do not fit winbar
 * write plugin to parse lsp settings,plugin options and neovim settings locally and apply them ( can we repurpose editorconfig support in neovim for that?)
 * does status bar fail to display if lsp fails to load?
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc

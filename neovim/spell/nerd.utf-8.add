@@ -24,3 +24,5 @@ neoconf
 lsp
 autopairs
 cterm/!
+navic
+winbar
