@@ -1,4 +1,5 @@
 local map = require 'std.map'
+local const = require 'bugabinga.const'
 local togglers = require 'bugabinga.options.togglers'
 
 -- set <SPACE> as leader key
@@ -18,7 +19,7 @@ map.normal {
     local current_buffer = 0
     local current_line = vim.api.nvim_win_get_cursor( current_buffer )[1]
     local strict_indexing = false
-    local newline = { '' }
+    local newline = { '', }
     vim.api.nvim_buf_set_lines( current_buffer, current_line, current_line, strict_indexing, newline )
   end,
 }
@@ -31,7 +32,7 @@ map.normal {
     local current_buffer = 0
     local current_line = vim.api.nvim_win_get_cursor( current_buffer )[1] - 1
     local strict_indexing = false
-    local newline = { '' }
+    local newline = { '', }
 
     vim.api.nvim_buf_set_lines( current_buffer, current_line, current_line, strict_indexing, newline )
   end,
@@ -79,26 +80,6 @@ map {
   command = '<nop>',
 }
 
--- system clipboard copy and paste
-map.normal.visual {
-  description = 'system clipboard motion',
-  category = 'editing',
-  keys = '<c-s-v>',
-  command = '"+',
-}
-
-map.insert {
-  description = 'Cycle through autocomplete popup',
-  category = 'editing',
-  keys = '<tab>',
-  options = { expr = true },
-  command = function () return vim.fn.pumvisible() == 1 and '<C-n>' or '<tab>' end,
-}
-
---TODO make global
-local win32 = vim.loop.os_uname().sysname:match 'Win'
-local wsl2 = vim.loop.os_uname().release:match 'WSL2'
-
 local function open_link_under_cursor()
   ---@diagnostic disable-next-line: missing-parameter
   local file_under_cursor = vim.fn.expand '<cfile>'
@@ -107,12 +88,14 @@ local function open_link_under_cursor()
   if file_under_cursor and file_under_cursor:match '%a+://.+' then
     vim.system(
     ---@diagnostic disable-next-line: assign-type-mismatch
-      (win32 or wsl2) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor }
-      or { 'firefox', file_under_cursor },
-      { text = true },
+      (const.win32 or const.wsl2) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor, }
+      or { 'firefox', file_under_cursor, },
+      { text = true, },
       function ( completed )
         if completed.code == 0 then
-          vim.schedule( function () vim.notify( 'Opened ' .. file_under_cursor ) end )
+          vim.schedule( function ()
+            vim.notify( 'Opened ' .. file_under_cursor )
+          end )
         else
           error( 'Failed to open ' .. file_under_cursor .. ' because: ' .. completed.stderr )
         end
@@ -131,17 +114,12 @@ map.normal {
 }
 
 map.normal {
-  description = 'Grep search for word under cursor',
-  category = 'search',
-  keys = 'gw',
-  command = '<cmd>grep <cword> . <cr>',
-}
-
-map.normal {
   description = 'Dismiss current search highlight',
   category = 'search',
   keys = '<esc><esc>',
-  command = function () vim.cmd [[ nohlsearch ]] end,
+  command = function ()
+    vim.cmd [[ nohlsearch ]]
+  end,
 }
 
 map.normal {
@@ -149,11 +127,13 @@ map.normal {
   category = 'ui',
   keys = '<leader>tt',
   command = function ()
+    ---@diagnostic disable-next-line: undefined-field
     if vim.opt.background:get() == 'dark' then
       vim.opt.background = 'light'
     else
       vim.opt.background = 'dark'
     end
+---@diagnostic disable-next-line: undefined-field
     vim.notify( 'Toggled background to ' .. vim.opt.background:get() .. '.' )
   end,
 }
@@ -179,28 +159,6 @@ map.normal {
   command = vim.cmd.redo,
 }
 
-map.normal {
-  description = 'Run save actions',
-  category = 'edit',
-  keys = '<c-s>',
-  command = function ()
-    -- trim
-    vim.cmd 'TrimTrailingWhitespace'
-
-    -- format
-    vim.lsp.buf.format { async = false }
-
-    -- TODO: run makeprg
-    -- vim.cmd [[silent make]]
-
-    -- save
-    vim.cmd [[wa]]
-
-    -- workaround for neovim bug:https://github.com/neovim/neovim/issues/25370
-    vim.api.nvim_feedkeys( 'zz', 'n', true )
-  end,
-}
-
 for _, toggler in ipairs( togglers ) do
   local option_name = toggler.options[1].name
   local first_char = string.sub( option_name, 1, 1 )
@@ -209,6 +167,8 @@ for _, toggler in ipairs( togglers ) do
     description = 'Toggle ' .. option_name .. ' option',
     category = 'options',
     keys = '<leader>to' .. first_char,
-    command = function () toggler:toggle() end,
+    command = function ()
+      toggler:toggle()
+    end,
   }
 end

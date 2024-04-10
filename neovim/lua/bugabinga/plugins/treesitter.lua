@@ -7,33 +7,40 @@ require 'bugabinga.health'.add_dependency
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = 'master',
-  -- to get access to newer parsers, TS cannot yet be pinned
   -- version = '0.9.*',
-  event = 'VeryLazy',
-  -- event = { 'BufReadPre', 'BufNewFile', },
+  branch = 'master',
+  -- restoring session throws errors, if this is lazy
+  lazy = false,
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true, }
   end,
   dependencies = {
-    'windwp/nvim-ts-autotag',
     'nvim-treesitter/playground',
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'windwp/nvim-ts-autotag',
+    'RRethy/nvim-treesitter-endwise',
     'nushell/tree-sitter-nu',
   },
   config = function ()
     local install = require 'nvim-treesitter.install'
     local configs = require 'nvim-treesitter.configs'
-    local parsers = require 'nvim-treesitter.parsers'
 
     install.prefer_git = false
     install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC', }
 
+
+    local should_disable = function ( _, bufnr )
+      local max_filesize = 5 * 1024 * 1024 --MiB
+      local ok, stats = pcall( vim.loop.fs_stat, vim.api.nvim_buf_get_name( bufnr or 0 ) )
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+      return false
+    end
+
     ---@diagnostic disable-next-line: missing-fields
     configs.setup {
-
       sync_install = false,
-
       ensure_installed = {
         'bash',
         'c',
@@ -47,6 +54,7 @@ return {
         'gitignore',
         'ini',
         'java',
+        'just',
         'jsonc',
         'lua',
         'luap',
@@ -77,27 +85,23 @@ return {
 
       auto_install = true,
 
-      autotag = { enable = false, },
+      autotag = { enable = true, disable = should_disable, },
+      ewndwise = { enable = true, disable = should_disable, },
 
       highlight = {
         enable = true,
-        disable = function ( _, buf )
-          local max_filesize = 1000 * 1024 -- 1000 KiB
-          local ok, stats = pcall( vim.loop.fs_stat, vim.api.nvim_buf_get_name( buf ) )
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
+        disable = should_disable,
         additional_vim_regex_highlighting = false,
       },
 
       incremental_selection = {
         enable = true,
+        disable = should_disable,
         keymaps = {
           init_selection = '<up>',
-          node_incremental = '<right>',
+          node_incremental = '<up>',
           node_decremental = '<down>',
-          scope_incremental = '<up>',
+          scope_incremental = '<right>',
         },
       },
 
@@ -105,7 +109,7 @@ return {
 
       playground = {
         enable = true,
-        disable = {},
+        disable = should_disable,
         updatetime = 25,
         persist_queries = false,
         keybindings = {
@@ -125,6 +129,7 @@ return {
       textobjects = {
         select = {
           enable = true,
+          disable = should_disable,
           lookahead = true,
           keymaps = {
             ['af'] = { query = '@call.outer', desc = 'outer function call', },
@@ -168,16 +173,18 @@ return {
 
         swap = {
           enable = true,
+          disable = should_disable,
           swap_next = {
-            ['<leader>spn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
+            ['<leader>rwn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
           },
           swap_previous = {
-            ['<leader>spp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
+            ['<leader>rwp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
           },
         },
 
         lsp_interop = {
           enable = true,
+          disable = should_disable,
           border = vim.g.border_style,
           floating_preview_opts = {},
           peek_definition_code = {
@@ -188,6 +195,7 @@ return {
 
         move = {
           enable = true,
+          disable = should_disable,
           set_jumps = true,
           goto_next = {
             [']f'] = { query = '@call.outer', desc = 'Goto next function call', },
@@ -205,16 +213,6 @@ return {
           },
         },
       },
-    }
-
-    ---@diagnostic disable-next-line: inject-field
-    parsers.get_parser_configs().just = {
-      install_info = {
-        url = 'https://github.com/IndianBoy42/tree-sitter-just', -- local path or git repo
-        files = { 'src/parser.c', 'src/scanner.cc', },
-        branch = 'main',
-      },
-      maintainers = { '@IndianBoy42', },
     }
   end,
 }

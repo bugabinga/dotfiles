@@ -1,6 +1,7 @@
+local map = require 'std.map'
+
 return {
   'SmiteshP/nvim-navbuddy',
-  cmd = 'NavBuddy',
   dependencies = {
     'SmiteshP/nvim-navic',
     'MunifTanjim/nui.nvim',

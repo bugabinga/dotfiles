@@ -1,3 +1,5 @@
+local user_command = require 'std.user_command'
+
 if vim.g.bugabinga_debug_mode == nil then
   vim.g.bugabinga_debug_mode = false
 end
@@ -18,7 +20,7 @@ local function toggle_debug_mode()
   vim.notify( 'Toggled debug mode to ' .. tostring( is_debug_mode() ) )
 end
 
-vim.api.nvim_create_user_command( 'Debug', toggle_debug_mode, {} )
+user_command.Debug 'Toggle global vim config debug mode.' ( toggle_debug_mode )
 
 return {
   print = print_debug,

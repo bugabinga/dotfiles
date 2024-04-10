@@ -1,7 +1,7 @@
 return {
   'folke/todo-comments.nvim',
-  tag = 'v1.1.0',
+  version = '1.*',
   dependencies = { 'nvim-lua/plenary.nvim', },
-  event = 'BufReadPost',
+  event = vim.g.FILE_LOADED_EVENTS,
   opts = {},
 }

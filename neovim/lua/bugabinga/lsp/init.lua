@@ -1,17 +1,20 @@
-require 'bugabinga.lsp.lightbulb'
-
-local debug              = require 'std.debug'
+local debug              = require 'std.dbg'
+local icon               = require 'std.icon'
 local defer              = require 'std.defer'
 local map                = require 'std.map'
 local auto               = require 'std.auto'
 local ui                 = require 'bugabinga.ui'
 local table              = require 'std.table'
 local ignored            = require 'std.ignored'
-local user_command       = vim.api.nvim_create_user_command
+local user_command       = require 'std.user_command'
 local lsp_client_configs = require 'bugabinga.lsp.clients'
+local localrc            = require 'std.localrc'
+
 local _                  = {}
 
-local token_update       = function ( lsp_client )
+require 'bugabinga.lsp.lightbulb'
+
+local token_update   = function ( lsp_client )
   local token = lsp_client.data.token
   local buffer = lsp_client.buffer
   local client_id = lsp_client.data.client_id
@@ -27,7 +30,7 @@ local token_update       = function ( lsp_client )
   --* closures that capture something
 end
 
-local expand_path        = function ( path )
+local expand_path    = function ( path )
   if vim.fn.executable( path ) == 1 then
     return vim.fn.exepath( path )
   else
@@ -35,7 +38,7 @@ local expand_path        = function ( path )
   end
 end
 
-local expand_command     = function ( command )
+local expand_command = function ( command )
   vim.validate { command = { command, { 'string', 'table', }, }, }
 
   if type( command ) == 'table' then
@@ -46,7 +49,7 @@ local expand_command     = function ( command )
   return expand_path( command )
 end
 
-local lsp_start          = function ( file_type_event )
+local lsp_start      = function ( file_type_event )
   debug.print 'trying to start lsp'
   local match = file_type_event.match
 
@@ -112,15 +115,21 @@ local lsp_start          = function ( file_type_event )
     return
   end
 
-  -- TODO: LspStart
-  -- TODO: LspStop
-  -- TODO: stop lsp on vim idle/ficus lost?
-  -- FIXME: lsp detach errors
+  --NOTE: this is super kool but has the limitation, that only lsp clients
+  -- configured via my special lsp module are affected.
+  local project_local_lsp_settings = localrc( '.lsp.settings.lua', 'table' ) or {}
 
   for _, config in ipairs( potential_client_configs ) do
     local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = table.extend( 'force', capabilities, config.capabilities )
+
+    local settings = config.settings
+    local settings_override = project_local_lsp_settings[config.name]
+    if settings_override then
+      debug.print( 'overriding settings with project local settings', settings, settings_override )
+      settings = vim.tbl_deep_extend( 'force', settings, settings_override )
+    end
 
     debug.print( 'starting command:', config.command )
 
@@ -133,7 +142,7 @@ local lsp_start          = function ( file_type_event )
       -- workspace_folders = { config.root_dir(buffer_path) }, -- TODO: i think workspaces can only ever be declared per project. i cannot think of a generic way to calculate those, like with root_dir. maybe a toml/ini file in root_dir sets these?
       capabilities = capabilities,
       -- handlers = vim.lsp.handlers,
-      settings = config.settings,
+      settings = settings,
       -- commands = nil, -- what is this?
       init_options = config.init_options,
       name = config.name,
@@ -192,17 +201,22 @@ local old_formatexpr
 local old_omnifunc
 local old_tagfunc
 
-local keybinds           = {}
-local add                = function ( client_id, keybind )
+local keybinds       = {}
+local add            = function ( client_id, keybind_remover )
+  vim.validate {
+    client_id = { client_id, 'number', },
+    keybind_remover = { keybind_remover, 'function', },
+  }
   if not table.contains( keybinds, client_id ) then
     keybinds[client_id] = {}
   end
-  table.insert( keybinds[client_id], keybind )
+  table.insert( keybinds[client_id], keybind_remover )
 end
 
-local lsp_attach         = function ( args )
+local lsp_attach     = function ( args )
   local bufnr = args.buf
-  local client = vim.lsp.get_client_by_id( args.data.client_id )
+  local client_id = args.data.client_id
+  local client = vim.lsp.get_client_by_id( client_id )
   if not client then return end
 
   debug.print( client.server_capabilities )
@@ -232,6 +246,13 @@ local lsp_attach         = function ( args )
     local navbuddy_ok, navbuddy = pcall( require, 'nvim-navbuddy' )
     if navbuddy_ok then
       navbuddy.attach( client, bufnr )
+      map.normal {
+        description = 'Open overview of symbols in current buffer',
+        category = 'lsp',
+        keys = '<leader>lo',
+        command = function () navbuddy.open( bufnr ) end,
+        buffer = bufnr,
+      }
     else
       vim.notify 'nvim-navbuddy not found. could not attach to lsp client.'
     end
@@ -260,18 +281,18 @@ local lsp_attach         = function ( args )
   end
 
   if client.server_capabilities.inlayHintProvider then
-    add( map.normal {
+    add( client_id, map.normal {
       description = 'Toggle inlay hints',
       category = 'lsp',
       buffer = bufnr,
       keys = '<leader>ti',
       command = function ()
-        vim.lsp.inlay_hint( bufnr, nil )
+        vim.lsp.inlay_hint.enable( bufnr, nil )
       end,
     } )
   end
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show hover documentation above cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -279,15 +300,15 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.hover,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show signature help under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = '<leader>ls',
+    keys = { 'H', '<leader>ls', },
     command = vim.lsp.buf.signature_help,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show available code actions on current line.',
     category = 'lsp',
     buffer = bufnr,
@@ -295,7 +316,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.code_action,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Goto to definition of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -303,7 +324,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.definition,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show implementations of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -311,7 +332,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.implementation,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show incoming calls of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -319,7 +340,7 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.incoming_calls,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show outgoing calls of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
@@ -327,24 +348,24 @@ local lsp_attach         = function ( args )
     command = vim.lsp.buf.outgoing_calls,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Show references of symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = '<leader>lr',
+    keys = '<leader>ln',
     command = vim.lsp.buf.references,
   } )
 
-  add( map.normal {
+  add( client_id, map.normal {
     description = 'Rename symbol under cursor.',
     category = 'lsp',
     buffer = bufnr,
-    keys = { '<f2>', '<leader>ln', },
+    keys = { '<f2>', '<leader>lr', },
     command = vim.lsp.buf.rename,
   } )
 end
 
-local lsp_detach         = function ( args )
+local lsp_detach     = function ( args )
   debug.print( 'DETACH LSP', args )
 
   local bufnr = args.buf
@@ -429,43 +450,44 @@ local lsp_info_extended = function ( command )
   ui.show_tree( active_clients )
 end
 
-user_command( 'LspInfo', lsp_info, {
-  nargs = '?',
-  complete = function () return { 'all', } end,
-  desc = 'Shows basic information about running LSP clients.',
-} )
+user_command.LspInfo
+'Shows basic information about running LSP clients.'
+  { nargs = '?', complete = function () return { 'all', } end, } (
+    lsp_info
+  )
 
-user_command( 'LspInfoExtended', lsp_info_extended, {
-  nargs = '?',
-  complete = function () return { 'all', } end,
-  desc = 'Shows detailed information about running LSP clients.',
-} )
+user_command.LspInfoExtended
+'Shows detailed information about running LSP clients.'
+  { nargs = '?', complete = function () return { 'all', } end, } (
+    lsp_info_extended
+  )
 
--- TODO: lsp restart, lsp exit
+-- TODO: LspStart
+-- TODO: LspStop
+-- TODO: LspRestart ? Maybe good after changing project local settings?
 
--- TODO: move to std.icons.lua
 local completion_icons = {
-  Class = ' ',
-  Color = ' ',
-  Constant = ' ',
-  Constructor = ' ',
-  Enum = ' ',
-  EnumMember = ' ',
-  Field = '󰄶 ',
-  File = ' ',
-  Folder = ' ',
-  Function = ' ',
-  Interface = '󰜰',
-  Keyword = '󰌆 ',
-  Method = 'ƒ ',
-  Module = '󰏗 ',
-  Property = ' ',
-  Snippet = '󰘍 ',
-  Struct = ' ',
-  Text = ' ',
-  Unit = ' ',
-  Value = '󰎠 ',
-  Variable = ' ',
+  Class = icon.class,
+  Color = icon.color,
+  Constant = icon.constant,
+  Constructor = icon.constructor,
+  Enum = icon.enum,
+  EnumMember = icon.enum_member,
+  Field = icon.field,
+  File = icon.file,
+  Folder = icon.folder,
+  Function = icon['function'],
+  Interface = icon.interface,
+  Keyword = icon.keyword,
+  Method = icon.method,
+  Module = icon.module,
+  Property = icon.property,
+  Snippet = icon.snippet,
+  Struct = icon.struct,
+  Text = icon.text,
+  Unit = icon.unit,
+  Value = icon.value,
+  Variable = icon.variable,
 }
 
 local completion_kinds = vim.lsp.protocol.CompletionItemKind

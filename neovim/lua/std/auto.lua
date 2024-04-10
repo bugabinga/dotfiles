@@ -1,7 +1,10 @@
--- TODO: metatable for api like map.modes
--- Wrapper over `vim.api.nvim_create_autocmd` for automatic grouping and idempotency.
+--- Wrapper over `vim.api.nvim_create_autocmd` for automatic grouping and idempotency.
+--- @param group_name string name of the group of autocommands to define
+--- @return function a function to add new autocommands to the defined group
 return function ( group_name )
   local group = vim.api.nvim_create_augroup( group_name, { clear = true, } )
+  --- adds new autocommands to the outer group
+  --- @param list_of_autocommands table a single autocommand definition, or a list of those.
   return function ( list_of_autocommands )
     if list_of_autocommands.events then
       list_of_autocommands = { list_of_autocommands, }

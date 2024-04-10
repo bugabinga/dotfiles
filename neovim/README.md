@@ -12,7 +12,8 @@ lua/std
 : standard lib. can only depend on itself and neovim apis.
 \
 lua/bugabinga
-: config modules. in aggregation, defines all of the config. can depend on itself, std and plugins.
+: config modules, that in aggregation, define all of the configuration and may
+only depend on itself, std and plugins.
 \
 lua/bugabinga/plugins
 : third party plugins and their config glue integrating it into the config.
@@ -29,28 +30,42 @@ ftplugin
 
 I am the bone of my code, bugs are my body and exceptions are my blood.
 I have created over a thousand bugs, unknown to testers, nor known to debuggers.
-Have withstood pain to create many programs, yet those hands will never hold a working program.
+Have withstood pain to create many programs, yet those hands will never hold a
+working program.
 So as I pray, Unlimited Bug Works.
 
 ~ Shirou Emiya
 
----------
-
 # todo
 
-* which-key and lazy loaded keys are not clean yet
-* telescope find filter binary files (spell files)
 * navic highlights do not fit winbar
-* write plugin to parse lsp settings,plugin options and neovim settings locally and apply them ( can we repurpose editorconfig support in neovim for that?)
 * does status bar fail to display if lsp fails to load?
 * pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
 * use gen.ai to generate docs
+* command for toggling case conventions
+* Move to treesitter main branch
+* check out `vim.snippet`
+* use `vim.base64` in wezterm plugin
+* Bug:
+  LuaLS is getting crazy diagnosing non-stop...
+* integrate language tool?
+* ]s [s to jump to spelling mistakes
 * learn marks and refactor mark.lua
+* try Termdebug with gdb
+* adapt config to respect `vim.g.nerdfont` (std.constants?)
 * use ltex-ls for markdown, code comments and commit messages
-* create a floating window that shows plugins, that have commands, as reminder
+* learn from
+  <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua>
+  and maybe adapt `std.localrc`
 * setup DAP
-* add nu-check to nvim-lint
-* create facade over vim.api.nvim_create_user_command
-* create skeleton-plugin for default file content based on file type
-* add support for Java multi line string in autopairs
 * nvim spell for camel case words
+* add nu-check to nvim-lint
+* create skeleton-plugin for default file content based on file type
+  (BufNewFile?)
+* make lsp config extensible, so that plugin configs can hook into it (e.g.
+  on_attach)
+* split parts of config into plugins
+* add support for Java multi line string in autopairs
+* pandoc with lua filters for diagrams for generating documents and previewing
+  --> https://github.com/tex/vimpreviewpandoc
+  outside of vim?

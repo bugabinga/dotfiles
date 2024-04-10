@@ -1,7 +1,7 @@
 return {
   {
     'JosefLitos/colorizer.nvim',
-    event = { 'BufReadPost', 'BufNew', },
+    event = vim.g.FILE_LOADED_EVENTS,
     opts = {
       filetypes = { '*', },
       user_default_options = {
@@ -15,7 +15,7 @@ return {
         css_fn = false,       -- Enable all CSS *functions*: rgb_fn, hsl_fn
         -- Available modes for `mode`: foreground, background,  virtualtext
         mode = 'virtualtext', -- Set the display mode.
-        names = function () return require 'bugabinga.nugu.palette' end,
+        -- names = function () return require 'bugabinga.nugu.palette' end,
         -- parsers can contain values used in |user_default_options|
         sass = { enable = false, parsers = { 'css', }, }, -- Enable sass colors
         virtualtext = '██',
