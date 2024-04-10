@@ -1,5 +1,6 @@
 local debug = require 'std.debug'
 local table = require 'std.table'
+
 local join = table.join
 local dirname = vim.fs.dirname
 local normalize = vim.fs.normalize
@@ -14,8 +15,7 @@ end
 local create_hash = function ( path, markers )
   local path_hash = hasher( path )
   local markers_hash = hasher( markers_to_string( markers ) )
-  local hash = path_hash .. '|' .. markers_hash
-  return hash
+  return path_hash .. '|' .. markers_hash
 end
 local cache_get = function ( path, markers )
   local hash = create_hash( path, markers )
