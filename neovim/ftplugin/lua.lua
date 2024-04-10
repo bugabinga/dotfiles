@@ -6,3 +6,31 @@ for _, path in pairs( vim.api.nvim_list_runtime_paths() ) do
 end
 vim.opt_local.suffixesadd:prepend '.lua'
 vim.opt_local.conceallevel = 1
+
+local map = require 'std.map'
+
+map.normal {
+  description = 'Wrap word under cursor with require call',
+  keys = '<leader>rq',
+  category = 'refactor',
+  -- surround word with '
+  -- insert `require`
+  -- move 3 words
+  command = "ebi'<esc>ea'<esc>bbirequire <esc>www",
+  buffer = true,
+  remap = true,
+}
+
+--TODO: add dbg.print, require, prequire
+prequire 'nvim-surround'.buffer_setup {
+  surrounds = {
+    ['P'] = {
+      add = { 'vim.print(', ')', },
+      find = 'vim%.print%b()',
+      delete = '^(vim%.print%()().-(%))()$',
+      change = {
+        target = '^(vim%.print%()().-(%))()$',
+      },
+    },
+  },
+}

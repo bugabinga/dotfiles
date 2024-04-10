@@ -19,10 +19,20 @@ require 'lazy.view.colors'.did_setup = true
 local lazy = require 'lazy'
 local icon = require 'std.icon'
 
-lazy.setup( 'bugabinga.plugins', {
+local overrides = require 'std.localrc' ( '.lazy.specs.lua', 'table' )
+--- a couple of vim events, that collectively represent "a file has been opened".
+--- this is useful for plugins that want to be lazy loaded, when some file is shown in a buffer/window
+vim.g.FILE_LOADED_EVENTS = { 'BufRead', 'BufNew', 'SessionLoadPost', }
+
+lazy.setup {
+  spec = { { import = 'bugabinga.plugins', }, overrides, },
   defaults = {
     lazy = true,
     -- version = '*',
+    -- useful to globally disable plugins
+    -- cond = function ( plugin_spec )
+      -- return plugin_spec.name:find 'oil'
+    -- end,
   },
   install = {
     missing = true,
@@ -40,19 +50,27 @@ lazy.setup( 'bugabinga.plugins', {
       task = icon.terminal,
       ft = icon.file,
     },
+    custom_keys = {
+      ['<localleader>l'] = {
+        function ( plugin )
+          require 'lazy.util'.float_term( { 'gitui', }, {
+            cwd = plugin.dir,
+          } )
+        end,
+        desc = 'Open gitui',
+      },
+
+      ['<localleader>t'] = {
+        function ( plugin )
+          require 'lazy.util'.float_term( nil, {
+            cwd = plugin.dir,
+          } )
+        end,
+        desc = 'Open terminal in plugin dir',
+      },
+    },
   },
-  custom_keys = {
-    ['<localleader>l'] = function ( plugin )
-      require 'lazy.util'.float_term( 'gitui', {
-        cwd = plugin.dir,
-      } )
-    end,
-    ['<localleader>t'] = function ( plugin )
-      require 'lazy.util'.float_term( nil, {
-        cwd = plugin.dir,
-      } )
-    end,
-  },
+  diff = { cmd = 'diffview.nvim', },
   change_detection = { notify = false, },
   performance = {
     rtp = {
@@ -86,7 +104,7 @@ lazy.setup( 'bugabinga.plugins', {
     patterns = { 'bugabinga', },
     path = win32 and 'W:/' or '~/Workspace',
   },
-} )
+}
 
 local map = require 'std.map'
 
@@ -107,9 +125,22 @@ local base_key = '<leader>z'
 
 lazy_cmds:each( function ( cmd )
   map.normal {
-    name = cmd[1] .. ' plugins',
+    description = cmd[1],
     category = 'plugins',
     keys = base_key .. cmd[2],
     command = cmd[3],
   }
 end )
+
+local auto = require 'std.auto'
+
+auto 'display_startup_time' {
+  description = 'Display startup time on starter screen',
+  events = 'User',
+  pattern = 'LazyVimStarted',
+  once = true,
+  command = vim.schedule_wrap( function ()
+    local startuptime = lazy.stats().startuptime
+    vim.notify( 'neovim started in ' .. startuptime .. 'ms' )
+  end ),
+}

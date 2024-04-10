@@ -1,12 +1,9 @@
 return {
   'folke/neodev.nvim',
   opts = {
+    -- With lspconfig, Neodev will automatically setup your lua-language-server
+    -- If you disable this, then you have to set {before_init=require("neodev.lsp").before_init}
+    -- in your lsp start options
     lspconfig = false,
-    override = function ( root_dir, library )
-      if root_dir:find( '/etc/nixos', 1, true ) == 1 then
-        library.enabled = true
-        library.plugins = true
-      end
-    end,
   },
 }

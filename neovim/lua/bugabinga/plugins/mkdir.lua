@@ -1,1 +1,1 @@
-return { 'jghauser/mkdir.nvim', event = 'BufWritePre' }
+return { 'jghauser/mkdir.nvim', event = 'BufWritePre', }

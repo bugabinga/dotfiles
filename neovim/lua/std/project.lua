@@ -1,4 +1,4 @@
-local debug = require 'std.debug'
+local debug = require 'std.dbg'
 local table = require 'std.table'
 
 local join = table.join
@@ -12,18 +12,20 @@ local hasher = vim.fn.sha256
 local markers_to_string = function ( markers )
   return vim.inspect( markers )
 end
-local create_hash = function ( path, markers )
+local create_hash = function ( path, markers, stop )
   local path_hash = hasher( path )
+  local stop_hash = hasher( stop )
   local markers_hash = hasher( markers_to_string( markers ) )
-  return path_hash .. '|' .. markers_hash
+  local hash = path_hash .. '|' .. markers_hash .. '|' .. stop_hash
+  return hash
 end
-local cache_get = function ( path, markers )
-  local hash = create_hash( path, markers )
+local cache_get = function ( path, markers, stop )
+  local hash = create_hash( path, markers, stop )
   local hit = cache[hash]
   return hit
 end
-local cache_set = function ( project_root, path, markers )
-  local hash = create_hash( path, markers )
+local cache_set = function ( project_root, path, markers, stop )
+  local hash = create_hash( path, markers, stop )
   cache[hash] = project_root
 end
 
@@ -32,12 +34,12 @@ local expand = function ( path ) return vim.fn.fnamemodify( path, ':p' ) end
 --- number of max loop iterations when searching for markers
 local MAX_TRAVERSAL_COUNT = 100
 
---- the weight of a project marker, when the likelyhood is low
+--- the weight of a project marker, when the likelihood is low
 local MAYBE = 1
---- the weight of a project marker, when the likelyhood is high
-local LIKELY = 2
---- the weight of a project marker, when the likelyhood is 100%
-local DEFINITLY = 3
+--- the weight of a project marker, when the likelihood is high
+local LIKELY = 3
+--- the weight of a project marker, when the likelihood is 100%
+local DEFINITELY = 7
 
 --- Determines the path to a root directory, starting from the given path.
 -- Markers have a name and weight.
@@ -49,16 +51,15 @@ local DEFINITLY = 3
 -- Assuming you want to determine the root of your current buffer, that is part
 -- of some project.
 -- Buffer: `/home/user/workspace/some\_project/a/b/c/d/the\_buffer.c`
--- Project root: `/home/user/workspace/some\_project`
---							 -> contains `.git`, `README` and `Makefile`
+-- Project root: `/home/user/workspace/some\_project` -> contains `.git`, `README` and `Makefile`
 --
 -- ```lua
--- local project = require'std.project'
+-- local project = require 'std.project'
 -- local current_buffer = vim.api.nvim_buf_get_name(0)
 -- local markers = {
---	{ name = ".git", weight = MAYEB },
---	{ name = "README", weight = LIKELY },
---	{ naem = "Makefile", weight = DEFINITLY },
+--  { name = ".git", weight = MAYBE },
+--  { name = "README", weight = LIKELY },
+--  { name = "Makefile", weight = DEFINITELY },
 -- }
 -- local root = project.find_root(current_buffer, markers, vim.uv.os_homedir())
 -- print(root) -- /home/user/workspace/some_project
@@ -85,7 +86,7 @@ local function find_root( path, markers, stop )
 
   if #path == 0 then return nil end
 
-  local cache_hit = cache_get( path, markers )
+  local cache_hit = cache_get( path, markers, stop )
   if cache_hit then
     debug.print( 'CACHE HIT', cache_hit )
     return cache_hit
@@ -135,21 +136,23 @@ local function find_root( path, markers, stop )
   local project_root = nil
   local max_likelyhood = 0
   -- the project root is most likely the directory with the highest marker count
-  -- and highest distance to current buffer.
-  -- because if there are markers further away from the buffer than other markers,
-  -- then it is most likely a nested project structure (multi-module).
+  -- and closest distance to current buffer.
+  -- however, if there are markers further away from the buffer than other markers,
+  -- then it could be a nested project structure (multi-module).
   -- in those cases we are looking for the root project folder, instead the nearest
   -- child project root folder.
   for _, score in ipairs( directory_scores ) do
-    local likelihood = score.marker_count + score.distance_to_buffer_file
-    if likelihood > max_likelyhood then
-      max_likelyhood = likelihood
+    local likelyhood = score.marker_count * (1 / score.distance_to_buffer_file)
+    if debug.get() then score.likelyhood = likelyhood end
+    if likelyhood > max_likelyhood then
+      max_likelyhood = likelyhood
       project_root = score.path
     end
   end
   if project_root then
-    cache_set( project_root, path, markers )
+    cache_set( project_root, path, markers, stop )
   end
+  debug.print( 'found project root', project_root, directory_scores )
   return project_root
 end
 
@@ -162,22 +165,24 @@ end
 local function find_project_root( path, markers )
   -- define some language-independent markers
   local default_markers = {
-    { name = '.git',           weight = LIKELY, },
-    { name = '.gitignore',     weight = LIKELY, },
-    { name = '.svn',           weight = LIKELY, },
-    { name = 'justfile',       weight = LIKELY, },
-    { name = 'Jenkinsfile',    weight = MAYBE, },
-    { name = '.editorconfig',  weight = MAYBE, },
-    { name = 'LICENSE',        weight = MAYBE, },
-    { name = 'LICENSE.md',     weight = MAYBE, },
-    { name = 'LICENSE.txt',    weight = MAYBE, },
-    { name = 'COPYING',        weight = MAYBE, },
-    { name = 'README',         weight = MAYBE, },
-    { name = 'README.md',      weight = MAYBE, },
-    { name = 'Makefile',       weight = LIKELY, },
-    { name = 'flake.nix',      weight = MAYBE, },
-    { name = 'flake.nix',      weight = MAYBE, },
-    { name = '.project_model', weight = DEFINITLY, },
+    { name = '.save.actions.lua', weight = DEFINITELY, },
+    { name = '.lsp.settings.lua', weight = DEFINITELY, },
+    { name = '.lazy.specs.lua',   weight = DEFINITELY, },
+    { name = '.editorconfig',     weight = LIKELY, },
+    { name = '.git',              weight = LIKELY, },
+    { name = '.gitignore',        weight = LIKELY, },
+    { name = '.svn',              weight = LIKELY, },
+    { name = 'justfile',          weight = LIKELY, },
+    { name = 'Makefile',          weight = LIKELY, },
+    { name = 'Jenkinsfile',       weight = MAYBE, },
+    { name = 'LICENSE',           weight = MAYBE, },
+    { name = 'LICENSE.md',        weight = MAYBE, },
+    { name = 'LICENSE.txt',       weight = MAYBE, },
+    { name = 'COPYING',           weight = MAYBE, },
+    { name = 'README',            weight = MAYBE, },
+    { name = 'README.md',         weight = MAYBE, },
+    { name = 'flake.nix',         weight = MAYBE, },
+    { name = 'flake.nix',         weight = MAYBE, },
   }
 
   markers = markers or {}
@@ -196,50 +201,51 @@ local function find_java_project_root( path )
     { name = '.project',          weight = LIKELY, },
     { name = 'target',            weight = LIKELY, },
     { name = 'pom.xml',           weight = LIKELY, },
-    { name = 'mvnw',              weight = DEFINITLY, },
-    { name = '.mvn',              weight = DEFINITLY, },
-    { name = 'mvnw.cmd',          weight = DEFINITLY, },
-    { name = 'build.gradle',      weight = DEFINITLY, },
-    { name = 'gradle.properties', weight = DEFINITLY, },
-    { name = 'settings.gradle',   weight = DEFINITLY, },
-    { name = 'gradlew',           weight = DEFINITLY, },
-    { name = 'gradlew.bat',       weight = DEFINITLY, },
+    { name = 'mvnw',              weight = DEFINITELY, },
+    { name = '.mvn',              weight = DEFINITELY, },
+    { name = 'mvnw.cmd',          weight = DEFINITELY, },
+    { name = 'build.gradle',      weight = DEFINITELY, },
+    { name = 'gradle.properties', weight = DEFINITELY, },
+    { name = 'settings.gradle',   weight = DEFINITELY, },
+    { name = 'gradlew',           weight = DEFINITELY, },
+    { name = 'gradlew.bat',       weight = DEFINITELY, },
   }
-  return find_root( path, java_markers )
+  return find_project_root( path, java_markers )
 end
-
-local lua_markers = {
-  { name = '.luarc.json',  weight = MAYBE, },
-  { name = '.luarc.jsonc', weight = MAYBE, },
-  { name = '.luacheckrc',  weight = MAYBE, },
-  { name = '.stylua.toml', weight = MAYBE, },
-  { name = 'stylua.toml',  weight = MAYBE, },
-  { name = 'selene.toml',  weight = MAYBE, },
-  { name = 'selene.yml',   weight = MAYBE, },
-  { name = 'neovim.yml',   weight = MAYBE, },
-  { name = 'lua',          weight = MAYBE, },
-}
 
 local find_lua_project_root = function ( path )
-  return find_root( path, lua_markers )
+  local lua_markers = {
+    { name = '.luarc.json',  weight = MAYBE, },
+    { name = '.luarc.jsonc', weight = MAYBE, },
+    { name = '.luacheckrc',  weight = MAYBE, },
+    { name = '.stylua.toml', weight = MAYBE, },
+    { name = 'stylua.toml',  weight = MAYBE, },
+    { name = 'selene.toml',  weight = MAYBE, },
+    { name = 'selene.yml',   weight = MAYBE, },
+    { name = 'neovim.yml',   weight = MAYBE, },
+    { name = 'lua',          weight = MAYBE, },
+  }
+
+  return find_project_root( path, lua_markers )
 end
 
-local zig_markers = {
-  { name = 'build.zig',      weight = DEFINITLY, },
-  { name = 'zls.build.json', weight = DEFINITLY, },
-  { name = 'zig-cache',      weight = MAYBE, },
-  { name = 'zig-out',        weight = MAYBE, },
-}
-
 local find_zig_project_root = function ( path )
-  return find_root( path, zig_markers )
+  local zig_markers = {
+    { name = 'build.zig',      weight = DEFINITELY, },
+    { name = 'zls.build.json', weight = DEFINITELY, },
+    { name = 'zig-cache',      weight = MAYBE, },
+    { name = 'zig-out',        weight = MAYBE, },
+  }
+
+  --FIXME: can we ask the zig build system for this info?
+  return find_project_root( path, zig_markers )
 end
 
 local find_rust_project_root = function ( path )
   local markers = {
-    { name = 'Cargo.toml', weight = DEFINITLY, },
+    { name = 'Cargo.toml', weight = DEFINITELY, },
   }
-  local cargo_crate_dir = find_root( path, markers )
+  local cargo_crate_dir = find_project_root( path, markers )
   if cargo_crate_dir == nil then return nil end
 
   local cmd = {

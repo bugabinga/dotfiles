@@ -1,25 +1,19 @@
+local map = require 'std.map'
+
+map.normal.visual.operator_pending {
+  keys = '<cr>',
+  category = 'navigation',
+  description = 'Jump to occurence of next chars quickly',
+  command = function () require 'flash'.jump() end,
+}
+
 return {
   'folke/flash.nvim',
-  tag = 'v1.18.2',
+  version = '1.*',
   event = 'VeryLazy',
   opts = {
     highlight = { backdrop = false, },
     modes = { char = { highlight = { backdrop = false, }, },
-    },
-  },
-  keys = {
-    {
-      '<cr>',
-      mode = { 'n', 'x', 'o', },
-      function () require 'flash'.jump() end,
-      desc = 'Flash',
-    },
-    {
-      '<s-cr>',
-      mode = { 'n', 'o', 'x', },
-      function () require 'flash'.treesitter() end,
-      desc =
-      'Flash Treesitter',
     },
   },
 }
