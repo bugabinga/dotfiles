@@ -38,6 +38,7 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* make highlights more visible when expanding snippets
 * toggling case conventions
 * Move to treesitter main branch
 * check out `vim.snippet`
