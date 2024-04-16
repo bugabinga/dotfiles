@@ -100,7 +100,19 @@ vim.opt.pumheight = 10
 vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
-vim.g.border_style = 'shadow'
+-- use this in various places for consistent border style
+vim.g.border_style = {
+	style = {
+		top_left = '╭',
+		top = '─',
+		top_right = '╮',
+		left = '│',
+		right = '│',
+		bottom_left = '╰',
+		bottom = '─',
+		bottom_right = '╯',
+	},
+}
 
 -- hide the mode indicator in status
 vim.opt.showmode = false
