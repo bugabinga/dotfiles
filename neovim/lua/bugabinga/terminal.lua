@@ -23,16 +23,7 @@ local terminal_settings = function ()
     command = [[ <C-\><C-n> ]],
   }
 
-  map.terminal.normal {
-    description = 'Close current terminal',
-    category = 'terminal',
-    keys = '<F7>',
-    buffer = true,
-    command = [[ <C-\><C-n><cmd>q<cr> ]],
-  }
-
   vim.opt_local.spell = false
-
   vim.cmd.startinsert()
 end
 
