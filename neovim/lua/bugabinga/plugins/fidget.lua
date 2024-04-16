@@ -3,7 +3,7 @@ local debug = require 'std.dbg'
 return {
   'j-hui/fidget.nvim',
   version = '1.*',
-  event = 'VeryLazy',
+  event = 'LspAttach',
   opts = {
     progress = {
       poll_rate = 500,             -- How and when to poll for progress messages
