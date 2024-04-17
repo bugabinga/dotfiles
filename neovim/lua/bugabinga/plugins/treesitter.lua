@@ -12,7 +12,7 @@ return {
 	-- restoring session throws errors, if this is lazy
 	lazy = false,
 	build = function ()
-		require 'nvim-treesitter.install'.update { with_sync = true, }
+		require 'nvim-treesitter.install'.update { with_sync = false, }
 	end,
 	dependencies = {
 		'nvim-treesitter/playground',
@@ -86,7 +86,7 @@ return {
 			auto_install = true,
 
 			autotag = { enable = true, disable = should_disable, },
-			ewndwise = { enable = true, disable = should_disable, },
+			endwise = { enable = true, disable = should_disable, },
 
 			highlight = {
 				enable = true,
@@ -138,29 +138,20 @@ return {
 						['am'] = { query = '@function.outer', desc = 'outer function definition', },
 						['im'] = { query = '@function.inner', desc = 'inner function definition', },
 
-						['aa'] = { query = '@assignment.outer', desc = 'outer assignment', },
-						['ia'] = { query = '@assignment.inner', desc = 'inner assignment', },
-
-						-- l overwrites builtin. i have no good idea for better binding. use ia instead.
-						-- ['la'] = { query = '@assignment.lhs', desc = 'left hand side of assignment'},
-						-- ['ra'] = { query = '@assignment.rhs', desc = 'right hand side of assignment'},
-
 						['ac'] = { query = '@class.outer', desc = 'outer class', },
 						['ic'] = { query = '@class.inner', desc = 'inner class', },
 
-						['ao'] = { query = '@conditional.outer', desc = 'outer conditional', },
-						['io'] = { query = '@conditional.inner', desc = 'inner conditional', },
+						['ai'] = { query = '@conditional.outer', desc = 'outer conditional', },
+						['ii'] = { query = '@conditional.inner', desc = 'inner conditional', },
 
 						['al'] = { query = '@loop.outer', desc = 'outer loop', },
 						['il'] = { query = '@loop.inner', desc = 'inner loop', },
 
-						-- this overwrites the built-in 'paragraph' object
-						['ap'] = { query = '@parameter.outer', desc = 'outer parameter', },
-						['ip'] = { query = '@parameter.inner', desc = 'inner parameter', },
+						['aa'] = { query = '@parameter.outer', desc = 'outer parameter', },
+						['ia'] = { query = '@parameter.inner', desc = 'inner parameter', },
 
-						['at'] = { query = '@comment.outer', desc = 'outer comment', },
-
-						['as'] = { query = '@scope', query_group = 'locals', desc = 'language scope', },
+						['agc'] = { query = '@comment.outer', desc = 'outer comment', },
+						['igc'] = { query = '@comment.inner', desc = 'inner comment', },
 					},
 					selection_modes = {
 						['@parameter.outer'] = 'v',
