@@ -45,7 +45,6 @@ diagnostic.config {
   float = {
     focusable = false,
     style = 'minimal',
-    border = vim.g.border_style,
     source = 'if_many',
     header = 'Diagnostic',
     prefix = prefix_format,

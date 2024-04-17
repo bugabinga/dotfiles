@@ -39,18 +39,18 @@ So as I pray, Unlimited Bug Works.
 # todo
 
 * navic highlights do not fit winbar
-* neogen does not generate JavDoc
-* pandoc with lua filters for diagrams for generating documents and previewing --> https://github.com/tex/vimpreviewpandoc
 * command for toggling case conventions
 * make highlights more visible when expanding snippets
-* cursor restore position on (session?) load jumps one location to somewhere after correct location
+* cursor restore position on (session?) load jumps one location to somewhere
+  after correct location
 * check out `vim.snippet`
 * use `vim.base64` in wezterm plugin
-* LuaLS is getting crazy diagnosing non-stop...
 * integrate language tool?
 * refactor mark.lua
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
-* Do I want multiple LSPs per buffer? In case of markdown and text it seems useful, for code it seems like a headache...
+* Do I want multiple LSPs per buffer?
+  In case of markdown and text it seems useful, for code it seems like a
+  headache...
 * use ltex-ls for markdown, code comments and commit messages
 * setup DAP
 * nvim spell for camel case words
@@ -62,6 +62,3 @@ So as I pray, Unlimited Bug Works.
 * split parts of config into plugins
 * add support for Java multi line string in autopairs
 * try Termdebug with gdb
-* pandoc with lua filters for diagrams for generating documents and previewing
-  --> https://github.com/tex/vimpreviewpandoc
-  outside of vim?
