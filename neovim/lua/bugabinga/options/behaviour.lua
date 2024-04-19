@@ -25,7 +25,8 @@ vim.opt.shiftround = true
 -- insert whitespace type based on whitespace on previous line
 vim.opt.smarttab = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.breakindent = true
 
 -- do not keep distance to borders while scrolling
 vim.opt.scrolloff = 0
