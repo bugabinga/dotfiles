@@ -107,9 +107,9 @@ local find_jdks = function ()
     jdk17.path = '/usr/lib64/jvm/java-17-openjdk-17'
     jdk21.path = '/usr/lib64/jvm/java-21-openjdk-21'
   elseif host == 'NB-00718' then
-    jdk11.path = 'C:/Users/okr/scoop/apps/openjdk11'
-    jdk17.path = 'C:/Users/okr/scoop/apps/openjdk17'
-    jdk21.path = 'C:/Users/okr/scoop/apps/openjdk21'
+    jdk11.path = 'C:/Users/okr/scoop/apps/openjdk11/current'
+    jdk17.path = 'C:/Users/okr/scoop/apps/openjdk17/current'
+    jdk21.path = 'C:/Users/okr/scoop/apps/openjdk21/current'
   else
     vim.notify 'missing jdk paths in java settings for lsp'
   end

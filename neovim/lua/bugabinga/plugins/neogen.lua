@@ -28,8 +28,17 @@ map.normal {
   command = function () require 'neogen'.generate { type = 'class', } end,
 }
 
+map.normal {
+  description = 'Doc Comment for Type',
+  category = 'generate',
+  keys = '<leader>gdt',
+  command = function () require 'neogen'.generate { type = 'type', } end,
+}
+
 return {
   'danymat/neogen',
   dependencies = { 'nvim-treesitter/nvim-treesitter', },
-  opts = {},
+  opts = {
+    snippet_engine = 'luasnip',
+  },
 }

@@ -24,6 +24,8 @@ neoconf
 lsp
 autopairs
 cterm/!
+navic
+winbar
 resession
 configs
 BufNewFile
@@ -59,3 +61,4 @@ FFI
 jdtls
 href
 DocumentUri
+sinnfrei

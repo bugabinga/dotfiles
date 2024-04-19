@@ -34,25 +34,24 @@ local prefix_format = function ( context, index, total )
 end
 
 diagnostic.config {
-	underline = true,
-	virtual_text = {
-		severity = { min = diagnostic.severity.WARN, },
-		source = false,
-		spacing = 2,
-		prefix = '⦿ ',
-		format = diagnostic_format,
-	},
-	float = {
-		focusable = false,
-		style = 'minimal',
-		border = vim.g.border_style,
-		source = 'if_many',
-		header = 'Diagnostic',
-		prefix = prefix_format,
-	},
-	update_in_insert = false,
-	signs = true,
-	severity_sort = true,
+  underline = true,
+  virtual_text = {
+    severity = { min = diagnostic.severity.WARN },
+    source = false,
+    spacing = 2,
+    prefix = '⦿ ',
+    format = diagnostic_format,
+  },
+  float = {
+    focusable = false,
+    style = 'minimal',
+    source = 'if_many',
+    header = 'Diagnostic',
+    prefix = prefix_format,
+  },
+  update_in_insert = false,
+  signs = true,
+  severity_sort = true,
 }
 
 local sign = function ( options )

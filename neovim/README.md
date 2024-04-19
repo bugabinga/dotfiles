@@ -39,25 +39,19 @@ So as I pray, Unlimited Bug Works.
 # todo
 
 * remove mason
+* navic highlights do not fit winbar
 * make highlights more visible when expanding snippets
-* fix bug:
-  cursor restore position on (session?) load jumps one location to somewhere
+* cursor restore position on (session?) load jumps one location to somewhere
   after correct location
-* toggling case conventions
-* Move to treesitter main branch
 * check out `vim.snippet`
 * use `vim.base64` in wezterm plugin
-* Bug:
-  LuaLS is getting crazy diagnosing non-stop...
 * integrate language tool?
-* ]s [s to jump to spelling mistakes
-* learn marks and refactor mark.lua
-* try Termdebug with gdb
+* refactor mark.lua
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
+* Do I want multiple LSPs per buffer?
+  In case of markdown and text it seems useful, for code it seems like a
+  headache...
 * use ltex-ls for markdown, code comments and commit messages
-* learn from
-  <https://github.com/stevearc/dotfiles/blob/master/.config/nvim/plugin/exrc.lua>
-  and maybe adapt `std.localrc`
 * setup DAP
 * nvim spell for camel case words
 * add nu-check to nvim-lint
@@ -67,6 +61,4 @@ So as I pray, Unlimited Bug Works.
   on_attach)
 * split parts of config into plugins
 * add support for Java multi line string in autopairs
-* pandoc with lua filters for diagrams for generating documents and previewing
-  --> https://github.com/tex/vimpreviewpandoc
-  outside of vim?
+* try Termdebug with gdb
