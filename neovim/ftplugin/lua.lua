@@ -5,6 +5,7 @@ for _, path in pairs( vim.api.nvim_list_runtime_paths() ) do
 	vim.opt_local.path:append( path .. '/lua' )
 end
 vim.opt_local.suffixesadd:prepend '.lua'
+vim.opt_local.conceallevel = 1
 
 local map = require 'std.map'
 
@@ -20,7 +21,7 @@ map.normal {
 	remap = true,
 }
 
---TODO: add debug.print, require, prequire
+--TODO: add dbg.print, require, prequire
 prequire 'nvim-surround'.buffer_setup {
 	surrounds = {
 		['R'] = {

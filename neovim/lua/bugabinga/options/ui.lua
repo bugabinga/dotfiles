@@ -100,6 +100,7 @@ vim.opt.pumheight = 10
 vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
+-- use this in various places for consistent border style
 vim.g.border_style = 'solid'
 
 -- hide the mode indicator in status

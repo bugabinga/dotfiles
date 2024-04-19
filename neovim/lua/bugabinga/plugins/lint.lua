@@ -11,7 +11,7 @@ return {
     linters_by_ft = {
       lua = { 'luacheck', },
       sh = { 'shellcheck', },
-      vim = { 'vint', },
+      nu = { 'nu-check', },
     },
     linters = {},
   },

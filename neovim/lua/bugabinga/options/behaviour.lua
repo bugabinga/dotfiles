@@ -14,6 +14,9 @@ vim.opt.whichwrap:append ']'
 vim.opt.whichwrap:append 'h'
 vim.opt.whichwrap:append 'l'
 
+-- treat words separated by a dash as one word. used in snail-case-convention
+vim.opt.iskeyword:append '-'
+
 -- Tabs and Spaces, i like 'em 2 spaces wide
 -- only insert spaces for tabs if language configuration explicitly declares so
 vim.opt.expandtab = false

@@ -9,6 +9,13 @@ map.normal {
   command = function () require 'oil'.open() end,
 }
 
+map.normal {
+  description = 'Open parent directory in a float.',
+  category = 'files',
+  keys = '--',
+  command = function () require 'oil'.open_float() end,
+}
+
 return {
   'stevearc/oil.nvim',
   lazy = false,
