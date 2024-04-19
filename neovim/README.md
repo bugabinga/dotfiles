@@ -38,6 +38,7 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* remove mason
 * make highlights more visible when expanding snippets
 * fix bug:
   cursor restore position on (session?) load jumps one location to somewhere

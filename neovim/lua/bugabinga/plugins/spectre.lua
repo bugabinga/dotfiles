@@ -9,28 +9,28 @@ map.normal {
   description = 'Search and replace',
   category = 'search',
   keys = '<leader>rs',
-  command = function () spectre.open() end,
+  command = function () require 'spectre'.open() end,
 }
 
 map.normal {
   description = 'Search current word',
   category = 'search',
   keys = '<leader>rw',
-  command = function () spectre.open_visual { select_word = true, } end,
+  command = function () require 'spectre'.open_visual { select_word = true, } end,
 }
 
 map.visual {
   description = 'Search current word',
   category = 'search',
   keys = '<leader>rw',
-  command = function () spectre.open_visual() end,
+  command = function () require 'spectre'.open_visual() end,
 }
 
 map.normal {
   description = 'Search on current file',
   category = 'search',
   keys = '<leader>rf',
-  command = function () spectre.open_file_search { select_word = true, } end,
+  command = function () require 'spectre'.open_file_search { select_word = true, } end,
 }
 
 return {
