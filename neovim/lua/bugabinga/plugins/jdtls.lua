@@ -1,1 +1,0 @@
-return { 'bugabinga/nvim-jdtls', }

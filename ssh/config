@@ -10,6 +10,11 @@ Host github.com
 	User git
 	IdentityFile ~/.ssh/github.key
 
+Host seaduck
+	Hostname seaduck
+	User oli
+	IdentityFile ~/.ssh/seaduck.key
+
 # catch-all pattern
 Host *
 	User root

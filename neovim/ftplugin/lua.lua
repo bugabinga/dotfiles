@@ -6,6 +6,7 @@ for _, path in pairs( vim.api.nvim_list_runtime_paths() ) do
 end
 vim.opt_local.suffixesadd:prepend '.lua'
 vim.opt_local.conceallevel = 1
+vim.opt_local.concealcursor = 'n'
 
 local map = require 'std.map'
 
