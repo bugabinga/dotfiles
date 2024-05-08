@@ -42,6 +42,7 @@ return {
       ['<leader>'] = {
         ['7'] = { name = 'tests', _ = 'which_key_ignore', },
         m = { name = '|m|ark', _ = 'which_key_ignore', },
+        b = { name = '|b|uffer', _ = 'which_key_ignore', },
         h = { name = '|h|unk', _ = 'which_key_ignore', },
         f = { name = '|f|iles', _ = 'which_key_ignore', },
         g = { name = '|g|enerate', _ = 'which_key_ignore', },

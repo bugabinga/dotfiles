@@ -1,6 +1,8 @@
 --FIXME: own this
 return {
   'L3MON4D3/LuaSnip',
+  version = 'v2.*',
+  build = false,
   dependencies = {
     'stevearc/vim-vscode-snippets',
   },

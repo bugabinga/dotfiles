@@ -11,6 +11,8 @@
 -- setup debug mode
 -- require 'std.debug'.toggle()
 
+-- vim.g.did_load_filetypes = 1
+
 vim.cmd.colorscheme 'nugu'
 
 ---create special global, that serves as a more graceful alternative to `require`

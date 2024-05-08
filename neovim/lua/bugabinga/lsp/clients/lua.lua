@@ -11,10 +11,10 @@ return {
   settings = {
     Lua = {
       addonManager = { enable = false, },
-      completion = { callSnippet = 'Replace', },
+      completion = { callSnippet = 'Both', },
       hint = { enable = true, setType = true, },
       telemetry = { enable = false, },
-      window = { progressBar = true, statusBar = true, },
+      window = { progressBar = false, statusBar = false, },
       workspace = { checkThirdParty = false, },
     },
   },

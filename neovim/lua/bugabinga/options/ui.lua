@@ -127,17 +127,17 @@ vim.opt.smoothscroll = true
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
-vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:#e-subpixelantialias:#h-full'
+vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h16:#e-subpixelantialias:#h-none'
 -- NOTE: neovide font config is not as powerful as wezterm right now
 -- characters for box drawing do not seem to line up. try different font for now?
 vim.opt.linespace = -3
 
 -- neovide only options
 if vim.g.neovide then
-  -- vim.g.neovide_floating_blur_amount_x = 12.0
-  -- vim.g.neovide_floating_blur_amount_y = 12.0
+  vim.g.neovide_floating_blur_amount_x = 12.0
+  vim.g.neovide_floating_blur_amount_y = 12.0
   -- vim.g.neovide_scroll_animation_length = 0.69
-  -- vim.g.neovide_fullscreen = true
+  vim.g.neovide_fullscreen = true
   vim.g.neovide_remember_window_size = true
   vim.g.neovide_profiler = false
   -- vim.g.neovide_cursor_animation_length = 0.42
@@ -151,6 +151,5 @@ if vim.g.neovide then
   vim.g.neovide_padding_left = 0
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_theme = 'auto'
-  vim.g.neovide_refresh_rate = vim.uv.os_gethostname() == 'pop-os' and 144 or 60
   vim.g.neovide_refresh_rate_idle = 5
 end
