@@ -3,35 +3,35 @@ local auto = require 'std.auto'
 local ignored = require 'std.ignored'
 
 auto 'highlight_yanked_text' {
-	description = 'briefly highlight yanked text',
-	events = 'TextYankPost',
-	pattern = '*',
-	command = function () vim.highlight.on_yank() end,
+  description = 'briefly highlight yanked text',
+  events = 'TextYankPost',
+  pattern = '*',
+  command = function () vim.highlight.on_yank() end,
 }
 
 auto 'disable_columns_in_special_buffers' {
-	description = 'Hide columns in buffers, that do not show source code.',
-	events = { 'FileType', },
-	pattern = ignored.filetypes,
-	command = function ()
-		vim.opt_local.colorcolumn = {}
-		vim.opt_local.signcolumn = 'no'
-		vim.opt_local.foldcolumn = '0'
-		vim.opt_local.number = false
-	end,
+  description = 'Hide columns in buffers, that do not show source code.',
+  events = { 'FileType', },
+  pattern = ignored.filetypes,
+  command = function ()
+    vim.opt_local.colorcolumn = {}
+    vim.opt_local.signcolumn = 'no'
+    vim.opt_local.foldcolumn = '0'
+    vim.opt_local.number = false
+  end,
 }
 
 -- show trailing whitespace
 vim.opt.list = true
 vim.opt.listchars = {
-	-- space = icon.space,
-	-- eol = icon.eol,
-	-- tab = icon.tab .. icon.middle_ellipsis,
-	tab = '  ',
-	trail = icon.trail,
-	extends = icon.extends,
-	precedes = icon.precedes,
-	nbsp = icon.nbsp,
+  -- space = icon.space,
+  -- eol = icon.eol,
+  -- tab = icon.tab .. icon.middle_ellipsis,
+  tab = '  ',
+  trail = icon.trail,
+  extends = icon.extends,
+  precedes = icon.precedes,
+  nbsp = icon.nbsp,
 }
 
 -- force English messages
@@ -54,29 +54,29 @@ vim.opt.laststatus = 3
 
 -- hide weird symbol at end of buffer
 vim.opt.fillchars = {
-	eob = ' ',
-	lastline = ' ',
-	diff = '╱',
-	wbr = ' ',
+  eob = ' ',
+  lastline = ' ',
+  diff = '╱',
+  wbr = ' ',
 
-	horiz = '─',
-	horizup = '┴',
-	horizdown = '┬',
-	vert = '│',
-	vertleft = '┤',
-	vertright = '├',
-	verthoriz = '┼',
+  horiz = '─',
+  horizup = '┴',
+  horizdown = '┬',
+  vert = '│',
+  vertleft = '┤',
+  vertright = '├',
+  verthoriz = '┼',
 }
 
 -- better have no syntax highlighting than regex based, treesitter will take over later
 vim.opt.syntax = 'off'
 
 -- hide output of insert completion popup in status
-vim.opt.shortmess:append 'c'
+-- vim.opt.shortmess:append 'c'
 -- hide vim intro screen
 vim.opt.shortmess:append 'I'
 -- truncate messages at end
-vim.opt.shortmess:append 't'
+-- vim.opt.shortmess:append 't'
 
 -- show cmd window to prevent jitter UI
 vim.opt.cmdheight = 1
@@ -101,18 +101,7 @@ vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
 -- use this in various places for consistent border style
-vim.g.border_style = {
-	style = {
-		top_left = '╭',
-		top = '─',
-		top_right = '╮',
-		left = '│',
-		right = '│',
-		bottom_left = '╰',
-		bottom = '─',
-		bottom_right = '╯',
-	},
-}
+vim.g.border_style = 'solid'
 
 -- hide the mode indicator in status
 vim.opt.showmode = false
@@ -122,13 +111,13 @@ vim.opt.showtabline = 2
 
 local is_tty = os.getenv 'XDG_SESSION_TYPE' == 'tty' and os.getenv 'SSH_TTY' == ''
 if is_tty then
-	vim.opt.termguicolors = false
-	vim.g.nerdfont = false
-	vim.opt.lazyredraw = true
+  vim.opt.termguicolors = false
+  vim.g.nerdfont = false
+  vim.opt.lazyredraw = true
 else
-	vim.opt.termguicolors = true
-	vim.g.nerdfont = true
-	vim.opt.lazyredraw = false
+  vim.opt.termguicolors = true
+  vim.g.nerdfont = true
+  vim.opt.lazyredraw = false
 end
 
 -- scroll by screen lines if buffer is wrapped
@@ -145,23 +134,23 @@ vim.opt.linespace = -3
 
 -- neovide only options
 if vim.g.neovide then
-	-- vim.g.neovide_floating_blur_amount_x = 12.0
-	-- vim.g.neovide_floating_blur_amount_y = 12.0
-	-- vim.g.neovide_scroll_animation_length = 0.69
-	-- vim.g.neovide_fullscreen = true
-	vim.g.neovide_remember_window_size = true
-	vim.g.neovide_profiler = false
-	-- vim.g.neovide_cursor_animation_length = 0.42
-	-- vim.g.neovide_cursor_trail_length = 0.42
-	vim.g.neovide_cursor_vfx_mode = 'railgun'
-	-- vim.g.neovide_cursor_unfocused_outline_width = 0.125
-	vim.g.neovide_cursor_antialiasing = true
-	vim.g.neovide_padding_top = 0
-	vim.g.neovide_padding_bottom = 0
-	vim.g.neovide_padding_right = 0
-	vim.g.neovide_padding_left = 0
-	vim.g.neovide_hide_mouse_when_typing = true
-	vim.g.neovide_theme = 'auto'
-	vim.g.neovide_refresh_rate = vim.uv.os_gethostname() == 'pop-os' and 144 or 60
-	vim.g.neovide_refresh_rate_idle = 5
+  -- vim.g.neovide_floating_blur_amount_x = 12.0
+  -- vim.g.neovide_floating_blur_amount_y = 12.0
+  -- vim.g.neovide_scroll_animation_length = 0.69
+  -- vim.g.neovide_fullscreen = true
+  vim.g.neovide_remember_window_size = true
+  vim.g.neovide_profiler = false
+  -- vim.g.neovide_cursor_animation_length = 0.42
+  -- vim.g.neovide_cursor_trail_length = 0.42
+  vim.g.neovide_cursor_vfx_mode = 'railgun'
+  -- vim.g.neovide_cursor_unfocused_outline_width = 0.125
+  vim.g.neovide_cursor_antialiasing = true
+  vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_bottom = 0
+  vim.g.neovide_padding_right = 0
+  vim.g.neovide_padding_left = 0
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_theme = 'auto'
+  vim.g.neovide_refresh_rate = vim.uv.os_gethostname() == 'pop-os' and 144 or 60
+  vim.g.neovide_refresh_rate_idle = 5
 end

@@ -59,4 +59,6 @@ makeprg
 modulepath
 FFI
 jdtls
+href
+DocumentUri
 sinnfrei

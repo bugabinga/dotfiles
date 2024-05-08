@@ -141,7 +141,7 @@ _.Directory { fg = _.Normal.fg, }
 _.DiffAdd { fg = content_focus, }
 _.DiffDelete { fg = content_focus, strikethrough = true, }
 _.DiffChange { fg = content_important_global, }
-_.DiffText { fg = content_normal, bg = content_important_local, }
+_.DiffText { fg = content_normal, bg = content_unfocus, }
 _.EndOfBuffer = _.Normal
 -- _.TermCursor = _.Cursor
 -- _.TermCursorNC = _.Cursor
