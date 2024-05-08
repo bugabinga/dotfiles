@@ -38,8 +38,9 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* remove mason
+* warn if trying to load a lsp client, that has no command
 * navic highlights do not fit winbar
-* command for toggling case conventions
 * make highlights more visible when expanding snippets
 * cursor restore position on (session?) load jumps one location to somewhere
   after correct location

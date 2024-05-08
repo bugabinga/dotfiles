@@ -19,6 +19,15 @@ if hostname == 'x230' then
 	enable_wayland = true
 elseif hostname == 'NB-00718' then
 	font_size = 19
+elseif hostname == 'fedora' then
+	font_size = 16
+	local font_names = {}
+	local nerdfonts = io.open(wez.config_dir .. '/nerdfonts', 'r')
+	for font_name in nerdfonts:lines() do
+		table.insert(font_names,font_name)
+	end
+	local random_font = font_names[math.random(#font_names)]
+	font = wez.font(random_font) 
 end
 
 return {
@@ -49,7 +58,6 @@ return {
 	hide_tab_bar_if_only_one_tab = false,
 	use_fancy_tab_bar = false,
 	check_for_updates = false,
-	show_update_window = false,
 	audible_bell = 'Disabled',
 	visual_bell = {
 		fade_in_duration_ms = 69,

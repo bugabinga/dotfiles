@@ -165,24 +165,25 @@ end
 local function find_project_root( path, markers )
   -- define some language-independent markers
   local default_markers = {
-    { name = '.save.actions.lua', weight = DEFINITELY, },
-    { name = '.lsp.settings.lua', weight = DEFINITELY, },
-    { name = '.lazy.specs.lua',   weight = DEFINITELY, },
-    { name = '.editorconfig',     weight = LIKELY, },
-    { name = '.git',              weight = LIKELY, },
-    { name = '.gitignore',        weight = LIKELY, },
-    { name = '.svn',              weight = LIKELY, },
-    { name = 'justfile',          weight = LIKELY, },
-    { name = 'Makefile',          weight = LIKELY, },
-    { name = 'Jenkinsfile',       weight = MAYBE, },
-    { name = 'LICENSE',           weight = MAYBE, },
-    { name = 'LICENSE.md',        weight = MAYBE, },
-    { name = 'LICENSE.txt',       weight = MAYBE, },
-    { name = 'COPYING',           weight = MAYBE, },
-    { name = 'README',            weight = MAYBE, },
-    { name = 'README.md',         weight = MAYBE, },
-    { name = 'flake.nix',         weight = MAYBE, },
-    { name = 'flake.nix',         weight = MAYBE, },
+    { name = '.save.actions.lua',          weight = DEFINITELY, },
+    { name = '.lsp.settings.lua',          weight = DEFINITELY, },
+    { name = '.lsp.workspace_folders.lua', weight = DEFINITELY, },
+    { name = '.lazy.specs.lua',            weight = DEFINITELY, },
+    { name = '.editorconfig',              weight = LIKELY, },
+    { name = '.git',                       weight = LIKELY, },
+    { name = '.gitignore',                 weight = LIKELY, },
+    { name = '.svn',                       weight = LIKELY, },
+    { name = 'justfile',                   weight = LIKELY, },
+    { name = 'Makefile',                   weight = LIKELY, },
+    { name = 'Jenkinsfile',                weight = MAYBE, },
+    { name = 'LICENSE',                    weight = MAYBE, },
+    { name = 'LICENSE.md',                 weight = MAYBE, },
+    { name = 'LICENSE.txt',                weight = MAYBE, },
+    { name = 'COPYING',                    weight = MAYBE, },
+    { name = 'README',                     weight = MAYBE, },
+    { name = 'README.md',                  weight = MAYBE, },
+    { name = 'flake.nix',                  weight = MAYBE, },
+    { name = 'flake.nix',                  weight = MAYBE, },
   }
 
   markers = markers or {}
@@ -284,10 +285,6 @@ local rooters = {
 local find_root_by_filetype = function ( path, filetype )
   local rooter = rooters[filetype]
   return rooter and rooter( path ) or fallback_rooter( path )
-end
-
---- @return table parsed configuration as could be found in the `.project_model` file in the root directory. Empty otherwise.
-local parse_project_configuration = function ()
 end
 
 return {
