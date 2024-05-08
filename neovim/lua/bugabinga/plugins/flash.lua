@@ -10,10 +10,9 @@ map.normal.visual.operator_pending {
 return {
   'folke/flash.nvim',
   version = '1.*',
-  event = 'VeryLazy',
+  -- event = 'VeryLazy',
   opts = {
-    highlight = { backdrop = false, },
-    modes = { char = { highlight = { backdrop = false, }, },
-    },
+    -- highlight = { backdrop = false, },
+    -- modes = { char = { highlight = { backdrop = false, }, }, },
   },
 }

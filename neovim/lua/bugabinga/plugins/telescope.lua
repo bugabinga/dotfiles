@@ -91,7 +91,6 @@ return {
   'nvim-telescope/telescope.nvim',
   version = '0.*',
   cmd = 'Telescope',
-  event = 'VeryLazy',
   dependencies = {
     {
       'nvim-telescope/telescope-fzf-native.nvim',

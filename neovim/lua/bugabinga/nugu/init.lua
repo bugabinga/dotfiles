@@ -122,6 +122,7 @@ local _ = setmetatable( { groups = {}, }, {
 } )
 
 _.Debug { fg = ui_normal, bg = debug, bold = true, }
+
 _.Normal { fg = content_normal, bg = content_backdrop, }
 _.Comment { fg = content_important_global, }
 _.NotifyBackground { bg = ui_backdrop, }
@@ -129,7 +130,7 @@ _.LineNr { fg = ui_minor, bg = content_backdrop, }
 _.CursorLineNr { fg = ui_focus, bg = ui_backdrop, }
 _.Search { bg = content_unfocus, }
 _.IncSearch { fg = content_focus, }
-_.CurSearch { fg = content_normal, bg = content_important_global, }
+_.CurSearch { fg = content_important_global, bg = content_unfocus, }
 _.NormalFloat { fg = ui_normal, bg = ui_backdrop, }
 _.FloatBorder { fg = _.NormalFloat.bg, bg = _.NormalFloat.bg, }
 _.ColorColumn { fg = ui_important_global, bg = _.Normal.bg, }
@@ -466,7 +467,7 @@ _.TelescopeSelectionCaret = _.PmenuSel
 _.TelescopeSelection = _.PmenuSel
 _.TelescopeMultiSelection { fg = content_normal, bg = ui_important_local, }
 
-_.FlashBackdrop {}
+_.FlashBackdrop { fg = ui_normal, bg = ui_backdrop, }
 _.FlashMatch = _.IncSearch
 _.FlashCurrent = _.CurSearch
 _.FlashLabel { fg = ui_accent, bg = ui_backdrop, }
