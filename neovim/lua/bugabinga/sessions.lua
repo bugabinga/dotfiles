@@ -2,6 +2,7 @@ local map = require 'std.map'
 local auto = require 'std.auto'
 
 local sessions = vim.fs.normalize( vim.fn.stdpath 'data' .. '/sessions' )
+vim.fn.mkdir( sessions, 'p' )
 
 -- FIXME: this needs to live somewhere in std
 local file_exists = function ( path )
@@ -46,6 +47,9 @@ local load_session = function ( session )
 end
 
 local load_current_session = function ()
+  local cwd = vim.uv.cwd()
+  local session = encode( cwd )
+  load_session( session )
 end
 
 local load_any_session = function ()

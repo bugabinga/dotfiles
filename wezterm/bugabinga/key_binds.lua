@@ -138,6 +138,13 @@ local keys = {
 		action = wez.action.ActivateCommandPalette,
 	},
 	{
+		key = 'p',
+		mods = 'LEADER|SHIFT',
+		action = wez.action.ShowLauncherArgs {
+			flags = 'FUZZY|WORKSPACES',
+		},
+	},
+	{
 		key = '/',
 		mods = 'LEADER',
 		action = wez.action.Search 'CurrentSelectionOrEmptyString',

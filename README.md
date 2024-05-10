@@ -38,7 +38,7 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
-* kill lush
+* add fonts to dotfiles (how to keep size under control?)
 * write plugin to parse lsp settings locally and apply them
 * is there a use case for a plugin that parses local plugin configuration overrides?
 * kill custom lsp stuff in favor of lspconfig and try neoconf + nvim-java
