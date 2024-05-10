@@ -19,7 +19,7 @@ end
 
 -- Show which key table is active in the status area
 wez.on('update-status', function(window, pane)
-	local name = window:active_key_table()
+	local key_table = window:active_key_table()
 	local current_workspace = window:active_workspace()
 	local zoomed_state = zoomed(pane)
 	local leader = nil
@@ -27,8 +27,10 @@ wez.on('update-status', function(window, pane)
 		leader = 'LEADER'
 	end
 	local fonts = {}
-	for _, font in pairs(window:effective_config().font.font) do
-		table.insert(fonts, font.family)
+	local config = window:effective_config()
+	local font_size = config.font_size
+	for _, font in pairs(config.font.font) do
+		table.insert(fonts, string.format('%s:%s', font.family, font_size))
 	end
 	local font = wez.format {
 		{ Text = ' Font ' },
@@ -38,9 +40,10 @@ wez.on('update-status', function(window, pane)
 	}
 
 	local status = { ' ' }
+	if leader then table.insert(status, leader) end
+	if key_table then table.insert(status, key_table) end
 	if zoomed_state then table.insert(status, zoomed_state) end
 	if current_workspace then table.insert(status, current_workspace) end
-	if leader then table.insert(status, leader) end
 	if font then table.insert(status, font) end
 
 	window:set_right_status(table.concat(status, DELIMITER))
