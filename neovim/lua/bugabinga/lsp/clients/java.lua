@@ -19,6 +19,10 @@ local find_jdks = function ()
     jdk11.path = '/usr/lib64/jvm/java-11-openjdk-11'
     jdk17.path = '/usr/lib64/jvm/java-17-openjdk-17'
     jdk21.path = '/usr/lib64/jvm/java-21-openjdk-21'
+  elseif host == 'fedora' then
+    jdk11.path = '/usr/lib/jvm/java-11-openjdk'
+    jdk17.path = '/usr/lib/jvm/java-17-openjdk'
+    jdk21.path = '/usr/lib/jvm/java-21-openjdk'
   elseif host == 'NB-00718' then
     jdk11.path = 'C:/Users/okr/scoop/apps/openjdk11/current'
     jdk17.path = 'C:/Users/okr/scoop/apps/openjdk17/current'
