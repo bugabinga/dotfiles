@@ -49,11 +49,15 @@ local bind = function(self, map)
   local options = vim.tbl_extend("keep", map.options, {
     silent = true,
     desc = map.description,
+    buffer = map.buffer,
+    remap = map.remap,
   })
 
   if vim.tbl_isempty(self.modes) then
     self.modes[1] = available_modes.normal_visual_select_operator_pending
   end
+
+  -- vim.print('vim.keymap', self.modes, keys, command, options)
 
   if type(keys) == "table" then
     for _, key in ipairs(keys) do
