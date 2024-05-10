@@ -128,28 +128,18 @@ vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o
 
 -- font
 vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h16:#e-subpixelantialias:#h-none'
--- NOTE: neovide font config is not as powerful as wezterm right now
--- characters for box drawing do not seem to line up. try different font for now?
-vim.opt.linespace = -3
 
 -- neovide only options
 if vim.g.neovide then
-  vim.g.neovide_floating_blur_amount_x = 12.0
-  vim.g.neovide_floating_blur_amount_y = 12.0
-  -- vim.g.neovide_scroll_animation_length = 0.69
-  vim.g.neovide_fullscreen = true
-  vim.g.neovide_remember_window_size = true
-  vim.g.neovide_profiler = false
-  -- vim.g.neovide_cursor_animation_length = 0.42
-  -- vim.g.neovide_cursor_trail_length = 0.42
-  vim.g.neovide_cursor_vfx_mode = 'railgun'
-  -- vim.g.neovide_cursor_unfocused_outline_width = 0.125
-  vim.g.neovide_cursor_antialiasing = true
+  -- vim.g.neovide_profiler = false
+  -- interpret all touch events as scroll events
+  vim.g.neovide_touch_deadzone = 0.0
+  -- after this timeout, start a visual selection
+  vim.g.neovide_touch_drag_timeout = 0.69
   vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_left = 8
   vim.g.neovide_padding_bottom = 0
   vim.g.neovide_padding_right = 0
-  vim.g.neovide_padding_left = 0
   vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_theme = 'auto'
   vim.g.neovide_refresh_rate_idle = 5
 end
