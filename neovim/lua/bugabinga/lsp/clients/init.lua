@@ -1,7 +1,6 @@
 return {
   require 'bugabinga.lsp.clients.java',
   require 'bugabinga.lsp.clients.lua',
-  require 'bugabinga.lsp.clients.json',
   require 'bugabinga.lsp.clients.asm',
   require 'bugabinga.lsp.clients.c',
   require 'bugabinga.lsp.clients.graphviz',

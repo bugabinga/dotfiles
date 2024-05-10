@@ -53,7 +53,7 @@ So as I pray, Unlimited Bug Works.
   In case of markdown and text it seems useful, for code it seems like a
   headache...
 * use ltex-ls for markdown, code comments and commit messages
-* setup DAP
+* flesh out 'const.lua', move to std?
 * nvim spell for camel case words
 * add nu-check to nvim-lint
 * create skeleton-plugin for default file content based on file type

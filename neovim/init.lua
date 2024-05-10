@@ -11,6 +11,8 @@
 -- setup debug mode
 -- require 'std.debug'.toggle()
 
+-- vim.g.did_load_filetypes = 1
+
 vim.cmd.colorscheme 'nugu'
 
 ---create special global, that serves as a more graceful alternative to `require`
@@ -52,6 +54,12 @@ end
 ok, loaded = pcall( require, 'bugabinga.mark' )
 if not ok then
   vim.print( 'error while loading mark', loaded )
+end
+
+-- save and load sessions
+ok, loaded = pcall( require, 'bugabinga.sessions' )
+if not ok then
+  vim.print( 'error while loading sessions', loaded )
 end
 
 -- configure builtin terminal
