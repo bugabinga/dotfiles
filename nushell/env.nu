@@ -46,12 +46,3 @@ $env.NU_LIB_DIRS = [
     ($nu.config-path | path dirname | path join 'completions')
 ]
 
-if $env.WIN32 {
-  # TODO: insert scoop cargo path here
-  # $env.CARGO_HOME = ( '~/.cargo' | path expand )
-	$env.Path = ( $env.Path | prepend '' )
-} else {
-	$env.CARGO_HOME = ( '~/.cargo' | path expand )
-	$env.PATH = ( $env.PATH | prepend ( $env.CARGO_HOME | path join 'bin') )
-	$env.PATH = ( $env.PATH | prepend ( '~/.local/bin'| path expand ) )
-}

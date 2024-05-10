@@ -52,6 +52,7 @@
 
 [push]
   autoSetupRemote = true
+  default = "upstream"
 
 [pull]
   rebase = false

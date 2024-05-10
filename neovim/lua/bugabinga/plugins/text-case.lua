@@ -1,3 +1,4 @@
+-- FIXME: own this
 return {
   'johmsalas/text-case.nvim',
   dependencies = { 'nvim-telescope/telescope.nvim', },
@@ -7,7 +8,7 @@ return {
   end,
   keys = {
     'ga', -- Default invocation prefix
-    { 'gA', '<cmd>TextCaseOpenTelescope<CR>', mode = { 'n', 'x', }, desc = 'Telescope', },
+    { 'gA', '<cmd>TextCaseOpenTelescope<CR>', mode = { 'n', 'x', }, desc = 'Change text case', },
   },
   cmd = {
     'TextCaseOpenTelescope',
@@ -15,8 +16,4 @@ return {
     'TextCaseOpenTelescopeLSPChange',
     'TextCaseStartReplacingCommand',
   },
-  -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
-  -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
-  -- available after the first executing of it or after a keymap of text-case.nvim has been used.
-  lazy = false,
 }
