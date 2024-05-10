@@ -3,14 +3,14 @@ local nugu = require 'bugabinga.nugu'
 
 local key_binds = require 'bugabinga.key_binds'
 local auto_dark_mode = require 'bugabinga.auto_dark_mode'
--- local workspaces = require 'bugabinga.workspaces'
+local workspaces = require 'bugabinga.workspaces'
 require 'bugabinga.status'
 local zen_mode = require 'bugabinga.neovim_zen_mode'
 zen_mode(wez)
 
 local hostname = wez.hostname()
 local enable_wayland = false
-local window_decorations = 'RESIZE'
+local window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
 local font_size = 11.0
 -- local font = wez.font 'IBM Plex Mono'
 local font = wez.font 'Cousine'
@@ -23,11 +23,15 @@ elseif hostname == 'fedora' then
 	font_size = 16
 	local font_names = {}
 	local nerdfonts = io.open(wez.config_dir .. '/nerdfonts', 'r')
-	for font_name in nerdfonts:lines() do
-		table.insert(font_names,font_name)
+	if nerdfonts then
+		for font_name in nerdfonts:lines() do
+			table.insert(font_names, font_name)
+		end
+		local random_font = font_names[math.random(#font_names)]
+		font = wez.font(random_font)
 	end
-	local random_font = font_names[math.random(#font_names)]
-	font = wez.font(random_font) 
+
+	window_decorations = 'NONE'
 end
 
 return {
@@ -38,18 +42,25 @@ return {
 	default_prog = { 'nu', '--login' },
 	default_cursor_style = 'SteadyBlock',
 
+	unix_domains = {
+		{
+			name = 'mux'
+		}
+	},
+	default_gui_startup_args = { 'connect', 'mux' },
+
 	font = font,
 	font_size = font_size,
 	freetype_load_target = 'Light',
 	freetype_render_target = 'HorizontalLcd',
-	underline_position = "-2pt",
+	-- underline_position = "-2pt",
 	warn_about_missing_glyphs = false,
 
 	color_scheme = auto_dark_mode,
 	color_schemes = nugu,
 	cursor_blink_rate = 0,
 	-- https://github.com/wez/wezterm/issues/2635
-	force_reverse_video_cursor = true,
+	-- force_reverse_video_cursor = true,
 	-- cursor_thickness = '1cell',
 	window_decorations = window_decorations,
 	enable_wayland = enable_wayland,

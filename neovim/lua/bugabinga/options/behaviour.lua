@@ -6,6 +6,9 @@ vim.opt.updatetime = 50
 -- How long to wait between key sequences in order to chain them. e.g. <LEADER>b
 vim.opt.timeoutlen = 250
 
+-- allow commands like find, grep, ... to search for files recursively
+vim.opt.path:append '**'
+
 -- wrap line movements, when start/end is reached
 vim.opt.whichwrap:append '<'
 vim.opt.whichwrap:append '>'

@@ -44,81 +44,81 @@ vim.g.terminal_color_15 = ui_normal               -- white
 
 
 local set_group_properties = function ( self, properties )
-	vim.validate {
-		properties = { properties, 'table', },
-		-- • fg (or foreground): color name or "#RRGGBB", see note.
-		['properties.fg'] = { properties.fg, 'string', true, },
-		-- • bg (or background): color name or "#RRGGBB", see note.
-		['properties.bg'] = { properties.bg, 'string', true, },
-		-- • sp (or special): color name or "#RRGGBB"
-		['properties.sp'] = { properties.sp, 'string', true, },
-		-- • blend: integer between 0 and 100
-		['properties.blend'] = { properties.blend, 'number', true, },
-		-- • bold: boolean
-		['properties.bold'] = { properties.bold, 'boolean', true, },
-		-- • standout: boolean
-		['properties.standout'] = { properties.standout, 'boolean', true, },
-		-- • underline: boolean
-		['properties.underline'] = { properties.underline, 'boolean', true, },
-		-- • undercurl: boolean
-		['properties.undercurl'] = { properties.undercurl, 'boolean', true, },
-		-- • underdotted: boolean
-		['properties.underdotted'] = { properties.underdotted, 'boolean', true, },
-		-- • underdashed: boolean
-		['properties.underdashed'] = { properties.underdashed, 'boolean', true, },
-		-- • strikethrough: boolean
-		['properties.strikethrough'] = { properties.strikethrough, 'boolean', true, },
-		-- • italic: boolean
-		['properties.italic'] = { properties.italic, 'boolean', true, },
-		-- • reverse: boolean
-		['properties.reverse'] = { properties.reverse, 'boolean', true, },
-		-- • nocombine: boolean
-		['properties.nocombine'] = { properties.nocombine, 'boolean', true, },
-		-- • default: Don't override existing definition |:hi-default|
-		['properties.default'] = { properties.default, 'boolean', true, },
-		-- • ctermfg: Sets foreground of cterm color |ctermfg|
-		['properties.ctermfg'] = { properties.ctermfg, 'string', true, },
-		-- • ctermbg: Sets background of cterm color |ctermbg|
-		['properties.ctermbg'] = { properties.ctermbg, 'string', true, },
-		-- • cterm: cterm attribute map, like |highlight-args|. If not set, cterm attributes will match those from the attribute map documented above.
-		['properties.cterm'] = { properties.cterm, 'table', true, },
-		-- • force: if true force update the highlight group when it exists.
-		['properties.force'] = { properties.force, 'boolean', true, },
-	}
-	-- vim.print( 'SET GROUP PROPERTIES', self, properties )
-	for key, value in pairs( properties ) do
-		self[key] = value
-	end
+  vim.validate {
+    properties = { properties, 'table', },
+    -- • fg (or foreground): color name or "#RRGGBB", see note.
+    ['properties.fg'] = { properties.fg, 'string', true, },
+    -- • bg (or background): color name or "#RRGGBB", see note.
+    ['properties.bg'] = { properties.bg, 'string', true, },
+    -- • sp (or special): color name or "#RRGGBB"
+    ['properties.sp'] = { properties.sp, 'string', true, },
+    -- • blend: integer between 0 and 100
+    ['properties.blend'] = { properties.blend, 'number', true, },
+    -- • bold: boolean
+    ['properties.bold'] = { properties.bold, 'boolean', true, },
+    -- • standout: boolean
+    ['properties.standout'] = { properties.standout, 'boolean', true, },
+    -- • underline: boolean
+    ['properties.underline'] = { properties.underline, 'boolean', true, },
+    -- • undercurl: boolean
+    ['properties.undercurl'] = { properties.undercurl, 'boolean', true, },
+    -- • underdotted: boolean
+    ['properties.underdotted'] = { properties.underdotted, 'boolean', true, },
+    -- • underdashed: boolean
+    ['properties.underdashed'] = { properties.underdashed, 'boolean', true, },
+    -- • strikethrough: boolean
+    ['properties.strikethrough'] = { properties.strikethrough, 'boolean', true, },
+    -- • italic: boolean
+    ['properties.italic'] = { properties.italic, 'boolean', true, },
+    -- • reverse: boolean
+    ['properties.reverse'] = { properties.reverse, 'boolean', true, },
+    -- • nocombine: boolean
+    ['properties.nocombine'] = { properties.nocombine, 'boolean', true, },
+    -- • default: Don't override existing definition |:hi-default|
+    ['properties.default'] = { properties.default, 'boolean', true, },
+    -- • ctermfg: Sets foreground of cterm color |ctermfg|
+    ['properties.ctermfg'] = { properties.ctermfg, 'string', true, },
+    -- • ctermbg: Sets background of cterm color |ctermbg|
+    ['properties.ctermbg'] = { properties.ctermbg, 'string', true, },
+    -- • cterm: cterm attribute map, like |highlight-args|. If not set, cterm attributes will match those from the attribute map documented above.
+    ['properties.cterm'] = { properties.cterm, 'table', true, },
+    -- • force: if true force update the highlight group when it exists.
+    ['properties.force'] = { properties.force, 'boolean', true, },
+  }
+  -- vim.print( 'SET GROUP PROPERTIES', self, properties )
+  for key, value in pairs( properties ) do
+    self[key] = value
+  end
 end
 
 local new_group = function ()
-	return setmetatable( {}, {
-		__call = set_group_properties,
-	} )
+  return setmetatable( {}, {
+    __call = set_group_properties,
+  } )
 end
 
 local add_group = function ( self, key )
-	if not self.groups[key] then
-		self.groups[key] = new_group()
-	end
-	return self.groups[key]
+  if not self.groups[key] then
+    self.groups[key] = new_group()
+  end
+  return self.groups[key]
 end
 
 local link_group = function ( self, key, value )
-	-- vim.print( 'linking group', self, key, value )
-	local group = add_group( self, key )
-	for name, link_group in pairs( self.groups ) do
-		if link_group == value then
-			-- vim.print( 'found group to link ' .. name .. ' to ' .. key )
-			group.link = name
-			return group
-		end
-	end
+  -- vim.print( 'linking group', self, key, value )
+  local group = add_group( self, key )
+  for name, link_group in pairs( self.groups ) do
+    if link_group == value then
+      -- vim.print( 'found group to link ' .. name .. ' to ' .. key )
+      group.link = name
+      return group
+    end
+  end
 end
 
 local _ = setmetatable( { groups = {}, }, {
-	__index = add_group,
-	__newindex = link_group,
+  __index = add_group,
+  __newindex = link_group,
 } )
 
 _.Debug { fg = ui_normal, bg = debug, bold = true, }
@@ -198,6 +198,7 @@ _.Repeat = _.Statement
 _.Label = _.Statement
 _.Operator = _.Statement
 _.Keyword = _.Statement
+_.Parameter { fg = content_focus, }
 _.Exception = _.Statement
 
 _.PreProc { fg = content_important_global, bg = content_unfocus, bold = true, }
@@ -205,9 +206,8 @@ _.Include = _.PreProc
 _.Define = _.PreProc
 _.Macro = _.PreProc
 _.PreCondit = _.PreProc
-_.Parameter { fg = content_focus, }
 
-_.Type = _.Statement
+_.Type = _.Normal
 _.StorageClass = _.Statement
 _.Structure = _.Statement
 _.Typedef = _.Statement
@@ -265,6 +265,7 @@ _['@punctuation'] = _.Delimiter
 _['@constant'] = _.Constant
 _['@constant.builtin'] = _.Special
 _['@constant.macro'] = _.Define
+_['@attribute'] = _.Keyword
 _['@define'] = _.Define
 _['@macro'] = _.Macro
 _['@string'] = _.String
@@ -291,18 +292,23 @@ _['@keyword'] = _.Keyword
 _['@keyword.return'] { fg = _.Keyword.fg, bg = _.Keyword.bg, underline = true, bold = true, }
 _['@exception'] = _.Exception
 _['@variable'] = _.Identifier
+_['@variable.parameter'] = _.Parameter
 _['@type'] = _.Type
+_['@type.builtin'] = _.Type
 _['@type.definition'] = _.Typedef
 _['@storageclass'] = _.StorageClass
 _['@structure'] = _.Structure
-_['@namespace'] = _.PreProc
+_['@namespace'] = _.Italic
 _['@include'] = _.Include
 _['@preproc'] = _.PreProc
 _['@debug'] = _.Debug
 _['@tag'] = _.Tag
 
+_['@markup.raw.block'] = _.PreProc
+
 _['@lsp.type.namespace'] = _['@namespace']
 _['@lsp.type.type'] = _['@type']
+_['@lsp.type.modifier'] = _['@keyword']
 _['@lsp.type.class'] = _['@type']
 _['@lsp.type.enum'] = _['@type']
 _['@lsp.type.interface'] = _['@type']
@@ -534,9 +540,9 @@ _.MiniStarterQuery { fg = content_normal, bg = content_accent, }
 --TODO: Oil highlights
 
 return function ()
-	preview.setup()
-	local namespace = 0
-	for name, group in pairs( _.groups ) do
-		vim.api.nvim_set_hl( namespace, name, group )
-	end
+  preview.setup()
+  local namespace = 0
+  for name, group in pairs( _.groups ) do
+    vim.api.nvim_set_hl( namespace, name, group )
+  end
 end

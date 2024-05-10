@@ -6,9 +6,8 @@ end
 local font_size_mode = ' Change Font Size (=-+)'
 local pane_mode = ' Pane (hjklqr)'
 local resize_pane_mode = 'ﭕ Resize Pane (hjkl)'
-local bracketed_mode = ' Navigate to...'
-local navigate_forward_mode = ' Navigate forward ...'
-local navigate_backward_mode = ' Navigate backward ...'
+local navigate_forward_mode = '  Navigate forward (bw)'
+local navigate_backward_mode = '  Navigate backward (bw)'
 
 local key_tables = {
 	[resize_pane_mode] = {
@@ -21,7 +20,7 @@ local key_tables = {
 		{ key = 'Escape', action = 'PopKeyTable' },
 	},
 	[font_size_mode] = {
-		{ key = '+',      action = wez.action.IncreaseFontSize },
+		{ key = '+',      mods = 'SHIFT',                      action = wez.action.IncreaseFontSize },
 		{ key = '-',      action = wez.action.DecreaseFontSize },
 		{ key = '=',      action = wez.action.ResetFontSize },
 
@@ -33,8 +32,8 @@ local key_tables = {
 		{ key = 'k',      action = wez.action.ActivatePaneDirection 'Up' },
 		{ key = 'l',      action = wez.action.ActivatePaneDirection 'Right' },
 
-		{ key = 'v', action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
-		{ key = 's', action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
+		{ key = 'v',      action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
+		{ key = 's',      action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
 
 		{ key = 'r',      action = wez.action.ActivateKeyTable { name = resize_pane_mode, one_shot = false } },
 
@@ -42,18 +41,24 @@ local key_tables = {
 
 		{ key = 'Escape', action = 'PopKeyTable' },
 	},
-	[bracketed_mode] = {
-	},
 	[navigate_forward_mode] = {
 		{
 			key = 'b', -- b as in buffer in vim
 			action = wez.action.ActivateTabRelative(1),
+		},
+		{
+			key = 'w', -- next workspace
+			action = wez.action.SwitchWorkspaceRelative(1),
 		},
 	},
 	[navigate_backward_mode] = {
 		{
 			key = 'b',
 			action = wez.action.ActivateTabRelative(-1),
+		},
+		{
+			key = 'w', -- prev workspace
+			action = wez.action.SwitchWorkspaceRelative(-1),
 		},
 	}
 }
