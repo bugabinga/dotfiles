@@ -24,7 +24,7 @@ self_update = false
 
 [git]
 # Additional git repositories to pull
-repos = ["/home/oli/Workspace/*"]
+repos = ["/home/oli/Workspace/*", "/home/oli/Source/*"]
 
 max_concurrency = 12
 
