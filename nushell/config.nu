@@ -5,7 +5,6 @@ use prompt.nu *
 use aliases.nu *
 use todo.nu
 use openssl.nu *
-use syncthing.nu
 
 # for more information on themes see
 # https://github.com/nushell/nushell/blob/main/docs/How_To_Coloring_and_Theming.md
@@ -77,9 +76,16 @@ $env.config = {
   use_grid_icons: true
   footer_mode: "auto" # always, never, number_of_rows, auto
   completions: {
-
     quick: true # set this to false to prevent auto-selecting completions when only one remains
     partial: true # set this to false to prevent partial filling of the prompt
+  }
+  hooks: {
+  	pre_prompt: [{||
+		if (which direnv | is-empty) {
+			return
+		}
+		direnv export json | from json | default {} | load-env
+	}]
   }
   float_precision: 2
   use_ansi_coloring: true

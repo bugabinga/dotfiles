@@ -17,6 +17,7 @@ local scheme_for_appearance = function(appearance)
 	end
 end
 
+-- TODO: what is that good for?
 -- wez.on('window-config-reloaded', function(window)
 -- 	local overrides = window:get_config_overrides() or {}
 -- 	local appearance = window:get_appearance()

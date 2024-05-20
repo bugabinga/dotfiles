@@ -38,8 +38,7 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
-* remove mason
-* warn if trying to load a lsp client, that has no command
+* check out vim-dadbod for sql workflows
 * navic highlights do not fit winbar
 * make highlights more visible when expanding snippets
 * cursor restore position on (session?) load jumps one location to somewhere

@@ -38,12 +38,10 @@ local setup_workspaces = function()
 
 
   local code_ws = 'code'
-  local code_cwd = wez.home_dir
+  local code_cwd = WORKSPACE
   local code_tab, code_pane, code_window = mux.spawn_window { cwd = code_cwd, workspace = code_ws }
-  local code_top_pane = code_pane:split { cwd = code_cwd, direction = 'Top', size = 0.42 }
-  code_pane:split { cwd = code_cwd, direction = 'Right', size = 0.42 }
-  code_top_pane:split { cwd = code_cwd, direction = 'Right', size = 0.42 }
-  code_window:spawn_tab { args = { 'nvim' } }
+  local code_top_pane = code_pane:split { cwd = code_cwd, direction = 'Top', size = 0.69 }
+  code_pane:split { cwd = code_cwd, direction = 'Right', size = 0.69 }
   code_tab:set_title 'Code'
   code_top_pane:activate()
 
