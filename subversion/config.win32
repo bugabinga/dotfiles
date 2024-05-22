@@ -51,7 +51,7 @@ editor-cmd = nvim
 ### Set diff-cmd to the absolute path of your 'diff' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff implementation.
-diff-cmd = C:/Users/okr/AppData/Roaming/Subversion/diff.bat
+#diff-cmd = C:/Users/okr/AppData/Roaming/Subversion/diff.bat
 ### Diff-extensions are arguments passed to an external diff
 ### program or to Subversion's internal diff implementation.
 ### Set diff-extensions to override the default arguments ('-u').
@@ -59,14 +59,14 @@ diff-cmd = C:/Users/okr/AppData/Roaming/Subversion/diff.bat
 ### Set diff3-cmd to the absolute path of your 'diff3' program.
 ###   This will override the compile-time default, which is to use
 ###   Subversion's internal diff3 implementation.
-diff3-cmd = C:/Users/okr/AppData/Roaming/Subversion/diff3.bat
+#diff3-cmd = C:/Users/okr/AppData/Roaming/Subversion/diff3.bat
 ### Set diff3-has-program-arg to 'yes' if your 'diff3' program
 ###   accepts the '--diff-program' option.
 # diff3-has-program-arg = no
 ### Set merge-tool-cmd to the command used to invoke your external
 ### merging tool of choice. Subversion will pass 5 arguments to
 ### the specified command: base theirs mine merged wcfile
-merge-tool-cmd = C:/Users/okr/AppData/Roaming/Subversion/merge.bat
+#merge-tool-cmd = C:/Users/okr/AppData/Roaming/Subversion/merge.bat
 
 ### Section for configuring tunnel agents.
 [tunnels]

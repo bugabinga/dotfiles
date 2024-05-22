@@ -16,12 +16,12 @@ local display_name = {
 }
 
 local diagnostic = vim.diagnostic
-diagnostic.disable( 0 )
+diagnostic.enable(false)
 
 auto 'disable_diagnostic_initially' {
 	description = 'Disable Diagnostics initially, when attaching an LSP client to a buffer',
 	events = 'LspAttach',
-	command = function () diagnostic.disable( 0 ) end,
+	command = function () diagnostic.enable(false, { bufnr = 0 } ) end,
 }
 
 local diagnostic_format = function ( context )
@@ -75,11 +75,11 @@ map.normal {
 	category = 'diagnostic',
 	keys = '<leader>td',
 	command = function ()
-		if diagnostic.is_disabled( 0 ) then
-			diagnostic.enable( 0 )
+		if not diagnostic.is_enabled() then
+			diagnostic.enable()
 			vim.notify 'Enabling Diagnostics'
 		else
-			diagnostic.disable( 0 )
+			diagnostic.enable(false)
 			vim.notify 'Disabling Diagnostics'
 		end
 	end,
