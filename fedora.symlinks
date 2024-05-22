@@ -66,3 +66,12 @@ ssh/config
 
 neovim
 ~/.config/nvim
+
+systemd/environment.d
+~/.config/systemd/environment.d
+
+hypr
+~/.config/hypr
+
+fonts
+~/.local/share/fonts

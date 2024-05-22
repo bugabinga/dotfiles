@@ -36,6 +36,8 @@ let cargo_crates = [
   [ "taplo-cli" "taplo" [] ]
   [ "lms" "lms" [] ]
   [ "gitu" "gitu" [ "--locked" ] ]
+  [ "yazi-fm" "yazi" [ "--locked" ] ]
+  [ "yazi-cli" "ya" [ "--locked" ] ]
 ]
 
 # install all my favorite crate, only if they are not already in PATH.
