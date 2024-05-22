@@ -20,7 +20,7 @@ if hostname == 'x230' then
 elseif hostname == 'NB-00718' then
 	font_size = 15
 elseif hostname == 'fedora' then
-	font_size = 16
+	font_size = 13
 	local font_names = {}
 	local nerdfonts = io.open(wez.config_dir .. '/nerdfonts', 'r')
 	if nerdfonts then
@@ -34,6 +34,63 @@ elseif hostname == 'fedora' then
 	window_decorations = 'NONE'
 end
 
+-- Equivalent to POSIX basename(3)
+-- Given "/foo/bar" returns "bar"
+-- Given "c:\\foo\\bar" returns "bar"
+local function basename(s)
+	return string.gsub(s, '(.*[/\\])(.*)', '%2')
+end
+
+local exec_domains = {
+	-- Defines a domain called "scoped" that will run the requested
+	-- command inside its own individual systemd scope.
+	-- This defines a strong boundary for resource control and can
+	-- help to avoid OOMs in one pane causing other panes to be
+	-- killed.
+	wez.exec_domain('scoped', function(cmd)
+		-- The "cmd" parameter is a SpawnCommand object.
+		-- You can log it to see what's inside:
+		wez.log_info(cmd)
+
+		-- Synthesize a human understandable scope name that is
+		-- (reasonably) unique. WEZTERM_PANE is the pane id that
+		-- will be used for the newly spawned pane.
+		-- WEZTERM_UNIX_SOCKET is associated with the wezterm
+		-- process id.
+		local env = cmd.set_environment_variables
+		local ident = 'wezterm-pane-'
+				.. env.WEZTERM_PANE
+				.. '-on-'
+				.. basename(env.WEZTERM_UNIX_SOCKET)
+
+		-- Generate a new argument array that will launch a
+		-- program via systemd-run
+		local wrapped = {
+			'/usr/bin/systemd-run',
+			'--user',
+			'--scope',
+			'--description=Shell started by wezterm',
+			'--same-dir',
+			'--collect',
+			'--unit=' .. ident,
+		}
+
+		-- Append the requested command
+		-- Note that cmd.args may be nil; that indicates that the
+		-- default program should be used. Here we're using the
+		-- shell defined by the SHELL environment variable.
+		for _, arg in ipairs(cmd.args or { os.getenv 'SHELL' }) do
+			table.insert(wrapped, arg)
+		end
+
+		-- replace the requested argument array with our new one
+		cmd.args = wrapped
+
+		-- and return the SpawnCommand that we want to execute
+		return cmd
+	end),
+}
+
 return {
 	-- logs key presses
 	-- debug_key_events = true,
@@ -42,11 +99,8 @@ return {
 	default_prog = { 'nu', '--login' },
 	default_cursor_style = 'SteadyBlock',
 
-	unix_domains = {
-		{
-			name = 'mux'
-		}
-	},
+	exec_domains = exec_domains,
+	unix_domains = { { name = 'mux' } },
 	default_gui_startup_args = { 'connect', 'mux' },
 
 	font = font,

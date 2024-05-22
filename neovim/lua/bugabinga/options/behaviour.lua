@@ -57,7 +57,7 @@ vim.opt.mousemodel = 'extend'
 -- integrate Nushell with nvim
 vim.opt.shell = 'nu'
 vim.opt.shellcmdflag = '--commands'
-vim.opt.shellpipe = '| save %s'
+vim.opt.shellpipe = 'out+err>| save %s'
 vim.opt.shellredir = '| save %s'
 vim.opt.shellquote = ''
 vim.opt.shellxquote = ''
@@ -92,29 +92,3 @@ require 'bugabinga.health'.add_dependency
 
 -- ask me to force failed commands
 vim.opt.confirm = true
-
-auto 'load_project_if_available' {
-  description = 'Loads the project root dir as cwd, if it can be determined from a file path.',
-  events = { 'FileType', },
-  pattern = '*',
-  command = function ( event )
-    local project = require 'std.project'
-    local ignored = require 'std.ignored'
-    local table = require 'std.table'
-    local buffer = event.buf
-    local file = event.file
-    local filetype = vim.api.nvim_buf_get_option( buffer, 'filetype' )
-    if table.contains( ignored.filetypes, filetype ) then return end
-    local buftype = vim.api.nvim_buf_get_option( buffer, 'buftype' )
-    if table.contains( ignored.buftypes, buftype ) then return end
-    local project_root = project.find_root_by_filetype( file, filetype )
-    if not project_root then return end
-    local root = vim.fs.normalize( project_root )
-    local cwd = vim.fs.normalize( vim.uv.cwd() )
-    if root and cwd ~= root then
-      vim.uv.chdir( root )
-      vim.notify( 'Changed root directory to ' .. root .. ' from ' .. cwd )
-      debug.print( buffer, file, vim.inspect( filetype ), vim.inspect( buftype ) )
-    end
-  end,
-}

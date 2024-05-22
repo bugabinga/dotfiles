@@ -166,7 +166,7 @@ for _, toggler in ipairs( togglers ) do
   map.normal {
     description = 'Toggle ' .. option_name .. ' option',
     category = 'options',
-    keys = '<leader>to' .. first_char,
+    keys = '<leader>t' .. first_char,
     command = function ()
       toggler:toggle()
     end,
