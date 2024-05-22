@@ -223,7 +223,8 @@ return {
       }
 
       local lsp_active = {
-        condition = conditions.lsp_attached,
+        -- condition = conditions.lsp_attached,
+        condition = function() vim.lsp.buf_is_attached()  end,
         -- FIXME: updates from parent components do not seem to update children,
         -- if those have their own updates?
         update = { "LspAttach", "LspDetach", "BufEnter", "BufLeave" },
@@ -336,7 +337,7 @@ return {
 
       local diagnostic_enabled = {
         init = function(self)
-          self.icon = vim.diagnostic.is_disabled() and icon.toggle_off or icon.toggle_on
+          self.icon = (not vim.diagnostic.is_enabled()) and icon.toggle_off or icon.toggle_on
         end,
         provider = function(self)
           return icon.diagnostic .. " " .. self.icon

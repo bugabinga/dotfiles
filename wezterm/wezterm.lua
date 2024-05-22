@@ -18,7 +18,7 @@ if hostname == 'x230' then
 	font_size = 13
 	enable_wayland = true
 elseif hostname == 'NB-00718' then
-	font_size = 19
+	font_size = 15
 elseif hostname == 'fedora' then
 	font_size = 16
 	local font_names = {}

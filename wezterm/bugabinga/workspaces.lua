@@ -4,7 +4,7 @@ local win32 = wez.target_triple:find'windows'
 
 local get_my_code_workspace = function()
   if win32 then
-    return 'W:'
+    return 'W:/'
   else
     return os.getenv 'HOME' .. '/Workspace'
   end
@@ -68,5 +68,7 @@ end)
 -- check the log file in the wezterm mux server runtime directory
 -- e.g. /run/user/1000/wezterm/log
 wez.on('mux-startup', function()
+	if win32 then return end
+
   setup_workspaces()
 end)
