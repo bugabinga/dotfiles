@@ -127,7 +127,7 @@ vim.opt.smoothscroll = true
 vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
-vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h16:#e-subpixelantialias:#h-none'
+vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h15:#e-subpixelantialias:#h-none'
 
 -- neovide only options
 if vim.g.neovide then

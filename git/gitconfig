@@ -10,6 +10,7 @@
   safecrlf = false
   symlinks = true
   fscache = true
+	preloadIndex = true
 
 [help]
 	format = html

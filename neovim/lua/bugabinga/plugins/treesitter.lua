@@ -178,10 +178,10 @@ return {
           enable = true,
           disable = should_disable,
           swap_next = {
-            ['<leader>rwn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
+            ['<leader>rn'] = { query = '@parameter.inner', desc = 'Swap parameter with next', },
           },
           swap_previous = {
-            ['<leader>rwp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
+            ['<leader>rp'] = { query = '@parameter.inner', desc = 'Swap parameter with previous', },
           },
         },
 
@@ -191,8 +191,8 @@ return {
           border = vim.g.border_style,
           floating_preview_opts = {},
           peek_definition_code = {
-            ['<leader>lpf'] = { query = '@function.outer', desc = 'Peek definition of outer function.', },
-            ['<leader>lpc'] = { query = '@class.outer', desc = 'Peek definition of outer class.', },
+            ['<leader>lp'] = { query = '@function.outer', desc = 'Peek definition of outer function.', },
+            ['<leader>lP'] = { query = '@class.outer', desc = 'Peek definition of outer class.', },
           },
         },
 
@@ -227,7 +227,7 @@ return {
       mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
       -- Separator between context and content. Should be a single character string, like '-'.
       -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-      separator = nil,
+      separator = '-',
       zindex = 20,     -- The Z-index of the context window
       on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
     }

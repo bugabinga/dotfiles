@@ -18,7 +18,7 @@ if hostname == 'x230' then
 	font_size = 13
 	enable_wayland = true
 elseif hostname == 'NB-00718' then
-	font_size = 19
+	font_size = 15
 elseif hostname == 'fedora' then
 	font_size = 13
 	local font_names = {}
@@ -100,11 +100,7 @@ return {
 	default_cursor_style = 'SteadyBlock',
 
 	exec_domains = exec_domains,
-	unix_domains = {
-		{
-			name = 'mux'
-		}
-	},
+	unix_domains = { { name = 'mux' } },
 	default_gui_startup_args = { 'connect', 'mux' },
 
 	font = font,

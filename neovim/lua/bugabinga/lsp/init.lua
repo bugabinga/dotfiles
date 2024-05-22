@@ -371,7 +371,7 @@ local lsp_attach     = function ( args )
 		description = 'Show incoming calls of symbol under cursor.',
 		category = 'lsp',
 		buffer = bufnr,
-		keys = '<leader>lci',
+		keys = '<leader>lc',
 		command = vim.lsp.buf.incoming_calls,
 	} )
 
@@ -379,7 +379,7 @@ local lsp_attach     = function ( args )
 		description = 'Show outgoing calls of symbol under cursor.',
 		category = 'lsp',
 		buffer = bufnr,
-		keys = '<leader>lco',
+		keys = '<leader>lC',
 		command = vim.lsp.buf.outgoing_calls,
 	} )
 
