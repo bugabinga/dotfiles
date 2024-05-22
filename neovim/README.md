@@ -38,6 +38,7 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* try loading lsp async for better startup perf
 * check out vim-dadbod for sql workflows
 * navic highlights do not fit winbar
 * make highlights more visible when expanding snippets

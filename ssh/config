@@ -15,6 +15,10 @@ Host seaduck
 	User oli
 	IdentityFile ~/.ssh/seaduck.key
 
+Host artifactory
+	Hostname artifactory.isp-insoft.de
+	User java
+
 # catch-all pattern
 Host *
 	User root
