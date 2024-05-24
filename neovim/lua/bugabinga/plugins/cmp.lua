@@ -2,6 +2,7 @@ local icon = require 'std.icon'
 
 return {
   'hrsh7th/nvim-cmp',
+  branch = 'main',
   event = 'InsertEnter',
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
@@ -123,8 +124,6 @@ return {
       snippet = {
         expand = function ( args ) luasnip.lsp_expand( args.body ) end,
       },
-
-      -- experimental = { native_menu = false, },
     }
   end,
 }
