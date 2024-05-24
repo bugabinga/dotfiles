@@ -8,4 +8,4 @@ export def edit [] { hx ($env.NOTES | path join "TODO.md") }
 export def commands [] { mdcat ($env.NOTES | path join "COMMANDS.md") }
 
 # Open the list of commands to remember for editing.
-export def "commands edit" [] { hx ($env.NOTES | path join "COMMANDS.md") }
+export def "commands edit" [] { vim ($env.NOTES | path join "COMMANDS.md") }
