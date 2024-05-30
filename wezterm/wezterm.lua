@@ -15,10 +15,10 @@ local font_size = 11.0
 -- local font = wez.font 'IBM Plex Mono'
 local font = wez.font 'Cousine'
 if hostname == 'x230' then
-	font_size = 13
+	font_size = 11
 	enable_wayland = true
 elseif hostname == 'NB-00718' then
-	font_size = 15
+	font_size = 13
 elseif hostname == 'fedora' then
 	font_size = 13
 	local font_names = {}
@@ -100,8 +100,8 @@ return {
 	default_cursor_style = 'SteadyBlock',
 
 	exec_domains = exec_domains,
-	unix_domains = { { name = 'mux' } },
-	default_gui_startup_args = { 'connect', 'mux' },
+	-- unix_domains = { { name = 'mux' } },
+	-- default_gui_startup_args = { 'connect', 'mux' },
 
 	font = font,
 	font_size = font_size,
