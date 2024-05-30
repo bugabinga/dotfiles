@@ -1,9 +1,8 @@
-IBM 3270
+Bitstream Vera Sans Mono
+# Terminus
 Anonymous Pro
 Aurulent Sans Mono
-BigBlueTerminalPlus
-Bitstream Vera Sans Mono
-IBM Plex Mono
+# BigBlueTerminalPlus
 Cascadia Code
 Cousine
 D2Coding
@@ -11,17 +10,18 @@ DejaVu Sans Mono
 Droid Sans Mono
 Envy Code R
 Fantasque Sans Mono
-FiraCode
+# FiraCode
 GeistMono
 Hack
 Hasklig
 Hermit
-iA Writer Mono V
-Inconsolata
+IBM 3270
+IBM Plex Mono
+# Inconsolata
 Intel One Mono
 JetBrainsMono
 Lekton
-Liberation Mono
+# Liberation Mono
 Lilex
 MartianMono
 Monaspace Argon Var
@@ -35,5 +35,5 @@ Rec Mono Linear
 RobotoMono
 Share Tech Mono
 Source Code Pro
-Terminus
 VictorMono
+iA Writer Mono V

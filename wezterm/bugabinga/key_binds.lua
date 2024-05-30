@@ -20,7 +20,7 @@ local key_tables = {
 		{ key = 'Escape', action = 'PopKeyTable' },
 	},
 	[font_size_mode] = {
-		{ key = '+',      mods = 'SHIFT',                      action = wez.action.IncreaseFontSize },
+		{ key = '+',      action = wez.action.IncreaseFontSize },
 		{ key = '-',      action = wez.action.DecreaseFontSize },
 		{ key = '=',      action = wez.action.ResetFontSize },
 
@@ -35,9 +35,9 @@ local key_tables = {
 		{ key = 'v',      action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain' }, },
 		{ key = 's',      action = wez.action.SplitVertical { domain = 'CurrentPaneDomain' }, },
 
-		{ key = 'r',      action = wez.action.ActivateKeyTable { name = resize_pane_mode, one_shot = false } },
+		{ key = '=',      action = wez.action.ActivateKeyTable { name = resize_pane_mode, one_shot = false } },
 
-		{ key = 'q',      action = wez.action.CloseCurrentPane { confirm = true } },
+		{ key = 'q',      action = wez.action.CloseCurrentPane { confirm = false } },
 
 		{ key = 'Escape', action = 'PopKeyTable' },
 	},
@@ -138,8 +138,23 @@ local keys = {
 		action = wez.action.ActivateCommandPalette,
 	},
 	{
-		key = 'p',
-		mods = 'LEADER|SHIFT',
+		key = 'c',
+		mods = 'LEADER',
+		action = wez.action.SwitchToWorkspace { name = 'code' },
+	},
+	{
+		key = 'k',
+		mods = 'LEADER',
+		action = wez.action.SwitchToWorkspace { name = 'dorkfiles editing' },
+	},
+	{
+		key = 'd',
+		mods = 'LEADER',
+		action = wez.action.SwitchToWorkspace { name = 'default' },
+	},
+	{
+		key = 'r',
+		mods = 'LEADER',
 		action = wez.action.ShowLauncherArgs {
 			flags = 'FUZZY|WORKSPACES',
 		},
