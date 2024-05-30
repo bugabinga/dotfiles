@@ -67,5 +67,4 @@ end)
 -- e.g. /run/user/1000/wezterm/log
 wez.on('mux-startup', function()
   setup_workspaces()
-  maximize_window()
 end)

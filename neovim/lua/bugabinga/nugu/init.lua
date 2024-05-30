@@ -306,6 +306,7 @@ _['@debug'] = _.Debug
 _['@tag'] = _.Tag
 
 _['@markup.raw.block'] = _.PreProc
+_['@markup.raw.block.vimdoc'] = _.Normal
 
 _['@lsp.type.namespace'] = _['@namespace']
 _['@lsp.type.type'] = _['@type']

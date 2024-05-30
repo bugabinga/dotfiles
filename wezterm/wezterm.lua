@@ -1,6 +1,7 @@
 local wez = require 'wezterm'
 local nugu = require 'bugabinga.nugu'
 
+local win32 = wez.target_triple:find 'windows'
 local key_binds = require 'bugabinga.key_binds'
 local auto_dark_mode = require 'bugabinga.auto_dark_mode'
 local workspaces = require 'bugabinga.workspaces'
@@ -25,7 +26,9 @@ elseif hostname == 'fedora' then
 	local nerdfonts = io.open(wez.config_dir .. '/nerdfonts', 'r')
 	if nerdfonts then
 		for font_name in nerdfonts:lines() do
-			table.insert(font_names, font_name)
+			if not font_name:match '^#.*' then
+				table.insert(font_names, font_name)
+			end
 		end
 		local random_font = font_names[math.random(#font_names)]
 		font = wez.font(random_font)
@@ -99,7 +102,7 @@ return {
 	default_prog = { 'nu', '--login' },
 	default_cursor_style = 'SteadyBlock',
 
-	exec_domains = exec_domains,
+	exec_domains = not win32 and exec_domains or {},
 	unix_domains = { { name = 'mux' } },
 	default_gui_startup_args = { 'connect', 'mux' },
 
