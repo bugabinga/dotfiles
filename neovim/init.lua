@@ -8,6 +8,9 @@
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
 
+-- enable lua bytecode caching
+vim.loader.enable()
+
 -- setup debug mode
 -- require 'std.debug'.toggle()
 

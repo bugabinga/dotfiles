@@ -9,9 +9,10 @@ return {
   },
   opts = {
     linters_by_ft = {
-      lua = { 'luacheck', },
+      lua = { 'selene', },
       sh = { 'shellcheck', },
-      nu = { 'nu-check', },
+      -- TODO make this linter
+      -- nu = { 'nu-check', },
     },
     linters = {},
   },
