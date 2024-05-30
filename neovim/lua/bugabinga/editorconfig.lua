@@ -31,8 +31,8 @@ expose_option( 'virtualedit', tostring )
 editorconfig.properties.diagnostic = function ( bufnr, value )
   local option = tobool( value )
   if option then
-    vim.diagnostic.enable( bufnr )
+    vim.diagnostic.enable( true, { bufnr = bufnr, } )
   else
-    vim.diagnostic.disable( bufnr )
+    vim.diagnostic.enable( false, { bufnr = bufnr } )
   end
 end
