@@ -1,15 +1,15 @@
 [user]
-  name = Oliver Jan Krylow
-  email = oliver@bugabinga.net
+	name = Oliver Jan Krylow
+	email = oliver@bugabinga.net
 
 [core]
-  editor = nvim
-  quotepath = false
-  autocrlf = input
-  pager = delta
-  safecrlf = false
-  symlinks = true
-  fscache = true
+	editor = nvim
+	quotepath = false
+	autocrlf = input
+	pager = delta
+	safecrlf = false
+	symlinks = true
+	fscache = true
 	preloadIndex = true
 
 [help]
@@ -23,65 +23,65 @@
 	autosquash = true
 
 [diff]
-  colorMoved = default
-  tool = difftastic
+	colorMoved = default
+	tool = difftastic
 
 [difftool]
-  prompt = false
+	prompt = false
 
 [difftool "meld"]
-  cmd = "meld \"$LOCAL\" \"$REMOTE\""
+	cmd = "meld \"$LOCAL\" \"$REMOTE\""
 
 [difftool "difftastic"]
-  cmd = "difft \"$LOCAL\" \"$REMOTE\""
+	cmd = "difft \"$LOCAL\" \"$REMOTE\""
 
 [pager]
-  difftool = true
+	difftool = true
 
 [merge]
-  tool = nvim_merge
+	tool = nvim_merge
 
 [mergetool]
-  keepBackup = false
-  prompt = false
+	keepBackup = false
+	prompt = false
 
 [mergetool "meld_merge"]
-  cmd = "meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
+	cmd = "meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
 [mergetool "nvim_merge"]
-  cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
+	cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
 [push]
-  autoSetupRemote = true
-  default = "upstream"
+	autoSetupRemote = true
+	default = "upstream"
 
 [pull]
-  rebase = false
+	rebase = false
 
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-  side-by-side = true
-  line-numbers = true
-  decorations = true
-  navigate = true
-  syntax-theme =  none
+	side-by-side = true
+	line-numbers = true
+	decorations = true
+	navigate = true
+	syntax-theme =  none
 
 [interactive]
-  diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [init]
-  defaultBranch = trunk
+	defaultBranch = trunk
 
 [commit]
-  verbose = true
+	verbose = true
 
 [help]
   # try to automatically correct mispelled git commands
-  autocorrect = 7
+	autocorrect = 7
 
 # In order to have host-specific configuration, I include additional settings here.
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
-  path = .gitconfig.include
+	path = .gitconfig.include

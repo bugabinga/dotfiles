@@ -3,8 +3,9 @@
 $env.WIN32 = ( $nu.os-info.name =~ "windows" )
 $env.NURC_DIR  = ( $nu.config-path | path expand | path dirname )
 $env.DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
-$env.WORKSPACE = if $env.WIN32 { "W:/" } else { "~/Workspace" | path expand }
-$env.NOTES = if $env.WIN32 { "N:/" } else { "~/Notes" | path expand }
+$env.WORKSPACE = if $env.WIN32 { "~/Workspaces" } else { "~/Workspace" | path expand }
+$env.NOTES = ("~/Notes" | path expand)
+$env.TOOLS = ("~/Tools" | path expand)
 
 if not (which nvim | is-empty) {
 	$env.EDITOR = 'nvim'
@@ -16,10 +17,7 @@ if not (which neovide | is-empty) {
 }
 
 if ($env | get -i TERM_PROGRAM) == WezTerm {
-  $env.TERM =  "wezterm"
-  if not $env.WIN32 {
-		$env.TERMCAP = ~./termcap/w/wezterm
-	}
+  $env.TERM =  "xterm-256color"
 }
 
 # theme for ls and other programs, that use LS_COLORS
@@ -39,10 +37,3 @@ $env.ENV_CONVERSIONS = {
     to_string: { |v| $v | str join (char esep) }
   }
 }
-
-# Directories to search for scripts when calling source or use
-$env.NU_LIB_DIRS = [
-    ($nu.config-path | path dirname | path join 'modules'),
-    ($nu.config-path | path dirname | path join 'completions')
-]
-

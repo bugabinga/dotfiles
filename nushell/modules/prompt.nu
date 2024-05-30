@@ -33,6 +33,9 @@ def set-window-title [] {
     }
 }
 
+def prompt-git-branch [] {
+}
+
 def get_vcs_path [] {
     #normalize path
     let pwd = ($env.PWD | path expand)
@@ -40,12 +43,12 @@ def get_vcs_path [] {
     let svn_relative_cmd = ( do --ignore-errors { ^svn info --show-item relative-url --no-newline $pwd | complete } )
     let svn_relative_path = if ( (not ($svn_relative_cmd | is-empty)) and ($svn_relative_cmd.exit_code == 0)) { $" 🐢 (char nf_branch) ($svn_relative_cmd.stdout)" }
 
-    let git_status = ( do --ignore-errors { gstat } )
-    let git_branch = if ( ( not ($git_status | is-empty)) and ($git_status.branch != "no_branch") ) { $" (char nf_git) (char nf_branch) ($git_status.branch)" }
+    let git_branch_cmd = ( do -i { ^git rev-parse --abbrev-ref HEAD | complete } )
+    let git_path = if (not ($git_branch_cmd | is-empty) and ($git_branch_cmd.exit_code == 0)) { $" (char nf_git) (char nf_branch) ($git_branch_cmd.stdout | str trim -r)" }
 
     [
       $svn_relative_path
-      $git_branch
+      $git_path
     ] | str join
 }
 
@@ -87,7 +90,7 @@ def create_right_prompt [] {
       $command_status_segment
       (ansi reset)
       (ansi dark_gray)
-      ( if (sys).host.hostname == "x230" { (akku) } else { $time_segment })
+      ( if (sys host).hostname == "x230" { (akku) } else { $time_segment })
       (ansi reset)
     ] | str join
 }

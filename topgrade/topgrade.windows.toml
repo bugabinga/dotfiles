@@ -24,7 +24,7 @@ self_update = true
 
 [git]
 # Additional git repositories to pull
-repos = ["W:/*/"]
+repos = ["C:/Users/okr/Workspaces/*/"]
 
 max_concurrency = 12
 
@@ -38,10 +38,9 @@ enable_winget = true
 
 # Commands to run before anything
 [pre_commands]
-"01 - Scoop Export" = "scoop export --config > 'X:/scoop_installed_apps.json' *> $null"
+"01 - Winget Export" = "winget export --disable-interactivity --accept-source-agreements --output 'C:/Users/okr/Tools/winget_installed_apps.json' *> $null"
 
 [commands]
-"00 - Register Nu Plugins" = "nu -c 'register ~\\scoop\\apps\\nu\\current\\nu_plugin_gstat.exe'"
 "10 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
 "20 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
 "30 - Advantage-PM Client" = "nu X:/update_apm_client.nu"

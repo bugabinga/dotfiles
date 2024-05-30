@@ -4,9 +4,9 @@ local win32 = wez.target_triple:find'windows'
 
 local get_my_code_workspace = function()
   if win32 then
-    return 'W:/'
+    return wez.home_dir .. '/Workspaces'
   else
-    return os.getenv 'HOME' .. '/Workspace'
+    return wez.home_dir .. '/Workspace'
   end
 end
 
@@ -59,13 +59,14 @@ local setup_workspaces = function()
 end
 
 wez.on('gui-attached', function()
+  -- setup_workspaces()
   maximize_window()
 end)
 
 -- NOTE(oli): errors in here do not show up as configuration errors
 -- check the log file in the wezterm mux server runtime directory
 -- e.g. /run/user/1000/wezterm/log
-wez.on('mux-startup', function()
-  setup_workspaces()
-  maximize_window()
-end)
+-- NOTE: mux seems buggy and slow. not sure why or how to really repro
+-- wez.on('mux-startup', function()
+--   setup_workspaces()
+-- end)

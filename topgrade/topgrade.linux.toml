@@ -44,5 +44,4 @@ pull_predefined = false
 "00 - Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
 
 # install tools from cargo, that are not already in path
-# TODO: this could be annoying when setting up a machine first time?
 "01 - Install Cargo Tools" = "nu --env-config ~/.config/nushell/env.nu ~/Workspace/dotfiles/tools/cargo-tools.nu"
