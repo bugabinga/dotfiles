@@ -47,4 +47,6 @@ wez.on('update-status', function(window, pane)
 	if font then table.insert(status, font) end
 
 	window:set_right_status(table.concat(status, DELIMITER))
+	--TODO: shirley, something useful can be done here
+	window:set_left_status('   ')
 end)
