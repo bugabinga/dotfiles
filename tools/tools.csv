@@ -1,0 +1,55 @@
+name;bin;cargo_args
+asm-cli-rust; asm-cli-rust; --git https://github.com/cch123/asm-cli-rust
+bat
+bartib
+bottom; btm
+broot
+cargo-cache
+cargo-update;cargo-install-update
+choose
+du-dust; dust
+eva
+exa
+fend
+fd-find;fd
+git-delta;delta
+gitu;gitu; --locked
+hck
+hexyl
+hyperfine
+inlyne
+jj-cli; jj;  --locked --bin jj
+jaq;jaq; --locked
+just
+lemmeknow
+lms
+lurk-cli; lurk
+lychee;lychee; --locked --no-default-features --features rustls-tls,email-check
+mask
+macchina
+mdbook
+mdcat
+mdsh
+monolith
+netscanner
+nu;nu; --locked
+ouch
+pastel
+pueue;pueue;--locked
+ripgrep;rg
+rust-parallel
+sd
+sniffnet
+selene;selene; --no-default-features
+starship
+stylua;stylua; --features lua52
+taplo-cli;taplo
+tealdeer;tldr
+tokei
+ugdb
+unf
+viu
+vivid
+yazi-cli;ya; --locked
+yazi-fm;yazi; --locked
+zoxide

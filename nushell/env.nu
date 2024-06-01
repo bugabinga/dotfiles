@@ -1,9 +1,9 @@
 # GLOBAL VARIABLES
 
 $env.WIN32 = ( $nu.os-info.name =~ "windows" )
-$env.NURC_DIR  = ( $nu.config-path | path expand | path dirname )
-$env.DOTFILES  = ( $env.NURC_DIR | path join ".." | path expand )
+
 $env.WORKSPACE = if $env.WIN32 { "~/Workspaces" } else { "~/Workspace" | path expand }
+$env.DOTFILES  = ( $env.WORKSPACE | path join 'dotfiles' )
 $env.NOTES = ("~/Notes" | path expand)
 $env.TOOLS = ("~/Tools" | path expand)
 
@@ -36,4 +36,17 @@ $env.ENV_CONVERSIONS = {
     from_string: { |s| $s | split row (char esep) }
     to_string: { |v| $v | str join (char esep) }
   }
+}
+
+$env.NU_LIB_DIRS = [
+	($nu.default-config-dir | path join 'scripts')
+]
+
+# generate aliases here and now, so that we can apply conditions.
+# later, in config.nu, the evaluated aliases will be sourced
+source ($nu.default-config-dir | path join 'gen-aliases.nu')
+
+# generate zoxide hooks for sourcing later on
+if not (which zoxide |  is-empty) {
+	zoxide init nushell | save -f ($nu.default-config-dir | path join 'zoxide.nu')
 }

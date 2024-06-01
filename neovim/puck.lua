@@ -26,12 +26,13 @@ local as_name = function ( plugin_coords )
   return vim.fs.basename(plugin_coords):gsub( '(%w+)%.?%w*', '%1' )
 end
 
-local download_plugin_into = function ( plugin_tarball_url, plugin_install_path )
+local download_plugin_into = function ( plugin_name, plugin_tarball_url, plugin_install_path )
 
 	assert(vim.fn.executable 'curl', 'curl not found')
 	assert(vim.fn.executable 'tar', 'tar not found')
 
-	vim.fn.mkdir( plugin_install_path, 'p' )
+	local tmp_dir = vim.uv.fs_mkdtemp(vim.fs.joinpath(vim.uv.os_tmpdir(),'puck_tmp_install_path_XXXXXX'))
+	-- vim.fn.mkdir( plugin_install_path, 'p' )
 
 	local tarball_data_stream = vim.uv.new_pipe(true)
 	local error_stream = vim.uv.new_pipe()
@@ -44,25 +45,41 @@ local download_plugin_into = function ( plugin_tarball_url, plugin_install_path 
 	local curl_handle, curl_pid = vim.uv.spawn( 'curl',
 	{
 		args = { '--silent', '--location', plugin_tarball_url },
-		cwd = plugin_install_path,
+		cwd = tmp_dir,
 		stdio = {nil, tarball_data_stream, error_stream},
 		hide = true,
-	},
-	function(code, signal)
-		vim.print('curl done', code, signal)
-	end )
+	})
+	-- function(code, signal)
+	-- 	--TODO: error handle
+	-- 	vim.print('curl done', code, signal)
+	-- end )
 	local tar_handle, tar_pid = vim.uv.spawn( 'tar',
 	{
 		args = { '--extract','--gzip', '--file', '-' },
-		cwd = plugin_install_path,
+		cwd = tmp_dir,
 		stdio = { tarball_data_stream, nil, error_stream},
 		hide = true,
-	},
-	function(code, signal)
-		vim.print('tar done', code, signal)
-	end )
+	})
+	-- function(code, signal)
+	-- 	--TODO: error handle
+	-- 	vim.print('tar done', code, signal)
+	--
+	-- 	-- move from tmp_dir to install_dir
+	--
+	-- end )
 
-	print(curl_handle, curl_handle, tar_handle, tar_pid)
+	vim.print(tmp_dir)
+	local extracted_dir = vim.fs.find(
+	function(name, path) return name:find(plugin_name,0,true) end,
+	{ path = tmp_dir, type = 'directory', limit = 1 }
+	)
+	vim.print(vim.inspect(extracted_dir))
+	assert(#extracted_dir ~= 0, 'No directory was found in tarball')
+	assert(#extracted_dir == 1, 'Too many directories were found in tarball. Expected one!')
+	-- the libuv way of getting files accross partitions is PITA
+	local ok = vim.fn.rename(extracted_dir[1], plugin_install_path)
+	vim.print(ok)
+	assert(ok, string.format('Failed to move extracted plugin from %s to %s.', extracted_dir[1], plugin_install_path))
 
 	vim.uv.shutdown(tarball_data_stream, function()
 		vim.uv.close(curl_handle, function()
@@ -112,7 +129,7 @@ end
 
 local install_plugin = function ( puck_root, plugin_type, plugin_coords, plugin_rev )
   local plugin_name = as_name( plugin_coords )
-  local plugin_install_path = vim.fs.normalize( vim.fs.joinpath( puck_root, plugin_name ) ) --TODO unused?
+  local plugin_install_path = vim.fs.normalize( vim.fs.joinpath( puck_root, plugin_name ) )
   local plugin_install_path_stat = vim.uv.fs_stat( plugin_install_path )
   local plugin_already_exists = plugin_install_path_stat and plugin_install_path_stat.type == 'directory'
 
@@ -130,7 +147,7 @@ local install_plugin = function ( puck_root, plugin_type, plugin_coords, plugin_
   local removed = delete_directory_recursive( plugin_install_path )
   local url_format = as_url_format(plugin_type)
   local plugin_tarball_url = url_format:format( plugin_coords, plugin_rev )
-  local ok = pcall( download_plugin_into, plugin_tarball_url, puck_root )
+  local ok = pcall( download_plugin_into, plugin_name, plugin_tarball_url, plugin_install_path )
   if ok then
     local mode = vim.uv.fs_access(plugin_install_rev_path, 'W') and 'w+' or 'w'
     local plugin_install_rev_file = io.open( plugin_install_rev_path, mode)
