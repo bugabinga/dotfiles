@@ -27,3 +27,6 @@ fmt:
 # link dorkfiles into HOME
 link:
     java bootstripper.java
+
+tools:
+		cd tools;java install.java
