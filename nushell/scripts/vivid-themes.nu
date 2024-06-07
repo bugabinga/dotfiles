@@ -1,13 +1,12 @@
-#!/usr/bin/env nu
-
-def main [] {
+export def --env main [] {
 	(vivid themes) |
 	lines |
 	str trim |
-	each { |theme| 
+	each { |theme|
 		print $"theme: (ansi black_bold)($theme)(ansi reset)"
 		with-env { LS_COLORS: (vivid generate $theme) } {
-			exa
+			ls $env.HOME
+			print "\n"
 			print "\n"
 		}
 	}
