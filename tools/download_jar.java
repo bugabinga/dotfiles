@@ -171,7 +171,7 @@ class download_jar {
   }
 
   static void usage() {
-    out.printf("%s: java download_jar.java <artifact id> <group id> <version>%n", emphasize_global("Usage"));
+    out.printf("%s: java download_jar.java <group id> <artifact id> <version>%n", emphasize_global("Usage"));
   }
 
   static void exit() {
