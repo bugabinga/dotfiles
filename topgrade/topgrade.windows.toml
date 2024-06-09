@@ -42,7 +42,7 @@ enable_winget = true
 
 [commands]
 "10 - Refresh dotfiles" = "java W:/dotfiles/bootstripper.java W:/dotfiles"
-"20 - Install Cargo Tools" = "nu --env-config ~/AppData/Roaming/nushell/env.nu W:/dotfiles/tools/cargo-tools.nu"
+"20 - Install Cargo Tools" = "cd ~/Workspaces/dotfiles/tools ; java ~/Workspaces/dotfiles/tools/install.java"
 "30 - Advantage-PM Client" = "nu X:/update_apm_client.nu"
 "31 - MeMate" = "nu X:/update_memate.nu"
 "40 - TLDR" = "tldr --update"
