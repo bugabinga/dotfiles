@@ -106,6 +106,11 @@ return {
 	-- unix_domains = { { name = 'mux' } },
 	-- default_gui_startup_args = { 'connect', 'mux' },
 
+	-- testing, if there is a feelable diff
+	front_end = 'WebGpu',
+	-- refresh rate of my displays. TODO: move this to host config
+	max_fps = 144,
+
 	font = font,
 	font_size = font_size,
 	freetype_load_target = 'Light',
