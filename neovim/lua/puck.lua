@@ -1,17 +1,16 @@
--- Install tarballs into data dir
--- Put local plugins on runtimepath
+-- [x] Install tarballs into data dir
+-- [x] Put local plugins on runtimepath
 -- Generate helptags ALL
 -- project local plugin settings ?
 -- make this module async --> emit PuckDone event?
 -- Install treesitter parser into data dir
 -- Build parsers and put them where?
--- Cache lua byte code ?
-
---FIXME: temp
-vim.opt.background = 'light'
-vim.cmd.colorscheme 'nugu'
+-- vim.validate all input in functions
+--
+-- [x] Cache lua byte code? not necessary anymore thanks to vim.loader
 
 -- TODO export some kind of structure
+--
 local dev = 'plugin_under_development'
 local gh = 'plugin_from_github'
 local srht = 'plugin_from_srht'
@@ -26,68 +25,69 @@ local as_name = function ( plugin_coords )
   return vim.fs.basename(plugin_coords):gsub( '(%w+)%.?%w*', '%1' )
 end
 
-local download_plugin_into = function ( plugin_name, plugin_tarball_url, plugin_install_path )
+local configure_plugin = function( plugin_name ) 
+	local config = 'config.' .. plugin_name
+	vim.schedule( function()
+		local ok = pcall(require, config)
+		if not ok then
+			vim.notify(string.format('unable to load configuration for %s at %s', plugin_name, config), vim.log.levels.WARN)
+		end
+	end)
+end
+
+local download_plugin_into = function ( puck_root, plugin_name, plugin_tarball_url, plugin_install_path)
+	vim.validate {
+		puck_root = { puck_root, 'string' },
+		plugin_name = { plugin_name, 'string'},
+		plugin_tarball_url = { plugin_tarball_url, 'string' },
+		plugin_install_path = { plugin_install_path, 'string'},
+	}
 
 	assert(vim.fn.executable 'curl', 'curl not found')
 	assert(vim.fn.executable 'tar', 'tar not found')
 
-	local tmp_dir = vim.uv.fs_mkdtemp(vim.fs.joinpath(vim.uv.os_tmpdir(),'puck_tmp_install_path_XXXXXX'))
+	-- local tmp_dir = vim.uv.fs_mkdtemp(vim.fs.joinpath(vim.uv.os_tmpdir(),'puck_tmp_install_path_XXXXXX'))
 	-- vim.fn.mkdir( plugin_install_path, 'p' )
 
 	local tarball_data_stream = vim.uv.new_pipe(true)
-	local error_stream = vim.uv.new_pipe()
-
-	vim.uv.read_start(error_stream, function(err, data)
-		assert(not err, err)
-		if data then vim.notify(data, vim.log.levels.ERROR) end
-	end)
 
 	local curl_handle, curl_pid = vim.uv.spawn( 'curl',
 	{
 		args = { '--silent', '--location', plugin_tarball_url },
-		cwd = tmp_dir,
-		stdio = {nil, tarball_data_stream, error_stream},
+		cwd = puck_root,
+		stdio = {nil, tarball_data_stream, nil},
 		hide = true,
-	})
-	-- function(code, signal)
-	-- 	--TODO: error handle
-	-- 	vim.print('curl done', code, signal)
-	-- end )
+	},
+	function(code, signal)
+		if code ~= 0 then
+			error('curl', code, signal)
+		end
+	end )
 	local tar_handle, tar_pid = vim.uv.spawn( 'tar',
 	{
 		args = { '--extract','--gzip', '--file', '-' },
-		cwd = tmp_dir,
-		stdio = { tarball_data_stream, nil, error_stream},
+		cwd = puck_root,
+		stdio = { tarball_data_stream, nil, nil},
 		hide = true,
-	})
-	-- function(code, signal)
-	-- 	--TODO: error handle
-	-- 	vim.print('tar done', code, signal)
-	--
-	-- 	-- move from tmp_dir to install_dir
-	--
-	-- end )
+	},
+	function(code, signal)
+		if code ~= 0 then
+			error('tar done', code, signal)
+		end
 
-	vim.print(tmp_dir)
-	local extracted_dir = vim.fs.find(
-	function(name, path) return name:find(plugin_name,0,true) end,
-	{ path = tmp_dir, type = 'directory', limit = 1 }
-	)
-	vim.print(vim.inspect(extracted_dir))
-	assert(#extracted_dir ~= 0, 'No directory was found in tarball')
-	assert(#extracted_dir == 1, 'Too many directories were found in tarball. Expected one!')
-	-- the libuv way of getting files accross partitions is PITA
-	local ok = vim.fn.rename(extracted_dir[1], plugin_install_path)
-	vim.print(ok)
-	assert(ok, string.format('Failed to move extracted plugin from %s to %s.', extracted_dir[1], plugin_install_path))
+		local contains_name = function(name, path) return name:find(plugin_name,0,true) end
+		local extracted_dir = vim.fs.find( contains_name, { path = puck_root, type = 'directory', limit = 1 })
+		assert(#extracted_dir ~= 0, 'No directory was found in tarball')
+		assert(#extracted_dir == 1, 'Too many directories were found in tarball. Expected one!')
+		-- FIXME: filter out files and folders, that are unnecessary for neovim plugins
+		local ok = vim.uv.fs_rename(extracted_dir[1], plugin_install_path)
+		assert(ok, string.format('Failed to move extracted plugin from %s to %s.', extracted_dir[1], plugin_install_path))
+	    	configure_plugin(plugin_name)
+	end )
 
 	vim.uv.shutdown(tarball_data_stream, function()
-		vim.uv.close(curl_handle, function()
-			vim.print("curl closed")
-		end)
-		vim.uv.close(tar_handle, function()
-			vim.print("tar closed")
-		end)
+		vim.uv.close(curl_handle)
+		vim.uv.close(tar_handle)
 	end)
 end
 
@@ -127,7 +127,7 @@ local as_url_format = function(plugin_type)
 	error('unknown plugin type '..plugin_type..' given.')
 end
 
-local install_plugin = function ( puck_root, plugin_type, plugin_coords, plugin_rev )
+local install_plugin = function ( puck_root, plugin_type, plugin_coords, plugin_rev)
   local plugin_name = as_name( plugin_coords )
   local plugin_install_path = vim.fs.normalize( vim.fs.joinpath( puck_root, plugin_name ) )
   local plugin_install_path_stat = vim.uv.fs_stat( plugin_install_path )
@@ -141,27 +141,25 @@ local install_plugin = function ( puck_root, plugin_type, plugin_coords, plugin_
     if not plugin_install_rev_file then vim.notify('Unable to read rev file ' .. plugin_install_rev_path, vim.log.levels.ERROR) end
     local current_rev = plugin_install_rev_file:read()
     plugin_install_rev_file:close()
-    if current_rev == plugin_rev then return end
+    if current_rev == plugin_rev then
+	    configure_plugin(plugin_name)
+	    return
+    end
   end
   -- rev is different, must be update (we don`t care if up or down) or fresh install
   local removed = delete_directory_recursive( plugin_install_path )
   local url_format = as_url_format(plugin_type)
   local plugin_tarball_url = url_format:format( plugin_coords, plugin_rev )
-  local ok = pcall( download_plugin_into, plugin_name, plugin_tarball_url, plugin_install_path )
-  if ok then
-    local mode = vim.uv.fs_access(plugin_install_rev_path, 'W') and 'w+' or 'w'
-    local plugin_install_rev_file = io.open( plugin_install_rev_path, mode)
-    if not plugin_install_rev_file then vim.notify('Unable to write rev file ' .. plugin_install_rev_path, vim.log.levels.ERROR) end
-    plugin_install_rev_file:write( plugin_rev )
-    plugin_install_rev_file:close()
-    if removed then
-      vim.notify( 'Plugin ' .. plugin_coords .. '@' .. plugin_rev .. ' updated!', vim.log.levels.INFO )
-    else
-      vim.notify( 'Plugin ' .. plugin_coords .. '@' .. plugin_rev .. ' installed!', vim.log.levels.INFO )
-    end
+  download_plugin_into(puck_root, plugin_name, plugin_tarball_url, plugin_install_path, callback )
+  local mode = vim.uv.fs_access(plugin_install_rev_path, 'W') and 'w+' or 'w'
+  local plugin_install_rev_file = io.open( plugin_install_rev_path, mode)
+  if not plugin_install_rev_file then vim.notify('Unable to write rev file ' .. plugin_install_rev_path, vim.log.levels.ERROR) end
+  plugin_install_rev_file:write( plugin_rev )
+  plugin_install_rev_file:close()
+  if removed then
+	  vim.notify( 'Plugin ' .. plugin_coords .. '@' .. plugin_rev .. ' updated!', vim.log.levels.INFO )
   else
-    vim.notify( 'Failed to download tarball for plugin ' .. plugin_coords .. '@' .. plugin_rev .. '!',
-      vim.log.levels.ERROR )
+	  vim.notify( 'Plugin ' .. plugin_coords .. '@' .. plugin_rev .. ' installed!', vim.log.levels.INFO )
   end
 end
 
@@ -189,12 +187,16 @@ local load_local_plugin = function ( plugin_coords )
 end
 
 local load_registered_plugin = function ( plugin_name )
-  -- TODO
+  vim.cmd.packadd(plugin_name)
+  -- vim.cmd.helptags(plugin_name)
+  return require(plugin_name)
 end
 
 local setup = function ( options )
   options = options or {}
-  vim.validate { ['options.workspace'] = { options.workspace, 'string'}}
+  vim.validate {
+	  ['options.workspace'] = { options.workspace, 'string'},
+  }
 
   options.plugins = options.plugins or {}
   plugins = options.plugins
@@ -202,7 +204,7 @@ local setup = function ( options )
   -- that means we have to take care of builtin plugins later
   vim.opt.loadplugins = false
 
-  local puck_root = vim.fs.normalize( vim.fn.stdpath 'data' .. '/site/pack/puck' )
+  local puck_root = vim.fs.normalize( vim.fn.stdpath 'data' .. '/site/pack/puck/opt' )
   vim.fn.mkdir( puck_root, 'p' )
 
   for _, plugin in pairs( plugins ) do
@@ -211,8 +213,10 @@ local setup = function ( options )
     local plugin_rev = plugin[3]
     if plugin_type == dev then
       register_local_plugin(options.workspace, plugin_coords )
+      -- TODO def v plugins need configure too
+      -- configure_plugin(plugin_name)
     else
-      install_plugin( puck_root, plugin_type, plugin_coords, plugin_rev )
+      install_plugin( puck_root, plugin_type, plugin_coords, plugin_rev)
     end
   end
 
@@ -229,20 +233,14 @@ local setup = function ( options )
   load_local_plugin 'plugin/editorconfig.lua'
 end
 
--- TODO move this outside
--- testing the puck
-local plugins = {
-  { dev,  'bugabinga/venn.nvim', },
-  { gh,   'nyoom-engineering/oxocarbon.nvim', 'c5846d10cbe4131cc5e32c6d00beaf59cb60f6a2', },
-  { srht, '~adigitoleo/haunt.nvim',           'e3e3c8f45663fed8225ba5efb0af00a2df14a736', },
-  { cb,   'jthvai/lavender.nvim',             'a5187e6f4afe4b1f2fbcd0fe0bad34c40002ba48', },
-  { dev,  'bugabinga/auto-dark-mode.nvim',    nil, },
-}
-setup { plugins = plugins, workspace = '~/Workspace'} -- TODO change Workspace on win32
-load_registered_plugin 'oxocarbon'
-vim.cmd.colorscheme 'oxocarbon'
-
 return {
+  -- FIXME: load needs to handle registerd and local plugin loading
   load = load_registered_plugin,
   setup = setup,
+  plugin_types = {
+	  github = { type = gh, format = gh_format },
+	  codeberg = { type = cb, format = cb_format },
+	  sourcehut = { type = srht, format = srht_format },
+	  development = { type = dev, format = nil },
+  },
 }
