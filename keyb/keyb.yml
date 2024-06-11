@@ -1,0 +1,65 @@
+- name: e-yooso z-11
+  keybinds:
+  - name: F1
+    key: Fn + 1
+  - name: F2
+    key: Fn + 2
+  - name: F3
+    key: Fn + 3
+  - name: F4
+    key: Fn + 4
+  - name: F5
+    key: Fn + 5
+  - name: F6
+    key: Fn + 6
+  - name: F7
+    key: Fn + 7
+  - name: F8
+    key: Fn + 8
+  - name: F9
+    key: Fn + 9
+  - name: F10
+    key: Fn + 0
+  - name: F11
+    key: Fn + -
+  - name: F12
+    key: Fn + +
+
+  - name: left
+    key: Fn + A
+  - name: up
+    key: Fn + W
+  - name: down
+    key: Fn + S
+  - name: right
+    key: Fn + D
+
+  - name: PrintScreen
+    key: Fn + P
+  - name: Home
+    key: Fn + [
+  - name: End
+    key: Fn + ]
+  - name: PageUp
+    key: Fn + ;
+  - name: PageDown
+    key: Fn + '
+  - name: Insert
+    key: Fn + .
+  - name: Delete
+    key: Fn + /
+
+- name: us intl
+  keybinds:
+  - name: ä (ae umlaut)
+    key: Alt Gr + Q
+  - name: ö (oe umlaut)
+    key: Alt Gr + P
+  - name: ü (ue umlaut)
+    key: Alt Gr + Y
+  - name: ß (ss)
+    key: Alt Gr + S
+  - name: ß (ss)
+    key: Alt Gr + S
+  - name: € (euro)
+    key: Alt Gr + 5

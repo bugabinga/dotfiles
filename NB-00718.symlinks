@@ -63,3 +63,6 @@ neovim
 
 bat/config
 ~/AppData/Roaming/bat/config
+
+keyb/keyb.yml
+~/AppData/Roaming/keyb/keyb.yml
