@@ -2,7 +2,9 @@ tresor/box_do_key
 
 nushell/zoxide.nu
 nushell/history.txt
+nushell/history.sqlite3*
 nushell/plugin.nu
+nushell/aliases.nu
 
 neovim/profile.log
 neovim/plugin
