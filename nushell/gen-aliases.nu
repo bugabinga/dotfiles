@@ -17,11 +17,11 @@ def aka [
 # Start defining your aliases here
 
 aka cat bat
+aka list eza '--long' '--git'
 aka show bat
 aka tar bsdtar
 aka walk yazi
 aka tree tre
-aka ll list
 
 aka browse firefox
 
@@ -30,6 +30,7 @@ aka code nvim
 aka edit nvim '--clean'
 aka ed nvim '--clean'
 aka vi nvim '--clean'
+aka bb bartib
 
 # TODO write bak command
 # aka backup bak
