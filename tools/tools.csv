@@ -9,7 +9,7 @@ cargo-update;cargo-install-update
 choose
 du-dust; dust
 eva
-exa
+eza; eza; --features vendored-openssl,vendored-libgit2
 fend
 fd-find;fd
 git-delta;delta
@@ -23,7 +23,8 @@ jaq;jaq; --locked
 just
 lemmeknow
 lms
-lurk-cli; lurk
+# needs a platform key
+#lurk-cli; lurk
 lychee;lychee; --locked --no-default-features --features rustls-tls,email-check
 mask
 macchina
@@ -31,7 +32,7 @@ mdbook
 mdcat
 mdsh
 monolith
-netscanner
+# netscanner
 nu;nu; --locked
 ouch
 pastel
@@ -39,15 +40,14 @@ pueue;pueue;--locked
 ripgrep;rg
 rust-parallel
 sd
-sniffnet
+# sniffnet
 selene;selene; --no-default-features
 starship
 stylua;stylua; --features lua52
 taplo-cli;taplo
 tealdeer;tldr
 tokei
-ugdb
-unf
+# ugdb
 viu
 vivid
 yazi-cli;ya; --locked
