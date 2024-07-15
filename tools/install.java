@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 final class install {
+	//  TODO: platform key in die csv, um os zu unterscheiden.
 	static final String CARGO_PACKAGES_CSV_FILE = "tools.csv";
 
 	public static void main(String[] __)
@@ -22,7 +23,7 @@ final class install {
 		for (int index = 1; index < lines.length; ++index) {
 			var line = lines[index];
 			var spec = parse(line);
-			if (!which(spec.bin)) {
+			if (spec != null && !which(spec.bin)) {
 				install(spec);
 			}
 		}
@@ -51,12 +52,12 @@ final class install {
 	}
 
 	static void exec(String... command)
-			throws Exception {
+			throws Throwable {
 		var proc = new ProcessBuilder(command).inheritIO().start();
 		proc.waitFor();
 		var exit = proc.exitValue();
 		if (exit != 0) {
-			dbg("process failed to exec with code %d.%nproc: %s", exit, emphasize_local(Arrays.toString(command)));
+			throw fail("process failed to exec with code %d.%nproc: %s", exit, emphasize_local(Arrays.toString(command)));
 		}
 	}
 
@@ -82,6 +83,10 @@ final class install {
 
 	static Spec parse(String line)
 			throws Throwable {
+		if (line.startsWith("#"))
+		{
+			return null;
+		}
 		var by_comma = line.split(";");
 		if (by_comma.length == 0) {
 			throw fail("empty line in CSV");
