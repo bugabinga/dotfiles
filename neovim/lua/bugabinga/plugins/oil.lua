@@ -30,7 +30,7 @@ return {
     delete_to_trash = true,
 
     columns = { 'icon', },
-    buf_options = {
+    win_options = {
       cursorline = true,
     },
     keymaps = {
