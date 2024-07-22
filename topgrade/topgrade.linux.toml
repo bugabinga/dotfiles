@@ -1,6 +1,6 @@
 [misc]
 # Disable specific steps - same options as the command line flag
-disable = ["restarts"]
+disable = ["restarts", "vim"]
 
 assume_yes = true
 
