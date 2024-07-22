@@ -1,6 +1,7 @@
 [misc]
 # Disable specific steps - same options as the command line flag
-disable = ["system"]
+# disable = ["system"]
+disable = [ "vim" ]
 
 assume_yes = true
 
@@ -32,9 +33,6 @@ pull_predefined = false
 
 # Arguments to pass Git when pulling Repositories
 # arguments = "--ff --rebase"
-
-[windows]
-enable_winget = true
 
 # Commands to run before anything
 [pre_commands]
