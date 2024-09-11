@@ -21,7 +21,10 @@ aka list eza '--long' '--git'
 aka tar bsdtar
 aka walk yazi
 aka tree tre
-aka imgcat 'wezterm imgcat'
+aka imgcat wezterm imgcat
+
+aka ll ls '--long'
+aka la ls '--long' '--all'
 
 aka browse firefox
 

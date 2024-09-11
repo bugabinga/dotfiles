@@ -4,7 +4,7 @@ return {
       diagnostics = { globals = { 'vim', 'prequire', }, },
       runtime = { version = 'LuaJIT', },
       workspace = {
-        library = { prequire 'neodev.config'.types(), },
+        library = vim.api.nvim_get_runtime_file("",true),
       },
     },
   },

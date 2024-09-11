@@ -41,7 +41,7 @@ return function ( ... )
       table.insert( mods, mod )
     else
       printStackTrace()
-      vim.notify_once( string.format( 'Missing module: %s', arg ), vim.log.levels.WARN )
+      vim.notify_once( string.format( 'Prequire is missing a module: %s', arg ), vim.log.levels.WARN )
       -- Return a proxy item that returns itself, so we can do things like
       -- prequire("module").setup()
       local proxy = {}
