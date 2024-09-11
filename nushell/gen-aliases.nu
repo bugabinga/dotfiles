@@ -18,10 +18,10 @@ def aka [
 
 aka cat bat
 aka list eza '--long' '--git'
-aka show bat
 aka tar bsdtar
 aka walk yazi
 aka tree tre
+aka imgcat 'wezterm imgcat'
 
 aka browse firefox
 

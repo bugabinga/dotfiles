@@ -1,8 +1,20 @@
-[[languages]]
+[[language]]
 name = "nasm"
-language-server = { command = "asm-lsp" }
+auto-format = true
+language-servers = [{ name = "asm-lsp" }]
 
-[[languages]]
+[[language]]
 name = "xml"
 auto-format = false
-language-server = { command = "lemminx" }
+language-servers = [{ name = "lemminx" }]
+
+[[language]]
+name  = "java"
+auto-format = false
+language-servers = [{ name = "jdtls" }]
+
+[language-server.asm-lsp]
+command = "asm-lsp"
+
+[language-server.lemminx]
+command = "lemminx"

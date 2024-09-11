@@ -10,14 +10,15 @@ Host github.com
 	User git
 	IdentityFile ~/.ssh/github.key
 
-Host seaduck
-	Hostname seaduck
+Host klops
+	Hostname klops
 	User oli
-	IdentityFile ~/.ssh/seaduck.key
+	IdentityFile ~/.ssh/klops.key
 
-Host artifactory
-	Hostname artifactory.isp-insoft.de
-	User java
+Host tinibox
+	Hostname tinibox
+	User tini
+	IdentityFile ~/.ssh/tini.key
 
 # catch-all pattern
 Host *

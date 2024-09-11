@@ -47,6 +47,7 @@ stylua;stylua; --features lua52
 taplo-cli;taplo
 tealdeer;tldr
 tokei
+tre
 # ugdb
 viu
 vivid
