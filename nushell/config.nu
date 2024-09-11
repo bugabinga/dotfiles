@@ -15,7 +15,7 @@ $env.config = {
   }
 
 	# some experimental options
-	buffer_editor: "nvim --clean"
+	buffer_editor: ["nvim" "--clean"]
   highlight_resolved_externals : true
   use_kitty_protocol : true
   render_right_prompt_on_last_line: true
