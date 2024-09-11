@@ -1,5 +1,3 @@
-use external_completer.nu
-
 # TODO: use nugu colors
 # for more information on themes see
 # https://github.com/nushell/nushell/blob/main/docs/How_To_Coloring_and_Theming.md
@@ -14,10 +12,6 @@ $env.config = {
   }
   completions: {
     use_ls_colors: true
-    algorithm: "fuzzy"
-    external: {
-			completer: (external_completer)
-		}
   }
 
 	# some experimental options
@@ -31,4 +25,3 @@ $env.config = {
     isolation: true
   }
 }
-
