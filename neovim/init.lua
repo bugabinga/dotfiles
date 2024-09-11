@@ -8,13 +8,8 @@
 --        ▀▀▀          █           █   ██         █
 --                    ▀                          ▀
 
--- enable lua bytecode caching
-vim.loader.enable()
-
 -- setup debug mode
 -- require 'std.debug'.toggle()
-
--- vim.g.did_load_filetypes = 1
 
 vim.cmd.colorscheme 'nugu'
 
