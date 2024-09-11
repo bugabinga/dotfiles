@@ -31,7 +31,7 @@ lazy.setup {
     -- version = '*',
     -- useful to globally disable plugins
     -- cond = function ( plugin_spec )
-      -- return plugin_spec.name:find 'oil'
+    -- return plugin_spec.name:find 'oil'
     -- end,
   },
   install = {
@@ -103,6 +103,10 @@ lazy.setup {
     fallback = true,
     patterns = { 'bugabinga', },
     path = win32 and 'W:/' or '~/Workspace',
+  },
+  profiling = {
+    loader = true,
+    require = true,
   },
 }
 
