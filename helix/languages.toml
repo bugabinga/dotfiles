@@ -1,24 +1,20 @@
 [[language]]
 name = "nasm"
-language-servers = [{ name = "asm-lsp" }, { name  = "bufferls" }]
+auto-format = true
+language-servers = [{ name = "asm-lsp" }]
 
 [[language]]
 name = "xml"
-language-servers = [{ name = "lemminx" }, { name  = "bufferls" }]
+auto-format = false
+language-servers = [{ name = "lemminx" }]
 
 [[language]]
-name = "toml"
-language-servers = [{ name = "taplo" }, { name  = "bufferls" }]
-
-[language-server.bufferls]
-command = "buffer-language-server"
+name  = "java"
+auto-format = false
+language-servers = [{ name = "jdtls" }]
 
 [language-server.asm-lsp]
 command = "asm-lsp"
 
 [language-server.lemminx]
 command = "lemminx"
-
-[language-server.taplo]
-command = "taplo"
-args = ["lsp", "stdio"]

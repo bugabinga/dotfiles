@@ -1,7 +1,5 @@
-local table = require 'std.table'
 local project = require 'std.project'
 local auto = require 'std.auto'
-local map = require 'std.map'
 
 local find_jdks = function ()
   local host = vim.uv.os_gethostname()
@@ -62,15 +60,7 @@ local java_settings = {
   referencesCodeLens = { enabled = true, },
   references = { includeDecompiledSources = true, },
   inlayHints = { parameterNames = { enabled = 'all', }, },
-  format = {
-    enabled = true,
-    -- TODO: set these here with my preferred settings
-    -- set these on a project level -> read intellij /eclipse settings?
-    -- settings = {
-    --   url = 'TODO',
-    --   profile = 'TODO',
-    -- },
-  },
+  format = { enabled = true, },
 }
 
 local on_attach = function ()

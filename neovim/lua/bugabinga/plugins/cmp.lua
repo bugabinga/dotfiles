@@ -92,7 +92,6 @@ return {
     end
 
     local sources = {
-      { name = 'neodev', },
       { name = 'nvim_lua', },
       { name = 'nvim_lsp', },
       { name = 'path', },

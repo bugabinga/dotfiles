@@ -7,7 +7,6 @@ return {
   root_dir = project.find_lua_project_root,
   single_file_support = true,
   workspaces = true,
-  before_init = prequire 'neodev.lsp'.before_init,
   settings = {
     Lua = {
       addonManager = { enable = false, },
@@ -15,7 +14,10 @@ return {
       hint = { enable = true, setType = true, },
       telemetry = { enable = false, },
       window = { progressBar = false, statusBar = false, },
-      workspace = { checkThirdParty = false, },
+      workspace = {
+        checkThirdParty = false,
+        library = nil,
+      },
     },
   },
 }
