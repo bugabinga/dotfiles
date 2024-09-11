@@ -12,6 +12,7 @@ if not (which nvim | is-empty) {
 	$env.GIT_EDITOR = 'nvim'
 }
 
+
 if not (which neovide | is-empty) {
 	$env.VISUAL = 'neovide'
 }

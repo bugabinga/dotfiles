@@ -28,6 +28,7 @@ lms
 lychee;lychee; --locked --no-default-features --features rustls-tls,email-check
 mask
 macchina
+markdown-oxide; markdown-oxide; --locked --git https://github.com/Feel-ix-343/markdown-oxide.git
 mdbook
 mdcat
 mdsh
@@ -44,7 +45,7 @@ sd
 selene;selene; --no-default-features
 starship
 stylua;stylua; --features lua52
-taplo-cli;taplo
+taplo-cli;taplo; --locked --features lsp
 tealdeer;tldr
 tokei
 # ugdb
