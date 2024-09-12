@@ -1,7 +1,7 @@
 return {
   {
     'JosefLitos/colorizer.nvim',
-    event = vim.g.FILE_LOADED_EVENTS,
+    event = 'VeryLazy',
     opts = {
       filetypes = { '*', },
       user_default_options = {

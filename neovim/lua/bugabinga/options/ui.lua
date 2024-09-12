@@ -35,7 +35,7 @@ vim.opt.listchars = {
 }
 
 -- force English messages
-vim.cmd [[ language mes en_US.utf8 ]]
+vim.cmd [[ language en_US.utf8 ]]
 
 -- do not spam the cmdline with every little input
 vim.opt.showcmd = false

@@ -3,7 +3,7 @@ local ignored = require 'std.ignored'
 return {
   'lukas-reineke/virt-column.nvim',
   version = '2.*',
-  event = vim.g.FILE_LOADED_EVENTS,
+  event = 'VeryLazy',
   opts = {
     char = { '┆', '╎', '│', },
     exclude = {
