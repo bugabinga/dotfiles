@@ -82,7 +82,12 @@ enable = true
 
 [keys.normal]
 # move current line up
-A-k = [ "extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before", ]
+A-k = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]
 # move current line down
 A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 "A-=" = ":format"

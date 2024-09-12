@@ -29,4 +29,4 @@ link:
     java bootstripper.java
 
 tools:
-		cd tools;java install.java
+    cd tools;java install.java

@@ -9,7 +9,7 @@ auto-format = false
 language-servers = [{ name = "lemminx" }]
 
 [[language]]
-name  = "java"
+name = "java"
 auto-format = false
 language-servers = [{ name = "jdtls" }]
 
