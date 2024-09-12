@@ -23,16 +23,17 @@ end
 
 -- even those options are the same as my togglers, the code is not shared for the
 -- small off chance, that this ever gets shared as a neovim plugin
-expose_option( 'spell',       tobool )
-expose_option( 'number',      tobool )
-expose_option( 'cursorline',  tobool )
-expose_option( 'virtualedit', tostring )
+expose_option( 'spell',          tobool )
+expose_option( 'number',         tobool )
+expose_option( 'relativenumber', tobool )
+expose_option( 'cursorline',     tobool )
+expose_option( 'virtualedit',    tostring )
 
 editorconfig.properties.diagnostic = function ( bufnr, value )
   local option = tobool( value )
   if option then
     vim.diagnostic.enable( true, { bufnr = bufnr, } )
   else
-    vim.diagnostic.enable( false, { bufnr = bufnr } )
+    vim.diagnostic.enable( false, { bufnr = bufnr, } )
   end
 end

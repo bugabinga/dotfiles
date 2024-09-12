@@ -5,7 +5,6 @@ map.normal {
   description = 'Open parent directory in buffer.',
   category = 'files',
   keys = '-',
-  -- command = function () require 'oil'.open_float() end,
   command = function () require 'oil'.open() end,
 }
 

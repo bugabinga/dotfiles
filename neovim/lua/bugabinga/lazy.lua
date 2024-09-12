@@ -20,9 +20,6 @@ local lazy = require 'lazy'
 local icon = require 'std.icon'
 
 local overrides = require 'std.localrc' ( '.lazy.specs.lua', 'table' )
---- a couple of vim events, that collectively represent "a file has been opened".
---- this is useful for plugins that want to be lazy loaded, when some file is shown in a buffer/window
-vim.g.FILE_LOADED_EVENTS = { 'BufRead', 'BufNew', 'SessionLoadPost', }
 
 lazy.setup {
   spec = { { import = 'bugabinga.plugins', }, overrides, },
@@ -94,6 +91,7 @@ lazy.setup {
         'spellfile_plugin',
         'matchit',
         'matchparen',
+        'man',
         'tohtml',
         'tutor',
       },

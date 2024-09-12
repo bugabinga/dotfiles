@@ -20,8 +20,8 @@ local key_tables = {
 		{ key = 'Escape', action = 'PopKeyTable' },
 	},
 	[font_size_mode] = {
-		{ key = '+',      action = wez.action.IncreaseFontSize },
-		{ key = '-',      action = wez.action.DecreaseFontSize },
+		{ key = 'j',      action = wez.action.DecreaseFontSize },
+		{ key = 'k',      action = wez.action.IncreaseFontSize },
 		{ key = '=',      action = wez.action.ResetFontSize },
 
 		{ key = 'Escape', action = 'PopKeyTable' },

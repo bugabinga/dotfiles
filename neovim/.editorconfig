@@ -1,9 +1,11 @@
 root = true
 
 [*]
-spell = true
+spell = false
 
 [*.lua]
+number = true
+relativenumber = true
 diagnostic = true
 
 # see https://github.com/CppCXY/EmmyLuaCodeStyle

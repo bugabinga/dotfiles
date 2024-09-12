@@ -1,15 +1,5 @@
 if vim.g.colors_name == nil then
-  -- Get the current hour
-  local current_hour = tonumber( os.date '%H' )
-
-  -- Set the background based on the time of day
-  if current_hour >= 9 and current_hour < 17 then
-    -- print"setting background to light"
-    vim.opt.background = 'light'
-  else
-    -- print"setting background to dark"
-    vim.opt.background = 'dark'
-  end
+  vim.opt.background = 'dark'
 else
   -- Reset all highlights if another colorscheme was previously set
   vim.cmd [[ highlight clear ]]

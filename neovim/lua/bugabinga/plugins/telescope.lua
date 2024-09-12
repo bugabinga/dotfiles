@@ -119,15 +119,12 @@ return {
     local actions = require 'telescope.actions'
     local themes = require 'telescope.themes'
 
-    local ivy = themes.get_ivy { hidden = true, layout_config = { preview_width = 0.69, }, }
+    local ivy = themes.get_ivy { layout_config = { preview_width = 0.23, }, }
 
     telescope.setup {
       defaults = {
-        hidden = true,
         prompt_prefix = icon.telescope .. ' ',
         selection_caret = icon.arrow_right .. ' ',
-        path_display = {'shorten'},
-        dynamic_preview_title = true,
         file_ignore_patterns = {
           '%.git/',
           '%.git/',
