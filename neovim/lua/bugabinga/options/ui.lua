@@ -124,22 +124,25 @@ end
 vim.opt.smoothscroll = true
 
 -- cursor
-vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
+-- vim.opt.guicursor = 'n-v-c-sm:block-Cursor,i-ci-ve:ver25-blinkon250,r-cr:hor20,o:hor50'
 
 -- font
-vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h15:#e-subpixelantialias:#h-none'
+-- vim.opt.guifont = 'Cousine,Symbols Nerd Font Mono:h15:#e-subpixelantialias:#h-none'
 
 -- neovide only options
 if vim.g.neovide then
-  -- vim.g.neovide_profiler = false
+  vim.g.neovide_profiler = false
   -- interpret all touch events as scroll events
   vim.g.neovide_touch_deadzone = 0.0
   -- after this timeout, start a visual selection
+  vim.g.neovide_underline_stroke_scale = 2.5
   vim.g.neovide_touch_drag_timeout = 0.69
-  vim.g.neovide_padding_top = 0
+  vim.g.neovide_padding_top = 8
   vim.g.neovide_padding_left = 8
   vim.g.neovide_padding_bottom = 0
   vim.g.neovide_padding_right = 0
   vim.g.neovide_hide_mouse_when_typing = true
   vim.g.neovide_refresh_rate_idle = 5
+  vim.g.neovide_theme = 'auto'
+  vim.g.experimental_layer_grouping = true
 end

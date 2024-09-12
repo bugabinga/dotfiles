@@ -34,6 +34,7 @@ mdcat
 mdsh
 monolith
 # netscanner
+neovide;neovide; --git https://github.com/neovide/neovide
 nu;nu; --locked
 ouch
 pastel
