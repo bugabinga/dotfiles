@@ -38,28 +38,25 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* figure out desirable cmp key maps
 * try loading lsp async for better startup perf
-* check out vim-dadbod for sql workflows
 * navic highlights do not fit winbar
+* add nu-check to nvim-lint
+* add nu lsp
 * make highlights more visible when expanding snippets
 * cursor restore position on (session?) load jumps one location to somewhere
   after correct location
 * check out `vim.snippet`
 * use `vim.base64` in wezterm plugin
 * integrate language tool?
-* refactor mark.lua
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
 * Do I want multiple LSPs per buffer?
   In case of markdown and text it seems useful, for code it seems like a
   headache...
-* use ltex-ls for markdown, code comments and commit messages
 * flesh out 'const.lua', move to std?
 * nvim spell for camel case words
-* add nu-check to nvim-lint
 * create skeleton-plugin for default file content based on file type
   (BufNewFile?)
 * make lsp config extensible, so that plugin configs can hook into it (e.g.
   on_attach)
-* split parts of config into plugins
 * add support for Java multi line string in autopairs
-* try Termdebug with gdb
