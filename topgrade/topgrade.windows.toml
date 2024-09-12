@@ -1,7 +1,7 @@
 [misc]
 # Disable specific steps - same options as the command line flag
 # disable = ["system"]
-disable = [ "vim" ]
+disable = ["vim"]
 
 assume_yes = true
 
