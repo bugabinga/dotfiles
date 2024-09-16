@@ -10,16 +10,7 @@ return {
   -- version = '0.9.*',
   -- branch = 'main', -- next gen version
   branch = 'master',
-  event = 'VeryLazy',
-  init = function ( plugin )
-    -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
-    -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-    -- no longer trigger the **nvim-treesitter** module to be loaded in time.
-    -- Luckily, the only things that those plugins need are the custom queries, which we make available
-    -- during startup.
-    require 'lazy.core.loader'.add_to_rtp( plugin )
-    require 'nvim-treesitter.query_predicates'
-  end,
+  lazy = false,
   build = function ()
     require 'nvim-treesitter.install'.update { with_sync = true, }
   end,
@@ -29,13 +20,14 @@ return {
     'windwp/nvim-ts-autotag',
     'RRethy/nvim-treesitter-endwise',
     'nvim-treesitter/nvim-treesitter-context',
+    'nushell/tree-sitter-nu',
   },
   config = function ()
     local install = require 'nvim-treesitter.install'
     local configs = require 'nvim-treesitter.configs'
 
     install.prefer_git = false
-    install.compilers = { 'zig', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC', }
+    install.compilers = { 'zig cc', 'clang', 'gcc', 'cl', 'cc', vim.fn.getenv 'CC', }
 
     local should_disable = function ( _, bufnr )
       local max_filesize = 5 * 1024 * 1024 --MiB
