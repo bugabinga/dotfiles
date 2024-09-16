@@ -17,10 +17,7 @@ map.N {
   command = format,
 }
 
-user_command.Format
-'Format the current buffer' (
-    format
-  )
+user_command.Format 'Format the current buffer' ( format )
 
 return {
   'stevearc/conform.nvim',
@@ -33,6 +30,7 @@ return {
       toml = { 'taplo', },
       sh = { 'shfmt', },
       just = { 'just', },
+      nu = { 'nufmt', },
       zig = { 'zigfmt', },
       -- Use the "*" file type to run formatters on all file types.
       ['*'] = { 'injected', 'typos', },
