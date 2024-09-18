@@ -1,0 +1,10 @@
+path = Notes
+path = Workspace
+
+ignorenot = Path Workspace/dotfiles/unison/fedora.prf
+ignorenot = Path Workspace/dotfiles/unison/ignores
+ignorenot = Path Workspace/dotfiles/unison/common
+ignorenot = Path Workspace/dotfiles/unison/sync
+ignorenot = Path Workspace/dotfiles/unison/graphical
+ignorenot = Path Workspace/dotfiles/unison/service
+ignorenot = Path Workspace/dotfiles/unison/unison@.service

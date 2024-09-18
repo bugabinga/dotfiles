@@ -1,0 +1,10 @@
+label = Fedora PC Sync Profile
+
+root = /home/oli
+root = ssh://klops/Sync
+
+include sync
+include ignores
+include common
+include graphical
+

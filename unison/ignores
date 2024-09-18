@@ -1,0 +1,18 @@
+ignore = Name temp.*
+ignore = Name .*~
+ignore = Name *.tmp
+ignore = Name *.o
+
+ignore = Path Workspace/dotfiles/unison/*
+
+ignore = Regex .*/out/.*
+ignore = Regex .*/output/.*
+ignore = Regex .*/3rd/.*
+ignore = Regex .*/jdk/.*
+ignore = Regex .*/.zig/.*
+ignore = Regex .*/.svn/.*
+ignore = Regex .*/.git/.*
+ignore = Regex .*/target/.*
+ignore = Regex .*/build/.*
+ignore = Regex .*/zig-cache/.*
+ignore = Regex .*/zig-out/.*

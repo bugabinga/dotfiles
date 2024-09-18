@@ -20,6 +20,10 @@ Host tinibox
 	User tini
 	IdentityFile ~/.ssh/tini.key
 
+Host fedora
+	Hostname fedora
+	User oli
+
 # catch-all pattern
 Host *
 	User root

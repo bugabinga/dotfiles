@@ -15,8 +15,10 @@ fend
 fd-find;fd
 git-delta;delta
 gitu;gitu; --locked
-gitoxide
+gitoxide;gix
+handlr; handlr; --locked
 hck
+httm
 hexyl
 hyperfine
 inlyne
@@ -50,6 +52,7 @@ rbw
 rust-parallel
 sd
 skim
+sbyte
 # sniffnet
 selene;selene; --no-default-features
 starship
@@ -58,9 +61,11 @@ taplo-cli;taplo; --locked --features lsp
 tealdeer;tldr
 tokei
 tre
+unison-fsmonitor
 # ugdb
 viu
 vivid
 yazi-cli;ya; --locked
 yazi-fm;yazi; --locked
 zoxide
+
