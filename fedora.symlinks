@@ -78,3 +78,6 @@ hypr
 
 fonts
 ~/.local/share/fonts
+
+neovide
+~/.config/neovide

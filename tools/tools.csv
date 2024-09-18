@@ -8,12 +8,14 @@ cargo-cache
 cargo-update;cargo-install-update
 choose
 du-dust; dust
+dotenv-linter
 eva
 eza; eza; --features vendored-openssl,vendored-libgit2
 fend
 fd-find;fd
 git-delta;delta
 gitu;gitu; --locked
+gitoxide
 hck
 hexyl
 hyperfine
@@ -34,8 +36,12 @@ mdcat
 mdsh
 monolith
 # netscanner
+neovide;neovide; --git https://github.com/neovide/neovide
 nu;nu; --locked
 neovide; neovide; --git https://github.com/neovide/neovide
+nu_plugin_audio_hook; nu_plugin_audio_hook; --git https://github.com/FMotalleb/nu_plugin_audio_hook.git --features all-decoders
+nu_plugin_skim
+nu_plugin_desktop_notifications
 ouch
 pastel
 pueue;pueue;--locked
