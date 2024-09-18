@@ -60,6 +60,7 @@ stylua;stylua; --features lua52
 taplo-cli;taplo; --locked --features lsp
 tealdeer;tldr
 tokei
+topgrade
 tre
 unison-fsmonitor
 # ugdb
