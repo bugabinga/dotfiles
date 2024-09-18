@@ -63,3 +63,6 @@ ssh/config
 
 neovim
 ~/.config/nvim
+
+fonts
+~/.local/share/fonts
