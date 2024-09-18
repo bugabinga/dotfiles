@@ -22,3 +22,4 @@ source ($nu.default-config-dir | path join "scripts/direnv.nu")
 todo commands
 print (char nl)
 todo
+

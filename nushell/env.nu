@@ -70,3 +70,4 @@ source ($nu.default-config-dir | path join 'gen-aliases.nu')
 if not (which zoxide |  is-empty) {
 	zoxide init nushell | save -f ($nu.default-config-dir | path join 'zoxide.nu')
 }
+

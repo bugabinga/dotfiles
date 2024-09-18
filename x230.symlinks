@@ -66,3 +66,9 @@ neovim
 
 fonts
 ~/.local/share/fonts
+
+unison
+~/.unison
+
+unison/unison@.service
+~/.config/systemd/user/unison@.service

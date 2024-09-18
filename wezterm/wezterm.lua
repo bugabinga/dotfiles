@@ -50,12 +50,12 @@ local function basename(s)
 end
 
 local exec_domains = {
-	-- Defines a domain called "scoped" that will run the requested
+	-- Defines a domain called "systemd" that will run the requested
 	-- command inside its own individual systemd scope.
 	-- This defines a strong boundary for resource control and can
 	-- help to avoid OOMs in one pane causing other panes to be
 	-- killed.
-	wez.exec_domain('scoped', function(cmd)
+	wez.exec_domain('systemd', function(cmd)
 		-- The "cmd" parameter is a SpawnCommand object.
 		-- You can log it to see what's inside:
 		wez.log_info(cmd)
@@ -159,3 +159,4 @@ return {
 	keys = key_binds.keys,
 	key_tables = key_binds.key_tables,
 }
+
