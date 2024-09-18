@@ -35,12 +35,15 @@ mdsh
 monolith
 # netscanner
 nu;nu; --locked
+neovide; neovide; --git https://github.com/neovide/neovide
 ouch
 pastel
 pueue;pueue;--locked
 ripgrep;rg
+rbw
 rust-parallel
 sd
+skim
 # sniffnet
 selene;selene; --no-default-features
 starship

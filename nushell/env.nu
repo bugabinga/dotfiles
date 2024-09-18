@@ -6,6 +6,25 @@ $env.WORKSPACE = if $env.WIN32 { "~/Workspaces" } else { "~/Workspace" | path ex
 $env.DOTFILES  = ( $env.WORKSPACE | path join 'dotfiles' )
 $env.NOTES = ("~/Notes" | path expand)
 $env.TOOLS = ("~/Tools" | path expand)
+$env.CARGO_HOME = ( "~/.cargo" | path expand )
+
+if $env.WIN32 {
+	$env.Path = (
+  $env.Path
+  | split row (char esep)
+  | append ($env.CARGO_HOME | path join bin)
+  | append ($env.HOME | path join .local bin)
+  | uniq # filter so the paths are unique
+)
+} else {
+	$env.PATH = (
+  $env.PATH
+  | split row (char esep)
+  | append ($env.CARGO_HOME | path join bin)
+  | append ($env.HOME | path join .local bin)
+  | uniq # filter so the paths are unique
+)
+}
 
 if not (which nvim | is-empty) {
 	$env.EDITOR = 'nvim'

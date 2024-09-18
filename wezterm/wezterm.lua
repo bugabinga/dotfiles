@@ -9,19 +9,7 @@ require 'bugabinga.status'
 local zen_mode = require 'bugabinga.neovim_zen_mode'
 zen_mode(wez)
 
-local hostname = wez.hostname()
-local enable_wayland = false
-local window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
-local font_size = 11.0
--- local font = wez.font 'IBM Plex Mono'
-local font = wez.font 'Cousine'
-if hostname == 'x230' then
-	font_size = 11
-	enable_wayland = true
-elseif hostname == 'NB-00718' then
-	font_size = 13
-elseif hostname == 'fedora' then
-	font_size = 13
+local random_nerd_font = function()
 	local font_names = {}
 	local nerdfonts = io.open(wez.config_dir .. '/nerdfonts', 'r')
 	if nerdfonts then
@@ -33,8 +21,25 @@ elseif hostname == 'fedora' then
 		local random_font = font_names[math.random(#font_names)]
 		font = wez.font(random_font)
 	end
+end
 
-	window_decorations = 'NONE'
+local hostname = wez.hostname()
+local enable_wayland = false
+local window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+local font_size = 11.0
+local font = wez.font 'Cousine'
+if hostname == 'x230' then
+	font_size = 13
+	font = random_nerd_font();
+	enable_wayland = true
+	window_decorations = 'TITLE|RESIZE'
+elseif hostname == 'NB-00718' then
+	font_size = 13
+elseif hostname == 'fedora' then
+	font_size = 13
+	font = random_nerd_font();
+	enable_wayland = true
+	window_decorations = 'RESIZE'
 end
 
 -- Equivalent to POSIX basename(3)
@@ -113,8 +118,8 @@ return {
 
 	font = font,
 	font_size = font_size,
-	freetype_load_target = 'Light',
-	freetype_render_target = 'HorizontalLcd',
+	-- freetype_load_target = 'Light',
+	-- freetype_render_target = 'HorizontalLcd',
 	-- underline_position = "-2pt",
 	warn_about_missing_glyphs = false,
 
