@@ -2,3 +2,4 @@ color = true
 diff = delta CURRENT1 CURRENT2
 merge = Name {*,.*} -> neovide --maximized CURRENT1 CURRENT2 NEW
 
+

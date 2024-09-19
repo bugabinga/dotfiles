@@ -64,6 +64,10 @@ ssh/config
 neovim
 ~/.config/nvim
 
+neovide
+~/.config/neovide
+
+
 fonts
 ~/.local/share/fonts
 
@@ -72,3 +76,7 @@ unison
 
 unison/unison@.service
 ~/.config/systemd/user/unison@.service
+
+hypr
+~/.config/hypr
+
