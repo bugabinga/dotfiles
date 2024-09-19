@@ -16,3 +16,4 @@ ignore = Regex .*/target/.*
 ignore = Regex .*/build/.*
 ignore = Regex .*/zig-cache/.*
 ignore = Regex .*/zig-out/.*
+
