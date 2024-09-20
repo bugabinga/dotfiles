@@ -11,6 +11,7 @@ zen_mode(wez)
 
 local hostname = wez.hostname()
 local enable_wayland = false
+local default_prog = { 'nu', '--login' }
 local window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
 local font_size = 11.0
 -- local font = wez.font 'IBM Plex Mono'
@@ -20,6 +21,7 @@ if hostname == 'x230' then
 	enable_wayland = true
 elseif hostname == 'NB-00718' then
 	font_size = 13
+	default_prog = { 'powershell', '-NoLogo' }
 elseif hostname == 'fedora' then
 	font_size = 13
 	local font_names = {}
@@ -99,7 +101,7 @@ return {
 	-- debug_key_events = true,
 
 	default_cwd = wez.home_dir,
-	default_prog = { 'nu', '--login' },
+	default_prog = default_prog,
 	default_cursor_style = 'SteadyBlock',
 
 	exec_domains = exec_domains,

@@ -44,34 +44,13 @@ topgrade/topgrade.linux.toml
 ~/.config/topgrade.toml
 
 wezterm
-~/.config/wezterm
-
-wezterm/wezterm.service
-~/.config/systemd/user/wezterm.service
-
-helix/config.toml
-~/.config/helix/config.toml
-
-helix/languages.toml
-~/.config/helix/languages.toml
-
-helix/themes
-~/.config/helix/themes
-
-helix/systemd/helix-dark-mode.service
-~/.config/systemd/user/helix-dark-mode.service
-
-xplr
-~/.config/xplr
+/mnt/c/Users/okr/.config/wezterm
 
 ssh/config
 ~/.ssh/config
 
 neovim
 ~/.config/nvim
-
-hypr
-~/.config/hypr
 
 fonts
 ~/.local/share/fonts

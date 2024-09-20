@@ -1,3 +1,4 @@
+local dbg = require 'std.dbg'
 local icon = require 'std.icon'
 local auto = require 'std.auto'
 local ignored = require 'std.ignored'
@@ -14,6 +15,7 @@ auto 'disable_columns_in_special_buffers' {
   events = { 'FileType', },
   pattern = ignored.filetypes,
   command = function ()
+    dbg.print 'Hiding columns in buffers without source code'
     vim.opt_local.colorcolumn = {}
     vim.opt_local.signcolumn = 'no'
     vim.opt_local.foldcolumn = '0'
