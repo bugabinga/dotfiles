@@ -1,0 +1,39 @@
+fork = true
+frame = "none"
+maximized = true
+tabs = true
+theme = "auto"
+wsl = true
+
+[font]
+size = 15.0
+edging = "supixelantialias"
+hinting = "none"
+
+[[font.normal]]
+family = "Cousine"
+style = "Regular"
+[[font.normal]]
+family = "Symbols Nerd Font Mono"
+style = "Regular"
+
+[[font.bold]]
+family = "Fantasque Sans Mono"
+style = "Bold"
+[[font.bold]]
+family = "Symbols Nerd Font Mono"
+style = "Bold"
+
+[[font.italic]]
+family = "Victor Mono"
+style = "Oblique"
+[[font.italic]]
+family = "Symbols Nerd Font Mono"
+style = "Oblique"
+
+[[font.bold_italic]]
+family = "Victor Mono"
+style = "Bold Italic"
+[[font.bold_italic]]
+family = "Symbols Nerd Font Mono"
+style = "Bold Italic"

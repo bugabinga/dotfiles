@@ -54,3 +54,4 @@ So as I pray, Unlimited Bug Works.
 * create skeleton-plugin for default file content based on file type
 * add support for Java multi line string in autopairs
 * nvim spell for camel case words
+
