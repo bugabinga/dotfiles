@@ -6,14 +6,17 @@ def icons [] {
         [ path icon ];
 
         [ "/home/oli/Notes" (char -u "03C0") ]
+        [ "/home/okr/Notes" (char -u "03C0") ]
         [ "/home/bugabinga/Notes" (char -u "03C0") ]
         [ "C:\\Users\\okr\\Notizen" (char -u "03C0") ]
 
         [ "/home/oli/Workspace" (char -u "03BB") ]
+        [ "/home/okr/Workspace" (char -u "03BB") ]
         [ "/home/bugabinga/Workspace" (char -u "03BB") ]
         [ "C:\\Users\\okr\\Workspaces" (char -u "03BB") ]
 
         [ "/home/oli" (char home) ]
+        [ "/home/okr" (char home) ]
         [ "/home/bugabinga" (char home) ]
         [ "C:\\Users\\okr" (char home) ]
     ]
