@@ -1,0 +1,4 @@
+copyonconflict = true
+repeat = watch
+watch = true
+prefer = newer
