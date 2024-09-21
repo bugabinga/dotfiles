@@ -3,7 +3,7 @@ Description=Pueue Daemon - CLI process scheduler and manager
 
 [Service]
 Restart=no
-ExecStart=/home/okr/.cargo/bin/pueued -vvv
+ExecStart=%h/.cargo/bin/pueued -vvv
 
 [Install]
 WantedBy=default.target
