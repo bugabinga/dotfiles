@@ -54,3 +54,9 @@ neovim
 
 fonts
 ~/.local/share/fonts
+
+pueue
+~/.config/pueue
+
+pueue/pueued.service
+~/.config/systemd/user/pueued.service
