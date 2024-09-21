@@ -9,7 +9,7 @@
 --                    ▀                          ▀
 
 -- setup debug mode
--- require 'std.debug'.toggle()
+-- require 'std.dbg'.toggle()
 
 vim.cmd.colorscheme 'nugu'
 
@@ -17,11 +17,14 @@ vim.cmd.colorscheme 'nugu'
 prequire = require 'std.prequire'
 
 prequire 'bugabinga.options'
-prequire 'bugabinga.lazy'
 prequire 'bugabinga.editorconfig'
-prequire 'bugabinga.diagnostic'
-prequire 'bugabinga.save_actions'
--- prequire 'bugabinga.mark'
 prequire 'bugabinga.sessions'
-prequire 'bugabinga.terminal'
+prequire 'bugabinga.lazy'
+prequire 'bugabinga.save_actions'
+
 prequire 'bugabinga.lsp'
+
+vim.defer_fn (function ()
+  prequire 'bugabinga.terminal'
+  prequire 'bugabinga.diagnostic'
+end, 444)
