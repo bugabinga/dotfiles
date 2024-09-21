@@ -26,12 +26,15 @@ end
 
 local hostname = wez.hostname()
 local enable_wayland = false
+local default_prog = { 'nu', '--login' }
 local window_decorations = 'TITLE|RESIZE'
 local font_size = 16.0
 local font = wez.font 'Cousine'
 if hostname == 'x230' then
 	font = random_nerd_font();
 	enable_wayland = true
+elseif hostname == 'NB-00718' then
+	default_prog = { 'powershell' , '-NoLogo'}
 elseif hostname == 'fedora' then
 	font = random_nerd_font();
 	enable_wayland = true
@@ -99,7 +102,7 @@ return {
 	-- debug_key_events = true,
 
 	default_cwd = wez.home_dir,
-	default_prog = { 'nu', '--login' },
+	default_prog = default_prog,
 	default_cursor_style = 'SteadyBlock',
 
 	-- this effectivly maximizes wezterm
@@ -158,3 +161,4 @@ return {
 	keys = key_binds.keys,
 	key_tables = key_binds.key_tables,
 }
+

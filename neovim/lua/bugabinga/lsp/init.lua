@@ -145,7 +145,6 @@ local lsp_start      = function ( file_type_event )
 			break
 		end
 
-		local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = table.extend( 'force', capabilities, config.capabilities )
 
@@ -156,6 +155,7 @@ local lsp_start      = function ( file_type_event )
 			settings = vim.tbl_deep_extend( 'force', settings, settings_override )
 		end
 
+    local root_dir = type( config.root_dir ) == 'string' and config.root_dir or config.root_dir( buffer_path )
 		local root_workspace = root_dir and { uri = 'file://' .. root_dir, name = root_dir, } or nil
 		local workspace_folders = root_workspace and { root_workspace, } or nil
 		local workspace_folders_local = project_local_workspace_folders[config.name]
@@ -228,7 +228,7 @@ local lsp_start      = function ( file_type_event )
 			end,
 		} )
 
-		dbg.print( 'ATTACHING LSP CLIENT', config.name )
+		dbg.print( 'STARTING LSP CLIENT', config.name )
 	end
 end
 

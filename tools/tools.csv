@@ -61,6 +61,7 @@ taplo-cli;taplo; --locked --features lsp
 tealdeer;tldr
 tokei
 topgrade
+timebutler
 tre
 unison-fsmonitor
 # ugdb
