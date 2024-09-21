@@ -35,6 +35,7 @@ if hostname == 'x230' then
 	enable_wayland = true
 	window_decorations = 'TITLE|RESIZE'
 elseif hostname == 'NB-00718' then
+	default_prog = { 'powershell' , '-NoLogo'}
 	font_size = 13
 elseif hostname == 'fedora' then
 	font_size = 13
