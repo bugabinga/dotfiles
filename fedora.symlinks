@@ -82,3 +82,8 @@ unison
 unison/unison@.service
 ~/.config/systemd/user/unison@.service
 
+pueue
+~/.config/pueue
+
+pueue/pueued.service
+~/.config/systemd/user/pueued.service
