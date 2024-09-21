@@ -1,4 +1,5 @@
 local wez = require 'wezterm'
+local cfg = wez.config_builder()
 local nugu = require 'bugabinga.nugu'
 
 local win32 = wez.target_triple:find 'windows'
@@ -9,19 +10,7 @@ require 'bugabinga.status'
 local zen_mode = require 'bugabinga.neovim_zen_mode'
 zen_mode(wez)
 
-local hostname = wez.hostname()
-local enable_wayland = false
-local window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
-local font_size = 11.0
--- local font = wez.font 'IBM Plex Mono'
-local font = wez.font 'Cousine'
-if hostname == 'x230' then
-	font_size = 11
-	enable_wayland = true
-elseif hostname == 'NB-00718' then
-	font_size = 13
-elseif hostname == 'fedora' then
-	font_size = 13
+local random_nerd_font = function()
 	local font_names = {}
 	local nerdfonts = io.open(wez.config_dir .. '/nerdfonts', 'r')
 	if nerdfonts then
@@ -33,8 +22,19 @@ elseif hostname == 'fedora' then
 		local random_font = font_names[math.random(#font_names)]
 		font = wez.font(random_font)
 	end
+end
 
-	window_decorations = 'NONE'
+local hostname = wez.hostname()
+local enable_wayland = false
+local window_decorations = 'TITLE|RESIZE'
+local font_size = 16.0
+local font = wez.font 'Cousine'
+if hostname == 'x230' then
+	font = random_nerd_font();
+	enable_wayland = true
+elseif hostname == 'fedora' then
+	font = random_nerd_font();
+	enable_wayland = true
 end
 
 -- Equivalent to POSIX basename(3)
@@ -45,12 +45,12 @@ local function basename(s)
 end
 
 local exec_domains = {
-	-- Defines a domain called "scoped" that will run the requested
+	-- Defines a domain called "systemd" that will run the requested
 	-- command inside its own individual systemd scope.
 	-- This defines a strong boundary for resource control and can
 	-- help to avoid OOMs in one pane causing other panes to be
 	-- killed.
-	wez.exec_domain('scoped', function(cmd)
+	wez.exec_domain('systemd', function(cmd)
 		-- The "cmd" parameter is a SpawnCommand object.
 		-- You can log it to see what's inside:
 		wez.log_info(cmd)
@@ -102,6 +102,10 @@ return {
 	default_prog = { 'nu', '--login' },
 	default_cursor_style = 'SteadyBlock',
 
+	-- this effectivly maximizes wezterm
+	initial_rows = 200,
+	initial_cols = 200,
+
 	exec_domains = exec_domains,
 	-- unix_domains = { { name = 'mux' } },
 	-- default_gui_startup_args = { 'connect', 'mux' },
@@ -113,8 +117,8 @@ return {
 
 	font = font,
 	font_size = font_size,
-	freetype_load_target = 'Light',
-	freetype_render_target = 'HorizontalLcd',
+	-- freetype_load_target = 'Light',
+	-- freetype_render_target = 'HorizontalLcd',
 	-- underline_position = "-2pt",
 	warn_about_missing_glyphs = false,
 

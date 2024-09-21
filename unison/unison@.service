@@ -1,0 +1,9 @@
+[Unit]
+Description = Unison Sync for bugabingas profiles
+
+[Service]
+ExecStart = unison %i -include service
+Restart = on-failure
+
+[Install]
+WantedBy = default.target

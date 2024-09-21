@@ -1,5 +1,6 @@
 use prompt.nu *
 use commands.nu *
+use bw.nu
 use todo.nu
 use ssh-keygen-ed.nu
 use md.nu
@@ -21,3 +22,4 @@ source ($nu.default-config-dir | path join "scripts/direnv.nu")
 todo commands
 print (char nl)
 todo
+
