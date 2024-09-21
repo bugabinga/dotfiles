@@ -1,0 +1,32 @@
+#!/bin/bash
+
+rbwsearch() {
+	SEARCH_ARGS=()
+	RBW_ARGS=()
+
+	while [[ $# -gt 0 ]]; do
+		case $1 in
+		-f|--field)
+			RBW_ARGS+=("$1" "$2")
+			shift
+			shift
+			;;
+		-*)
+			RBW_ARGS+=("$1")
+			shift
+			;;
+		*)
+			SEARCH_ARGS+=("$1")
+			shift
+			;;
+		esac
+	done
+	rbw unlocked || rbw unlock || return
+	IFS=$'\t' read -r NAME FOLDER < <(rbw list --fields name,folder|sk -q "${SEARCH_ARGS[*]}")
+	if [ -n "$FOLDER" ]; then
+		RBW_ARGS+=("--folder" "$FOLDER")
+	fi
+	rbw get --clipboard "${RBW_ARGS[@]}" "$NAME"
+}
+
+rbwsearch $@

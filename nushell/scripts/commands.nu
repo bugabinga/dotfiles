@@ -16,3 +16,4 @@ export def --env yy [...args] {
 	}
 	rm -fp $tmp
 }
+

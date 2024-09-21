@@ -90,7 +90,7 @@ def create_right_prompt [] {
       $command_status_segment
       (ansi reset)
       (ansi dark_gray)
-      ( if (sys host).hostname == "x230" { (akku) } else { $time_segment })
+      ( $time_segment )
       (ansi reset)
     ] | str join
 }
@@ -107,3 +107,4 @@ export-env {
   $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta) (char prompt) (ansi reset)"
   $env.PROMPT_MULTILINE_INDICATOR = $"(ansi magenta) (char prompt)(char prompt) (ansi reset)"
 }
+

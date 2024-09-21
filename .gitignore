@@ -12,4 +12,14 @@ neovim/profile.svg
 .aider.chat.history.md
 
 .*syncthing.*
+
 tresor/github.key
+
+unison/*
+!unison/fedora.prf
+!unison/service
+!unison/sync
+!unison/unison@.service
+!unison/graphical
+!unison/ignores
+!unison/common
