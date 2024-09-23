@@ -33,7 +33,7 @@ local make_toggler = function ( display_name, options )
     display_name = display_name,
     options = options,
     toggle = toggle,
-    tostring = toggler_tostring,
+    tostring = toggler_tostring
   }
 end
 
@@ -43,7 +43,7 @@ local make_option = function ( name, alternative )
   return {
     name = name,
     default = option_value,
-    alternative = alternative,
+    alternative = alternative
   }
 end
 
@@ -51,10 +51,11 @@ local add_toggler = function ( display_name, options )
   table.insert( togglers, make_toggler( display_name, options ) )
 end
 
-add_toggler( icon.spelling,      { make_option 'spell', } )
-add_toggler( icon.linenumber,    { make_option 'number', make_option 'relativenumber', } )
-add_toggler( icon.linehighlight, { make_option 'cursorline', } )
-add_toggler( icon.virtual,       { make_option( 'virtualedit', 'all' ), } )
+add_toggler( icon.spelling,      { make_option 'spell' } )
+add_toggler( icon.linenumber,    { make_option 'number', make_option 'relativenumber' } )
+add_toggler( icon.linehighlight, { make_option 'cursorline' } )
+add_toggler( icon.wrap,          { make_option 'wrap' } )
+add_toggler( icon.virtual,       { make_option( 'virtualedit', 'all' ) } )
 
 local tostring = function ( self )
   return vim.iter( self )
@@ -65,5 +66,5 @@ local tostring = function ( self )
 end
 
 return setmetatable( togglers, {
-  __tostring = tostring,
+  __tostring = tostring
 } )

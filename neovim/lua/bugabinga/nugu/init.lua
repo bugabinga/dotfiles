@@ -45,45 +45,45 @@ vim.g.terminal_color_15 = ui_normal               -- white
 
 local set_group_properties = function ( self, properties )
   vim.validate {
-    properties = { properties, 'table', },
+    properties = { properties, 'table' },
     -- • fg (or foreground): color name or "#RRGGBB", see note.
-    ['properties.fg'] = { properties.fg, 'string', true, },
+    ['properties.fg'] = { properties.fg, 'string', true },
     -- • bg (or background): color name or "#RRGGBB", see note.
-    ['properties.bg'] = { properties.bg, 'string', true, },
+    ['properties.bg'] = { properties.bg, 'string', true },
     -- • sp (or special): color name or "#RRGGBB"
-    ['properties.sp'] = { properties.sp, 'string', true, },
+    ['properties.sp'] = { properties.sp, 'string', true },
     -- • blend: integer between 0 and 100
-    ['properties.blend'] = { properties.blend, 'number', true, },
+    ['properties.blend'] = { properties.blend, 'number', true },
     -- • bold: boolean
-    ['properties.bold'] = { properties.bold, 'boolean', true, },
+    ['properties.bold'] = { properties.bold, 'boolean', true },
     -- • standout: boolean
-    ['properties.standout'] = { properties.standout, 'boolean', true, },
+    ['properties.standout'] = { properties.standout, 'boolean', true },
     -- • underline: boolean
-    ['properties.underline'] = { properties.underline, 'boolean', true, },
+    ['properties.underline'] = { properties.underline, 'boolean', true },
     -- • undercurl: boolean
-    ['properties.undercurl'] = { properties.undercurl, 'boolean', true, },
+    ['properties.undercurl'] = { properties.undercurl, 'boolean', true },
     -- • underdotted: boolean
-    ['properties.underdotted'] = { properties.underdotted, 'boolean', true, },
+    ['properties.underdotted'] = { properties.underdotted, 'boolean', true },
     -- • underdashed: boolean
-    ['properties.underdashed'] = { properties.underdashed, 'boolean', true, },
+    ['properties.underdashed'] = { properties.underdashed, 'boolean', true },
     -- • strikethrough: boolean
-    ['properties.strikethrough'] = { properties.strikethrough, 'boolean', true, },
+    ['properties.strikethrough'] = { properties.strikethrough, 'boolean', true },
     -- • italic: boolean
-    ['properties.italic'] = { properties.italic, 'boolean', true, },
+    ['properties.italic'] = { properties.italic, 'boolean', true },
     -- • reverse: boolean
-    ['properties.reverse'] = { properties.reverse, 'boolean', true, },
+    ['properties.reverse'] = { properties.reverse, 'boolean', true },
     -- • nocombine: boolean
-    ['properties.nocombine'] = { properties.nocombine, 'boolean', true, },
+    ['properties.nocombine'] = { properties.nocombine, 'boolean', true },
     -- • default: Don't override existing definition |:hi-default|
-    ['properties.default'] = { properties.default, 'boolean', true, },
+    ['properties.default'] = { properties.default, 'boolean', true },
     -- • ctermfg: Sets foreground of cterm color |ctermfg|
-    ['properties.ctermfg'] = { properties.ctermfg, 'string', true, },
+    ['properties.ctermfg'] = { properties.ctermfg, 'string', true },
     -- • ctermbg: Sets background of cterm color |ctermbg|
-    ['properties.ctermbg'] = { properties.ctermbg, 'string', true, },
+    ['properties.ctermbg'] = { properties.ctermbg, 'string', true },
     -- • cterm: cterm attribute map, like |highlight-args|. If not set, cterm attributes will match those from the attribute map documented above.
-    ['properties.cterm'] = { properties.cterm, 'table', true, },
+    ['properties.cterm'] = { properties.cterm, 'table', true },
     -- • force: if true force update the highlight group when it exists.
-    ['properties.force'] = { properties.force, 'boolean', true, },
+    ['properties.force'] = { properties.force, 'boolean', true },
   }
   -- vim.print( 'SET GROUP PROPERTIES', self, properties )
   for key, value in pairs( properties ) do
@@ -116,73 +116,73 @@ local link_group = function ( self, key, value )
   end
 end
 
-local _ = setmetatable( { groups = {}, }, {
+local _ = setmetatable( { groups = {} }, {
   __index = add_group,
   __newindex = link_group,
 } )
 
-_.Debug { fg = ui_normal, bg = debug, bold = true, }
+_.Debug { fg = ui_normal, bg = debug, bold = true }
 
-_.Normal { fg = content_normal, bg = content_backdrop, }
-_.Comment { fg = content_important_global, }
-_.NotifyBackground { bg = ui_backdrop, }
-_.LineNr { fg = ui_minor, bg = content_backdrop, }
-_.CursorLineNr { fg = ui_focus, bg = ui_backdrop, }
-_.Search { bg = content_unfocus, }
-_.IncSearch { fg = content_focus, }
-_.CurSearch { fg = content_important_global, bg = content_unfocus, }
-_.NormalFloat { fg = ui_normal, bg = ui_backdrop, }
-_.FloatBorder { fg = _.NormalFloat.bg, bg = _.NormalFloat.bg, }
-_.ColorColumn { fg = ui_important_global, bg = _.Normal.bg, }
-_.Conceal { fg = content_focus, bg = _.Normal.bg, }
-_.Cursor { bg = ui_accent, }
+_.Normal { fg = content_normal, bg = content_backdrop }
+_.Comment { fg = content_important_global }
+_.NotifyBackground { bg = ui_backdrop }
+_.LineNr { fg = ui_minor, bg = content_backdrop }
+_.CursorLineNr { fg = ui_focus, bg = ui_backdrop }
+_.Search { bg = content_unfocus }
+_.IncSearch { fg = content_focus }
+_.CurSearch { fg = content_important_global, bg = content_unfocus }
+_.NormalFloat { fg = ui_normal, bg = ui_backdrop }
+_.FloatBorder { fg = _.NormalFloat.bg, bg = _.NormalFloat.bg }
+_.ColorColumn { fg = ui_important_global, bg = _.Normal.bg }
+_.Conceal { fg = content_focus, bg = _.Normal.bg }
+_.Cursor { bg = ui_accent }
 -- _.lCursor = _.Cursor
 -- _.CursorIM = _.Cursor
-_.Directory { fg = _.Normal.fg, }
-_.DiffAdd { fg = content_focus, }
-_.DiffDelete { fg = content_focus, strikethrough = true, }
-_.DiffChange { fg = content_important_global, }
-_.DiffText { fg = content_normal, bg = content_unfocus, }
+_.Directory { fg = _.Normal.fg }
+_.DiffAdd { fg = content_focus }
+_.DiffDelete { fg = content_focus, strikethrough = true }
+_.DiffChange { fg = content_important_global }
+_.DiffText { fg = content_normal, bg = content_unfocus }
 _.EndOfBuffer = _.Normal
 -- _.TermCursor = _.Cursor
 -- _.TermCursorNC = _.Cursor
-_.ErrorMsg { fg = error, }
-_.VertSplit { fg = ui_important_global, bg = _.LineNr.bg, }
+_.ErrorMsg { fg = error }
+_.VertSplit { fg = ui_important_global, bg = _.LineNr.bg }
 _.Folded = _.Conceal
 _.FoldColumn = _.LineNr
 _.SignColumn = _.LineNr
-_.ModeMsg { bold = true, }
+_.ModeMsg { bold = true }
 _.MsgArea = _.Normal
 _.MsgSeparator = _.Debug
 _.MoreMsg = _.Normal
-_.NonText { fg = content_unfocus, }
+_.NonText { fg = content_unfocus }
 _.Whitespace = _.NonText
 _.NormalNC = _.Normal
 _.Pmenu = _.NormalFloat
-_.PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = _.Pmenu.bg, bold = true, underline = true, }
-_.PmenuSbar { bg = ui_unfocus, }
-_.PmenuThumb { bg = ui_minor, }
-_.Question { fg = ui_important_local, bold = true, }
+_.PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = _.Pmenu.bg, bold = true, underline = true }
+_.PmenuSbar { bg = ui_unfocus }
+_.PmenuThumb { bg = ui_minor }
+_.Question { fg = ui_important_local, bold = true }
 _.QuickFixLine = _.PmenuSel
-_.SpecialKey { fg = error, bg = content_unfocus, bold = true, }
-_.SpellBad { fg = error, undercurl = true, }
+_.SpecialKey { fg = error, bg = content_unfocus, bold = true }
+_.SpellBad { fg = error, undercurl = true }
 _.SpellCap = _.SpellBad
 _.SpellLocal = _.SpellBad
 _.SpellRare = _.SpellBad
-_.StatusLine { fg = ui_focus, bg = ui_unfocus, }
-_.StatusLineNC { fg = ui_normal, bg = ui_unfocus, }
-_.Winbar { fg = ui_focus, bg = _.StatusLine.bg, }
-_.WinbarNC { fg = ui_minor, bg = _.LineNr.bg, }
-_.Title { fg = content_important_global, sp = content_important_global, bold = true, underline = true, }
+_.StatusLine { fg = ui_focus, bg = ui_unfocus }
+_.StatusLineNC { fg = ui_normal, bg = ui_unfocus }
+_.Winbar { fg = ui_focus, bg = _.StatusLine.bg }
+_.WinbarNC { fg = ui_minor, bg = _.LineNr.bg }
+_.Title { fg = content_important_global, sp = content_important_global, bold = true, underline = true }
 _.TabLine = _.StatusLine
-_.TabLineFill { fg = _.TabLine.fg, bg = content_backdrop, }
-_.TabLineSel { fg = ui_important_global, bg = ui_unfocus, }
-_.Visual { bg = content_unfocus, }
-_.VisualNOS { bg = ui_unfocus, }
-_.WarningMsg { fg = warning, bold = true, }
+_.TabLineFill { fg = _.TabLine.fg, bg = content_backdrop }
+_.TabLineSel { fg = ui_important_global, bg = ui_unfocus }
+_.Visual { bg = content_unfocus }
+_.VisualNOS { bg = ui_unfocus }
+_.WarningMsg { fg = warning, bold = true }
 _.WildMenu = _.Debug
 
-_.String { fg = content_important_local, italic = true, }
+_.String { fg = content_important_local, italic = true }
 _.Constant = _.String
 _.Character = _.String
 _.Number = _.String
@@ -193,16 +193,16 @@ _.Identifier = _.Normal
 _.MutableVariable = _.Debug
 _.Function = _.Normal
 
-_.Statement { fg = content_minor, }
+_.Statement { fg = content_minor }
 _.Conditional = _.Statement
 _.Repeat = _.Statement
 _.Label = _.Statement
 _.Operator = _.Statement
 _.Keyword = _.Statement
-_.Parameter { fg = content_focus, }
+_.Parameter { fg = content_focus }
 _.Exception = _.Statement
 
-_.PreProc { fg = content_important_global, bg = content_unfocus, bold = true, }
+_.PreProc { fg = content_important_global, bg = content_unfocus, bold = true }
 _.Include = _.PreProc
 _.Define = _.PreProc
 _.Macro = _.PreProc
@@ -213,48 +213,48 @@ _.StorageClass = _.Statement
 _.Structure = _.Statement
 _.Typedef = _.Statement
 
-_.Special { fg = content_normal, italic = true, bold = true, }
+_.Special { fg = content_normal, italic = true, bold = true }
 _.SpecialChar = _.Special
 _.Tag = _.Special
-_.Delimiter { fg = content_minor, }
+_.Delimiter { fg = content_minor }
 _.SpecialComment = _.Special
 
-_.Underlined { sp = content_normal, underline = true, }
-_.Bold { bold = true, }
-_.Italic { italic = true, }
+_.Underlined { sp = content_normal, underline = true }
+_.Bold { bold = true }
+_.Italic { italic = true }
 
-_.Ignore { fg = _.Normal.bg, bg = _.Normal.bg, }
+_.Ignore { fg = _.Normal.bg, bg = _.Normal.bg }
 
-_.Error { fg = error, }
-_.Todo { fg = content_important_global, sp = content_important_global, bold = true, underdouble = true, }
-_.DiagnosticUnnecessary { fg = ui_focus, }
-_.DiagnosticDeprecated { fg = ui_important_global, sp = ui_important_global, strikethrough = true, }
-_.DiagnosticError { fg = error, }
-_.DiagnosticWarn { fg = warning, }
-_.DiagnosticInfo { fg = info, }
-_.DiagnosticHint { fg = ui_important_local, }
-_.DiagnosticOk { fg = ui_minor, }
+_.Error { fg = error }
+_.Todo { fg = content_important_global, sp = content_important_global, bold = true, underdouble = true }
+_.DiagnosticUnnecessary { fg = ui_focus }
+_.DiagnosticDeprecated { fg = ui_important_global, sp = ui_important_global, strikethrough = true }
+_.DiagnosticError { fg = error }
+_.DiagnosticWarn { fg = warning }
+_.DiagnosticInfo { fg = info }
+_.DiagnosticHint { fg = ui_important_local }
+_.DiagnosticOk { fg = ui_minor }
 
 _.DiagnosticVirtualTextError = _.DiagnosticError
 _.DiagnosticVirtualTextWarn = _.DiagnosticWarn
 _.DiagnosticVirtualTextInfo = _.DiagnosticInfo
 _.DiagnosticVirtualTextHint = _.DiagnosticHint
 _.DiagnosticVirtualOkHint = _.DiagnosticOk
-_.DiagnosticUnderlineError { fg = _.DiagnosticError.fg, sp = _.DiagnosticError.fg, underdouble = true, }
-_.DiagnosticUnderlineWarn { fg = _.DiagnosticWarn.fg, sp = _.DiagnosticWarn.fg, underline = true, }
-_.DiagnosticUnderlineInfo { fg = _.DiagnosticInfo.fg, sp = _.DiagnosticInfo.fg, underdashed = true, }
-_.DiagnosticUnderlineHint { fg = _.DiagnosticHint.fg, sp = _.DiagnosticHint.fg, italic = true, underdotted = true, }
-_.DiagnosticUnderlineOk { fg = _.DiagnosticOk.fg, italic = true, }
+_.DiagnosticUnderlineError { fg = _.DiagnosticError.fg, sp = _.DiagnosticError.fg, underdouble = true }
+_.DiagnosticUnderlineWarn { fg = _.DiagnosticWarn.fg, sp = _.DiagnosticWarn.fg, underline = true }
+_.DiagnosticUnderlineInfo { fg = _.DiagnosticInfo.fg, sp = _.DiagnosticInfo.fg, underdashed = true }
+_.DiagnosticUnderlineHint { fg = _.DiagnosticHint.fg, sp = _.DiagnosticHint.fg, italic = true, underdotted = true }
+_.DiagnosticUnderlineOk { fg = _.DiagnosticOk.fg, italic = true }
 _.DiagnosticSignError = _.DiagnosticError
 _.DiagnosticSignWarn = _.DiagnosticWarn
 _.DiagnosticSignInfo = _.DiagnosticInfo
 _.DiagnosticSignHint = _.DiagnosticHint
 _.DiagnosticSignOk = _.DiagnosticOk
 
-_.LspReferenceText { sp = content_unfocus, underline = true, }
+_.LspReferenceText { sp = content_unfocus, underline = true }
 _.LspReferenceRead = _.LspReferenceText
 _.LspReferenceWrite = _.LspReferenceText
-_.LspInlayHint { fg = content_minor, bg = _.Normal.bg, }
+_.LspInlayHint { fg = content_minor, bg = _.Normal.bg }
 
 _['@text.literal'] = _.Comment
 _['@text.reference'] = _.Identifier
@@ -290,7 +290,7 @@ _['@repeat'] = _.Repeat
 _['@label'] = _.Label
 _['@operator'] = _.Operator
 _['@keyword'] = _.Keyword
-_['@keyword.return'] { fg = _.Keyword.fg, bg = _.Keyword.bg, underline = true, bold = true, }
+_['@keyword.return'] { fg = _.Keyword.fg, bg = _.Keyword.bg, underline = true, bold = true }
 _['@exception'] = _.Exception
 _['@variable'] = _.Identifier
 _['@variable.parameter'] = _.Parameter
@@ -325,23 +325,23 @@ _['@lsp.type.macro'] = _['@macro']
 _['@lsp.type.decorator'] = _['@function']
 
 _.LazyButton = _.NormalFloat
-_.LazyButton { sp = _.NormalFloat.fg, bold = true, }
-_.LazyButtonActive { fg = ui_focus, sp = _.NormalFloat.fg, bg = ui_important_local, bold = true, }
+_.LazyButton { sp = _.NormalFloat.fg, bold = true }
+_.LazyButtonActive { fg = ui_focus, sp = _.NormalFloat.fg, bg = ui_important_local, bold = true }
 _.LazyComment = _.Keyword
 _.LazyCommit = _.LazyComment
 _.LazyCommitIssue = _.LazyComment
 _.LazyCommitScope = _.LazyComment
-_.LazyCommitScope { italic = true, }
+_.LazyCommitScope { italic = true }
 _.LazyCommitType = _.LazyCommitScope
-_.LazyDimmed { fg = _.NormalFloat.fg, }
-_.LazyDir { fg = _.NormalFloat.fg, }
+_.LazyDimmed { fg = _.NormalFloat.fg }
+_.LazyDir { fg = _.NormalFloat.fg }
 _.LazyH1 = _.Bold
 _.LazyH2 = _.LazyH1
 _.LazyLocal {}
 _.LazyNoCond = _.WarningMsg
 _.LazyNormal = _.NormalFloat
-_.LazyProgressDone { fg = _.Search.bg, bg = _.Cursor.bg, bold = true, }
-_.LazyProgressTodo { fg = _.LazyProgressDone.bg, bg = _.LazyProgressDone.fg, bold = true, }
+_.LazyProgressDone { fg = _.Search.bg, bg = _.Cursor.bg, bold = true }
+_.LazyProgressTodo { fg = _.LazyProgressDone.bg, bg = _.LazyProgressDone.fg, bold = true }
 _.LazyProp = _.LazyComment
 _.LazyReasonCmd = _.NormalFloat
 _.LazyReasonEvent = _.NormalFloat
@@ -352,194 +352,32 @@ _.LazyReasonPlugin = _.NormalFloat
 _.LazyReasonRuntime = _.NormalFloat
 _.LazyReasonSource = _.NormalFloat
 _.LazyReasonStart = _.NormalFloat
-_.LazySpecial { fg = _.ColorColumn.fg, }
+_.LazySpecial { fg = _.ColorColumn.fg }
 _.LazyTaskError = _.ErrorMsg
 _.LazyTaskOutput = _.Debug
-_.LazyUrl { sp = _.NormalFloat.fg, italic = true, underline = true, }
-_.LazyValue { italic = true, }
-
--- _.NoiceCmdline = _.NormalFloat
--- _.NoiceCmdlineIcon { fg = ui_accent, }
--- _.NoiceCmdlineIconCalculator = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconCmdline = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconFilter = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconHelp = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconIncRename = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconInput = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconLua = _.NoiceCmdlineIcon
--- _.NoiceCmdlineIconSearch = _.NoiceCmdlineIcon
---
--- _.NoiceCmdlinePopup = _.NormalFloat
--- _.NoiceCmdlinePopupBorder = _.FloatBorder
--- _.NoiceCmdlinePopupBorderCalculator = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderCmdline = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderFilter = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderHelp = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderIncRename = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderInput = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderLua = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupBorderSearch = _.NoiceCmdlinePopupBorder
--- _.NoiceCmdlinePopupTitle = _.NoiceCmdlinePopup
--- _.NoiceCmdlinePrompt = _.NoiceCmdlinePopup
--- _.NoiceCompletionItemKindDefault { fg = ui_normal, }
--- _.NoiceCompletionItemKindClass = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindColor = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindConstant = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindConstructor = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindEnum = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindEnumMember = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindField = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindFile = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindFolder = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindFunction = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindInterface = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindKeyword = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindMethod = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindModule = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindProperty = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindSnippet = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindStruct = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindText = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindUnit = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindValue = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemKindVariable = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemMenu = _.NoiceCompletionItemKindDefault
--- _.NoiceCompletionItemWord = _.NoiceCompletionItemKindDefault
---
--- _.NoiceConfirm = _.NormalFloat
--- _.NoiceConfirmBorder = _.FloatBorder
--- _.NoiceFormatConfirm = _.LazyButton
--- _.NoiceFormatConfirmDefault = _.LazyButtonActive
---
--- _.NoiceCursor = _.Cursor
---
--- _.NoiceFormatDate = _.NonText
--- _.NoiceFormatEvent = _.NonText
--- _.NoiceFormatKind = _.NonText
--- _.NoiceFormatLevelDebug { fg = _.Debug.bg, }
--- _.NoiceFormatLevelError = _.DiagnosticError
--- _.NoiceFormatLevelInfo = _.DiagnosticInfo
--- _.NoiceFormatLevelOff { fg = content_minor, }
--- _.NoiceFormatLevelTrace = _.DiagnosticHint
--- _.NoiceFormatLevelWarn = _.DiagnosticWarn
--- _.NoiceFormatProgressDone = _.LazyProgressDone
--- _.NoiceFormatProgressTodo = _.LazyProgressTodo
--- _.NoiceFormatTitle = _.Title
---
--- _.NoiceLspProgressClient = _.Debug
--- _.NoiceLspProgressSpinner = _.Debug
--- _.NoiceLspProgressTitle = _.Debug
---
--- _.NoiceMini = _.DiagnosticInfo
---
--- _.NoicePopup = _.NormalFloat
--- _.NoicePopupBorder = _.FloatBorder
---
--- _.NoicePopupmenu = _.Pmenu
--- _.NoicePopupmenuBorder = _.FloatBorder
--- _.NoicePopupmenuMatch = _.Bold
--- _.NoicePopupmenuSelected = _.PmenuSel
---
--- _.NoiceScrollbar = _.PmenuSbar
--- _.NoiceScrollbarThumb = _.PmenuThumb
---
--- _.NoiceSplit = _.Normal
--- _.NoiceSplitBorder = _.FloatBorder
--- _.NoiceVirtualText { fg = ui_important_global, bg = ui_unfocus, }
--- _.NotifyERRORBorder { fg = _.DiagnosticError.fg, bg = _.FloatBorder.bg, }
--- _.NotifyWARNBorder { fg = _.DiagnosticWarn.fg, bg = _.FloatBorder.bg, }
--- _.NotifyINFOBorder { fg = _.DiagnosticInfo.fg, bg = _.FloatBorder.bg, }
--- _.NotifyDEBUGBorder { fg = _.Debug.bg, bg = _.FloatBorder.bg, }
--- _.NotifyTRACEBorder { fg = _.DiagnosticHint.fg, bg = _.FloatBorder.bg, }
---
--- _.NotifyERRORIcon { fg = _.DiagnosticError.fg, }
--- _.NotifyWARNIcon { fg = _.DiagnosticWarn.fg, }
--- _.NotifyINFOIcon { fg = _.DiagnosticInfo.fg, }
--- _.NotifyDEBUGIcon { fg = _.Debug.bg, }
--- _.NotifyTRACEIcon { fg = _.DiagnosticHint.fg, }
---
--- _.NotifyERRORTitle { fg = _.DiagnosticError.fg, }
--- _.NotifyWARNTitle { fg = _.DiagnosticWarn.fg, }
--- _.NotifyINFOTitle { fg = _.DiagnosticInfo.fg, }
--- _.NotifyDEBUGTitle { fg = _.Debug.bg, }
--- _.NotifyTRACETitle { fg = _.DiagnosticHint.fg, }
---
--- _.NotifyERRORBody = _.NormalFloat
--- _.NotifyWARNBody = _.NormalFloat
--- _.NotifyINFOBody = _.NormalFloat
--- _.NotifyDEBUGBody = _.NormalFloat
--- _.NotifyTRACEBody = _.NormalFloat
+_.LazyUrl { sp = _.NormalFloat.fg, italic = true, underline = true }
+_.LazyValue { italic = true }
 
 _.TelescopeSelectionCaret = _.PmenuSel
 _.TelescopeSelection = _.PmenuSel
-_.TelescopeMultiSelection { fg = content_normal, bg = ui_important_local, }
+_.TelescopeMultiSelection { fg = content_normal, bg = ui_important_local }
 
-_.FlashBackdrop { fg = ui_normal, bg = ui_backdrop, }
+_.FlashBackdrop { fg = ui_normal, bg = ui_backdrop }
 _.FlashMatch = _.IncSearch
 _.FlashCurrent = _.CurSearch
-_.FlashLabel { fg = ui_accent, bg = ui_backdrop, }
+_.FlashLabel { fg = ui_accent, bg = ui_backdrop }
 
-_.GitSignsAdd { fg = _.DiffAdd.fg, bg = _.LineNr.bg, }
-_.GitSignsChange { fg = _.DiffChange.fg, bg = _.LineNr.bg, }
-_.GitSignsDelete { fg = _.DiffDelete.fg, bg = _.LineNr.bg, }
-
-_.GitSignsChangedelete = _.GitSignsChange
-_.GitSignsTopdelete = _.GitSignsDelete
-_.GitSignsUntracked = _.GitSignsAdd
-
-_.GitSignsAddNr = _.GitSignsAdd
-_.GitSignsChangeNr = _.GitSignsChange
-_.GitSignsDeleteNr = _.GitSignsDelete
-
-_.GitSignsChangedeleteNr = _.GitSignsChange
-_.GitSignsTopdeleteNr = _.GitSignsDelete
-_.GitSignsUntrackedNr = _.GitSignsAdd
-
-_.GitSignsAddLn = _.GitSignsAdd
-_.GitSignsChangeLn = _.GitSignsChange
-_.GitSignsChangedeleteLn = _.GitSignsChange
-_.GitSignsUntrackedLn = _.GitSignsAdd
-
-_.GitSignsAddPreview = _.GitSignsAdd
-_.GitSignsDeletePreview = _.GitSignsDelete
-
-_.GitSignsCurrentLineBlame = _.NonText
-_.GitSignsAddInline = _.GitSignsAdd
-_.GitSignsDeleteInline = _.GitSignsDelete
-_.GitSignsChangeInline = _.GitSignsChange
-
-_.GitSignsAddLnInline = _.DiffText
-_.GitSignsDeleteLnInline = _.DiffText
-_.GitSignsChangeLnInline = _.DiffText
-
-_.GitSignsDeleteVirtLn = _.GitSignsDelete
-_.GitSignsDeleteVirtLnInLine = _.DiffText
-_.GitSignsVirtLnum { fg = _.LineNr.fg, }
-
-_.WhichKey { fg = ui_important_global, }
-_.WhichKeyGroup { fg = ui_important_local, }
-_.WhichKeySeparator { fg = ui_minor, }
-_.WhichKeyDesc { fg = ui_normal, }
+_.WhichKey { fg = ui_important_global }
+_.WhichKeyGroup { fg = ui_important_local }
+_.WhichKeySeparator { fg = ui_minor }
+_.WhichKeyDesc { fg = ui_normal }
 _.WhichKeyFloat = _.NormalFloat
 _.WhichKeyBorder = _.FloatBorder
 _.WhichKeyValue = _.Comment
 
 _.IblIndent = _.Whitespace
 _.IblWhitespace = _.Whitespace
-_.IblScope { fg = ui_focus, bg = _.Normal.bg, }
-
-
-_.MiniStarterCurrent { fg = ui_normal, bg = ui_accent, }
-_.MiniStarterFooter = _.Keyword
-_.MiniStarterHeader = _.Comment
-_.MiniStarterInactive { fg = content_unfocus, }
-_.MiniStarterItem = _.Normal
-_.MiniStarterItemBullet = _.Whitespace
-_.MiniStarterItemPrefix { fg = content_focus, }
-_.MiniStarterSection { fg = content_important_global, underline = true, }
-_.MiniStarterQuery { fg = content_normal, bg = content_accent, }
-
---TODO: Oil highlights
+_.IblScope { fg = ui_focus, bg = _.Normal.bg }
 
 return function ()
   preview.setup()

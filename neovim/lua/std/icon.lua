@@ -108,4 +108,5 @@ return {
   virtual         = '󰢔',
   visual          = '󰒉',
   warn            = '󰱯',
+  wrap            = '󰖶'
 }
