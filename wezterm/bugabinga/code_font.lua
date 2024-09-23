@@ -3,7 +3,7 @@ local wez = require 'wezterm'
 return {
   random = function ()
     local font_names = {}
-    local nerdfonts = io.open( wez.config_dir .. '/bugabinga/nerdfonts', 'r' )
+    local nerdfonts = io.open( wez.config_dir .. '/bugabinga/code_fonts', 'r' )
     if nerdfonts then
       for font_name in nerdfonts:lines() do
         if not font_name:match '^#.*' then
