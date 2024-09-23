@@ -31,13 +31,21 @@ if not (which nvim | is-empty) {
 	$env.GIT_EDITOR = 'nvim'
 }
 
-
 if not (which neovide | is-empty) {
 	$env.VISUAL = 'neovide'
 }
 
 if ($env | get -i TERM_PROGRAM) == WezTerm {
   $env.TERM =  "xterm-256color"
+}
+
+if ( not $env.WIN32 )  {
+	let tools_bin = ( $env.TOOLS | path join bin )
+	$env.PATH = (
+		$env.PATH |
+		split row (char esep) |
+		prepend $tools_bin
+	)
 }
 
 # theme for ls and other programs, that use LS_COLORS

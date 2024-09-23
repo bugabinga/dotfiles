@@ -70,6 +70,9 @@ zed
 rbw
 ~/.config/rbw
 
+broot
+~/.config/broot
+
 aerc/binds.conf
 ~/.config/aerc/binds.conf
 
@@ -82,3 +85,11 @@ unison
 unison/unison@.service
 ~/.config/systemd/user/unison@.service
 
+unison/unison@.timer
+~/.config/systemd/user/unison@.timer
+
+pueue
+~/.config/pueue
+
+pueue/pueued.service
+~/.config/systemd/user/pueued.service

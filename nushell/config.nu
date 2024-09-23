@@ -25,3 +25,5 @@ $env.config = {
     isolation: true
   }
 }
+
+use '/home/oli/.config/broot/launcher/nushell/br' *

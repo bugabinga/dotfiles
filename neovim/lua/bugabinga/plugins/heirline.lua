@@ -14,6 +14,11 @@ return {
       'nvim-tree/nvim-web-devicons',
       { 'echasnovski/mini.diff', lazy = true, },
       { 'SmiteshP/nvim-navic',   lazy = true, },
+      {
+        'linrongbin16/lsp-progress.nvim',
+        config = true,
+        lazy = false,
+      },
     },
     config = function ()
       local heirline = require 'heirline'
@@ -174,7 +179,7 @@ return {
 
       local file_type = {
         provider = function ()
-          return icon.file .. ' ' .. string.upper( vim.bo.filetype )
+          return icon.file .. ' ' .. string.lower( vim.bo.filetype )
         end,
       }
 
@@ -235,6 +240,19 @@ return {
           end
           return icon.lsp .. ' ' .. table.concat( names, ' ' )
         end,
+      }
+
+      local lsp_progress = {
+        provider = function ()
+          return require 'lsp-progress'.progress()
+        end,
+        update = {
+          'User',
+          pattern = 'LspProgressStatusUpdated',
+          callback = vim.schedule_wrap( function ()
+            vim.cmd 'redrawstatus'
+          end ),
+        },
       }
 
       local navic = {
@@ -332,15 +350,6 @@ return {
         end,
         -- hl = { fg = 'gray', },
         update = 'CursorMoved',
-      }
-
-      local diagnostic_enabled = {
-        init = function ( self )
-          self.icon = (not vim.diagnostic.is_enabled()) and icon.toggle_off or icon.toggle_on
-        end,
-        provider = function ( self )
-          return icon.diagnostic .. ' ' .. self.icon
-        end,
       }
 
       local diagnostic = {
@@ -515,13 +524,6 @@ return {
         hl = 'Bold',
       }
 
-      local togglers = {
-        provider = function ()
-          local togglers = require 'bugabinga.options.togglers'
-          return tostring( togglers )
-        end,
-      }
-
       local macro_recording = {
         condition = function ()
           return vim.fn.reg_recording() ~= '' and vim.o.cmdheight == 0
@@ -569,15 +571,14 @@ return {
         svn,
         align,
         diagnostic,
-        space,
-        lsp_active,
         align,
-        togglers,
         space,
-        space,
-        diagnostic_enabled,
         space,
         lazy,
+        space,
+        lsp_active,
+        space,
+        lsp_progress,
         space,
         file_encoding,
         space,

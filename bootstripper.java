@@ -12,16 +12,24 @@ class bootstripper {
     public static void main(String[] arguments) throws Throwable {
         var dorkfile_path_input = ".";
         var do_clean = false;
+        var do_decrypt = false;
 
         if (arguments.length == 1) {
             if ("clean".equals(arguments[0])) {
                 do_clean = true;
-            } else {
+            }
+						else if( "decrypt".equals(arguments[0])) {
+							do_decrypt = true;
+						} else {
                 dorkfile_path_input = arguments[0];
             }
         } else if (arguments.length == 2) {
             if ("clean".equals(arguments[0])) {
                 do_clean = true;
+                dorkfile_path_input = arguments[1];
+            }
+						else if ("decrypt".equals(arguments[0])) {
+                do_decrypt = true;
                 dorkfile_path_input = arguments[1];
             } else {
                 usage();
@@ -34,24 +42,26 @@ class bootstripper {
         var dorkfiles_root = Path.of(dorkfile_path_input).toRealPath();
         log("Assuming dorkfiles root repo in {0}.",
                 emphasize_local(dorkfiles_root.toString()));
-        if (!do_clean)
-            decrypt_secrets(dorkfiles_root.resolve("tresor"));
-        var hostname = hostname();
-        log("Hostname: {0}", emphasize_global(hostname));
-        var symlinks_file = dorkfiles_root.resolve(hostname + ".symlinks");
-        if (Files.exists(symlinks_file)) {
-            if (do_clean)
-                delete_symlinks(dorkfiles_root, symlinks_file);
-            else
-                create_symlinks(dorkfiles_root, symlinks_file);
-        } else {
-            throw fail("Expected a file containing symlinks at: {0}. Found nothing!",
-                    symlinks_file);
-        }
+        if (do_decrypt) {
+					decrypt_secrets(dorkfiles_root.resolve("tresor"));
+				} else {
+					var hostname = hostname();
+					log("Hostname: {0}", emphasize_global(hostname));
+					var symlinks_file = dorkfiles_root.resolve(hostname + ".symlinks");
+					if (Files.exists(symlinks_file)) {
+							if (do_clean)
+									delete_symlinks(dorkfiles_root, symlinks_file);
+							else
+									create_symlinks(dorkfiles_root, symlinks_file);
+					} else {
+							throw fail("Expected a file containing symlinks at: {0}. Found nothing!",
+											symlinks_file);
+					}
+				}
     }
 
     static void decrypt_secrets(Path secrets_root) throws Throwable {
-        log("{0}:Decrypting files in {1} folder.", emphasize_global("TODO"),
+        log("{0}:Decrypting files in {1} folder, using rbw.", emphasize_global("TODO"),
                 emphasize_local(secrets_root.getFileName().toString()));
     }
 
@@ -75,15 +85,14 @@ class bootstripper {
         var target_path = Path.of(target.replace("~", home)).toAbsolutePath();
 
         if (Files.exists(target_path, LinkOption.NOFOLLOW_LINKS)) {
-            var symlink_target = target_path.toRealPath();
-            if (symlink_target.compareTo(source_path) == 0) {
-                log("\nOK {0} exists and points to {1} in dorkfiles!\nDeleting {0}.",
+            if (Files.isSymbolicLink(target_path)) {
+                log("\nOK {0} exists and points to {1}, a symlink indeed!\nDeleting {0}.",
                         emphasize_global(target_path.toString()),
                         emphasize_local(source_path.toString()));
                 // a symlink is always a file. no need to handle folders
                 Files.delete(target_path);
             } else {
-                log("\nNOPE {0} exists, but it points outside of dorkfiles! Clean manually.",
+                log("\nNOPE {0} exists, but it is not a symlink! Clean manually.",
                         target_path.toString());
             }
         }
