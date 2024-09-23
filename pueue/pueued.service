@@ -1,0 +1,9 @@
+[Unit]
+Description=Pueue Daemon - CLI process scheduler and manager
+
+[Service]
+Restart=no
+ExecStart=%h/.cargo/bin/pueued -vvv
+
+[Install]
+WantedBy=default.target

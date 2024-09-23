@@ -6,6 +6,9 @@ use ssh-keygen-ed.nu
 use md.nu
 use start.nu
 use timer.nu
+use dwnld.nu
+use packages.nu
+use fedora_bootstrip.nu
 
 if $env.WIN32 {
 	use refreshenv.nu *

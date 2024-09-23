@@ -38,6 +38,7 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* make assignment to map.x fail, e.g. `map.normal = {}`...
 * figure out desirable cmp key maps
 * try loading lsp async for better startup perf
 * navic highlights do not fit winbar

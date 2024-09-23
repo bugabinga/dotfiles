@@ -48,7 +48,6 @@ return {
         g = { name = '|g|enerate', _ = 'which_key_ignore', },
         d = { name = '|d|ebug', _ = 'which_key_ignore', },
         v = { name = '|v|ersion control', _ = 'which_key_ignore', },
-        s = { name = '|s|essions', _ = 'which_key_ignore', },
         r = { name = '|r|efactor', _ = 'which_key_ignore', },
         t = { name = '|t|oggle', _ = 'which_key_ignore', },
         w = { name = 's|w|ap', _ = 'which_key_ignore', },

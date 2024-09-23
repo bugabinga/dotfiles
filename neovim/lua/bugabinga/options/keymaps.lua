@@ -38,6 +38,27 @@ map.normal {
   end,
 }
 
+map.normal {
+  description = 'Yanks the selected text (in normal mode or visual mode) to the system clipboard.',
+  category = 'editing',
+  keys = '<leader>y',
+  command = '"+y',
+}
+
+map.normal {
+  description = 'Pastes from the system clipboard (in normal mode or visual mode).',
+  category = 'editing',
+  keys = '<leader>p',
+  command = '"+p',
+}
+
+map.normal {
+  description = 'Yanks the entire line (when used in normal mode with motion).',
+  category = 'editing',
+  keys = '<leader>Y',
+  command = '"+Y',
+}
+
 -- disable command history keymap, because i fatfinger it too often
 map {
   keys = 'q:',
@@ -133,7 +154,7 @@ map.normal {
     else
       vim.opt.background = 'dark'
     end
----@diagnostic disable-next-line: undefined-field
+    ---@diagnostic disable-next-line: undefined-field
     vim.notify( 'Toggled background to ' .. vim.opt.background:get() .. '.' )
   end,
 }
