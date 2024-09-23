@@ -9,16 +9,10 @@ return {
   {
     'rebelot/heirline.nvim',
     version = '1.*',
-    event = 'VeryLazy',
+    lazy = false,
     dependencies = {
+      -- FIXME: use my own icons
       'nvim-tree/nvim-web-devicons',
-      { 'echasnovski/mini.diff', lazy = true, },
-      { 'SmiteshP/nvim-navic',   lazy = true, },
-      {
-        'linrongbin16/lsp-progress.nvim',
-        config = true,
-        lazy = false,
-      },
     },
     config = function ()
       local heirline = require 'heirline'
@@ -102,7 +96,7 @@ return {
 
         hl = function ( self )
           local mode = self.mode:sub( 1, 1 ) -- get only the first mode character
-          return { fg = self.mode_colors[mode], bold = true, }
+          return { fg = self.mode_colors[mode], bold = true }
         end,
 
         update = {
@@ -118,7 +112,7 @@ return {
         init = function ( self )
           local filename = self.filename
           local extension = vim.fn.fnamemodify( filename, ':e' )
-          self.icon = require 'nvim-web-devicons'.get_icon_color( filename, extension, { default = true, } )
+          self.icon = require 'nvim-web-devicons'.get_icon_color( filename, extension, { default = true } )
         end,
         provider = function ( self )
           return self.icon and (self.icon .. ' ')
@@ -171,10 +165,10 @@ return {
         end,
 
         file_icon,
-        { provider = ' ', },
+        { provider = ' ' },
         file_name,
         file_flags,
-        { provider = '%<', }, -- this means that the statusline is cut here when there's not enough space
+        { provider = '%<' }, -- this means that the statusline is cut here when there's not enough space
       }
 
       local file_type = {
@@ -206,7 +200,7 @@ return {
         provider = function ()
           -- stackoverflow, compute human readable file size
           -- i want to see vim opening a 1EiB file 󰱯
-          local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E', }
+          local suffix = { 'b', 'k', 'M', 'G', 'T', 'P', 'E' }
           local fsize = vim.fn.getfsize( vim.api.nvim_buf_get_name( 0 ) )
           fsize = (fsize < 0 and 0) or fsize
           if fsize < 1024 then
@@ -231,125 +225,15 @@ return {
         condition = conditions.lsp_attached,
         -- FIXME: updates from parent components do not seem to update children,
         -- if those have their own updates?
-        update = { 'LspAttach', 'LspDetach', 'BufEnter', 'BufLeave', },
+        update = { 'LspAttach', 'LspDetach', 'BufEnter', 'BufLeave' },
 
         provider = function ()
           local names = {}
-          for _, client in pairs( vim.lsp.get_clients { bufnr = 0, } ) do
+          for _, client in pairs( vim.lsp.get_clients { bufnr = 0 } ) do
             table.insert( names, client.name )
           end
           return icon.lsp .. ' ' .. table.concat( names, ' ' )
         end,
-      }
-
-      local lsp_progress = {
-        provider = function ()
-          return require 'lsp-progress'.progress()
-        end,
-        update = {
-          'User',
-          pattern = 'LspProgressStatusUpdated',
-          callback = vim.schedule_wrap( function ()
-            vim.cmd 'redrawstatus'
-          end ),
-        },
-      }
-
-      local navic = {
-        condition = function ()
-          local ok, navic = pcall( require, 'nvim-navic' )
-          return ok and navic.is_available()
-        end,
-        static = {
-          -- create a type highlight map
-          type_hl = {
-            File = 'Directory',
-            Module = '@include',
-            Namespace = '@namespace',
-            Package = '@include',
-            Class = '@structure',
-            Method = '@method',
-            Property = '@property',
-            Field = '@field',
-            Constructor = '@constructor',
-            Enum = '@field',
-            Interface = '@type',
-            Function = '@function',
-            Variable = '@variable',
-            Constant = '@constant',
-            String = '@string',
-            Number = '@number',
-            Boolean = '@boolean',
-            Array = '@field',
-            Object = '@type',
-            Key = '@keyword',
-            Null = '@comment',
-            EnumMember = '@field',
-            Struct = '@structure',
-            Event = '@keyword',
-            Operator = '@operator',
-            TypeParameter = '@type',
-          },
-          -- bit operation dark magic, see below...
-          enc = function ( line, col, winnr )
-            return bit.bor( bit.lshift( line, 16 ), bit.lshift( col, 6 ), winnr )
-          end,
-          -- line: 16 bit (65535); col: 10 bit (1023); winnr: 6 bit (63)
-          dec = function ( c )
-            local line = bit.rshift( c, 16 )
-            local col = bit.band( bit.rshift( c, 6 ), 1023 )
-            local winnr = bit.band( c, 63 )
-            return line, col, winnr
-          end,
-        },
-        init = function ( self )
-          local data = require 'nvim-navic'.get_data() or {}
-          local children = {}
-          -- create a child for each level
-          for i, d in ipairs( data ) do
-            -- encode line and column numbers into a single integer
-            local pos = self.enc( d.scope.start.line, d.scope.start.character, self.winnr )
-            local child = {
-              {
-                provider = d.icon,
-                hl = self.type_hl[d.type],
-              },
-              {
-                -- escape `%`s (elixir) and buggy default separators
-                provider = d.name:gsub( '%%', '%%%%' ):gsub( '%s*->%s*', '' ),
-                -- highlight icon only or location name as well
-                hl = self.type_hl[d.type],
-
-                on_click = {
-                  -- pass the encoded position through minwid
-                  minwid = pos,
-                  callback = function ( _, minwid )
-                    -- decode
-                    local line, col, winnr = self.dec( minwid )
-                    vim.api.nvim_win_set_cursor( vim.fn.win_getid( winnr ), { line, col, } )
-                  end,
-                  name = 'heirline_navic',
-                },
-              },
-            }
-            -- add a separator only if needed
-            if #data > 1 and i < #data then
-              table.insert( child, {
-                provider = ' > ',
-                -- hl = { fg = 'bright_fg', },
-              } )
-            end
-            table.insert( children, child )
-          end
-          -- instantiate the new child, overwriting the previous one
-          self.child = self:new( children, 1 )
-        end,
-        -- evaluate the children containing navic components
-        provider = function ( self )
-          return self.child:eval()
-        end,
-        -- hl = { fg = 'gray', },
-        update = 'CursorMoved',
       }
 
       local diagnostic = {
@@ -363,13 +247,13 @@ return {
         },
 
         init = function ( self )
-          self.errors = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.ERROR, } )
-          self.warnings = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.WARN, } )
-          self.hints = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.HINT, } )
-          self.info = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.INFO, } )
+          self.errors = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.ERROR } )
+          self.warnings = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.WARN } )
+          self.hints = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.HINT } )
+          self.info = #vim.diagnostic.get( 0, { severity = vim.diagnostic.severity.INFO } )
         end,
 
-        update = { 'DiagnosticChanged', 'BufEnter', 'BufLeave', },
+        update = { 'DiagnosticChanged', 'BufEnter', 'BufLeave' },
 
         {
           provider = function ( self )
@@ -412,12 +296,12 @@ return {
       local svn_get_relative_url = function ()
         -- FIXME: replace with vim.system
         local job = require 'plenary.job'
-        local relative_url = { '[ERR]', }
+        local relative_url = { '[ERR]' }
 
         job
           :new {
             command = 'svn',
-            args = { 'info', '--show-item', 'relative-url', '--no-newline', },
+            args = { 'info', '--show-item', 'relative-url', '--no-newline' },
             on_exit = function ( current_job, exit_code )
               if exit_code == 0 then
                 relative_url = current_job:result()
@@ -530,7 +414,7 @@ return {
         end,
         provider = icon.macro .. ' ',
         hl = 'PreProc',
-        utils.surround( { '░▒▓ ', ' ▓▒░', }, nil, {
+        utils.surround( { '░▒▓ ', ' ▓▒░' }, nil, {
           provider = function ()
             return vim.fn.reg_recording()
           end,
@@ -547,7 +431,7 @@ return {
           local ok, lazy_status = pcall( require, 'lazy.status' )
           return ok and lazy_status.has_updates()
         end,
-        update = { 'User', pattern = 'LazyUpdate', },
+        update = { 'User', pattern = 'LazyUpdate' },
         provider = function ()
           return ' ' .. icon.lazy .. ' ' .. require 'lazy.status'.updates() .. ' '
         end,
@@ -559,8 +443,8 @@ return {
         },
       }
 
-      local align = { provider = '%=', }
-      local space = { provider = ' ', }
+      local align = { provider = '%=' }
+      local space = { provider = ' ' }
 
       local default_statusline = {
         vi_mode,
@@ -577,8 +461,6 @@ return {
         lazy,
         space,
         lsp_active,
-        space,
-        lsp_progress,
         space,
         file_encoding,
         space,
@@ -608,10 +490,10 @@ return {
       local terminal_statusline = {
 
         condition = function ()
-          return conditions.buffer_matches { buftype = { 'terminal', }, }
+          return conditions.buffer_matches { buftype = { 'terminal' } }
         end,
 
-        { condition = conditions.is_active, vi_mode, space, },
+        { condition = conditions.is_active, vi_mode, space },
         file_type,
         space,
         terminal_name,
@@ -656,7 +538,7 @@ return {
 
         {
           condition = function ()
-            return conditions.buffer_matches { buftype = { 'terminal', }, }
+            return conditions.buffer_matches { buftype = { 'terminal' } }
           end,
 
           file_type,
@@ -666,8 +548,6 @@ return {
 
         {
           file_name_block,
-          space,
-          navic,
         },
       }
 
@@ -787,7 +667,7 @@ return {
       }
 
       local tab_pages = {
-        { provider = '%=', },
+        { provider = '%=' },
         utils.make_tablist( tabpage ),
       }
 

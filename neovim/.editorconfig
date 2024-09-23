@@ -32,7 +32,7 @@ end_of_line = lf
 table_separator_style = comma
 
 #optional keep/never/always/smart
-trailing_table_separator = always
+trailing_table_separator = smart
 
 # keep/remove/remove_table_only/remove_string_only
 call_arg_parentheses = remove
