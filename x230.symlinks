@@ -73,3 +73,8 @@ unison/unison@.timer
 hypr
 ~/.config/hypr
 
+pueue
+~/.config/pueue
+
+pueue/pueued.service
+~/.config/systemd/user/pueued.service
