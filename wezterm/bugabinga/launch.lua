@@ -28,6 +28,16 @@ return function ( cfg )
       cwd = wez.home_dir,
     },
     {
+      label = 'Weather',
+      args = { 'wthrr' },
+      cwd = wez.home_dir,
+    },
+    {
+      label = 'Status',
+      args = { 'nu', '-c', 'loop {clear; macchina --current-shell --interface wlp3s0; sleep 5sec}', },
+      cwd = wez.home_dir,
+    },
+    {
       label = 'Units',
       args = { 'fend', },
       cwd = wez.home_dir,

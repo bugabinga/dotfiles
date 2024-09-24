@@ -1,12 +1,11 @@
-local wez = require 'wezterm'
-
+local code_font = require 'bugabinga.code_font'
 return function ( cfg )
   cfg.default_domain = 'WSL:Fedora'
   cfg.default_mux_server_domain = 'WSL:Fedora'
   cfg.default_prog = { 'powershell', '-NoLogo', }
 
   cfg.font_size = 13
-  cfg.font = wez.font 'IBM Plex Mono'
+  cfg.font = code_font.random();
 
   cfg.window_decorations = 'TITLE | RESIZE'
 
