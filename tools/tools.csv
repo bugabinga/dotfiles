@@ -46,12 +46,13 @@ nu_plugin_skim
 nu_plugin_desktop_notifications
 ouch
 pastel
+presenterm
 pueue;pueue;--locked
 ripgrep;rg
 rbw
 rust-parallel
 sd
-skim
+skim;sk
 sbyte
 # sniffnet
 selene;selene; --no-default-features
@@ -61,7 +62,6 @@ taplo-cli;taplo; --locked --features lsp
 tealdeer;tldr
 tokei
 topgrade
-timebutler
 tre
 unison-fsmonitor
 # ugdb

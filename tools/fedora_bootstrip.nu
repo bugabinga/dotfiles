@@ -10,5 +10,5 @@ sudo dnf install fontconfig-devel freetype-devel libX11-xcb libX11-devel libstdc
 sudo dnf install perl-File-Compare perl-File-Copy perl-FindBin perl-IPC-Cmd
 
 # my stuff
-sudo dnf install aerc llvm clang cmake unison rustup neovim mold java-latest-openjdk-devel java-latest-openjdk-src gnome-tweaks
+sudo dnf install aerc llvm clang cmake unison rustup neovim mold java-latest-openjdk-devel java-latest-openjdk-src gnome-tweaks nasm
 

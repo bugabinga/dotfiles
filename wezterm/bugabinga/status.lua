@@ -15,8 +15,6 @@ local zoomed = function ( pane )
   return any_is_zoomed and '🔎 Zoomed Pane' or nil
 end
 
--- TODO: docs have crazy example of styling the status bar, check them out
-
 -- Show which key table is active in the status area
 wez.on( 'update-status', function ( window, pane )
   local key_table = window:active_key_table()
