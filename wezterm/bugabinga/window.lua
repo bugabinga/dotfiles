@@ -1,9 +1,5 @@
 return function ( cfg )
-  -- this effectivly maximizes wezterm
-  cfg.initial_rows = 200
-  cfg.initial_cols = 200
-
-  cfg.window_decorations = 'TITLE|RESIZE'
+  cfg.window_decorations = 'RESIZE'
   cfg.enable_wayland = true
   cfg.window_padding = {
     left = 2,
