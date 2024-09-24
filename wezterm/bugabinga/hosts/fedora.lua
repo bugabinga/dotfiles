@@ -1,7 +1,7 @@
-local nerd_font = require 'bugabinga.nerd_font'
+local code_font = require 'bugabinga.code_font'
 
 return function ( cfg )
-  cfg.font = nerd_font.random();
+  cfg.font = code_font.random();
 
   cfg.background = {
     {

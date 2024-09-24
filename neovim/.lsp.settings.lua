@@ -1,10 +1,14 @@
 return {
   LuaLS = {
     Lua = {
-      diagnostics = { globals = { 'vim', 'prequire', }, },
-      runtime = { version = 'LuaJIT', },
+      runtime = { version = 'LuaJIT' },
+      diagnostics = { globals = { 'vim', 'prequire' } },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("",true),
+        checkThridParties = false,
+        library = {
+          '${3rd}/luv/library',
+          unpack( vim.api.nvim_get_runtime_file( '', true ) ),
+        },
       },
     },
   },

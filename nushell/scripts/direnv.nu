@@ -1,3 +1,11 @@
+def expand-home [] {
+	let p = $in
+	if ( $p =~ '~') {
+		return ($p | path expand)
+	}
+	return $p
+}
+
 def direnv [] {
     [
         {
@@ -5,8 +13,10 @@ def direnv [] {
             code: r#'
                 open .env
                 | lines
-                | parse --regex '\s*(?P<k>.+?)\s*=\s*?(?P<v>.+)?\s*'
-                | reduce --fold {} {|x, acc| $acc | upsert $x.k $x.v}
+                | parse --regex '\s*(?P<key>.+?)\s*=\s*?(?P<value>.+)?\s*'
+                | reduce --fold {} { | entry, acc|
+										$acc | upsert $entry.key ( $entry.value | str trim | expand-home )
+									}
                 | load-env
 						'#
         }

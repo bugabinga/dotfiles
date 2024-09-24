@@ -10,10 +10,9 @@ map.normal {
 return {
   'folke/zen-mode.nvim',
   cmd = 'ZenMode',
-  dependencies = { { 'folke/twilight.nvim', opts = { dimming = { inactive = true, }, }, }, },
+  dependencies = { { 'folke/twilight.nvim', opts = { dimming = { inactive = false, }, }, }, },
   opts = {
-    --FIXME: this does not work, because on win32 there is no base64 binary
-    plugins = { wezterm = { enabled = true, font = '+4', }, },
+    plugins = { wezterm = { enabled = true, font = '+2', }, },
     window = {
       width = 0.69,
       backdrop = 0.42,
