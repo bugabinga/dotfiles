@@ -38,22 +38,22 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
+* navic highlights do not fit winbar
+* indent line bg overwrites visual selection bg
+* fix bg gihlight of treesitter-context
+* make highlights more visible when expanding snippets
 * make assignment to map.x fail, e.g. `map.normal = {}`...
 * figure out desirable cmp key maps
 * try loading lsp async for better startup perf
-* navic highlights do not fit winbar
-* add nu-check to nvim-lint
-* add nu lsp
-* make highlights more visible when expanding snippets
-* cursor restore position on (session?) load jumps one location to somewhere
-  after correct location
 * check out `vim.snippet`
-* use `vim.base64` in wezterm plugin
-* integrate language tool?
 * adapt config to respect `vim.g.nerdfont` (std.constants?)
 * Do I want multiple LSPs per buffer?
   In case of markdown and text it seems useful, for code it seems like a
   headache...
+  But it seems inevitable, because more and more tools use the LSP infrastructure.
+  For example, grammar checkers like harper or code transform tools like ast-grep
+* check out harper-ls
+* check out ast-grep
 * flesh out 'const.lua', move to std?
 * nvim spell for camel case words
 * create skeleton-plugin for default file content based on file type
