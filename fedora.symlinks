@@ -52,7 +52,7 @@ ssh/config
 neovim
 ~/.config/nvim
 
-systemd/environment.d
+environment.d
 ~/.config/environment.d
 
 fonts
