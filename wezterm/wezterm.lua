@@ -8,6 +8,7 @@ require 'bugabinga.startup' ( cfg )
 require 'bugabinga.status' ( cfg )
 require 'bugabinga.theme' ( cfg )
 require 'bugabinga.key_binds' ( cfg )
+require 'bugabinga.mouse_binds' ( cfg )
 require 'bugabinga.hosts' ( cfg )
 require 'bugabinga.launch' ( cfg )
 require 'bugabinga.neovim_zen_mode'

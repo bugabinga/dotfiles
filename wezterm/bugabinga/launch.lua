@@ -29,7 +29,7 @@ return function ( cfg )
     },
     {
       label = 'Weather',
-      args = { 'wthrr' },
+      args = { 'nu', '-c', 'loop {clear; wthrr --forecast today; sleep 15sec}', },
       cwd = wez.home_dir,
     },
     {

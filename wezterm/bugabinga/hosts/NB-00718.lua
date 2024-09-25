@@ -1,7 +1,10 @@
 local code_font = require 'bugabinga.code_font'
+
 return function ( cfg )
-  cfg.default_domain = 'WSL:Fedora'
-  cfg.default_mux_server_domain = 'WSL:Fedora'
+  cfg.font = code_font.random();
+
+  cfg.default_domain = { 'WSL:Fedora', }
+  cfg.default_mux_server_domain = { 'WSL:Fedora', }
   cfg.default_prog = { 'powershell', '-NoLogo', }
 
   cfg.font_size = 13
