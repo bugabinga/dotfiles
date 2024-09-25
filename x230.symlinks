@@ -78,3 +78,6 @@ pueue
 
 pueue/pueued.service
 ~/.config/systemd/user/pueued.service
+
+environment.d
+~/.config/environment.d
