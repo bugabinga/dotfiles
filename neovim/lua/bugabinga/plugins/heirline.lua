@@ -221,6 +221,18 @@ return {
         end,
       }
 
+      local escape_status = {
+        condition = function ()
+          local ok, _ = pcall( require, 'better_escape' )
+          return ok
+        end,
+        provider = function ()
+          local ok, _ = pcall( require, 'better_escape' )
+          -- TODO: add to icons
+          return ok and _.waiting and '󰂸' or ''
+        end,
+      }
+
       local lsp_active = {
         condition = conditions.lsp_attached,
         -- FIXME: updates from parent components do not seem to update children,
@@ -459,6 +471,8 @@ return {
         space,
         space,
         lazy,
+        space,
+        escape_status,
         space,
         lsp_active,
         space,
