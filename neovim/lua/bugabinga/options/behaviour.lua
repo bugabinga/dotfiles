@@ -56,11 +56,13 @@ vim.opt.mousemodel = 'extend'
 
 -- integrate Nushell with nvim
 vim.opt.shell = 'nu'
-vim.opt.shellcmdflag = '--commands'
-vim.opt.shellpipe = 'out+err>| save %s'
-vim.opt.shellredir = '| save %s'
-vim.opt.shellquote = ''
+vim.opt.shellcmdflag = '--stdin --no-newline --commands'
+vim.opt.shellredir = 'out+err> %s'
+vim.opt.shellpipe = '| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s} | into record'
+vim.opt.shelltemp = false
 vim.opt.shellxquote = ''
+vim.opt.shellxescape = ''
+vim.opt.shellquote = ''
 
 require 'bugabinga.health'.add_dependency
 {

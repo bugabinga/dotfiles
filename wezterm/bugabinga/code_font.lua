@@ -2,17 +2,32 @@ local wez = require 'wezterm'
 
 return {
   random = function ()
+    local selected = 'JetBrains Mono' -- safe default, because built in to wezterm
     local font_names = {}
-    local nerdfonts = io.open( wez.config_dir .. '/bugabinga/code_fonts', 'r' )
-    if nerdfonts then
-      for font_name in nerdfonts:lines() do
-        if not font_name:match '^#.*' then
-          table.insert( font_names, font_name )
+    local weights = {}
+    local total_weight = 1 -- to account for luas 1 based indexing
+    local code_fonts = io.open( wez.config_dir .. '/bugabinga/code_fonts.csv', 'r' )
+
+    if code_fonts then
+      for line in code_fonts:lines() do
+        local weight, font_name = line:match '^%s*(%d*)%s*,%s*(.*)%s*$'
+        table.insert( font_names, font_name )
+        table.insert( weights,    tonumber( weight ) )
+        total_weight = total_weight + weight
+      end
+      code_fonts:close()
+
+      local random_weight = math.random( total_weight )
+      local cursor = 0
+      for idx, weight in ipairs( weights ) do
+        cursor = cursor + weight
+        if cursor >= random_weight then
+          selected = font_names[idx]
+          break
         end
       end
-      local random_font = font_names[math.random( #font_names )]
-      return wez.font( random_font )
     end
-    return wez.font 'JetBrains Mono'
+
+    return wez.font( selected )
   end,
 }

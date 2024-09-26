@@ -7,8 +7,6 @@ end
 local font_size_mode = ' Change Font Size (=-+)'
 local pane_mode = ' Pane (hjklqr)'
 local resize_pane_mode = 'ﭕ Resize Pane (hjkl)'
-local navigate_forward_mode = '  Navigate forward (bw)'
-local navigate_backward_mode = '  Navigate backward (bw)'
 
 local key_tables = {
   [resize_pane_mode] = {
@@ -21,9 +19,9 @@ local key_tables = {
     { key = 'Escape', action = 'PopKeyTable', },
   },
   [font_size_mode] = {
-    { key = 'j',      action = wez.action.DecreaseFontSize, },
-    { key = 'k',      action = wez.action.IncreaseFontSize, },
-    { key = '=',      action = wez.action.ResetFontSize, },
+    { key = '-',      action = wez.action.DecreaseFontSize, },
+    { key = '=',      action = wez.action.IncreaseFontSize, },
+    { key = '0',      action = wez.action.ResetFontSize, },
 
     { key = 'Escape', action = 'PopKeyTable', },
   },
@@ -32,6 +30,7 @@ local key_tables = {
     { key = 'j',      action = wez.action.ActivatePaneDirection 'Down', },
     { key = 'k',      action = wez.action.ActivatePaneDirection 'Up', },
     { key = 'l',      action = wez.action.ActivatePaneDirection 'Right', },
+    { key = 'a',      action = wez.action.PaneSelect, },
 
     { key = 'v',      action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain', }, },
     { key = 's',      action = wez.action.SplitVertical { domain = 'CurrentPaneDomain', }, },
@@ -42,39 +41,9 @@ local key_tables = {
 
     { key = 'Escape', action = 'PopKeyTable', },
   },
-  [navigate_forward_mode] = {
-    {
-      key = 'b', -- b as in buffer in vim
-      action = wez.action.ActivateTabRelative( 1 ),
-    },
-    {
-      key = 'w', -- next workspace
-      action = wez.action.SwitchWorkspaceRelative( 1 ),
-    },
-  },
-  [navigate_backward_mode] = {
-    {
-      key = 'b',
-      action = wez.action.ActivateTabRelative( -1 ),
-    },
-    {
-      key = 'w', -- prev workspace
-      action = wez.action.SwitchWorkspaceRelative( -1 ),
-    },
-  },
 }
 
 local keys = {
-  {
-    key = ']',
-    mods = 'LEADER',
-    action = wez.action.ActivateKeyTable { name = navigate_forward_mode, },
-  },
-  {
-    key = '[',
-    mods = 'LEADER',
-    action = wez.action.ActivateKeyTable { name = navigate_backward_mode, },
-  },
   {
     key = '0',
     mods = 'LEADER',
@@ -84,11 +53,6 @@ local keys = {
     key = 'w',
     mods = 'LEADER',
     action = wez.action.ActivateKeyTable { name = pane_mode, },
-  },
-  {
-    key = 'a',
-    mods = 'LEADER',
-    action = wez.action.PaneSelect,
   },
   {
     key = 'f',
@@ -111,11 +75,30 @@ local keys = {
     action = wez.action.ShowDebugOverlay,
   },
   {
-    key = 'u',
+    key = '.',
     mods = 'LEADER',
     action = wez.action.CharSelect {
       copy_on_select = true,
       copy_to = 'ClipboardAndPrimarySelection',
+    },
+  },
+  {
+    key = 'n',
+    mods = 'LEADER',
+    action = wez.action.PromptInputLine {
+      description = wez.format {
+        { Attribute = { Intensity = 'Bold', }, },
+        { Foreground = { AnsiColor = 'Purple', }, },
+        { Text = 'New workspace:', },
+      },
+      action = wez.action_callback( function ( window, pane, line )
+        if line then
+          window:perform_action(
+            wez.action.SwitchToWorkspace { name = line, },
+            pane
+          )
+        end
+      end ),
     },
   },
   {
@@ -136,25 +119,13 @@ local keys = {
   {
     key = 'p',
     mods = 'LEADER',
-    action = wez.action.ActivateCommandPalette,
+    action = wez.action.ShowLauncherArgs {
+      title = '🔭 Launcher',
+      flags = 'FUZZY|DOMAINS|KEY_ASSIGNMENTS|COMMANDS',
+    },
   },
   {
-    key = 'c',
-    mods = 'LEADER',
-    action = wez.action.SwitchToWorkspace { name = 'code', },
-  },
-  {
-    key = 'k',
-    mods = 'LEADER',
-    action = wez.action.SwitchToWorkspace { name = 'dorkfiles editing', },
-  },
-  {
-    key = 'd',
-    mods = 'LEADER',
-    action = wez.action.SwitchToWorkspace { name = 'default', },
-  },
-  {
-    key = 'r',
+    key = 'Tab',
     mods = 'LEADER',
     action = wez.action.ShowLauncherArgs {
       flags = 'FUZZY|WORKSPACES',
@@ -164,9 +135,11 @@ local keys = {
     key = 'd',
     mods = 'LEADER',
     action = wez.action.ShowLauncherArgs {
+      title = '󰮫 Menu',
       flags = 'FUZZY|LAUNCH_MENU_ITEMS',
     },
-  },  {
+  },
+  {
     key = '/',
     mods = 'LEADER',
     action = wez.action.Search 'CurrentSelectionOrEmptyString',
