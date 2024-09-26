@@ -3,19 +3,35 @@ local map = require 'std.map'
 map.normal {
   description = 'Toggle Tree Join/Split',
   category = 'editing',
-  -- WARN: <C-j> produces the same key code as <C-enter> on some terminals
-  keys = '<C-j>',
+  keys = '<leader>j',
   command = function ()
-    require 'treesj'.toggle()
+    prequire 'treesj'.toggle { split = { recursive = true } }
+  end,
+}
+
+map.normal {
+  description = 'Join Tree',
+  category = 'editing',
+  keys = '<leader>jj',
+  command = function ()
+    prequire 'treesj'.join()
+  end,
+}
+
+map.normal {
+  description = 'Split Tree',
+  category = 'editing',
+  keys = '<leader>js',
+  command = function ()
+    prequire 'treesj'.split()
   end,
 }
 
 return {
   'Wansmer/treesj',
-  dependencies = { 'nvim-treesitter/nvim-treesitter', },
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
   opts = {
     use_default_keymaps = false,
-    ---@type number If line after join will be longer than max value, node will not be formatted
-    max_join_length = vim.opt.textwidth:get(),
+    max_join_length = 360,
   },
 }

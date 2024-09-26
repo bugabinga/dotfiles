@@ -1,5 +1,7 @@
 local icon = require 'std.icon'
 
+-- TODO: replace with vim.completion, once it lands
+
 return {
   'hrsh7th/nvim-cmp',
   branch = 'main',
@@ -41,11 +43,9 @@ return {
     local mapping = cmp.mapping.preset.insert {
       ['<C-d>'] = cmp.mapping.scroll_docs( -4 ),
       ['<C-f>'] = cmp.mapping.scroll_docs( 4 ),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<C-y>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true, },
-      ['<C-space>'] = cmp.mapping.complete(),
-      ['<Tab>'] = cmp.mapping( snippet_next, { 'i', 's', } ),
-      ['<S-Tab>'] = cmp.mapping( snippet_prev, { 'i', 's', } ),
+      ['<C-c>'] = cmp.mapping.close(),
+      ['<C-y>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+      ['<C-x>'] = cmp.mapping.complete(),
     }
 
     local formatting = {}
@@ -92,10 +92,10 @@ return {
     end
 
     local sources = {
-      { name = 'nvim_lua', },
-      { name = 'nvim_lsp', },
-      { name = 'path', },
-      { name = 'luasnip', },
+      { name = 'nvim_lua' },
+      { name = 'nvim_lsp' },
+      { name = 'path' },
+      { name = 'luasnip' },
       {
         name = 'buffer',
         keyword_length = 4,
@@ -119,7 +119,7 @@ return {
       formatting = formatting,
       sources = sources,
 
-      completion = { autocomplete = false, },
+      completion = { autocomplete = false },
       snippet = {
         expand = function ( args ) luasnip.lsp_expand( args.body ) end,
       },

@@ -18,8 +18,9 @@ map.normal {
 return {
   'stevearc/oil.nvim',
   lazy = false,
-  cmd = { 'Oil', },
-  dependencies = { 'nvim-tree/nvim-web-devicons', },
+  version = '2.*',
+  cmd = { 'Oil' },
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
   opts = {
     -- default_file_explorer = true,
     -- Set to true to watch the filesystem for changes and reload oil
@@ -28,7 +29,7 @@ return {
     prompt_save_on_select_new_entry = false,
     delete_to_trash = true,
 
-    columns = { 'icon', },
+    columns = { 'icon' },
     win_options = {
       cursorline = true,
     },
@@ -45,9 +46,9 @@ return {
           local oil = require 'oil'
           local config = require 'oil.config'
           if #config.columns == 1 then
-            oil.set_columns { 'icon', 'permissions', 'size', { 'mtime', format = '%d/%m/%y %T', }, }
+            oil.set_columns { 'icon', 'permissions', 'size', { 'mtime', format = '%d/%m/%y %T' } }
           else
-            oil.set_columns { 'icon', }
+            oil.set_columns { 'icon' }
           end
         end,
       },
