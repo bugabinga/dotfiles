@@ -8,7 +8,7 @@ local NEW_FILE = '~untitled~'
 return {
   {
     'rebelot/heirline.nvim',
-    version = '1.*',
+    version = '2.*',
     lazy = false,
     dependencies = {
       -- FIXME: use my own icons

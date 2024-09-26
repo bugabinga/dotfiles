@@ -1,6 +1,7 @@
---FIXME: own this
+-- FIXME: own this
 return {
   'mfussenegger/nvim-lint',
+  commit = '968a35d54b3a4c1ce66609cf80b14d4ae44fe77f',
   ft = {
     'lua',
     'sh',

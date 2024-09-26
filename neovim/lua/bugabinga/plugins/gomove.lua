@@ -3,17 +3,8 @@ local map = require 'std.map'
 return {
   {
     'booperlv/nvim-gomove',
-    keys = {
-      { '<A-h>', nil, mode = { 'n', 'x', }, },
-      { '<A-j>', nil, mode = { 'n', 'x', }, },
-      { '<A-k>', nil, mode = { 'n', 'x', }, },
-      { '<A-l>', nil, mode = { 'n', 'x', }, },
-
-      { '<A-H>', nil, mode = { 'n', 'x', }, },
-      { '<A-J>', nil, mode = { 'n', 'x', }, },
-      { '<A-K>', nil, mode = { 'n', 'x', }, },
-      { '<A-L>', nil, mode = { 'n', 'x', }, },
-    },
+    commit = '2b44ae7ac0804f4e3959228122f7c85bef1964e3',
+    event = 'VeryLazy',
     config = function ()
       local move = require 'gomove'
 
@@ -30,7 +21,7 @@ return {
 
       -- default mappings in gomove set no options, but use old keymap api.
       -- recreating old defaults here:
-      local options = { remap = true, }
+      local options = { remap = true }
 
       -- i have tried using the lua functions directly for the commands below.
       -- the behaviour was slightly buggy in respects to block selections though.
@@ -158,4 +149,3 @@ return {
     end,
   },
 }
-
