@@ -30,6 +30,7 @@ aka browse firefox
 
 aka vim nvim
 aka code nvim
+aka vide neovide
 aka edit nvim '--clean'
 aka ed nvim '--clean'
 aka vi nvim '--clean'

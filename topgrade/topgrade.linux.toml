@@ -1,47 +1,19 @@
 [misc]
-# Disable specific steps - same options as the command line flag
-disable = ["restarts", "vim"]
-
+disable = ["vim"]
 assume_yes = true
-
-# Run specific steps - same options as the command line flag
-#only = ["system", "emacs"]
-
-# Do not ask to retry failed steps (default: false)
 no_retry = true
-
-# Do not set the terminal title
 set_title = true
-
-# Display the time in step titles
 display_time = true
-
-# Cleanup temporary or old files
 cleanup = true
 
 [composer]
 self_update = false
 
 [git]
-# Additional git repositories to pull
-repos = ["/home/oli/Workspace/*", "/home/oli/Source/*"]
-
+repos = [
+	"/home/oli/Source/*",
+	"/home/oli/Notes"
+]
+arguments = "--ff --rebase"
 max_concurrency = 12
-
 pull_predefined = false
-
-# Arguments to pass Git when pulling Repositories
-# arguments = "--ff --rebase"
-
-# Commands to run before anything
-[pre_commands]
-"00 - Create BTRFS snapshot" = "echo TODO"
-
-# Custom commands
-[commands]
-
-# Updating my configuration files
-"00 - Refresh Dotfiles" = "java ~/Workspace/dotfiles/bootstripper.java ~/Workspace/dotfiles"
-
-# install tools from cargo, that are not already in path
-"01 - Install Cargo Tools" = "cd ~/Workspace/dotfiles/tools ; java ~/Workspace/dotfiles/tools/install.java"
