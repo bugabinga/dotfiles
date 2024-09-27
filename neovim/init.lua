@@ -13,18 +13,22 @@
 
 vim.cmd.colorscheme 'nugu'
 
----create special global, that serves as a more graceful alternative to `require`
+-- create special global, that serves as a more graceful alternative to `require`
+-- FIXME: use normal imports instead of global
 prequire = require 'std.prequire'
 
-prequire 'bugabinga.options'
-prequire 'bugabinga.editorconfig'
-prequire 'bugabinga.sessions'
-prequire 'bugabinga.lazy'
-prequire 'bugabinga.save_actions'
+require 'patches'
 
-prequire 'bugabinga.lsp'
+require 'bugabinga.options'
+require 'bugabinga.editorconfig'
+require 'bugabinga.sessions'
+require 'bugabinga.lazy'
 
-vim.defer_fn (function ()
-  prequire 'bugabinga.terminal'
-  prequire 'bugabinga.diagnostic'
-end, 444)
+require 'bugabinga.lsp'
+
+vim.defer_fn( function ()
+                require 'bugabinga.terminal'
+                require 'bugabinga.diagnostic'
+                require 'bugabinga.save_actions'
+                require 'bugabinga.lsp.lightbulb'
+              end, 444 )
