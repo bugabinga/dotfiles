@@ -2,19 +2,26 @@ set shell := ['nu', '--commands']
 
 # List available recipes.
 default:
-	@just --list
+    @just --list
 
 # Reproduce some neovim issue
 repro:
-	nvim -u repro.lua 
+    nvim -u repro.lua 
 
 # update nvim plugins
 update:
-	nvim --headless "+Lazy! sync" +qa
+    nvim --headless "+Lazy! sync" +qa
 
-# delete all current neovim state, cache and other ephemeral data.
-# does NOT delete the configs
+# TODO install treesitter parser for neovim to use
+treesitter:
+    luarocks \
+    --lua-version=5.1 \
+    --tree=$HOME/.local/share/nvim/rocks \
+    install --dev \
+    tree-sitter-rust
+
+# delete all current neovim state, cache and other ephemeral data. does NOT delete the configs
 nuke:
-	rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[data]]' +:q  | lines | last)
-	rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[cache]]' +:q  | lines | last)
-	rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[state]]' +:q  | lines | last)
+    rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[data]]' +:q  | lines | last)
+    rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[cache]]' +:q  | lines | last)
+    rm -r (run-external --redirect-combine nvim  "--headless" "-n" "-R" +'lua = vim.fn.stdpath[[state]]' +:q  | lines | last)

@@ -12,7 +12,7 @@ auto 'highlight_yanked_text' {
 
 auto 'disable_columns_in_special_buffers' {
   description = 'Hide columns in buffers, that do not show source code.',
-  events = { 'FileType', },
+  events = { 'FileType' },
   pattern = ignored.filetypes,
   command = function ()
     dbg.print 'Hiding columns in buffers without source code'
@@ -90,7 +90,7 @@ vim.opt.conceallevel = 0
 vim.opt.foldenable = false
 
 -- show visual indicators for lines too long
-vim.opt.colorcolumn = { '80', '120', '140', }
+vim.opt.colorcolumn = { '80', '120', '140' }
 
 -- highlight the current line
 vim.opt.cursorline = false

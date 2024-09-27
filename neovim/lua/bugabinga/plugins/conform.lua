@@ -25,25 +25,15 @@ return {
   cmd = { 'ConformInfo' },
   opts = {
     formatters_by_ft = {
-      -- https://github.com/razziel89/mdslw/issues/14
-      markdown = { 'mdslw' },
-      -- lua = { "stylua" },
       toml = { 'taplo' },
       sh = { 'shfmt' },
       just = { 'just' },
-      nu = { 'nufmt' },
       zig = { 'zigfmt' },
       -- Use the "*" file type to run formatters on all file types.
       ['*'] = { 'injected', 'typos' },
       -- Use the "_" file type to run formatters on file types that don't
       -- have other formatters configured.
       ['_'] = { 'trim_whitespace', 'trim_newlines' },
-    },
-    formatters = {
-      mdslw = {
-        -- remove `:` from the default set of end markers
-        -- prepend_args = { '--end-markers', '?!.', },
-      },
     },
     log_level = debug.get() and vim.log.levels.TRACE or vim.log.levels.INFO,
   },
