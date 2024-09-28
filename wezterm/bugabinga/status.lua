@@ -36,6 +36,7 @@ wez.on( 'update-status', function ( window, pane )
     { Text = table.concat( fonts, ', ' ), },
     'ResetAttributes',
   }
+  local pane_domain = pane:get_domain_name()
 
   local status = { '', }
   if leader then
@@ -47,12 +48,17 @@ wez.on( 'update-status', function ( window, pane )
   if zoomed_state then
     table.insert( status, zoomed_state )
   end
-  if current_workspace then
-    table.insert( status, current_workspace )
-  end
-  if font then
-    table.insert( status, font )
-  end
+
+  local context = wez.format {
+    { Text = current_workspace, },
+    { Text = '@', },
+    { Attribute = { Intensity = 'Bold', }, },
+    { Text = pane_domain, },
+    'ResetAttributes',
+  }
+  table.insert( status, context )
+
+  table.insert( status, font )
 
   window:set_right_status( table.concat( status, DELIMITER ) )
   --TODO: shirley, something useful can be done here
@@ -66,6 +72,4 @@ return function ( cfg )
   cfg.use_fancy_tab_bar = false
   cfg.tab_max_width = 42
   cfg.tab_bar_at_bottom = true
-
- 
 end
