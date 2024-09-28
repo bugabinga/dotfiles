@@ -12,6 +12,7 @@ return {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-nvim-lsp-signature-help',
+    'SergioRibera/cmp-dotenv',
     'saadparwaiz1/cmp_luasnip',
     'onsails/lspkind.nvim',
     'L3MON4D3/LuaSnip',
@@ -49,55 +50,66 @@ return {
       ['<C-x>'] = cmp.mapping.complete(),
     }
 
-    local formatting = {}
-    local ok, lspkind = pcall( require, 'lspkind' )
-    if ok then
-      formatting.format = lspkind.cmp_format {
-        mode = 'symbol',
-        symbol_map = {
-          Copilot = icon.copilot,
-          Class = icon.class,
-          Color = icon.color,
-          Constant = icon.constant,
-          Constructor = icon.constructor,
-          Enum = icon.enum,
-          EnumMember = icon.enum_member,
-          Event = icon.event,
-          Field = icon.field,
-          File = icon.file,
-          Folder = icon.folder,
-          Function = icon['function'],
-          Interface = icon.interface,
-          Keyword = icon.keyword,
-          Method = icon.method,
-          Module = icon.module,
-          Operator = icon.operator,
-          Property = icon.property,
-          Reference = icon.reference,
-          Snippet = icon.snippet,
-          Struct = icon.struct,
-          Text = icon.text,
-          TypeParameter = icon.type_parameter,
-          Unit = icon.unit,
-          Value = icon.value,
-          Variable = icon.variable,
-        },
-        menu = {
-          buffer = '[buf]',
-          nvim_lsp = '[LSP]',
-          nvim_lua = '[nvim]',
-          path = '[path]',
-          luasnip = '[snip]',
-        },
-      }
-    end
+    local lspkind = prequire 'lspkind'
+    local colors = prequire 'nvim-highlight-colors'
+    local lspkind_params = {
+      mode = 'symbol',
+      symbol_map = {
+        Copilot = icon.copilot,
+        Class = icon.class,
+        Color = icon.color,
+        Constant = icon.constant,
+        Constructor = icon.constructor,
+        Enum = icon.enum,
+        EnumMember = icon.enum_member,
+        Event = icon.event,
+        Field = icon.field,
+        File = icon.file,
+        Folder = icon.folder,
+        Function = icon['function'],
+        Interface = icon.interface,
+        Keyword = icon.keyword,
+        Method = icon.method,
+        Module = icon.module,
+        Operator = icon.operator,
+        Property = icon.property,
+        Reference = icon.reference,
+        Snippet = icon.snippet,
+        Struct = icon.struct,
+        Text = icon.text,
+        TypeParameter = icon.type_parameter,
+        Unit = icon.unit,
+        Value = icon.value,
+        Variable = icon.variable,
+      },
+      menu = {
+        buffer = '[buf]',
+        nvim_lsp = '[LSP]',
+        nvim_lua = '[nvim]',
+        path = '[path]',
+        luasnip = '[snip]',
+        copilot = '[cop]',
+      },
+    }
+    local formatting = {
+      format = function ( entry, item )
+        local color_item = colors.format( entry, { kind = item.kind } )
+        item = lspkind.cmp_format( lspkind_params )( entry, item )
+        if color_item.abbr_hl_group then
+          item.kind_hl_group = color_item.abbr_hl_group
+          item.kind = color_item.abbr
+        end
+        return item
+      end,
+    }
 
     local sources = {
+      { name = 'copilot' }, -- FIXME: depends on incubating plugin!
       { name = 'nvim_lua' },
       { name = 'nvim_lsp_signature_help' },
       { name = 'nvim_lsp' },
+      { name = 'dotenv' },
       { name = 'path' },
-      { name = 'luasnip' },
       {
         name = 'buffer',
         keyword_length = 4,

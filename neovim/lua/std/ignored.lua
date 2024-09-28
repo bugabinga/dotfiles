@@ -1,3 +1,5 @@
+-- TODO: add functions to add stuff to lists so that plugins can register these
+-- and they get cleaned up when plugins get removed
 local filetypes = {
   'NvimTree',
   'Outline',
@@ -8,6 +10,7 @@ local filetypes = {
   '^git.*',
   'flash_prompt',
   'help',
+  'ivy',
   'lazy',
   'noice',
   'notify',
@@ -16,6 +19,7 @@ local filetypes = {
   'starter',
   'svn',
   'toggleterm',
+  'copilot-chat',
 }
 
 local buftypes = {

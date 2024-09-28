@@ -40,6 +40,7 @@ So as I pray, Unlimited Bug Works.
 
 * indent line bg overwrites visual selection bg
 * fix bg highlight of treesitter-context
+* stabilize plugins that are only dependencies. move to own file?
 * fix markdown rendering in doc popup
 * make highlights more visible when expanding snippets
 * kill mason again and get lsps via packages.nu

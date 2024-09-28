@@ -65,6 +65,13 @@ map.normal {
 }
 
 map.normal {
+  description = 'Open undo hisory...',
+  category = 'undo',
+  keys = '<c-p><c-u>',
+  command = function () require 'telescope'.extensions.undo.undo() end,
+}
+
+map.normal {
   description = 'Open search for current buffer content...',
   category = 'search',
   keys = '<c-p><c-/>',
@@ -97,14 +104,14 @@ return {
       build =
         function ( plugin_spec )
           local result
-          result = vim.system( { 'cmake', '-S.', '-Bbuild', '-DCMAKE_BUILD_TYPE=Release', },
-                               { text = true, cwd = plugin_spec.dir, } ):wait()
+          result = vim.system( { 'cmake', '-S.', '-Bbuild', '-DCMAKE_BUILD_TYPE=Release' },
+                               { text = true, cwd = plugin_spec.dir } ):wait()
           if result.code ~= 0 then error( result.stderr ) end
-          result = vim.system( { 'cmake', '--build', 'build', '--config', 'Release', },
-                               { text = true, cwd = plugin_spec.dir, } ):wait()
+          result = vim.system( { 'cmake', '--build', 'build', '--config', 'Release' },
+                               { text = true, cwd = plugin_spec.dir } ):wait()
           if result.code ~= 0 then error( result.stderr ) end
-          result = vim.system( { 'cmake', '--install', 'build', '--prefix', 'build', },
-                               { text = true, cwd = plugin_spec.dir, } ):wait()
+          result = vim.system( { 'cmake', '--install', 'build', '--prefix', 'build' },
+                               { text = true, cwd = plugin_spec.dir } ):wait()
           if result.code ~= 0 then error( result.stderr ) end
         end,
     },
@@ -113,13 +120,14 @@ return {
     'nvim-telescope/telescope-symbols.nvim',
     'jvgrootveld/telescope-zoxide',
     'AckslD/nvim-neoclip.lua',
+    'debugloop/telescope-undo.nvim',
   },
   config = function ()
     local telescope = require 'telescope'
     local actions = require 'telescope.actions'
     local themes = require 'telescope.themes'
 
-    local ivy = themes.get_ivy { layout_config = { preview_width = 0.23, }, }
+    local ivy = themes.get_ivy { layout_config = { preview_width = 0.23 } }
 
     telescope.setup {
       defaults = {
@@ -145,7 +153,7 @@ return {
             ['<c-s>'] = actions.file_split,
             ['g?'] = actions.which_key,
           },
-          n = { q = actions.close, },
+          n = { q = actions.close },
         },
       },
       pickers = {
@@ -160,7 +168,7 @@ return {
         help_tags = ivy,
       },
       extensions = {
-        zoxide = { prompt_title = 'Navigate deez nuts!', },
+        zoxide = { prompt_title = 'Navigate deez nuts!' },
       },
     }
 
@@ -169,5 +177,6 @@ return {
     telescope.load_extension 'fzf'
     telescope.load_extension 'zoxide'
     telescope.load_extension 'neoclip'
+    telescope.load_extension 'undo'
   end,
 }

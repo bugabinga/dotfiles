@@ -299,7 +299,7 @@ local lsp_attach     = function ( args )
       buffer = bufnr,
       keys = '<leader>ti',
       command = function ()
-        vim.lsp.inlay_hint.enable( vim.lsp.inlay_hint.is_enabled() )
+        vim.lsp.inlay_hint.enable( not vim.lsp.inlay_hint.is_enabled() )
       end,
     } )
   end
