@@ -181,6 +181,7 @@ _.Visual { bg = content_unfocus }
 _.VisualNOS { bg = ui_unfocus }
 _.WarningMsg { fg = warning, bold = true }
 _.WildMenu = _.Debug
+_.TextYankPost { fg = content_backdrop, bg = ui_important_local }
 
 _.String { fg = content_important_local, italic = true }
 _.Constant = _.String

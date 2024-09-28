@@ -7,7 +7,12 @@ auto 'highlight_yanked_text' {
   description = 'briefly highlight yanked text',
   events = 'TextYankPost',
   pattern = '*',
-  command = function () vim.highlight.on_yank() end,
+  command = function ()
+    vim.highlight.on_yank {
+      higroup = 'TextYankPost',
+      timeout = 333,
+    }
+  end,
 }
 
 auto 'disable_columns_in_special_buffers' {

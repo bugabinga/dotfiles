@@ -13,6 +13,7 @@ local apply_save_actions = function ()
         action = { action, 'string' },
       }
       local parsed_command = vim.api.nvim_parse_cmd( action, {} )
+      ---@diagnostic disable-next-line: param-type-mismatch
       vim.api.nvim_cmd( parsed_command, { output = true } )
     end
   )
@@ -23,7 +24,7 @@ end
 
 user_command.SaveActions 'Execute all declared save actions' ( apply_save_actions )
 
-map.normal.visual {
+map.normal.insert.visual {
   description = 'Save all buffers and apply save actions',
   category = 'actions',
   keys = '<c-s>',
