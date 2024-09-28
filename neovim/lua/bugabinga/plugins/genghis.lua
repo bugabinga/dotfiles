@@ -1,4 +1,4 @@
-local const = require 'bugabinga.const'
+local const = require 'std.const'
 if const.win32 then
   require 'bugabinga.health'.add_dependency {
     name_of_executable = 'recycle-bin',

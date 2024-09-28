@@ -10,10 +10,10 @@ local apply_save_actions = function ()
   vim.iter( all_actions ):each(
     function ( action )
       vim.validate {
-        action = { action, 'string', },
+        action = { action, 'string' },
       }
       local parsed_command = vim.api.nvim_parse_cmd( action, {} )
-      vim.api.nvim_cmd( parsed_command, { output = true, } )
+      vim.api.nvim_cmd( parsed_command, { output = true } )
     end
   )
 
