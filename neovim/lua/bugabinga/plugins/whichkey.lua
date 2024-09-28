@@ -1,65 +1,52 @@
 local ignored = require 'std.ignored'
 local icon = require 'std.icon'
+local map = require 'std.map'
+local dbg = require 'std.dbg'
+
+map.normal {
+  description = 'Show key maps',
+  category = 'help',
+  keys = '<leader>?',
+  command = function ()
+    prequire 'which-key'.show { global = false }
+  end,
+}
 
 return {
   'folke/which-key.nvim',
-  version = '1.*',
+  version = '3.*',
   event = 'VeryLazy',
-  init = function ()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 250
-  end,
   opts = {
-    key_labels = {
-      ['<space>']  = icon.space_key,
-      ['<cr>']     = icon.return_key,
-      ['<tab>']    = icon.tab_key,
-      ['<esc>']    = icon.esc_key,
-      ['<bs>']     = icon.backspace_key,
-      ['<leader>'] = icon.leader_key,
-    },
     icons = {
       group = icon.group,
+      keys = {
+        CR = icon.return_key,
+        Esc = icon.esc_key,
+        Space = icon.space_key,
+        Tab = icon.tab_key,
+      },
     },
-    window = {
+    win = {
       border = vim.g.border_style,
-      winblend = vim.o.winblend,
+      wo = {
+        winblend = vim.o.winblend,
+      },
     },
-    layout = { align = 'center', },
     disable = {
-      buftypes = ignored.buftypes,
+      bt = ignored.buftypes,
+      ft = ignored.filetypes,
+    },
+    debug = dbg.get(),
+    spec = {
+      { '<leader> ',  group = 'fun' },
+      { '<leader>b',  group = '|b|uffer' },
+      { '<leader>f',  group = '|f|iles' },
+      { '<leader>j',  group = '|j|oin' },
+      { '<leader>l',  group = '|l|sp' },
+      { '<leader>lc', group = '|c|alls' },
+      { '<leader>t',  group = '|t|oggle' },
+      { '<leader>v',  group = '|v|ersion control' },
+      { '<leader>z',  group = 'la|z|y' },
     },
   },
-  config = function ( _, opts )
-    local wk = require 'which-key'
-    wk.setup( opts )
-
-    -- TODO: how can my own map api be used to generate the following wk prefixes?
-    -- map should not depend on wk.
-    -- can map cache mappings to read here?
-    -- use category as prefix?
-    wk.register {
-      ['<leader>'] = {
-        ['7'] = { name = 'tests', _ = 'which_key_ignore', },
-        m = { name = '|m|ark', _ = 'which_key_ignore', },
-        b = { name = '|b|uffer', _ = 'which_key_ignore', },
-        h = { name = '|h|unk', _ = 'which_key_ignore', },
-        f = { name = '|f|iles', _ = 'which_key_ignore', },
-        g = { name = '|g|enerate', _ = 'which_key_ignore', },
-        d = { name = '|d|ebug', _ = 'which_key_ignore', },
-        v = { name = '|v|ersion control', _ = 'which_key_ignore', },
-        r = { name = '|r|efactor', _ = 'which_key_ignore', },
-        t = { name = '|t|oggle', _ = 'which_key_ignore', },
-        w = { name = 's|w|ap', _ = 'which_key_ignore', },
-        z = { name = 'la|z|y', _ = 'which_key_ignore', },
-        [' '] = { name = 'fun', _ = 'which_key_ignore', },
-        {
-          p = { name = '|p|arameter', _ = 'which_key_ignore', },
-        },
-        l = { name = '|l|sp', _ = 'which_key_ignore',
-          c = { name = '|c|alls', _ = 'which_key_ignore', },
-        },
-      },
-    }
-  end,
 }

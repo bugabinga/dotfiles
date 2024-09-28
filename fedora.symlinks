@@ -46,6 +46,9 @@ topgrade/topgrade.linux.toml
 wezterm
 ~/.config/wezterm
 
+wezterm/wezterm.service
+~/.config/systemd/user/wezterm.service
+
 ssh/config
 ~/.ssh/config
 

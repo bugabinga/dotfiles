@@ -10,35 +10,7 @@ map {
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- insert newline under or above in normal mode
-map.normal {
-  description = 'Insert newline under cursor',
-  category = 'editing',
-  keys = '<leader>o',
-  command = function ()
-    local current_buffer = 0
-    local current_line = vim.api.nvim_win_get_cursor( current_buffer )[1]
-    local strict_indexing = false
-    local newline = { '', }
-    vim.api.nvim_buf_set_lines( current_buffer, current_line, current_line, strict_indexing, newline )
-  end,
-}
-
-map.normal {
-  description = 'Insert newline above cursor',
-  category = 'editing',
-  keys = '<leader>O',
-  command = function ()
-    local current_buffer = 0
-    local current_line = vim.api.nvim_win_get_cursor( current_buffer )[1] - 1
-    local strict_indexing = false
-    local newline = { '', }
-
-    vim.api.nvim_buf_set_lines( current_buffer, current_line, current_line, strict_indexing, newline )
-  end,
-}
-
-map.normal {
+map.normal.visual {
   description = 'Yanks the selected text (in normal mode or visual mode) to the system clipboard.',
   category = 'editing',
   keys = '<leader>y',
@@ -52,7 +24,7 @@ map.normal {
   command = '"+p',
 }
 
-map.normal {
+map.normal.visual {
   description = 'Yanks the entire line (when used in normal mode with motion).',
   category = 'editing',
   keys = '<leader>Y',
@@ -109,9 +81,9 @@ local function open_link_under_cursor()
   if file_under_cursor and file_under_cursor:match '%a+://.+' then
     vim.system(
     ---@diagnostic disable-next-line: assign-type-mismatch
-      (const.win32 or const.wsl2) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor, }
-      or { 'firefox', file_under_cursor, },
-      { text = true, },
+      (const.win32 or const.wsl2) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor }
+      or { 'firefox', file_under_cursor },
+      { text = true },
       function ( completed )
         if completed.code == 0 then
           vim.schedule( function ()

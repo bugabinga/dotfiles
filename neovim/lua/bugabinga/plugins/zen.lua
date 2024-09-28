@@ -9,10 +9,10 @@ map.normal {
 
 return {
   'folke/zen-mode.nvim',
+  version = '1.*',
   cmd = 'ZenMode',
-  dependencies = { { 'folke/twilight.nvim', opts = { dimming = { inactive = false, }, }, }, },
   opts = {
-    plugins = { wezterm = { enabled = true, font = '+2', }, },
+    plugins = { wezterm = { enabled = true, font = '+2' } },
     window = {
       width = 0.69,
       backdrop = 0.42,
