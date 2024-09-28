@@ -1,5 +1,11 @@
 local wez = require 'wezterm'
 
+local custom_action = function ( _ )
+  local id = 'custom-action-' .. tostring( wez.time.now() )
+  wez.on( id, _ )
+  return wez.action.EmitEvent( id )
+end
+
 local leader = { key = 'VoidSymbol', }
 if wez.target_triple:find 'windows' then
   leader = { key = 'raw:255', }
@@ -154,7 +160,23 @@ local keys = {
     mods = 'LEADER',
     action = wez.action.QuitApplication,
   },
+  {
+    key = 'm',
+    mods = 'LEADER',
+    action = custom_action( function ( window, pane )
+      local unix_domain = 'unix'
+      wez.log_info( 'Current pane domain name: ', pane:get_domain_name() )
+      if pane:get_domain_name() == unix_domain then
+        wez.log_info( 'Detaching from: ', unix_domain )
+        window:perform_action( wez.action.DetachDomain { DomainName = unix_domain, }, pane )
+      else
+        wez.log_info( 'Switching to: ', unix_domain )
+        window:perform_action( wez.action.AttachDomain( unix_domain ), pane )
+      end
+    end ),
+  },
 }
+
 -- Navigate Tabs by LEADER+n
 for i = 1, 8 do
   -- CTRL+ALT + number to activate that tab

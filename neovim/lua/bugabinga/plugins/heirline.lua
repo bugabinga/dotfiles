@@ -8,7 +8,7 @@ local NEW_FILE = '~untitled~'
 return {
   {
     'rebelot/heirline.nvim',
-    version = '1.*',
+    version = '2.*',
     lazy = false,
     dependencies = {
       -- FIXME: use my own icons
@@ -218,6 +218,18 @@ return {
             local timeago = require 'std.timeago'
             return timeago.format( ftime )
           end
+        end,
+      }
+
+      local escape_status = {
+        condition = function ()
+          local ok, _ = pcall( require, 'better_escape' )
+          return ok
+        end,
+        provider = function ()
+          local ok, _ = pcall( require, 'better_escape' )
+          -- TODO: add to icons
+          return ok and _.waiting and '󰂸' or ''
         end,
       }
 
@@ -459,6 +471,8 @@ return {
         space,
         space,
         lazy,
+        space,
+        escape_status,
         space,
         lsp_active,
         space,

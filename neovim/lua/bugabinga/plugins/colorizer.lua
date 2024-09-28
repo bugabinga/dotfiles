@@ -1,9 +1,10 @@
 return {
   {
-    'JosefLitos/colorizer.nvim',
+    'litoj/colorizer.nvim',
+    commit = 'c1602ff3f11566bb7f16f90985b0c59d3d7db0ef',
     event = 'VeryLazy',
     opts = {
-      filetypes = { '*', },
+      filetypes = { '*' },
       user_default_options = {
         RGB = true,           -- #RGB hex codes
         RRGGBB = true,        -- #RRGGBB hex codes
@@ -17,7 +18,7 @@ return {
         mode = 'virtualtext', -- Set the display mode.
         -- names = function () return require 'bugabinga.nugu.palette' end,
         -- parsers can contain values used in |user_default_options|
-        sass = { enable = false, parsers = { 'css', }, }, -- Enable sass colors
+        sass = { enable = false, parsers = { 'css' } },   -- Enable sass colors
         virtualtext = '██',
         -- update color values even if buffer is not focused
         -- example use: cmp_menu, cmp_docs
