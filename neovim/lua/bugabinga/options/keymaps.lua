@@ -1,5 +1,5 @@
 local map = require 'std.map'
-local const = require 'bugabinga.const'
+local const = require 'std.const'
 local togglers = require 'bugabinga.options.togglers'
 
 -- set <SPACE> as leader key

@@ -9,6 +9,7 @@ use timer.nu
 use dwnld.nu
 use packages.nu
 use fedora_bootstrip.nu
+use notes.nu
 
 if $env.WIN32 {
 	use refreshenv.nu *
