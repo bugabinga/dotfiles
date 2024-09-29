@@ -31,6 +31,8 @@ return {
   exclaim         = '',
   extends         = '❯',
   failed          = ' ',
+  type            = '󱔞',
+  parameter       = '',
   field           = ' ',
   file            = '',
   folder          = '',
@@ -108,5 +110,5 @@ return {
   virtual         = '󰢔',
   visual          = '󰒉',
   warn            = '󰱯',
-  wrap            = '󰖶'
+  wrap            = '󰖶',
 }

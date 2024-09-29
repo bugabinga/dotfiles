@@ -10,9 +10,23 @@ local leader = { key = 'VoidSymbol', }
 if wez.target_triple:find 'windows' then
   leader = { key = 'raw:255', }
 end
-local font_size_mode = ' Change Font Size (=-+)'
+local font_mode = ' Font mode (-=🠙🠛␡)'
 local pane_mode = ' Pane (hjklqr)'
 local resize_pane_mode = 'ﭕ Resize Pane (hjkl)'
+
+wez.on("inc-font-size", function(window)
+  local size = window:effective_config().font_size + 1
+  local overrides = window:get_config_overrides() or {}
+  overrides.font_size = size
+  window:set_config_overrides(overrides)
+end)
+
+wez.on("dec-font-size", function(window)
+  local size = window:effective_config().font_size - 1
+  local overrides = window:get_config_overrides() or {}
+  overrides.font_size = size
+  window:set_config_overrides(overrides)
+end)
 
 local key_tables = {
   [resize_pane_mode] = {
@@ -24,10 +38,14 @@ local key_tables = {
     -- Cancel the mode
     { key = 'Escape', action = 'PopKeyTable', },
   },
-  [font_size_mode] = {
-    { key = '-',      action = wez.action.DecreaseFontSize, },
-    { key = '=',      action = wez.action.IncreaseFontSize, },
+  [font_mode] = {
+    { key = '-',      action = wez.action.EmitEvent 'dec-font-size', },
+    { key = '=',      action = wez.action.EmitEvent 'inc-font-size', },
     { key = '0',      action = wez.action.ResetFontSize, },
+
+    { key = 'UpArrow', action = wez.action.EmitEvent 'like-current-font' },
+    { key = 'DownArrow', action = wez.action.EmitEvent 'dislike-current-font' },
+    { key = 'Delete', action = wez.action.EmitEvent 'ban-current-font' },
 
     { key = 'Escape', action = 'PopKeyTable', },
   },
@@ -53,7 +71,7 @@ local keys = {
   {
     key = '0',
     mods = 'LEADER',
-    action = wez.action.ActivateKeyTable { name = font_size_mode, one_shot = false, },
+    action = wez.action.ActivateKeyTable { name = font_mode, one_shot = false, },
   },
   {
     key = 'w',
@@ -97,6 +115,7 @@ local keys = {
         { Foreground = { AnsiColor = 'Purple', }, },
         { Text = 'New workspace:', },
       },
+      -- FIXME: move to workspace module and use emitevent instead of custom_action
       action = wez.action_callback( function ( window, pane, line )
         if line then
           window:perform_action(
