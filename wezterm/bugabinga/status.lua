@@ -22,7 +22,7 @@ wez.on( 'update-status', function ( window, pane )
   local zoomed_state = zoomed( pane )
   local leader = nil
   if window:leader_is_active() then
-    leader = 'LEADER'
+    leader = '󱁐 '
   end
   local fonts = {}
   local config = window:effective_config()
@@ -38,7 +38,7 @@ wez.on( 'update-status', function ( window, pane )
   }
   local pane_domain = pane:get_domain_name()
 
-  local status = { '', }
+  local status = { ' ', }
   if leader then
     table.insert( status, leader )
   end
