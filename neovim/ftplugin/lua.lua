@@ -10,3 +10,14 @@ vim.opt_local.suffixesadd:prepend '.lua'
 -- those are defined in 'after/queries/lua/highlights.scm'
 vim.opt_local.conceallevel = 1
 vim.opt_local.concealcursor = 'n'
+
+vim.snippet.add(
+  'fn',
+  'function ${1:name}($2)\n\t${3:-- content}\nend',
+  { buffer = 0 }
+)
+vim.snippet.add(
+  'lfn',
+  'local ${1:name} = function($2)\n\t${3:-- gogogo}\nend',
+  { buffer = 0 }
+)

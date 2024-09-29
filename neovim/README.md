@@ -24,7 +24,7 @@ colors/nugu
 ftplugin
 : file type specific config
 
-----------
+---
 
 # ai poem
 
@@ -38,23 +38,24 @@ So as I pray, Unlimited Bug Works.
 
 # todo
 
-* navic highlights do not fit winbar
 * indent line bg overwrites visual selection bg
-* fix bg gihlight of treesitter-context
+* fix bg highlight of treesitter-context
+* stabilize plugins that are only dependencies. move to own file?
+* fix markdown rendering in doc popup
 * make highlights more visible when expanding snippets
+* kill mason again and get lsps via packages.nu
+* simplify lsp config
+    - make my config identical to vim.lsp.ClientConfig
+    - fuck all that single file and workspace stuff
+    - move start function and config creation from lsp/init.lua to ftplugin/*.lua
 * make assignment to map.x fail, e.g. `map.normal = {}`...
 * figure out desirable cmp key maps
 * try loading lsp async for better startup perf
 * check out `vim.snippet`
-* adapt config to respect `vim.g.nerdfont` (std.constants?)
-* Do I want multiple LSPs per buffer?
-  In case of markdown and text it seems useful, for code it seems like a
-  headache...
-  But it seems inevitable, because more and more tools use the LSP infrastructure.
-  For example, grammar checkers like harper or code transform tools like ast-grep
+* replace cmp with vim.lsp.completion when 0.11 comes out
+* adapt config to respect `vim.g.nerdfont` (std.const?)
 * check out harper-ls
 * check out ast-grep
-* flesh out 'const.lua', move to std?
 * nvim spell for camel case words
 * create skeleton-plugin for default file content based on file type
   (BufNewFile?)

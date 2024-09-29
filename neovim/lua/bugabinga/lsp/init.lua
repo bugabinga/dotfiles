@@ -12,7 +12,6 @@ local localrc            = require 'std.localrc'
 
 local _                  = {}
 
-require 'bugabinga.lsp.lightbulb'
 
 local token_update   = function ( lsp_client )
   local token = lsp_client.data.token
@@ -300,7 +299,7 @@ local lsp_attach     = function ( args )
       buffer = bufnr,
       keys = '<leader>ti',
       command = function ()
-        vim.lsp.inlay_hint.enable( bufnr, nil )
+        vim.lsp.inlay_hint.enable( not vim.lsp.inlay_hint.is_enabled() )
       end,
     } )
   end

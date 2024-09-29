@@ -1,5 +1,5 @@
 local map = require 'std.map'
-local const = require 'bugabinga.const'
+local const = require 'std.const'
 local togglers = require 'bugabinga.options.togglers'
 
 -- set <SPACE> as leader key
@@ -9,27 +9,6 @@ map {
 }
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
-map.normal.visual {
-  description = 'Yanks the selected text (in normal mode or visual mode) to the system clipboard.',
-  category = 'editing',
-  keys = '<leader>y',
-  command = '"+y',
-}
-
-map.normal {
-  description = 'Pastes from the system clipboard (in normal mode or visual mode).',
-  category = 'editing',
-  keys = '<leader>p',
-  command = '"+p',
-}
-
-map.normal.visual {
-  description = 'Yanks the entire line (when used in normal mode with motion).',
-  category = 'editing',
-  keys = '<leader>Y',
-  command = '"+Y',
-}
 
 -- disable command history keymap, because i fatfinger it too often
 map {

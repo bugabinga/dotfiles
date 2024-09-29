@@ -4,7 +4,6 @@ local auto = require 'std.auto'
 local sessions = vim.fs.normalize( vim.fn.stdpath 'data' .. '/sessions' )
 vim.fn.mkdir( sessions, 'p' )
 
--- FIXME: this needs to live somewhere in std
 local file_exists = function ( path )
   local stat = vim.uv.fs_stat( path )
   ---@diagnostic disable-next-line: undefined-field
@@ -12,14 +11,14 @@ local file_exists = function ( path )
 end
 
 local encode = function ( data )
-  vim.validate { data = { data, 'string', }, }
+  vim.validate { data = { data, 'string' } }
 
   -- replace some chars in base64, that are not allowed in file names.
   return vim.base64.encode( data ):gsub( '%+', '-' ):gsub( '%/', '.' ):gsub( '%=', '_' )
 end
 
 local decode = function ( data )
-  vim.validate { data = { data, 'string', }, }
+  vim.validate { data = { data, 'string' } }
   return vim.base64.decode( data:gsub( '%-', '+' ):gsub( '%.', '/' ):gsub( '%_', '=' )
   )
 end
@@ -33,14 +32,14 @@ end
 local save_session_for_cwd = function ()
   local cwd = vim.uv.cwd()
   local session_save_path = to_session_path( cwd )
-  vim.cmd.mksession { session_save_path, bang = true, }
+  vim.cmd.mksession { session_save_path, bang = true }
 end
 
 local load_session = function ( session )
   local session_path = vim.fs.normalize( sessions .. '/' .. session )
 
   if file_exists( session_path ) then
-    vim.cmd.source { session_path, }
+    vim.cmd.source { session_path }
   else
     vim.notify( 'No session `' .. session .. '` found!' )
   end
