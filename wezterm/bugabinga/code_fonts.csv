@@ -1,110 +1,110 @@
-	1, Anonymous Pro
-	1, Anonymous Pro Minus
-	1, Aurulent Sans Mono
-	1, AverageMono
-	1, BPmono
-	1, BigBlue TerminalPlus
-	1, Bitstream Vera Sans Mono
-	1, Bront
-	1, CMU Typewriter Text
-	1, CPMono_v07
-	1, CamingoCode
-	1, Cascadia Code
-	1, Code New Roman
-	1, CodingFontTobi
-	1, Consola Mono
-	1, Courier Prime Code
-	1, Cousine
-	1, Crisp
-	1, Cutive Mono
-	1, D2Coding
-	1, DejaVu Sans Mono
-	1, Dina ttf 10px
-	1, Droid Sans Mono
-	1, Edlo
-	1, Envy Code R
-	1, Fantasque Sans Mono
-	1, Fira Code
-	1, Fira Mono
-	1, Fixedsys Excelsior 3.01
-	1, FreeMono
-	1, Geist Mono
-	1, Generic Mono II
-	1, GohuFont
-	1, Hack
-	1, Hasklig
-	10, Hermit
-	10, IBM Plex Mono
-	1, Inconsolata
-	1, Inconsolata LGC
-	1, Inconsolata-dz
-	1, Inconsolata-g
-	1, Intel One Mono
-	1, Iosevka
-	1, Iosevka Slab
-	1, JetBrains Mono
-	1, JetBrains Mono NL
-	1, Kawkab Mono
-	1, Latin Modern Mono Light
-	10, Lekton
-	1, Liberation Mono
-	1, Lilex
-	1, Linux Libertine Mono
-	1, Luculent
-	1, Luxi Mono
-	1, M+ 1m
-	1, M+ 1mn
-	1, M+ 2m
-	1, Martian Mono
-	1, Mensch
-	0, Meslo LG M DZ
-	1, Metrickal
-	1, Monaspace Argon Var
-	1, Monaspace Krypton Var
-	1, Monaspace Neon Var
-	1, Monaspace Radon Var
-	1, Monaspace Xenon Var
-	1, MonoSpatial
-	1, Monoid
-	1, Monospace
-	1, MonteCarlo Fixed 12
-	1, NanumGothic_Coding
-	1, NotCourierSans
-	1, Office Code Pro
-	1, Office Code Pro D
-	1, Oxygen Mono
-	1, PT Mono
-	1, Panic Sans
-	0, PixelCarnageMonoTT
-	1, Pointfree
-	1, ProFontWindows
-	1, ProggyCleanTT
-	1, ProggyCleanTTSZ
-	1, ProggySmallTT
-	1, ProggySquareTT
-	1, ProggySquareTTSZ
-	1, ProggyTinyTT
-	1, ProggyTinyTTSZ
-	1, Rec Mono Casual
-	1, Rec Mono Linear
-	1, Roboto Mono
-	1, SV Basic Manual
-	1, Share Tech Mono
-	1, Share-TechMonoTrue
-	1, SmallTypeWriting
-	1, Source Code Pro
-	1, Sudo
-	1, Symbols Nerd Font
-	1, Symbols Nerd Font Mono
-	1, TeX Gyre Cursor
-	1, Terminus
-	1, Ubuntu Mono
-	1, Verily Serif Mono
-	1, Victor Mono
-	1, Whois
-	1, agave
-	1, iA Writer Mono V
-	1, monoOne
-	1, monofur
-	1, mononoki
-	20, saxMono
+1, Anonymous Pro
+1, Anonymous Pro Minus
+1, Aurulent Sans Mono
+1, AverageMono
+1, BPmono
+1, BigBlue TerminalPlus
+1, Bitstream Vera Sans Mono
+1, Bront
+1, CMU Typewriter Text
+1, CPMono_v07
+1, CamingoCode
+1, Cascadia Code
+1, Code New Roman
+1, CodingFontTobi
+1, Consola Mono
+1, Courier Prime Code
+1, Cousine
+1, Crisp
+1, Cutive Mono
+1, D2Coding
+1, DejaVu Sans Mono
+1, Dina ttf 10px
+1, Droid Sans Mono
+1, Edlo
+1, Envy Code R
+1, Fantasque Sans Mono
+1, Fira Code
+1, Fira Mono
+1, Fixedsys Excelsior 3.01
+1, FreeMono
+1, Geist Mono
+20, Generic Mono II
+1, GohuFont
+1, Hack
+1, Hasklig
+11, Hermit
+11, IBM Plex Mono
+1, Inconsolata
+1, Inconsolata LGC
+1, Inconsolata-dz
+1, Inconsolata-g
+1, Intel One Mono
+1, Iosevka
+1, Iosevka Slab
+0, JetBrains Mono
+0, JetBrains Mono NL
+1, Kawkab Mono
+1, Latin Modern Mono Light
+11, Lekton
+1, Liberation Mono
+1, Lilex
+1, Linux Libertine Mono
+1, Luculent
+1, Luxi Mono
+1, M+ 1m
+1, M+ 1mn
+1, M+ 2m
+1, Martian Mono
+1, Mensch
+0, Meslo LG M DZ
+1, Metrickal
+1, Monaspace Argon Var
+1, Monaspace Krypton Var
+1, Monaspace Neon Var
+1, Monaspace Radon Var
+1, Monaspace Xenon Var
+1, MonoSpatial
+1, Monoid
+1, Monospace
+1, MonteCarlo Fixed 12
+1, NanumGothic_Coding
+1, NotCourierSans
+1, Office Code Pro
+1, Office Code Pro D
+6, Oxygen Mono
+1, PT Mono
+1, Panic Sans
+0, PixelCarnageMonoTT
+1, Pointfree
+1, ProFontWindows
+1, ProggyCleanTT
+1, ProggyCleanTTSZ
+1, ProggySmallTT
+1, ProggySquareTT
+1, ProggySquareTTSZ
+1, ProggyTinyTT
+1, ProggyTinyTTSZ
+1, Rec Mono Casual
+1, Rec Mono Linear
+1, Roboto Mono
+1, SV Basic Manual
+1, Share Tech Mono
+1, Share-TechMonoTrue
+1, SmallTypeWriting
+1, Source Code Pro
+1, Sudo
+1, Symbols Nerd Font
+1, Symbols Nerd Font Mono
+1, TeX Gyre Cursor
+1, Terminus
+1, Ubuntu Mono
+1, Verily Serif Mono
+1, Victor Mono
+1, Whois
+1, agave
+1, iA Writer Mono V
+1, monoOne
+1, monofur
+1, mononoki
+0, saxMono
