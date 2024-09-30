@@ -12,8 +12,7 @@ local localrc            = require 'std.localrc'
 
 local _                  = {}
 
-
-local token_update   = function ( lsp_client )
+local token_update       = function ( lsp_client )
   local token = lsp_client.data.token
   local buffer = lsp_client.buffer
   local client_id = lsp_client.data.client_id
@@ -29,7 +28,7 @@ local token_update   = function ( lsp_client )
   --* closures that capture something
 end
 
-local expand_path    = function ( path )
+local expand_path        = function ( path )
   if vim.fn.executable( path ) == 1 then
     return vim.fn.exepath( path )
   else
@@ -37,7 +36,7 @@ local expand_path    = function ( path )
   end
 end
 
-local expand_command = function ( command )
+local expand_command     = function ( command )
   vim.validate { command = { command, { 'string', 'table' } } }
 
   if type( command ) == 'table' then
@@ -48,7 +47,7 @@ local expand_command = function ( command )
   return expand_path( command )
 end
 
-local lsp_start      = function ( file_type_event )
+local lsp_start          = function ( file_type_event )
   dbg.print 'trying to start lsp'
   local match = file_type_event.match
 
@@ -235,8 +234,8 @@ local old_formatexpr
 local old_omnifunc
 local old_tagfunc
 
-local keybinds       = {}
-local add            = function ( client_id, keybind_remover )
+local keybinds           = {}
+local add                = function ( client_id, keybind_remover )
   vim.validate {
     client_id = { client_id, 'number' },
     keybind_remover = { keybind_remover, 'function' },
@@ -247,7 +246,9 @@ local add            = function ( client_id, keybind_remover )
   table.insert( keybinds[client_id], keybind_remover )
 end
 
-local lsp_attach     = function ( args )
+-- FIXME: move to own file with LspAttach instead, so that those settings are
+-- applied to all LSPs, not only those managed by my configs.
+local lsp_attach         = function ( args )
   local bufnr = args.buf
   local client_id = args.data.client_id
   local client = vim.lsp.get_client_by_id( client_id )
@@ -271,25 +272,29 @@ local lsp_attach     = function ( args )
   end
 
   if client.server_capabilities.documentHighlightProvider then
+    -- FIXME: there is an incubating pluging, that adds [r ]r bindings to navigate
+    -- highlighted references.
+    -- steal those, improve the debouncing below (i still see dubbel highlights sometimes)
+    -- and then remove plugin.
     -- the timer has application lifetime. no need to close
-    local delay = 300
-    local debounced_highlight = defer.debounce_leading( vim.lsp.buf.document_highlight, delay )
-    local debounced_clear = defer.debounce_leading( vim.lsp.buf.clear_references, delay )
-
-    auto 'document_highlight' {
-      {
-        description = 'Highlight symbol under cursor on hold',
-        events = 'CursorHold',
-        buffer = bufnr,
-        command = debounced_highlight,
-      },
-      {
-        description = 'Remove highlight from symbol under cursor on move',
-        events = { 'CursorMoved', 'InsertEnter' },
-        buffer = bufnr,
-        command = debounced_clear,
-      },
-    }
+    -- local delay = 300
+    -- local debounced_highlight = defer.debounce_leading( vim.lsp.buf.document_highlight, delay )
+    -- local debounced_clear = defer.debounce_leading( vim.lsp.buf.clear_references, delay )
+    --
+    -- auto 'document_highlight' {
+    --   {
+    --     description = 'Highlight symbol under cursor on hold',
+    --     events = 'CursorHold',
+    --     buffer = bufnr,
+    --     command = debounced_highlight,
+    --   },
+    --   {
+    --     description = 'Remove highlight from symbol under cursor on move',
+    --     events = { 'CursorMoved', 'InsertEnter' },
+    --     buffer = bufnr,
+    --     command = debounced_clear,
+    --   },
+    -- }
   end
 
   if client.server_capabilities.inlayHintProvider then
@@ -377,7 +382,7 @@ local lsp_attach     = function ( args )
   } )
 end
 
-local lsp_detach     = function ( args )
+local lsp_detach         = function ( args )
   dbg.print( 'DETACH LSP', args )
 
   local bufnr = args.buf
@@ -506,5 +511,14 @@ local completion_kinds = vim.lsp.protocol.CompletionItemKind
 for i, kind in ipairs( completion_kinds ) do
   completion_kinds[i] = completion_icons[kind] or kind
 end
+
+
+-- style the lsp hover window
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = vim.g.border_style,
+    title = '  ' .. icon.hover .. '  ',
+  }
+)
 
 return setmetatable( _, {} )

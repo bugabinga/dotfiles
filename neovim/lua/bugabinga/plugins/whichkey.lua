@@ -18,7 +18,7 @@ return {
   event = 'VeryLazy',
   opts = {
     icons = {
-      group = icon.group,
+      group = icon.group .. ' ',
       keys = {
         CR = icon.return_key,
         Esc = icon.esc_key,
@@ -38,15 +38,15 @@ return {
     },
     debug = dbg.get(),
     spec = {
-      { '<leader> ',  group = 'fun' },
-      { '<leader>b',  group = '|b|uffer' },
-      { '<leader>f',  group = '|f|iles' },
-      { '<leader>j',  group = '|j|oin' },
-      { '<leader>l',  group = '|l|sp' },
-      { '<leader>lc', group = '|c|alls' },
-      { '<leader>t',  group = '|t|oggle' },
-      { '<leader>v',  group = '|v|ersion control' },
-      { '<leader>z',  group = 'la|z|y' },
+      { '<leader> ', group = 'fun' },
+
+      { '<leader>b', group = 'Buffers' },
+      { '<leader>f', group = 'Files' },
+      { '<leader>j', group = 'Join' },
+      { '<leader>l', group = 'Lsp' },
+      { '<leader>t', group = 'Toggle' },
+      { '<leader>v', group = 'Version control' },
+      { '<leader>z', group = 'laZy' },
     },
   },
 }

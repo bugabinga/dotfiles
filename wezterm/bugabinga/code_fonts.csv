@@ -81,7 +81,7 @@
 1, ProggyCleanTT
 1, ProggyCleanTTSZ
 1, ProggySmallTT
-1, ProggySquareTT
+0, ProggySquareTT
 1, ProggySquareTTSZ
 1, ProggyTinyTT
 1, ProggyTinyTTSZ
@@ -99,7 +99,7 @@
 1, TeX Gyre Cursor
 1, Terminus
 1, Ubuntu Mono
-1, Verily Serif Mono
+0, Verily Serif Mono
 1, Victor Mono
 1, Whois
 1, agave
@@ -108,3 +108,4 @@
 1, monofur
 1, mononoki
 0, saxMono
+

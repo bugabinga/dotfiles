@@ -40,6 +40,7 @@ return {
   global          = '󱥔',
   group           = '',
   hash            = '',
+  hover           = '󰟂',
   hint            = '',
   info            = '󰩖',
   insert          = '',
