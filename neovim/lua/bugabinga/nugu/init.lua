@@ -42,7 +42,6 @@ vim.g.terminal_color_13 = ui_accent               -- fuchsia
 vim.g.terminal_color_14 = ui_important_global     -- aqua
 vim.g.terminal_color_15 = ui_normal               -- white
 
-
 local set_group_properties = function ( self, properties )
   vim.validate {
     properties = { properties, 'table' },
@@ -107,8 +106,8 @@ end
 local link_group = function ( self, key, value )
   -- vim.print( 'linking group', self, key, value )
   local group = add_group( self, key )
-  for name, link_group in pairs( self.groups ) do
-    if link_group == value then
+  for name, group_link in pairs( self.groups ) do
+    if group_link == value then
       -- vim.print( 'found group to link ' .. name .. ' to ' .. key )
       group.link = name
       return group
@@ -131,8 +130,8 @@ _.CursorLineNr { fg = ui_focus, bg = ui_backdrop }
 _.Search { bg = content_unfocus }
 _.IncSearch { fg = content_focus }
 _.CurSearch { fg = content_important_global, bg = content_unfocus }
-_.NormalFloat { fg = ui_normal, bg = ui_backdrop }
-_.FloatBorder { fg = _.NormalFloat.bg, bg = _.NormalFloat.bg }
+_.NormalFloat = _.Normal
+_.FloatBorder { fg = ui_accent, bg = _.Normal.bg }
 _.ColorColumn { fg = ui_important_global, bg = _.Normal.bg }
 _.Conceal { fg = content_focus, bg = _.Normal.bg }
 _.Cursor { bg = ui_accent }
@@ -152,7 +151,7 @@ _.Folded = _.Conceal
 _.FoldColumn = _.LineNr
 _.SignColumn = _.LineNr
 _.ModeMsg { bold = true }
-_.MsgArea = _.Normal
+_.MsgArea = _.StatusLine
 _.MsgSeparator = _.Debug
 _.MoreMsg = _.Normal
 _.NonText { fg = content_unfocus }
@@ -175,8 +174,8 @@ _.Winbar { fg = ui_focus, bg = _.StatusLine.bg }
 _.WinbarNC { fg = ui_minor, bg = _.LineNr.bg }
 _.Title { fg = content_important_global, sp = content_important_global, bold = true, underline = true }
 _.TabLine = _.StatusLine
-_.TabLineFill { fg = _.TabLine.fg, bg = content_backdrop }
-_.TabLineSel { fg = ui_important_global, bg = ui_unfocus }
+_.TabLineFill = _.StatusLine
+_.TabLineSel { fg = ui_important_global, bold = true, underline = true }
 _.Visual { bg = content_unfocus }
 _.VisualNOS { bg = ui_unfocus }
 _.WarningMsg { fg = warning, bold = true }
@@ -203,7 +202,7 @@ _.Keyword = _.Statement
 _.Parameter { fg = content_focus }
 _.Exception = _.Statement
 
-_.PreProc { fg = content_important_global, bg = content_unfocus, bold = true }
+_.PreProc { fg = content_important_global, bold = true }
 _.Include = _.PreProc
 _.Define = _.PreProc
 _.Macro = _.PreProc
@@ -256,6 +255,7 @@ _.LspReferenceText { sp = content_unfocus, underline = true }
 _.LspReferenceRead = _.LspReferenceText
 _.LspReferenceWrite = _.LspReferenceText
 _.LspInlayHint { fg = content_minor, bg = _.Normal.bg }
+_.LspSignatureActiveParameter = _.Debug
 
 _['@text.literal'] = _.Comment
 _['@text.reference'] = _.Identifier
@@ -306,8 +306,9 @@ _['@preproc'] = _.PreProc
 _['@debug'] = _.Debug
 _['@tag'] = _.Tag
 
-_['@markup.raw.block'] = _.PreProc
-_['@markup.raw.block.vimdoc'] = _.Normal
+_['@markup.raw.block'] { bg = content_backdrop }
+-- _['@markup.raw.block.markdown'] { fg = ui_normal, bg = ui_backdrop }
+-- _['@markup.raw.block.vimdoc'] { fg = ui_normal, bg = ui_backdrop }
 
 _['@lsp.type.namespace'] = _['@namespace']
 _['@lsp.type.type'] = _['@type']

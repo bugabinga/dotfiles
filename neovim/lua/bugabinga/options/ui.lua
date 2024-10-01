@@ -108,7 +108,7 @@ vim.opt.pumblend = 0
 vim.opt.winblend = 0
 
 -- use this in various places for consistent border style
-vim.g.border_style = 'solid'
+vim.g.border_style = 'single'
 
 -- hide the mode indicator in status
 vim.opt.showmode = false

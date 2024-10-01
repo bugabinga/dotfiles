@@ -16,7 +16,7 @@ return {
     lazy = false,
     version = '2.0',
     config = true,
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -33,7 +33,7 @@ return {
         }
       end,
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -52,7 +52,7 @@ return {
       position = 'right',
       width = 69,
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -63,7 +63,7 @@ return {
     },
     keys = { ']r', '[r' },
     opts = {},
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -78,10 +78,11 @@ return {
     opts = {
       debug = true,                 -- Enable debugging
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
+    -- TODO: this is pretty great! i just need better binds and tell which key about them
     'chrisgrieser/nvim-rulebook',
     keys = {
       { '<leader>ri', function () require 'rulebook'.ignoreRule() end },
@@ -89,21 +90,21 @@ return {
       { '<leader>ry', function () require 'rulebook'.yankDiagnosticCode() end },
       { '<leader>sf', function () require 'rulebook'.suppressFormatter() end, mode = { 'n', 'x' } },
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
     'chrisgrieser/nvim-dr-lsp',
     event = 'LspAttach',
     opts = {},
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
     'Wansmer/symbol-usage.nvim',
     event = 'LspAttach',
     opts = {},
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -114,7 +115,7 @@ return {
     init = function ()
       vim.o.mousemoveevent = true
     end,
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -127,7 +128,7 @@ return {
         desc = 'Show time spent',
       },
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -143,12 +144,12 @@ return {
         desc = 'telescope: Show recently and  frequently used files.',
       },
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
 
   {
     'cenk1cenk2/scratch.nvim',
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -156,7 +157,8 @@ return {
     lazy = false,
     build = 'cargo build --release',
     opts = {},
-    enable = FUCK_STABILITY,
+    enabled = false,
+    -- this one is not ready yet, but looks promising
   },
   -------------------------------------------------------------------------------
   {
@@ -169,7 +171,7 @@ return {
     opts = {
       root_key = 'ms',
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -178,7 +180,7 @@ return {
     config = function ()
       require 'tiny-inline-diagnostic'.setup()
     end,
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -186,7 +188,7 @@ return {
     lazy = false,
     dependencies = { 'winston0410/cmd-parser.nvim' },
     opts = { highlight = 'Visual' },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -203,7 +205,7 @@ return {
         padding = 2,
       },
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -211,14 +213,14 @@ return {
     'zbirenbaum/neodim',
     event = 'LspAttach',
     opts = {},
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
     'rafcamlet/nvim-luapad',
     cmd = { 'Luapad', 'LuaRun' },
     opts = {},
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
 
   },
   -------------------------------------------------------------------------------
@@ -226,7 +228,7 @@ return {
     'ravibrock/spellwarn.nvim',
     event = 'VeryLazy',
     config = true,
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -234,7 +236,6 @@ return {
     config = function ()
       require 'decisive'.setup {}
     end,
-    lazy = true,
     ft = { 'csv' },
     keys = {
       { '<leader>cca', ":lua require('decisive').align_csv({})<cr>",        { silent = true }, desc = 'Align CSV',          mode = 'n' },
@@ -242,7 +243,7 @@ return {
       { '[c',          ":lua require('decisive').align_csv_prev_col()<cr>", { silent = true }, desc = 'Align CSV prev col', mode = 'n' },
       { ']c',          ":lua require('decisive').align_csv_next_col()<cr>", { silent = true }, desc = 'Align CSV next col', mode = 'n' },
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -272,7 +273,7 @@ return {
       -- },
       disabled_fts = ignored.filetypes,
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -291,12 +292,12 @@ return {
         { path = 'wezterm-types',      mods = { 'wezterm' } },
       },
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   {
     'shortcuts/no-neck-pain.nvim',
     lazy = false,
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -304,7 +305,7 @@ return {
     -- NOTE: if this one does not work out, check https://github.com/Wansmer/sibling-swap.nvim
     'mizlan/iswap.nvim',
     event = 'VeryLazy',
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {
@@ -379,6 +380,6 @@ return {
         }
       end,
     },
-    enable = FUCK_STABILITY,
+    enabled = FUCK_STABILITY,
   },
 }
