@@ -1,3 +1,6 @@
+local palette_dark = require 'bugabinga.nugu.palette_dark'
+local palette_light = require 'bugabinga.nugu.palette_light'
+
 local choose = function ( variants )
   ---@diagnostic disable-next-line: undefined-field
   if vim.opt.background:get() == 'dark' then
@@ -8,26 +11,26 @@ local choose = function ( variants )
 end
 
 return {
-  debug = choose { light = '#3dd45d', dark = '#3dd45d' },
-  error = choose { light = '#740523', dark = '#f27a9a' },
-  info = choose { light = '#4187a7', dark = '#e7f0f3' },
-  warning = choose { light = '#a7802d', dark = '#f1e8d6' },
+  debug = choose { light = palette_light.debug, dark = palette_dark.debug },
+  error = choose { light = palette_light.error, dark = palette_dark.error },
+  info = choose { light = palette_light.info, dark = palette_dark.info },
+  warning = choose { light = palette_light.warning, dark = palette_dark.warning },
 
-  content_normal = choose { light = '#494949', dark = '#cfcfcf' },
-  content_backdrop = choose { light = '#e3e3e3', dark = '#131313' },
-  content_accent = choose { light = '#800080', dark = '#800080' },
-  content_minor = choose { light = '#878787', dark = '#727272' },
-  content_focus = choose { light = '#646464', dark = '#a5bdb6' },
-  content_unfocus = choose { light = '#c9c9c9', dark = '#3f4543' },
-  content_important_global = choose { light = '#48256e', dark = '#8e58cc' },
-  content_important_local = choose { light = '#643398', dark = '#7a3bc3' },
+  content_normal = choose { light = palette_light.content_normal, dark = palette_dark.content_normal },
+  content_backdrop = choose { light = palette_light.content_backdrop, dark = palette_dark.content_backdrop },
+  content_accent = choose { light = palette_light.content_accent, dark = palette_dark.content_accent },
+  content_minor = choose { light = palette_light.content_minor, dark = palette_dark.content_minor },
+  content_focus = choose { light = palette_light.content_focus, dark = palette_dark.content_focus },
+  content_unfocus = choose { light = palette_light.content_unfocus, dark = palette_dark.content_unfocus },
+  content_important_global = choose { light = palette_light.content_important_global, dark = palette_dark.content_important_global },
+  content_important_local = choose { light = palette_light.content_important_local, dark = palette_dark.content_important_local },
 
-  ui_normal = choose { light = '#929292', dark = '#e2e2e2' },
-  ui_backdrop = choose { light = '#f9f9f9', dark = '#000000' },
-  ui_accent = choose { light = '#d43dd4', dark = '#7a067a' },
-  ui_minor = choose { light = '#d0d0d0', dark = '#424242' },
-  ui_focus = choose { light = '#646464', dark = '#788984' },
-  ui_unfocus = choose { light = '#c9c9c9', dark = '#121212' },
-  ui_important_global = choose { light = '#9170b5', dark = '#5f368d' },
-  ui_important_local = choose { light = '#ae95c8', dark = '#4c2b72' },
+  ui_normal = choose { light = palette_light.ui_normal, dark = palette_dark.ui_normal },
+  ui_backdrop = choose { light = palette_light.ui_backdrop, dark = palette_dark.ui_backdrop },
+  ui_accent = choose { light = palette_light.ui_accent, dark = palette_dark.ui_accent },
+  ui_minor = choose { light = palette_light.ui_minor, dark = palette_dark.ui_minor },
+  ui_focus = choose { light = palette_light.ui_focus, dark = palette_dark.ui_focus },
+  ui_unfocus = choose { light = palette_light.ui_unfocus, dark = palette_dark.ui_unfocus },
+  ui_important_global = choose { light = palette_light.ui_important_global, dark = palette_dark.ui_important_global },
+  ui_important_local = choose { light = palette_light.ui_important_local, dark = palette_dark.ui_important_local },
 }
