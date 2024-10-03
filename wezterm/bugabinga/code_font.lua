@@ -1,11 +1,12 @@
 local wez = require 'wezterm'
+local csv_line_pattern = '^%s*(%d+)%s*,%s*(.-)%s*$'
 
 local adjust_font_randomness_weight = function ( font_family, adjust )
   local code_fonts = io.open( wez.config_dir .. '/bugabinga/code_fonts.csv', 'r+' )
   if code_fonts then
     local new_lines = {}
     for line in code_fonts:lines() do
-      local weight, font_name = line:match '^%s*(%d+)%s*,%s*(.-)%s*$'
+      local weight, font_name = line:match(csv_line_pattern)
       if not weight or not font_name then
         wez.log_error 'Could not parse code_fonts.csv. Borked?'
         return
@@ -14,7 +15,7 @@ local adjust_font_randomness_weight = function ( font_family, adjust )
       if font_name == font_family then
         weight = math.max( 0, adjust( weight ) )
       end
-      table.insert( new_lines, weight .. ', ' .. font_name )
+      table.insert( new_lines, weight .. ',' .. font_name )
     end
     code_fonts:seek( 'set', 0 )
     for _, new_line in ipairs( new_lines ) do
@@ -78,7 +79,8 @@ local random = function ()
 
   if code_fonts then
     for line in code_fonts:lines() do
-      local weight, font_name = line:match '^%s*(%d+)%s*,%s*(.-)%s*$'
+      print('csv line: ' , line)
+      local weight, font_name = line:match(csv_line_pattern)
       if not weight or not font_name then
         wez.log_error 'Could not parse code_fonts.csv. Borked?'
         break
