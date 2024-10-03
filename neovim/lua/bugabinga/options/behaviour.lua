@@ -1,4 +1,4 @@
-local debug = require 'std.dbg'
+local dbg = require 'std.dbg'
 local const = require 'std.const'
 local auto = require 'std.auto'
 
@@ -32,7 +32,7 @@ vim.opt.shiftround = true
 -- insert whitespace type based on whitespace on previous line
 vim.opt.smarttab = true
 
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.opt.breakindent = true
 
 -- do not keep distance to borders while scrolling
@@ -132,3 +132,14 @@ if const.wsl then
     cache_enabled = 0,
   }
 end
+
+auto 'handle_usr1_signal' {
+  description = 'Reloads the current theme, when USR1 signal is received',
+  events = { 'Signal' },
+  pattern = 'SIGUSR1',
+  command = function ()
+    dbg.print 'received signal USR1! Attempting to reload colorscheme.'
+
+    vim.cmd.colorscheme 'nugu'
+  end,
+}
