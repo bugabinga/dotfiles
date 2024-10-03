@@ -33,13 +33,13 @@
   "bold",
 ], underline.style = "double_line" }
 "markup.heading.marker" = { fg = "minor" }
-"markup.list" = { fg = "minor" }
+"markup.list" = "minor"
 "markup.bold" = { modifiers = ["bold"] }
 "markup.italic" = { modifiers = ["italic"] }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }
-"markup.link.url" = { fg = "accent" }
-"markup.link.text" = { fg = "important_local" }
-"markup.link.label" = { fg = "important_global" }
+"markup.link.url" = "accent"
+"markup.link.text" = "important_local"
+"markup.link.label" = "important_global"
 "markup.quote" = { fg = "important_local", modifiers = ["italic"] }
 "markup.raw.inline" = { fg = "important_local" }
 "markup.raw.block" = { fg = "important_global" }
@@ -48,66 +48,63 @@
 "diff.delta" = { fg = "unfocus" }
 "diff.minus" = { fg = "focus", modifiers = ["crossed_out"] }
 
-"ui" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.background" = { fg = "normal", bg = "backdrop" }
 "ui.background.separator" = { fg = "ui_minor" }
 
-"ui.cursor" = { fg = "normal", bg = "ui_accent" }
-"ui.cursor.primary" = { fg = "normal", bg = "ui_accent" }
-"ui.cursor.match" = { fg = "normal", bg = "ui_unfocus", modifiers = [
+"ui.cursor" = { fg = "normal", bg = "accent" }
+"ui.cursor.primary" = { fg = "normal", bg = "accent" }
+"ui.cursor.match" = { fg = "normal", bg = "unfocus", modifiers = [
   "slow_blink",
 ] }
 
-"ui.cursorline.primary" = { underline = { style = "line", color = "ui_unfocus" } }
+"ui.cursorline.primary" = { bg = "debug" }
 
-"ui.selection" = { fg = "normal", bg = "ui_unfocus" }
-"ui.selection.primary" = { fg = "normal", bg = "ui_important_local" }
+"ui.selection" = { fg = "normal", bg = "ui_important_local" }
+"ui.selection.primary" = { fg = "normal", bg = "ui_important_global" }
 
-"ui.linenr" = { fg = "ui_minor", bg = "backdrop" }
-"ui.linenr.selected" = { fg = "ui_focus" }
+"ui.linenr" = { fg = "ui_unfocus" }
+"ui.linenr.selected" = { fg = "ui_accent" }
 
-"ui.statusline" = { fg = "ui_normal", bg = "ui_backdrop" }
+"ui.statusline" = { fg = "ui_minor", bg = "ui_backdrop" }
 "ui.statusline.separator" = { fg = "ui_unfocus", bg = "ui_backdrop" }
 "ui.statusline.insert" = { fg = "ui_important_global", modifiers = ["bold"] }
 "ui.statusline.select" = { fg = "ui_focus", modifiers = ["bold"] }
-"ui.statusline.inactive" = { fg = "ui_minor", bg = "ui_backdrop" }
+"ui.statusline.inactive" = { fg = "ui_unfocus", bg = "ui_backdrop" }
 
-"ui.bufferline" = { fg = "ui_normal", bg = "ui_backdrop" }
+"ui.bufferline" = { fg = "ui_minor", bg = "ui_backdrop" }
 "ui.bufferline.active" = { fg = "ui_important_global", bg = "ui_unfocus", modifiers = [
   "bold",
-], underline = { style = "double_line", color = "ui_important_global" } }
-"ui.gutter" = { bg = "backdrop" }
+], underline = { style = "double_line", color = "ui_backdrop" } }
+
+"ui.gutter" = { bg = "ui_backdrop" }
 
 "ui.debug.breakpoint" = { fg = "ui_important_global" }
 "ui.debug.active" = { fg = "ui_important_global" }
 
-"ui.window" = { fg = "ui_important_global", bg = "ui_backdrop" }
+"ui.window" = { fg = "ui_unfocus", bg = "ui_backdrop" }
 
 "ui.help" = { fg = "ui_important_global", bg = "ui_backdrop" }
 
-"ui.text" = { fg = "normal" }
-"ui.text.focus" = { fg = "ui_focus", modifiers = [
-  "bold",
-], underline = { style = "line" } }
-"ui.text.info" = { fg = "ui_normal" }
+"ui.text" = { fg = "normal", bg = "backdrop" }
+"ui.text.focus" = { fg = "ui_focus" }
+"ui.text.info" = { fg = "ui_normal", bg = "ui_backdrop" }
 "ui.text.inactive" = { fg = "ui_minor" }
 
 "ui.menu" = { fg = "ui_normal", bg = "ui_backdrop" }
-"ui.menu.selected" = { fg = "ui_focus", modifiers = [
+"ui.menu.selected" = { fg = "ui_focus", bg = "ui_backdrop", modifiers = [
   "bold",
-], underline = { style = "line" } }
-"ui.menu.scroll" = { fg = "ui_minor", bg = "ui_unfocus" }
+] }
+"ui.menu.scroll" = { fg = "ui_accent", bg = "ui_backdrop" }
 
-"ui.popup" = { fg = "normal", bg = "ui_backdrop" }
-"ui.popup.info" = { fg = "ui_important_local", bg = "ui_backdrop" }
+"ui.popup" = { fg = "normal", bg = "backdrop" }
+"ui.popup.info" = { fg = "ui_minor", bg = "ui_backdrop" }
 
 "ui.highlight" = { bg = "ui_focus" }
 "ui.highlight.frameline" = { bg = "ui_important_global" }
 
-"ui.virtual.wrap" = { fg = "ui_unfocus" }
 "ui.virtual.ruler" = { bg = "ui_unfocus" }
 "ui.virtual.whitespace" = { fg = "ui_unfocus" }
-"ui.virtual.inlay-hint" = { fg = "minor", modifiers = ["italic"] }
+"ui.virtual.inlay-hint" = { fg = "ui_minor" }
 
 "error" = { bg = "error" }
 "warning" = { bg = "warning" }
@@ -119,28 +116,27 @@
 "diagnostic.hint" = { underline = { style = "double_line", color = "info" }, modifiers = [
   "dim",
 ] }
-
 "special" = { fg = "debug" }
 
 [palette]
 
-accent = "#800080"
-backdrop = "#e3e3e3"
-debug = "#3dd45d"
-error = "#f27a9a"
-focus = "#646464"
-important_global = "#48256e"
-important_local = "#643398"
-info = "#e7f0f3"
-minor = "#878787"
-normal = "#494949"
-ui_accent = "#d43dd4"
-ui_backdrop = "#c7c7c7"
-ui_focus = "#646464"
-ui_important_global = "#9170b5"
-ui_important_local = "#ae95c8"
-ui_minor = "#d0d0d0"
-ui_normal = "#929292"
-ui_unfocus = "#c9c9c9"
-unfocus = "#c9c9c9"
-warning = "#f1e8d6"
+normal = "#050505"
+backdrop = "#fdfdfd"
+accent = "#a300a3"
+important_local = "#4a25a9"
+important_global = "#4a25a9"
+minor = "#525252"
+focus = "#017b9a"
+unfocus = "#40b8d6"
+ui_normal = "#030303"
+ui_backdrop = "#ffffff"
+ui_accent = "#c600c6"
+ui_important_global = "#4e28b0"
+ui_important_local = "#4e28b0"
+ui_minor = "#575757"
+ui_focus = "#0283a3"
+ui_unfocus = "#719ba5"
+error = "#ce1e5c"
+warning = "#cda77c"
+info = "#8ba7cb"
+debug = "#ff00ff"

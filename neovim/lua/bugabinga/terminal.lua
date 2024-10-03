@@ -14,7 +14,7 @@ map.normal {
     local term_name = string.format( 'term://%s//%s', relative_cwd, shell )
     local buffers = vim.api.nvim_list_bufs()
     local existing_term = vim.iter( buffers ):map( function ( buffer_number )
-      return { buffer_number, vim.api.nvim_buf_get_name( buffer_number ), }
+      return { buffer_number, vim.api.nvim_buf_get_name( buffer_number ) }
     end ):filter( function ( buffer )
       return string.find( buffer[2], relative_cwd, 1, true )
     end ):next()
