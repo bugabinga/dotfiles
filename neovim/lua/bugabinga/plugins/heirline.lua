@@ -233,15 +233,6 @@ return {
         end,
       }
 
-      -- FIXME: still incubating
-      local lsp_dr_count = {
-        condition = conditions.lsp_attached,
-        update = { 'CursorMoved' },
-        provider = function ()
-          local lsp_count = prequire 'dr-lsp'.lspCount()
-          return lsp_count and lsp_count:gsub( 'LSP', '' )
-        end,
-      }
 
       local lsp_active = {
         condition = conditions.lsp_attached,
@@ -481,8 +472,6 @@ return {
         lazy,
         space,
         escape_status,
-        space,
-        lsp_dr_count,
         space,
         lsp_active,
         space,

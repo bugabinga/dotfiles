@@ -1,5 +1,4 @@
 local palette = require 'bugabinga.nugu.palette'
-local preview = require 'bugabinga.nugu.preview'
 
 local debug = (palette.debug)
 local error = (palette.error)
@@ -377,12 +376,7 @@ _.WhichKeyFloat = _.NormalFloat
 _.WhichKeyBorder = _.FloatBorder
 _.WhichKeyValue = _.Comment
 
-_.IblIndent = _.Whitespace
-_.IblWhitespace = _.Whitespace
-_.IblScope { fg = ui_focus, bg = _.Normal.bg }
-
 return function ()
-  preview.setup()
   local namespace = 0
   for name, group in pairs( _.groups ) do
     vim.api.nvim_set_hl( namespace, name, group )
