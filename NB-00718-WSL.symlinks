@@ -43,9 +43,6 @@ nushell/scripts
 topgrade/topgrade.linux.toml
 ~/.config/topgrade.toml
 
-wezterm
-/mnt/c/Users/okr/.config/wezterm
-
 ssh/config
 ~/.ssh/config
 
