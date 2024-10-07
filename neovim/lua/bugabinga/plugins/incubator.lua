@@ -134,7 +134,7 @@ return {
   },
   -------------------------------------------------------------------------------
   {
-    'rafcamlet/nvim-luapad',
+   'rafcamlet/nvim-luapad',
     cmd = { 'Luapad', 'LuaRun' },
     opts = {},
     enabled = FUCK_STABILITY,

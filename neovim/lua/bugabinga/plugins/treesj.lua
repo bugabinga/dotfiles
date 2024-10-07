@@ -5,7 +5,7 @@ map.normal {
   category = 'editing',
   keys = '<leader>j',
   command = function ()
-    prequire 'treesj'.toggle { split = { recursive = true } }
+    prequire 'treesj'.toggle { split = { recursive = false } }
   end,
 }
 

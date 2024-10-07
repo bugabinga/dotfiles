@@ -22,6 +22,7 @@ local filetypes = {
   'starter',
   'svn',
   'toggleterm',
+  'copilot-chat',
 }
 
 local buftypes = {
