@@ -96,6 +96,8 @@ difftastic
 weechat
 tarsnap
 mux
+icepuma
+traefik
 tclock
 sbyte
 httm
@@ -104,3 +106,4 @@ sd
 diskonaut
 mdsh
 ast-grep
+>>>>>>> 313efcb717d937c279f95a0b48804aedd210e3ae
