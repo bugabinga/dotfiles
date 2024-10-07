@@ -1,0 +1,2 @@
+return
+{palette = {debug = "#ff00ff", error = "#bd1c54", warning = "#c79e6e", info = "#7d9cc5", content = {normal = "#fafafa", backdrop = "#020202", accent = "#5d005d", minor = "#757575", focus = "#2eb3d1", unfocus = "#016a85", important_local = "#5e45c5", important_global = "#5e45c5"}, ui = {normal = "#fcfcfc", backdrop = "#000000", accent = "#3a003a", minor = "#707070", focus = "#2dacc8", unfocus = "#1d5a69", important_local = "#593fc2", important_global = "#593fc2"}}}
