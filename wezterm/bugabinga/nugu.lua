@@ -1,9 +1,9 @@
 return {
     ['nugu-dark'] = {
     -- The default text color
-    foreground = '#ffffff',
+    foreground = '#cfcfcf',
     -- The default background color
-    background = '#000000',
+    background = '#131313',
 
     -- Overrides the cell background color when the current cell is occupied by the
     -- cursor and the cursor style is set to Block
