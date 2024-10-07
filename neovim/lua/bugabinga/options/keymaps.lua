@@ -60,7 +60,7 @@ local function open_link_under_cursor()
   if file_under_cursor and file_under_cursor:match '%a+://.+' then
     vim.system(
     ---@diagnostic disable-next-line: assign-type-mismatch
-      (const.win32 or const.wsl2) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor }
+      (const.win32 or const.wsl) and { 'cmd.exe', '/C', 'start', 'msedge', file_under_cursor }
       or { 'firefox', file_under_cursor },
       { text = true },
       function ( completed )
