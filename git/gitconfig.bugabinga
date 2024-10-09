@@ -1,3 +1,7 @@
+[user]
+	name = Oliver Jan Krylow
+	email = oliver@bugabinga.net
+
 [sendemail]
   smtpserver = box.bugabinga.net
   smtpuser = oliver@bugabinga.net

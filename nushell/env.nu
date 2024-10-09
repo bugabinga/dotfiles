@@ -89,3 +89,13 @@ if not (which carapace | is-empty) {
 	carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 }
 
+def --env wslg [] {
+	load-env {
+		DISPLAY:':0'
+		WAYLAND_DISPLAY:'wayland-0'
+		PULSE_SERVER:'/mnt/wslg/PulseServer'
+		XDG_RUNTIME_DIR:'/mnt/wslg/runtime-dir'
+	}
+}
+
+if ( $env.WSLENV | is-not-empty ) { wslg }
