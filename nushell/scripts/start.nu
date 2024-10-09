@@ -1,4 +1,3 @@
-
 # Opens the given resource in the operating systems preferred application.
 export def main [
     ...rest: string # Paths or URLs the OS should open for you.

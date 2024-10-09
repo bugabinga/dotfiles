@@ -1,7 +1,10 @@
+me/isp.nuon
+~/.config/me/id.nuon
+
 git/gitconfig
 ~/.config/git/config
 
-git/gitconfig.linux
+git/gitconfig.isp
 ~/.config/git/.gitconfig.include
 
 subversion/config
@@ -48,6 +51,9 @@ ssh/config
 
 neovim
 ~/.config/nvim
+
+neovide
+~/.config/neovide
 
 fonts
 ~/.local/share/fonts
