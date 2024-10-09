@@ -22,7 +22,7 @@
 1,Dina ttf 10px
 1,Droid Sans Mono
 1,Edlo
-1,Envy Code R
+5,Envy Code R
 1,Fantasque Sans Mono
 1,Fira Code
 1,Fira Mono
@@ -51,10 +51,10 @@
 1,Lilex
 1,Linux Libertine Mono
 1,Luculent
-1,Luxi Mono
+3,Luxi Mono
 1,M+ 1m
-1,M+ 1mn
-1,M+ 2m
+14,M+ 1mn
+14,M+ 2m
 1,Martian Mono
 1,Mensch
 0,Meslo LG M DZ
@@ -67,7 +67,7 @@
 1,MonoSpatial
 1,Monoid
 1,Monospace
-1,MonteCarlo Fixed 12
+0,MonteCarlo Fixed 12
 1,NanumGothic_Coding
 1,NotCourierSans
 1,Office Code Pro
@@ -78,7 +78,7 @@
 0,PixelCarnageMonoTT
 1,Pointfree
 1,ProFontWindows
-1,ProggyCleanTT
+0,ProggyCleanTT
 0,ProggyCleanTTSZ
 0,ProggySmallTT
 0,ProggySquareTT
@@ -95,7 +95,7 @@
 1,Source Code Pro
 1,Sudo
 1,Symbols Nerd Font
-1,Symbols Nerd Font Mono
+0,Symbols Nerd Font Mono
 1,TeX Gyre Cursor
 1,Terminus
 1,Ubuntu Mono

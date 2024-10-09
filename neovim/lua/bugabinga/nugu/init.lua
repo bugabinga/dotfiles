@@ -24,22 +24,22 @@ local ui_important_global = palette.ui_important_global
 local ui_important_local = palette.ui_important_local
 
 vim.g.terminal_color_0 = ui_backdrop              -- black
-vim.g.terminal_color_1 = content_accent           -- maroon
-vim.g.terminal_color_2 = info                     -- green
-vim.g.terminal_color_3 = ui_focus                 -- olive
+vim.g.terminal_color_1 = error                    -- maroon
+vim.g.terminal_color_2 = content_focus            -- green
+vim.g.terminal_color_3 = warning                  -- olive
 vim.g.terminal_color_4 = content_important_local  -- navy
 vim.g.terminal_color_5 = content_important_global -- purple
-vim.g.terminal_color_6 = ui_focus                 -- teal
-vim.g.terminal_color_7 = content_normal           -- silver
+vim.g.terminal_color_6 = info                     -- teal
+vim.g.terminal_color_7 = content_minor            -- silver
 
-vim.g.terminal_color_8 = ui_minor                 -- grey
+vim.g.terminal_color_8 = content_unfocus          -- grey
 vim.g.terminal_color_9 = error                    -- red
-vim.g.terminal_color_10 = info                    -- lime
-vim.g.terminal_color_11 = content_focus           -- yellow
-vim.g.terminal_color_12 = ui_important_local      -- blue
-vim.g.terminal_color_13 = ui_accent               -- fuchsia
-vim.g.terminal_color_14 = ui_important_global     -- aqua
-vim.g.terminal_color_15 = ui_normal               -- white
+vim.g.terminal_color_10 = content_accent          -- lime
+vim.g.terminal_color_11 = warning                 -- yellow
+vim.g.terminal_color_12 = info                    -- blue
+vim.g.terminal_color_13 = debug                   -- fuchsia
+vim.g.terminal_color_14 = content_focus           -- aqua
+vim.g.terminal_color_15 = content_normal          -- white
 
 local set_group_properties = function ( self, properties )
   vim.validate {
@@ -122,18 +122,19 @@ local _ = setmetatable( { groups = {} }, {
 _.Debug { fg = ui_normal, bg = debug, bold = true }
 
 _.Normal { fg = content_normal, bg = content_backdrop }
+_.NormalUi { fg = ui_normal, bg = ui_backdrop }
 _.Comment { fg = content_important_global }
-_.NotifyBackground { bg = ui_backdrop }
+_.NotifyBackground = _.NormalUi
 _.LineNr { fg = ui_minor, bg = content_backdrop }
 _.CursorLineNr { fg = ui_focus, bg = ui_backdrop }
 _.Search { bg = content_unfocus }
 _.IncSearch { fg = content_focus }
 _.CurSearch { fg = content_important_global, bg = content_unfocus }
-_.NormalFloat = _.Normal
+_.NormalFloat = _.NormalUi
 _.FloatBorder { fg = ui_accent, bg = _.Normal.bg }
 _.ColorColumn { fg = ui_important_global, bg = _.Normal.bg }
 _.Conceal { fg = content_focus, bg = _.Normal.bg }
-_.Cursor { bg = ui_accent }
+_.Cursor { fg = content_backdrop, bg = ui_accent }
 -- _.lCursor = _.Cursor
 -- _.CursorIM = _.Cursor
 _.Directory { fg = _.Normal.fg }
@@ -145,17 +146,17 @@ _.EndOfBuffer = _.Normal
 -- _.TermCursor = _.Cursor
 -- _.TermCursorNC = _.Cursor
 _.ErrorMsg { fg = error }
-_.VertSplit { fg = ui_important_global, bg = _.LineNr.bg }
+_.VertSplit { fg = ui_important_global }
 _.Folded = _.Conceal
 _.FoldColumn = _.LineNr
 _.SignColumn = _.LineNr
 _.ModeMsg { bold = true }
-_.MsgArea = _.StatusLine
-_.MsgSeparator = _.Debug
-_.MoreMsg = _.Normal
+_.MsgArea = _.NormalUi
+_.MsgSeparator = _.NormalUi
+_.MoreMsg = _.NormalUi
 _.NonText { fg = content_unfocus }
 _.Whitespace = _.NonText
-_.NormalNC = _.Normal
+_.NormalNC { fg = content_minor, bg = _.Normal.bg }
 _.Pmenu = _.NormalFloat
 _.PmenuSel { fg = ui_important_local, sp = ui_important_local, bg = _.Pmenu.bg, bold = true, underline = true }
 _.PmenuSbar { bg = ui_unfocus }
@@ -167,10 +168,10 @@ _.SpellBad { fg = error, undercurl = true }
 _.SpellCap = _.SpellBad
 _.SpellLocal = _.SpellBad
 _.SpellRare = _.SpellBad
-_.StatusLine { fg = ui_focus, bg = ui_unfocus }
-_.StatusLineNC { fg = ui_normal, bg = ui_unfocus }
+_.StatusLine = _.NormalUi
+_.StatusLineNC { fg = ui_minor, bg = ui_backdrop }
 _.Winbar { fg = ui_focus, bg = _.StatusLine.bg }
-_.WinbarNC { fg = ui_minor, bg = _.LineNr.bg }
+_.WinbarNC { fg = content_minor, bg = _.Normal.bg }
 _.Title { fg = content_important_global, sp = content_important_global, bold = true, underline = true }
 _.TabLine = _.StatusLine
 _.TabLineFill = _.StatusLine

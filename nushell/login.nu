@@ -1,5 +1,6 @@
 use prompt.nu *
 use commands.nu *
+use sy.nu
 use bw.nu
 use todo.nu
 use ssh-keygen-ed.nu

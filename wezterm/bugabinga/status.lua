@@ -34,6 +34,7 @@ wez.on( 'update-status', function ( window, pane )
     { Text = ' Font ', },
     { Attribute = { Intensity = 'Bold', }, },
     { Text = table.concat( fonts, ', ' ), },
+    { Text = ' ' },
     'ResetAttributes',
   }
   local pane_domain = pane:get_domain_name()
@@ -60,9 +61,20 @@ wez.on( 'update-status', function ( window, pane )
 
   table.insert( status, font )
 
-  window:set_right_status( table.concat( status, DELIMITER ) )
-  --TODO: shirley, something useful can be done here
-  window:set_left_status ' π '
+  window:set_right_status(
+    wez.format {
+      { Foreground = { AnsiColor = 'White' } },
+      { Text = table.concat( status, DELIMITER) },
+    'ResetAttributes',
+    }
+  )
+  window:set_left_status(
+    wez.format {
+      { Foreground = { AnsiColor = 'White' } },
+      { Text = '   ' },
+    'ResetAttributes',
+    }
+  )
 end )
 
 return function ( cfg )

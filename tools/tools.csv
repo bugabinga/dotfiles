@@ -8,6 +8,8 @@ cargo-cache
 cargo-update;cargo-install-update
 choose
 czkawka_cli
+carl
+calendar-rs;calendar
 du-dust; dust
 dotenv-linter
 dupimg
