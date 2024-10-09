@@ -1,26 +1,24 @@
+return {
+	debug = '#ff00ff',
+	error = '#ce1e5c',
+	info = '#8ba7cb',
+	warning = '#cda77c',
 
-		return {
-			debug = '#ff00ff',
-			error = '#d8326c',
-			info = '#a3b6cf',
-			warning = '#d0b596',
+	content_normal = '#050505',
+	content_backdrop = '#fdfdfd',
+	content_accent = '#a300a3',
+	content_minor = '#525252',
+	content_focus = '#017b9a',
+	content_unfocus = '#40b8d6',
+	content_important_global = '#4a25a9',
+	content_important_local = '#4a25a9',
 
-			content_normal = '#ffffff',
-			content_backdrop = '#000000',
-			content_accent = '#a006a0',
-			content_minor = '#8d8d8d',
-			content_focus = '#60bdd4',
-			content_unfocus = '#0788a8',
-			content_important_global = '#8270ca',
-			content_important_local = '#8270ca',
-
-			ui_normal = '#ececec',
-			ui_backdrop = '#131313',
-			ui_accent = '#bd0fbd',
-			ui_minor = '#a0a0a0',
-			ui_focus = '#85c6d6',
-			ui_unfocus = '#11a1c5',
-			ui_important_global = '#9e92cf',
-			ui_important_local = '#9e92cf',
-		}
-	
+	ui_normal = '#030303',
+	ui_backdrop = '#ffffff',
+	ui_accent = '#c600c6',
+	ui_minor = '#575757',
+	ui_focus = '#0283a3',
+	ui_unfocus = '#719ba5',
+	ui_important_global = '#4e28b0',
+	ui_important_local = '#4e28b0',
+}

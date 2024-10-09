@@ -8,13 +8,16 @@ local filetypes = {
   'Trouble',
   'WhichKey',
   '^git.*',
+  'copilot-chat',
   'flash_prompt',
   'help',
   'ivy',
   'lazy',
   'noice',
   'notify',
+  'nvim-docs-view',
   'oil',
+  'qf',
   'spectre_panel',
   'starter',
   'svn',
@@ -25,11 +28,8 @@ local filetypes = {
 local buftypes = {
   'acwrite',
   'help',
-  'neotree',
-  'nofile',
-  'noice',
   'prompt',
-  'quickfix',
+  'nofile',
 }
 
 local as_kv = function ( list )

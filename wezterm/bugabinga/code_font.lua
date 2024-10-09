@@ -79,7 +79,6 @@ local random = function ()
 
   if code_fonts then
     for line in code_fonts:lines() do
-      print('csv line: ' , line)
       local weight, font_name = line:match(csv_line_pattern)
       if not weight or not font_name then
         wez.log_error 'Could not parse code_fonts.csv. Borked?'
