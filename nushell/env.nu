@@ -69,6 +69,7 @@ $env.ENV_CONVERSIONS = {
 
 $env.NU_LIB_DIRS = [
 	($nu.default-config-dir | path join 'scripts')
+	($nu.default-config-dir | path join 'completions')
 ]
 
 # generate aliases here and now, so that we can apply conditions.
@@ -78,5 +79,11 @@ source ($nu.default-config-dir | path join 'gen-aliases.nu')
 # generate zoxide hooks for sourcing later on
 if not (which zoxide |  is-empty) {
 	zoxide init nushell | save -f ($nu.default-config-dir | path join 'zoxide.nu')
+}
+
+if not (which carapace | is-empty) {
+	$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # TODO: figure out sensible bridges
+	mkdir ~/.cache/carapace
+	carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 }
 
