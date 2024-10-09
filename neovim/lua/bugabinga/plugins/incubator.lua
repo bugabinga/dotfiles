@@ -8,7 +8,7 @@ local FUCK_STABILITY = true
 
 local icon = require 'std.icon'
 local dbg = require 'std.dbg'
-local ignored = require'std.ignored'
+local ignored = require 'std.ignored'
 
 return {
   -------------------------------------------------------------------------------
@@ -38,7 +38,6 @@ return {
   },
   -------------------------------------------------------------------------------
   {
-    -- FIXME: if view stays open, when saving session, reloading the session results in borked view.
     'amrbashir/nvim-docs-view',
     keys = {
       {
@@ -50,8 +49,8 @@ return {
     },
     cmd = 'DocsViewToggle',
     opts = {
-      position = 'right',
-      width = 69,
+      position = 'bottom',
+      width = 42,
     },
     enabled = FUCK_STABILITY,
   },
@@ -111,19 +110,6 @@ return {
   },
   -------------------------------------------------------------------------------
   {
-    'quentingruber/timespent.nvim',
-    keys = {
-      {
-        '<leader>tS',
-        '<cmd>:ShowTimeSpent<cr>',
-        mode = { 'n' },
-        desc = 'Show time spent',
-      },
-    },
-    enabled = FUCK_STABILITY,
-  },
-  -------------------------------------------------------------------------------
-  {
     'nvim-telescope/telescope-frecency.nvim',
     config = function ()
       require 'telescope'.load_extension 'frecency'
@@ -148,25 +134,7 @@ return {
   },
   -------------------------------------------------------------------------------
   {
-    'chrisgrieser/nvim-lsp-endhints',
-    event = 'LspAttach',
-    opts = {
-      autoEnableHints = false,
-      icons = {
-        type = icon.type .. ' ',
-        parameter = icon.paramter,
-        offspec = '',        -- hint kind not defined in official LSP spec
-        unknown = icon.hint, -- hint kind
-      },
-      label = {
-        padding = 2,
-      },
-    },
-    enabled = FUCK_STABILITY,
-  },
-  -------------------------------------------------------------------------------
-  {
-    'rafcamlet/nvim-luapad',
+   'rafcamlet/nvim-luapad',
     cmd = { 'Luapad', 'LuaRun' },
     opts = {},
     enabled = FUCK_STABILITY,
