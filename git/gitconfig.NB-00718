@@ -1,9 +1,0 @@
-[core]
-	symlinks = true
-
-[user]
-  name = Oliver Krylow
-  email = o.krylow@isp-insoft.de
-
-[credential]
-  helper = manager-core

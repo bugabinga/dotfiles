@@ -17,10 +17,10 @@ def aka [
 # Start defining your aliases here
 
 aka cat bat
-aka list eza '--long' '--git'
 aka tar bsdtar
 aka walk yazi
-aka tree tre
+aka list eza '--long' '--git'
+aka tree eza '--tree' '--icons' '--git' '--all' '--long'
 aka imgcat wezterm imgcat
 
 aka ll ls '--long'
@@ -35,9 +35,6 @@ aka edit nvim '--clean'
 aka ed nvim '--clean'
 aka vi nvim '--clean'
 aka bb bartib
-
-# TODO write bak command
-# aka backup bak
 
 aka userctl systemctl '--user'
 
