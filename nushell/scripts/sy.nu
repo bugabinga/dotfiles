@@ -18,16 +18,16 @@ export def up [] {
 	check-deps
 
 	let git_commit_notes = [ '-C' $env.NOTES commit '--all' ]
-	let git_push_notes = [ '-C' $env.NOTES push ]
+	let git_push_notes = [ '-C' $env.NOTES push '-ff' ]
 	let git_commit_dotfiles = [ '-C' $env.DOTFILES commit '--all' ]
-	let git_push_dotfiles = [ '-C' $env.DOTFILES push ]
+	let git_push_dotfiles = [ '-C' $env.DOTFILES push '-ff' ]
 
 	# print git ...$git_commit_notes
-	run-external git ...$git_commit_notes
+	try { run-external git ...$git_commit_notes }
 	# print git $git_push_notes
 	run-external git ...$git_push_notes
 	# print git $git_commit_dotfiles
-	run-external git ...$git_commit_dotfiles
+	try { run-external git ...$git_commit_dotfiles }
 	# print git $git_push_dotfiles
 	run-external git ...$git_push_dotfiles
 }
