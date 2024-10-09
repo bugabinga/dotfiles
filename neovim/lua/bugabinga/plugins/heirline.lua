@@ -11,7 +11,6 @@ return {
     version = '2.*',
     lazy = false,
     dependencies = {
-      -- FIXME: use my own icons
       'nvim-tree/nvim-web-devicons',
     },
     config = function ()
@@ -437,23 +436,6 @@ return {
         },
       }
 
-      local lazy = {
-        condition = function ()
-          local ok, lazy_status = pcall( require, 'lazy.status' )
-          return ok and lazy_status.has_updates()
-        end,
-        update = { 'User', pattern = 'LazyUpdate' },
-        provider = function ()
-          return ' ' .. icon.lazy .. ' ' .. require 'lazy.status'.updates() .. ' '
-        end,
-        on_click = {
-          callback = function ()
-            require 'lazy'.update()
-          end,
-          name = 'update_plugins',
-        },
-      }
-
       local align = { provider = '%=' }
       local space = { provider = ' ' }
 
@@ -468,8 +450,6 @@ return {
         diagnostic,
         align,
         space,
-        space,
-        lazy,
         space,
         escape_status,
         space,

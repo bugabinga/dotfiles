@@ -10,27 +10,6 @@ map {
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- disable command history keymap, because i fatfinger it too often
-map {
-  keys = 'q:',
-  command = '<nop>',
-}
-
-map {
-  keys = 'Q:',
-  command = '<nop>',
-}
-
-map {
-  keys = 'q/',
-  command = '<nop>',
-}
-
-map {
-  keys = 'Q',
-  command = '<nop>',
-}
-
 -- disable them evil arrows
 map {
   keys = '<up>',
@@ -108,20 +87,6 @@ map.normal {
     ---@diagnostic disable-next-line: undefined-field
     vim.notify( 'Toggled background to ' .. vim.opt.background:get() .. '.' )
   end,
-}
-
-map.insert {
-  description = 'Exit normal mode',
-  category = 'vim',
-  keys = 'jj',
-  command = '<C-c>',
-}
-
-map.normal {
-  description = 'Goto matching bracket',
-  category = 'navigation',
-  keys = 'mm',
-  command = '%',
 }
 
 map.normal {
