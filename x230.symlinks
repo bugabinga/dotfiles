@@ -25,7 +25,7 @@ nushell/scripts
 icc/thinkpad_x230.icc
 ~/.config/icc/thinkpad_x230.icc
 
-topgrade/topgrade.linux.toml
+topgrade/topgrade.toml
 ~/.config/topgrade.toml
 
 wezterm

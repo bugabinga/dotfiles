@@ -43,7 +43,7 @@ nushell/scripts
 nushell/completions
 ~/.config/nushell/completions
 
-topgrade/topgrade.linux.toml
+topgrade/topgrade.toml
 ~/.config/topgrade.toml
 
 ssh/config
