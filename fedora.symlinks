@@ -40,6 +40,9 @@ nushell/gen-aliases.nu
 nushell/scripts
 ~/.config/nushell/scripts
 
+nushell/completions
+~/.config/nushell/completions
+
 topgrade/topgrade.linux.toml
 ~/.config/topgrade.toml
 

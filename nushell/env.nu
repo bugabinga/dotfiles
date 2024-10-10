@@ -98,4 +98,4 @@ def --env wslg [] {
 	}
 }
 
-if ( $env.WSLENV | is-not-empty ) { wslg }
+if ( $env | get -i WSLENV | is-not-empty ) { wslg }
