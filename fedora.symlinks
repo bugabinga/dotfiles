@@ -99,3 +99,9 @@ pueue
 
 pueue/pueued.service
 ~/.config/systemd/user/pueued.service
+
+firefox/profiles.ini
+~/.mozilla/firefox/profiles.ini
+
+firefox/qrza8u52.default-release/user.js
+~/.mozilla/firefox/qrza8u52.default-release/user.js
