@@ -134,11 +134,25 @@ return {
   },
   -------------------------------------------------------------------------------
   {
-   'rafcamlet/nvim-luapad',
+    'rafcamlet/nvim-luapad',
     cmd = { 'Luapad', 'LuaRun' },
     opts = {},
     enabled = FUCK_STABILITY,
 
+  },
+  -------------------------------------------------------------------------------
+  {
+    -- Pretty NICE! TODO:" fix highlights to match nugu.
+    'dnlhc/glance.nvim',
+    event = 'LspAttach',
+    keys = {
+      { 'gD', '<cmd>Glance definitions<cr>',      { silent = true }, desc = 'Peek definitions',      mode = 'n' },
+      { 'gR', '<cmd>Glance references<cr>',       { silent = true }, desc = 'Peek refernces',        mode = 'n' },
+      { 'gY', '<cmd>Glance type_definitions<cr>', { silent = true }, desc = 'Peek type definitions', mode = 'n' },
+      { 'gM', '<cmd>Glance implementations<cr>',  { silent = true }, desc = 'Peek implementations',  mode = 'n' },
+    },
+    config = true,
+    enabled = FUCK_STABILITY,
   },
   -------------------------------------------------------------------------------
   {

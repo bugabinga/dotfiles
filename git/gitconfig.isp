@@ -1,0 +1,10 @@
+[user]
+  name = Oliver Krylow
+  email = o.krylow@isp-insoft.de
+
+[sendemail]
+  smtpserver = sslout.df.eu
+  smtpuser = o.krylow@isp-insoft.de
+  smtpencryption = ssl
+  smtpserverport = 465
+  annotate = yes

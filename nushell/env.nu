@@ -71,6 +71,7 @@ $env.ENV_CONVERSIONS = {
 
 $env.NU_LIB_DIRS = [
 	($nu.default-config-dir | path join 'scripts')
+	($nu.default-config-dir | path join 'completions')
 ]
 
 # generate aliases here and now, so that we can apply conditions.
@@ -78,7 +79,29 @@ $env.NU_LIB_DIRS = [
 source ($nu.default-config-dir | path join 'gen-aliases.nu')
 
 # generate zoxide hooks for sourcing later on
+let zoxide_config_path = $nu.default-config-dir | path join 'zoxide.nu'
 if not (which zoxide |  is-empty) {
-	zoxide init nushell | save -f ($nu.default-config-dir | path join 'zoxide.nu')
+	zoxide init nushell | save --force $zoxide_config_path
+} else {
+	'' | save -f $zoxide_config_path
 }
 
+# TODO: figure out sensible bridges
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
+let carapace_config_path = $nu.default-config-dir | path join 'carapace.nu'
+if not (which carapace | is-empty) {
+	carapace _carapace nushell | save --force $carapace_config_path
+} else {
+	'' | save --force $carapace_config_path
+}
+
+def --env wslg [] {
+	load-env {
+		DISPLAY:':0'
+		WAYLAND_DISPLAY:'wayland-0'
+		PULSE_SERVER:'/mnt/wslg/PulseServer'
+		XDG_RUNTIME_DIR:'/mnt/wslg/runtime-dir'
+	}
+}
+
+if ( $env | get -i WSLENV | is-not-empty ) { wslg }

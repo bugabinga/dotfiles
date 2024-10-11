@@ -1,4 +1,4 @@
-#!/usr/bin/java --source 17
+#!/usr/bin/java --source 17 -XX:+UnlockExperimentalVMOptions -XX:+UseEpsilonGC -Xms32m -Xmx32m -XX:+AlwaysPreTouch -Xshare:on
 
 import static java.lang.System.* ;
 import java.util.*;
