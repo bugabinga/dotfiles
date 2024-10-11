@@ -59,6 +59,8 @@ local key_tables = {
     { key = 'v',      action = wez.action.SplitHorizontal { domain = 'CurrentPaneDomain', }, },
     { key = 's',      action = wez.action.SplitVertical { domain = 'CurrentPaneDomain', }, },
 
+    { key = 'r',      action = wez.action.RotatePanes 'CounterClockwise', },
+    { key = 'R',      action = wez.action.RotatePanes 'Clockwise', },
     { key = '=',      action = wez.action.ActivateKeyTable { name = resize_pane_mode, one_shot = false, }, },
 
     { key = 'q',      action = wez.action.CloseCurrentPane { confirm = false, }, },

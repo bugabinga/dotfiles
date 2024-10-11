@@ -16,6 +16,8 @@ use direnv.nu
 
 use svn-completions.nu *
 
+use svn-completions.nu *
+
 if $env.WIN32 {
 	use refreshenv.nu *
 }
