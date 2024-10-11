@@ -1,6 +1,12 @@
-[user]
-	name = Oliver Jan Krylow
-	email = oliver@bugabinga.net
+[alias]
+	# `git log` with patches shown with difftastic.
+	dl = -c diff.external=difft log -p --ext-diff
+
+	# Show the most recent commit with difftastic.
+	ds = -c diff.external=difft show --ext-diff
+
+	# `git diff` with difftastic.
+	dft = -c diff.external=difft diff
 
 [core]
 	editor = nvim
@@ -39,16 +45,16 @@
 	difftool = true
 
 [merge]
-	tool = nvim_merge
+	tool = vim
 
 [mergetool]
 	keepBackup = false
 	prompt = false
 
-[mergetool "meld_merge"]
+[mergetool "meld"]
 	cmd = "meld \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
-[mergetool "nvim_merge"]
+[mergetool "vim"]
 	cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\" "
 
 [push]
@@ -79,7 +85,25 @@
 
 [help]
   # try to automatically correct mispelled git commands
-	autocorrect = 7
+	autocorrect = 1
+
+[difftool "difftastic"]
+	# See `man git-difftool` for a description of MERGED, LOCAL and REMOTE.
+	cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
+
+[difftool]
+	# Run the difftool immediately, don't ask 'are you sure' each time.
+	prompt = false
+
+[pager]
+	# Use a pager if the difftool output is larger than one screenful,
+	# consistent with the behaviour of `git diff`.
+	difftool = true
+
+[diff]
+	# Set difftastic as the default difftool, so we don't need to specify
+	# `-t difftastic` every time.
+	tool = difftastic
 
 # In order to have host-specific configuration, I include additional settings here.
 # On each host a different file might be symlinked into '.gitconfig.include'.

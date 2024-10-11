@@ -134,7 +134,7 @@ _.NormalFloat = _.NormalUi
 _.FloatBorder { fg = ui_accent, bg = _.Normal.bg }
 _.ColorColumn { fg = ui_important_global, bg = _.Normal.bg }
 _.Conceal { fg = content_focus, bg = _.Normal.bg }
-_.Cursor { fg = content_backdrop, bg = ui_accent }
+_.Cursor { fg = content_backdrop, bg = content_accent }
 -- _.lCursor = _.Cursor
 -- _.CursorIM = _.Cursor
 _.Directory { fg = _.Normal.fg }

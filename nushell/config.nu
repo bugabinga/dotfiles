@@ -1,7 +1,3 @@
-# TODO: use nugu colors
-# for more information on themes see
-# https://github.com/nushell/nushell/blob/main/docs/How_To_Coloring_and_Theming.md
-
 $env.config = {
 	show_banner: false
   table: {

@@ -1,7 +1,7 @@
 git/gitconfig
 ~/.config/git/config
 
-git/gitconfig.linux
+git/gitconfig.bugabinga
 ~/.config/git/.gitconfig.include
 
 cargo/config.toml
@@ -22,10 +22,13 @@ nushell/gen-aliases.nu
 nushell/scripts
 ~/.config/nushell/scripts
 
+nushell/completions
+~/.config/nushell/completions
+
 icc/thinkpad_x230.icc
 ~/.config/icc/thinkpad_x230.icc
 
-topgrade/topgrade.linux.toml
+topgrade/topgrade.toml
 ~/.config/topgrade.toml
 
 wezterm

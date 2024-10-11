@@ -12,7 +12,6 @@ self_update = false
 [git]
 repos = [
 	"/home/oli/Source/*",
-	"/home/oli/Notes"
 ]
 arguments = "--ff --rebase"
 max_concurrency = 12
