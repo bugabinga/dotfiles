@@ -22,20 +22,6 @@ def icons [] {
     ]
 }
 
-# Uses a special escape code to set the window title of the terminal emulator.
-# This will be ignored in terminal emulator, that do not support that escape code.
-# The title to be set is derived from the current working directory.
-# Special types of directories, e.g. HOME, get custom icons.
-def set-window-title [] {
-    # Some terminals freeze, if they do not support this OSC
-    if ($env | get -i TERM_PROGRAM) == WezTerm {
-			# normalize path
-			let pwd = ( $env.PWD | path expand )
-			let icon = if (icons | any { |icon| $icon.path == $pwd } ) { ( icons | where path == $pwd | get icon.0 ) } else { $"(char nf_folder1)" }
-      echo ([ (ansi title) $icon " " ( $pwd | path basename ) (ansi reset) ] | str join)
-    }
-}
-
 def prompt-git-branch [] {
 }
 
@@ -56,8 +42,6 @@ def get_vcs_path [] {
 }
 
 def create_left_prompt [] {
-    set-window-title
-
     # normalize path
     let pwd = ($env.PWD | path expand)
     let pwd = ( (icons) | reduce --fold $pwd { |item, accumulator| $accumulator | str replace $item.path $item.icon })
@@ -78,22 +62,11 @@ def create_left_prompt [] {
 }
 
 def create_right_prompt [] {
-    let time_segment = ([
-        (date now | format date '%d.%m %R')
-    ] | str join)
-
     let command_status_segment = if $env.LAST_EXIT_CODE == 0 { $" (char -u '2713') " } else { $"(ansi red) (char failed) (ansi reset)" }
-    let command_duration_segment = if ( $env.CMD_DURATION_MS | into int) > 0 { $"($env.CMD_DURATION_MS)ms" | into duration }
 
     [
       (ansi dark_gray_dimmed)
-      $command_duration_segment
-      (ansi reset)
-      (ansi dark_gray)
       $command_status_segment
-      (ansi reset)
-      (ansi dark_gray)
-      ( $time_segment )
       (ansi reset)
     ] | str join
 }
@@ -105,7 +78,7 @@ export-env {
 
   # The prompt indicators are environmental variables that represent
   # the state of the prompt
-  $env.PROMPT_INDICATOR = $"(ansi green) (char prompt) (ansi reset)"
+  $env.PROMPT_INDICATOR = $"(ansi green) ⚈  (ansi reset)"
   $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi magenta) (char pipe) (ansi reset)"
   $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta) (char prompt) (ansi reset)"
   $env.PROMPT_MULTILINE_INDICATOR = $"(ansi magenta) (char prompt)(char prompt) (ansi reset)"
