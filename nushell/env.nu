@@ -79,14 +79,17 @@ $env.NU_LIB_DIRS = [
 source ($nu.default-config-dir | path join 'gen-aliases.nu')
 
 # generate zoxide hooks for sourcing later on
+let zoxide_config_path = $nu.default-config-dir | path join 'zoxide.nu'
 if not (which zoxide |  is-empty) {
-	zoxide init nushell | save -f ($nu.default-config-dir | path join 'zoxide.nu')
+	zoxide init nushell | save --force $zoxide_config_path
+} else {
+	'' | save -f $zoxide_config_path
 }
 
 if not (which carapace | is-empty) {
-	$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # TODO: figure out sensible bridges
-	mkdir ~/.cache/carapace
-	carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+	carapace _carapace nushell | save --force $carapace_config_path
+} else {
+	'' | save --force $carapace_config_path
 }
 
 def --env wslg [] {
@@ -98,4 +101,4 @@ def --env wslg [] {
 	}
 }
 
-if ( $env.WSLENV | is-not-empty ) { wslg }
+if ( $env | get -i WSLENV | is-not-empty ) { wslg }
