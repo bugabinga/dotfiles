@@ -1,8 +1,8 @@
 return {
 	debug = '#ff00ff',
-	error = '#ce1e5c',
-	info = '#8ba7cb',
-	warning = '#cda77c',
+	error = '#d6638b',
+	info = '#c7d0db',
+	warning = '#d9cbbb',
 
 	content_normal = '#050505',
 	content_backdrop = '#fdfdfd',
@@ -15,10 +15,10 @@ return {
 
 	ui_normal = '#030303',
 	ui_backdrop = '#ffffff',
-	ui_accent = '#c600c6',
-	ui_minor = '#575757',
-	ui_focus = '#0283a3',
-	ui_unfocus = '#719ba5',
-	ui_important_global = '#4e28b0',
-	ui_important_local = '#4e28b0',
+	ui_accent = '#b225b2',
+	ui_minor = '#a3a3a3',
+	ui_focus = '#53a5b7',
+	ui_unfocus = '#bdbdbd',
+	ui_important_global = '#897bb1',
+	ui_important_local = '#bab1d1',
 }

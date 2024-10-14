@@ -1,0 +1,21 @@
+[misc]
+disable = ["vim"]
+assume_yes = true
+no_retry = true
+set_title = true
+display_time = true
+cleanup = true
+
+[containers]
+runtime = "podman"
+
+[composer]
+self_update = false
+
+[git]
+repos = [
+	"/home/oli/Source/*",
+]
+arguments = "--ff --rebase"
+max_concurrency = 12
+pull_predefined = false
