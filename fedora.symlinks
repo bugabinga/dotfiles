@@ -91,9 +91,6 @@ unison
 unison/unison@.service
 ~/.config/systemd/user/unison@.service
 
-unison/unison@.timer
-~/.config/systemd/user/unison@.timer
-
 pueue
 ~/.config/pueue
 
@@ -105,3 +102,7 @@ firefox/profiles.ini
 
 firefox/qrza8u52.default-release/user.js
 ~/.mozilla/firefox/qrza8u52.default-release/user.js
+
+yazi
+~/.config/yazi
+

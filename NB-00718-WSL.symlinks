@@ -63,3 +63,7 @@ pueue
 
 pueue/pueued.service
 ~/.config/systemd/user/pueued.service
+
+yazi
+~/.config/yazi
+

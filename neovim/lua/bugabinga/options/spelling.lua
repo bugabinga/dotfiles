@@ -23,4 +23,5 @@ vim.opt.spellfile = table.concat(
 -- create new spl file with:
 -- mkspell ~/.config/nvim/spell/[lang] ~/Downloads/[lang]
 -- update nerd words with
--- mkspell! ~/.config/nvim/spell/nerd ~/.config//nvim/spell/nerd.words
+-- vim.cmd [[ mkspell! ~/.config/nvim/spell/nerd ~/.config//nvim/spell/nerd.words ]]
+-- vim.cmd [[ mkspell! ~/.config/nvim/spell/nerd.utf-8.add ]]
