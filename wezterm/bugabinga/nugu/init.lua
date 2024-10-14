@@ -33,11 +33,11 @@ local make_theme = function ( palette )
       palette.content.minor,            -- silver
     },
     brights = {
-      palette.content.unfocus, -- grey
+      palette.content.minor,   -- grey
       palette.error,           -- red
       palette.content.accent,  -- lime
       palette.warning,         -- yellow
-      palette.info,            -- blue
+      palette.content.unfocus, -- blue
       palette.debug,           -- fuchsia
       palette.content.focus,   -- aqua
       palette.content.normal,  -- white

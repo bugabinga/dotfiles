@@ -8,38 +8,37 @@ def aka [
 	...args: string # optional arguemtns to program
 ] {
 
-	if not (which $command | is-empty) {
-		$"alias ($name) = ($command) ($args | str join ' ')\n" | save -a $file
+	if (which $command | is-not-empty) {
+		$"alias ($name) = ($command) ($args | str join ' ')\n" | save --append $file
 	}
 }
 
 ########################################
 # Start defining your aliases here
 
-aka cat bat
-aka tar bsdtar
-aka walk yazi
-aka list eza '--long' '--git'
+# semantic aliases
 aka tree eza '--tree' '--icons' '--git' '--all' '--long'
-aka imgcat wezterm imgcat
+aka view wezterm imgcat
+aka list eza '--long' '--git'
+aka show bat
+aka web firefox
+aka code neovide
+aka edit nvim '--clean'
+aka archive wget "-mpck" "--html-extension" '--user-agent=""' "-e" "robots=off" "--wait" 1 "-P" .
 
+# pro aliases
 aka ll ls '--long'
 aka la ls '--long' '--all'
-
-aka browse firefox
-
+aka q exit
+aka g git
+aka gu gitu
 aka vim nvim
-aka code nvim
-aka vide neovide
-aka edit nvim '--clean'
-aka ed nvim '--clean'
 aka vi nvim '--clean'
+aka vide neovide
 aka bb bartib
+aka cal carl
 
 aka userctl systemctl '--user'
-
-# https://gist.github.com/mullnerz/9fff80593d6b442d5c1b
-aka archive wget "-mpck" "--html-extension" '--user-agent=""' "-e" "robots=off" "--wait" 1 "-P" .
 
 # CUSTOM LITTLE JAVA COMMANDS
 aka aes java ($env.DOTFILES + /tools/ + aes.java)

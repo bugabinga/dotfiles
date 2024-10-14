@@ -44,7 +44,7 @@
 1,Iosevka Slab
 0,JetBrains Mono
 0,JetBrains Mono NL
-1,Kawkab Mono
+7,Kawkab Mono
 1,Latin Modern Mono Light
 11,Lekton
 1,Liberation Mono
@@ -91,10 +91,10 @@
 1,SV Basic Manual
 1,Share Tech Mono
 1,Share-TechMonoTrue
-1,SmallTypeWriting
+4,SmallTypeWriting
 1,Source Code Pro
 1,Sudo
-1,Symbols Nerd Font
+0,Symbols Nerd Font
 0,Symbols Nerd Font Mono
 1,TeX Gyre Cursor
 1,Terminus

@@ -15,7 +15,7 @@ return {
 
 	ui_normal = '#e6e6e6',
 	ui_backdrop = '#000000',
-	ui_accent = '#230723',
+	ui_accent = '#5a265a',
 	ui_minor = '#242424',
 	ui_focus = '#3d474a',
 	ui_unfocus = '#0c1010',
