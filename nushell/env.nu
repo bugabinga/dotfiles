@@ -86,6 +86,7 @@ if not (which zoxide |  is-empty) {
 	'' | save -f $zoxide_config_path
 }
 
+let carapace_config_path = $nu.default-config-dir | path join 'carapace.nu'
 if not (which carapace | is-empty) {
 	carapace _carapace nushell | save --force $carapace_config_path
 } else {
