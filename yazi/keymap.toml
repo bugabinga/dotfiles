@@ -1,0 +1,19 @@
+[[manager.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch --args=zip"
+desc = "Compress with ouch"
+
+[[manager.prepend_keymap]]
+on = [ "m" ]
+run = "plugin relative-motions"
+desc = "Trigger a new relative motion"
+
+[[manager.prepend_keymap]]
+on   = "f"
+run  = "plugin jump-to-char"
+desc = "Jump to char"
+
+[[manager.prepend_keymap]]
+on   = "<C-d>"
+run  = "plugin diff"
+desc = "Diff the selected with the hovered file"
