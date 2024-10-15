@@ -6,6 +6,9 @@ set_title = true
 display_time = true
 cleanup = true
 
+[containers]
+runtime = "podman"
+
 [composer]
 self_update = false
 
