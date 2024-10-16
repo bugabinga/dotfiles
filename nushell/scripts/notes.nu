@@ -33,7 +33,7 @@ error make {
 	# TODO: print some high level view of the notes. tree, graph, text ?
 }
 
-def new_note_id [] { random binary 3 | encode new-base64 --nopad --url }
+def new_note_id [] { random binary 3 | encode base64 --nopad --url }
 
 def new_note [
 	title: string # title of note. will be used for title and initial heading

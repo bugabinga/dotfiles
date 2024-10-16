@@ -8,9 +8,10 @@ rustflags = ["-C", "target-cpu=native"]
 [profile.release]
 # link time optimization is slow, but allows inter-crate analysis
 lto = "fat"
+# slam crates together for the optimizer to munch on
+codegen-units = 1
 
 # use the fastest known linker out there (2022)
 [target.x86_64-unknown-linux-gnu]
 # not sure why that is necessary, but without it, rustc seems to pass wrong arguments to mold.
-linker = "clang"
-rustflags = ["-C", "link-arg=--ld-path=mold"]
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]

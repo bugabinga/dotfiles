@@ -17,6 +17,7 @@ export def main [] {
 export def up [] {
 	check-deps
 
+	# FIXME: make list of repos and factor sync into functions
 	let git_add_notes = [ '-C' $env.NOTES add '--all' ]
 	let git_commit_notes = [ '-C' $env.NOTES commit '--all' ]
 	let git_push_notes = [ '-C' $env.NOTES push '-ff' ]
