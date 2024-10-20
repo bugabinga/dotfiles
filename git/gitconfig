@@ -8,6 +8,10 @@
 	# `git diff` with difftastic.
 	dft = -c diff.external=difft diff
 
+	ci = commit --all
+
+	st = status
+
 [core]
 	editor = nvim
 	quotepath = false
@@ -109,3 +113,4 @@
 # On each host a different file might be symlinked into '.gitconfig.include'.
 [include]
 	path = .gitconfig.include
+

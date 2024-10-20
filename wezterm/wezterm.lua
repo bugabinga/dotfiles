@@ -9,7 +9,7 @@ require 'bugabinga.fonts' ( cfg )
 require 'bugabinga.window' ( cfg )
 require 'bugabinga.startup' ( cfg )
 require 'bugabinga.status' ( cfg )
-require 'bugabinga.titles' ( cfg )
+-- require 'bugabinga.titles' ( cfg )
 require 'bugabinga.launch' ( cfg )
 require 'bugabinga.neovim_zen_mode' (cfg)
 require 'bugabinga.hosts' ( cfg )
@@ -17,3 +17,4 @@ require 'bugabinga.hosts' ( cfg )
 -- logs key presses
 -- cfg.debug_key_events = true,
 return cfg
+

@@ -3,7 +3,9 @@
 ### notes are grouped into contexts (folders), so that i can distinguish between
 ### personal and work related notes.
 
-
+#TODO: subbcommands:
+# - search
+# - graph
 
 def validate_context [
 	context: string
@@ -54,6 +56,18 @@ tags:
 "
 }
 
+def edit [ ...rest ] {
+	mut editor = if ( $env.EDITOR == null ) { 'vi' } else { $env.EDITOR }
+	$editor = if ( $env.VISUAL == null ) { $editor } else { $env.VISUAL }
+	run-external $editor ...$rest
+}
+
+def notes_directory [ 
+	context: string # which context do the notes belong to
+] {
+	$env.NOTES | path join $context
+}
+
 export def new [
 	title?: string # title of new node
 	--tags: list<string> # some optional tags for the note
@@ -69,17 +83,26 @@ export def new [
 
 	let note_content = new_note $title $author $date $tags $context
 	let note_file_name = $"(new_note_id)-($title | str kebab-case).md"
-	let note_file = [ $env.NOTES $context $note_file_name] | path join
+	let note_file = [ (notes_directory $context) $note_file_name] | path join
 
 	if ($note_file | path exists) {
 		error make {
 			msg: "the note you are trying to create exists already"
 		}
 	}
-
 	$note_content | save --raw $note_file
+	edit $note_file
+}
 
-	let editor = if ( $env.EDITOR == null ) { 'vi' } else { $env.EDITOR }
-	let editor = if ( $env.VISUAL == null ) { $editor } else { $env.VISUAL }
-	run-external $editor $note_file
+export def open [
+	query: string = "" # intial search term
+	--context: string = "bugabinga" # which context do the notes belong to
+] {
+	let note = ls --short-names --threads ( notes_directory $context) |
+	sort-by --reverse modified |
+	get name |
+	to text |
+	^sk --query $query --bind $"f1:execute\(inlyne (notes_directory $context)/{}\)" --preview $"mdcat (notes_directory $context)/{}" --header "F1: GUI Preview"
+
+	edit ( notes_directory $context | path join $note)
 }
