@@ -87,6 +87,20 @@ if not (which zoxide |  is-empty) {
 	'' | save -f $zoxide_config_path
 }
 
+let jj_completions_path = $nu.default-config-dir | path join 'completions' | path join 'jj-completions.nu'
+if not (which jj |  is-empty) {
+	jj util completion nushell | save --force $jj_completions_path
+} else {
+	'' | save -f $jj_completions_path
+}
+
+let pueue_completions_path = $nu.default-config-dir | path join 'completions' | path join 'pueue-completions.nu'
+if not (which pueue |  is-empty) {
+	pueue completions nushell | save --force $pueue_completions_path
+} else {
+	'' | save -f $pueue_completions_path
+}
+
 # TODO: figure out sensible bridges
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 let carapace_config_path = $nu.default-config-dir | path join 'carapace.nu'

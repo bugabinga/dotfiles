@@ -1,18 +1,16 @@
 name;bin;cargo_args
 asm-cli-rust; asm-cli-rust; --git https://github.com/cch123/asm-cli-rust
 bat
+bk
 bartib
 bottom; btm
-broot
 cargo-cache
 cargo-update;cargo-install-update
-choose
-czkawka_cli
 carl
 calendar-rs;calendar
 du-dust; dust
 dotenv-linter
-dupimg
+diskonaut
 eva
 emplace
 eza; eza; --features vendored-openssl,vendored-libgit2
@@ -21,64 +19,43 @@ fd-find;fd
 git-delta;delta
 gitu;gitu; --locked
 gitoxide;gix
-handlr; handlr; --locked
-hck
-httm
 hexyl
 hyperfine
 inlyne
 jj-cli; jj;  --locked --bin jj
-jaq;jaq; --locked
 just
-lemmeknow
 lms
-# needs a platform key
-#lurk-cli; lurk
+lurk-cli; lurk
 lychee;lychee; --locked --no-default-features --features rustls-tls,email-check
-mask
 macchina
-markdown-oxide; markdown-oxide; --locked --git https://github.com/Feel-ix-343/markdown-oxide.git
 mdbook
 mdcat
-mdsh
 monolith
 names
-# netscanner
+netscanner
 neovide;neovide; --git https://github.com/neovide/neovide
 nu;nu; --locked
-neovide; neovide; --git https://github.com/neovide/neovide
 nu_plugin_audio_hook; nu_plugin_audio_hook; --git https://github.com/FMotalleb/nu_plugin_audio_hook.git --features all-decoders
-nu_plugin_skim
-nu_plugin_desktop_notifications
 ouch
 pastel
 presenterm
 pueue;pueue;--locked
 ripgrep;rg
 rbw
-rust-parallel
-rversions
-sd
 skim;sk
 sbyte
-# sniffnet
-selene;selene; --no-default-features
-starship
-stylua;stylua; --features lua52
+sniffnet
 taplo-cli;taplo; --locked --features lsp
 tealdeer;tldr
 tokei
 topgrade
-tre
 tsdl
 ttyper
 unison-fsmonitor
-# ugdb
-viu
+ugdb
 vivid
 wthrr
 yazi-cli;ya; --locked
 yazi-fm;yazi; --locked
 zoxide
-
 

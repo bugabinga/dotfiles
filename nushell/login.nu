@@ -12,9 +12,10 @@ use dwnld.nu
 use packages.nu
 use fedora_bootstrip.nu
 use notes.nu
-use direnv.nu
 
 use svn-completions.nu *
+source ($nu.default-config-dir | path join 'completions' | path join 'jj-completions.nu')
+source ($nu.default-config-dir | path join 'completions' | path join 'pueue-completions.nu')
 
 if $env.WIN32 {
 	use refreshenv.nu *
@@ -28,4 +29,5 @@ source ($nu.default-config-dir | path join "carapace.nu")
 todo commands
 print (char nl)
 todo
+
 
